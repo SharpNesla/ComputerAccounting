@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiberianGates", "SiberianGates.csproj", "{FE4F1570-EAE0-41DE-BE3A-0E11CD8A6F0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiberianGates", "SiberianGates\SiberianGates.csproj", "{597B8F23-6B7E-45F7-BCDE-06C3E119666F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FE4F1570-EAE0-41DE-BE3A-0E11CD8A6F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE4F1570-EAE0-41DE-BE3A-0E11CD8A6F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE4F1570-EAE0-41DE-BE3A-0E11CD8A6F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE4F1570-EAE0-41DE-BE3A-0E11CD8A6F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{597B8F23-6B7E-45F7-BCDE-06C3E119666F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{597B8F23-6B7E-45F7-BCDE-06C3E119666F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{597B8F23-6B7E-45F7-BCDE-06C3E119666F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{597B8F23-6B7E-45F7-BCDE-06C3E119666F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {50D038DF-417A-4895-9FE1-3C2AFFD4C2FD}
+		SolutionGuid = {E0AEC93B-D72F-4674-AB15-3F6699C9AD56}
 	EndGlobalSection
 EndGlobal
