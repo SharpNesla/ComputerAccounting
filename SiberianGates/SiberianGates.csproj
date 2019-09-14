@@ -80,6 +80,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utils\Controls\DataGridAdaptiveColumn.xaml.cs" />
+    <Compile Include="Utils\Controls\DrawerItem.xaml.cs" />
+    <Compile Include="Utils\Converters\BindingProxy.cs" />
+    <Compile Include="Utils\Converters\BoolNotConverter.cs" />
+    <Compile Include="Utils\Converters\BoolVisibilityConverter.cs" />
+    <Compile Include="Utils\Converters\EnumBooleanConverter.cs" />
+    <Compile Include="Utils\Converters\EnumerationExtension.cs" />
+    <Compile Include="Utils\Converters\LevelToMargin.cs" />
+    <Compile Include="Utils\Converters\MeasureKindConverter.cs" />
+    <Compile Include="Utils\Converters\StringToPhoneConverter.cs" />
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +102,14 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Utils\Controls\DataGridAdaptiveColumn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\DrawerItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

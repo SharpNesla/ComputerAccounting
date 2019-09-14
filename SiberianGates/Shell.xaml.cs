@@ -12,14 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using PropertyChanged;
 namespace SiberianGates
 {
-  /// <summary>
-  /// Interaction logic for Shell.xaml
-  /// </summary>
+  [AddINotifyPropertyChangedInterface]
   public partial class Shell : Window
   {
+    public bool DrawerState { get; set; } = true;
+
+    public Control InnerContent { get; set; }
+
     public Shell()
     {
       InitializeComponent();
