@@ -80,8 +80,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActivityScreen.cs" />
+    <Compile Include="Views\ComputerEditor.xaml.cs">
+      <DependentUpon>ComputerEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\Controls\DataGridAdaptiveColumn.xaml.cs" />
     <Compile Include="Utils\Controls\DrawerItem.xaml.cs" />
+    <Compile Include="Utils\Controls\Templates\AppBarTemplate.xaml.cs">
+      <DependentUpon>AppBarTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\Templates\DoubleDictionary.xaml.cs">
+      <DependentUpon>DoubleDictionary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\Templates\EditorTemplate.xaml.cs">
+      <DependentUpon>EditorTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Converters\BindingProxy.cs" />
     <Compile Include="Utils\Converters\BoolNotConverter.cs" />
     <Compile Include="Utils\Converters\BoolVisibilityConverter.cs" />
@@ -90,6 +104,11 @@
     <Compile Include="Utils\Converters\LevelToMargin.cs" />
     <Compile Include="Utils\Converters\MeasureKindConverter.cs" />
     <Compile Include="Utils\Converters\StringToPhoneConverter.cs" />
+    <Compile Include="Utils\RelayCommand.cs" />
+    <Page Include="Views\ComputerEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +128,18 @@
     <Page Include="Utils\Controls\DrawerItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\Templates\AppBarTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\Templates\DoubleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\Templates\EditorTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

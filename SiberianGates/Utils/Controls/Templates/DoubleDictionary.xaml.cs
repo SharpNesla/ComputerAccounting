@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PropertyChanged;
-using SiberianGates.Utils;
 
-namespace SiberianGates
+namespace SiberianGates.Utils.Controls.Templates
 {
-  [AddINotifyPropertyChangedInterface]
-  public partial class Shell : Window
+  /// <summary>
+  /// Interaction logic for DoubleDictionary.xaml
+  /// </summary>
+  public partial class DoubleDictionary : UserControl
   {
-    public bool DrawerState { get; set; } = true;
-
-    public Control InnerContent { get; set; }
     
-    public Shell()
+
+    public DoubleDictionary()
     {
       InitializeComponent();
     }

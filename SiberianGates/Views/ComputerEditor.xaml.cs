@@ -12,21 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PropertyChanged;
-using SiberianGates.Utils;
+using SiberianGates.Utils.Controls.Templates;
 
 namespace SiberianGates
 {
-  [AddINotifyPropertyChangedInterface]
-  public partial class Shell : Window
-  {
-    public bool DrawerState { get; set; } = true;
-
-    public Control InnerContent { get; set; }
-    
-    public Shell()
+    /// <summary>
+    /// Interaction logic for ComputerEditor.xaml
+    /// </summary>
+    public partial class ComputerEditor
     {
-      InitializeComponent();
     }
-  }
 }
