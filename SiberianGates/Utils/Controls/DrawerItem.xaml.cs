@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
 
-namespace Laundry.Utils.Controls
+namespace SiberianGates.Utils.Controls
 {
   /// <summary>
   /// Контрол, представляющий из себя элемент списка в drawer'е с иконкой и подписью
@@ -29,8 +29,8 @@ namespace Laundry.Utils.Controls
 
     // Using a DependencyProperty as the backing store for Label.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty LabelProperty =
-        DependencyProperty.Register("Label", typeof(string), typeof(DrawerItem));
-    
+      DependencyProperty.Register("Label", typeof(string), typeof(DrawerItem));
+
     public PackIconKind Kind
     {
       get { return (PackIconKind)GetValue(KindProperty); }
@@ -39,7 +39,7 @@ namespace Laundry.Utils.Controls
 
     // Using a DependencyProperty as the backing store for Kind.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty KindProperty =
-        DependencyProperty.Register("Kind", typeof(PackIconKind), typeof(DrawerItem));
+      DependencyProperty.Register("Kind", typeof(PackIconKind), typeof(DrawerItem));
 
     public DrawerItem()
     {

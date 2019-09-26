@@ -12,21 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PropertyChanged;
 using SiberianGates.Utils;
 
-namespace SiberianGates
+namespace SiberianGates.Views
 {
-  [AddINotifyPropertyChangedInterface]
-  public partial class Shell : Window
+  class DashboardViewModel : ActivityScreenBase
   {
-    public bool DrawerState { get; set; } = true;
-
-    public Control InnerContent { get; set; }
-    
-    public Shell()
-    {
-      InitializeComponent();
-    }
+    public ICommand Apply { get; set; } = new RelayCommand(() => MessageBox.Show("WWW!"));
   }
 }

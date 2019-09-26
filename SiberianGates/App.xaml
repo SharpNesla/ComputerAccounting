@@ -1,50 +1,41 @@
 ﻿<Application x:Class="SiberianGates.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SiberianGates"
+             xmlns:siberianGates="clr-namespace:SiberianGates"
              xmlns:converters="clr-namespace:Laundry.Utils.Converters"
-            Startup="Launch">
+             xmlns:converters1="clr-namespace:SiberianGates.Utils.Converters"
+             xmlns:utils="clr-namespace:SiberianGates.Utils"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             StartupUri="Views/Shell.xaml">
     <Application.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
-          Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
                 <ResourceDictionary
-          Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary
-          Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
                 <ResourceDictionary
-          Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Amber.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Amber.xaml" />
+
 
             </ResourceDictionary.MergedDictionaries>
-
-
-            <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                <Style.Triggers>
-
-                    <Trigger Property="DataGridCell.IsSelected" Value="True">
-                        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignSelection}" />
-                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignDarkForeground}" />
-                        <Setter Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-
-            <SolidColorBrush x:Key="RemoveColor" Color="#b71c1c"/>
-
+            
+            <siberianGates:ShellViewModel x:Key="Shell"></siberianGates:ShellViewModel>
 
             <converters:BindingProxy x:Key="BindingProxy"></converters:BindingProxy>
 
-            <converters:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
-            <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
-            <converters:BoolNotVisibilityConverter x:Key="BoolNotVisibilityConverter"/>
-            <converters:BoolRowDetailsVizConverter x:Key="BoolRowDetailsVizConverter"/>
-            <converters:LevelToMargin x:Key="LevelToMarginConverter"/>
-            <converters:BoolNotConverter x:Key="BoolNotConverter"/>
+            <converters:EnumBooleanConverter x:Key="EnumBooleanConverter"></converters:EnumBooleanConverter>
+            <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter"></converters:BoolVisibilityConverter>
+            <converters:BoolNotVisibilityConverter x:Key="BoolNotVisibilityConverter"></converters:BoolNotVisibilityConverter>
+            <converters:BoolRowDetailsVizConverter x:Key="BoolRowDetailsVizConverter"></converters:BoolRowDetailsVizConverter>
+            <converters1:BoolNotConverter x:Key="BoolNotConverter"></converters1:BoolNotConverter>
+            <utils:MultiArgConverter x:Key="MultiArgConverter"/>
+    
         </ResourceDictionary>
+
+
     </Application.Resources>
 </Application>
-
-
-

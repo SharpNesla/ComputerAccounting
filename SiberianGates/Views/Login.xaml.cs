@@ -13,18 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SiberianGates.Utils.Controls.Templates
+namespace SiberianGates.Views
 {
-  /// <summary>
-  /// Interaction logic for DoubleDictionary.xaml
-  /// </summary>
-  public partial class DoubleDictionary : UserControl
-  {
-    
 
-    public DoubleDictionary()
-    {
-      InitializeComponent();
-    }
-  }
 }
