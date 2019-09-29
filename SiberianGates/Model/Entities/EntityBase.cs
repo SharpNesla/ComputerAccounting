@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SiberianGates.Model.Entities
 {
-  class EntityBase
+  public class EntityBase
   {
     public long Id { get; set; }
 
     public DateTime DeletionDate { get; set; }
-
+    public bool IsSelected { get; set; }
     public string Comment { get; set; }
 
     public virtual string Signature => Id.ToString();

@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SiberianGates
+namespace SiberianGates.Views.Cards
 {
-  public class Page : System.Windows.Controls.Page
+  public class Card<TEntity>
   {
-    public Page()
-    {
-    }
   }
 }

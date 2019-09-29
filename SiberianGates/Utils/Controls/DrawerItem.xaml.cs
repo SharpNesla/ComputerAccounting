@@ -19,7 +19,7 @@ namespace SiberianGates.Utils.Controls
   /// <summary>
   /// Контрол, представляющий из себя элемент списка в drawer'е с иконкой и подписью
   /// </summary>
-  public partial class DrawerItem : ListBoxItem
+  public partial class DrawerItem : ListBoxItem, ICommandSource
   {
     public string Label
     {
@@ -44,7 +44,7 @@ namespace SiberianGates.Utils.Controls
     public DrawerItem()
     {
       InitializeComponent();
-      DataContext = this;
+      this.Selected += (s,e) => this.Command.Execute(this.CommandParameter);
     }
 
     protected override void OnSelected(RoutedEventArgs e)
@@ -52,5 +52,32 @@ namespace SiberianGates.Utils.Controls
       base.OnSelected(e);
       this.IsSelected = false;
     }
+
+
+
+    public ICommand Command
+    {
+      get { return (ICommand)GetValue(CommandProperty); }
+      set { SetValue(CommandProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CommandProperty =
+        DependencyProperty.Register("Command", typeof(ICommand), typeof(DrawerItem));
+
+
+
+    public object CommandParameter
+    {
+      get { return (object)GetValue(CommandParameterProperty); }
+      set { SetValue(CommandParameterProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CommandParameterProperty =
+        DependencyProperty.Register("CommandParameter", typeof(object), typeof(DrawerItem));
+
+
+    public IInputElement CommandTarget => this;
   }
 }

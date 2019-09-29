@@ -16,13 +16,27 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Amber.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Pink.xaml" />
 
 
             </ResourceDictionary.MergedDictionaries>
-            
+
+
+
+            <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                <Style.Triggers>
+
+                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignSelection}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignDarkForeground}" />
+                        <Setter Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
             <siberianGates:ShellViewModel x:Key="Shell"></siberianGates:ShellViewModel>
 
             <converters:BindingProxy x:Key="BindingProxy"></converters:BindingProxy>

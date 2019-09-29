@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SiberianGates.Utils.Controls;
 
 namespace SiberianGates.Utils.Layouts
 {
@@ -39,6 +40,29 @@ namespace SiberianGates.Utils.Layouts
     public static readonly DependencyProperty ApplyCommandProperty =
         DependencyProperty.Register("ApplyCommand", typeof(ICommand), typeof(DictionaryLayout), new PropertyMetadata(null));
 
+
+
+    public object ApplyCommandParameter
+    {
+      get { return (object)GetValue(ApplyCommandParameterProperty); }
+      set { SetValue(ApplyCommandParameterProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for ApplyCommandParameter.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ApplyCommandParameterProperty =
+        DependencyProperty.Register("ApplyCommandParameter", typeof(object), typeof(DictionaryLayout), new PropertyMetadata(null));
+
+
+
+    public bool DrawerButtonState
+    {
+      get { return (bool)GetValue(DrawerButtonStateProperty); }
+      set { SetValue(DrawerButtonStateProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for DrawerButtonState.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty DrawerButtonStateProperty =
+      DependencyProperty.Register("DrawerButtonState", typeof(bool), typeof(DictionaryLayout), new PropertyMetadata(null));
 
 
 
@@ -77,5 +101,19 @@ namespace SiberianGates.Utils.Layouts
     // Using a DependencyProperty as the backing store for Kind.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty KindProperty =
         DependencyProperty.Register("Kind", typeof(MaterialDesignThemes.Wpf.PackIconKind), typeof(DictionaryLayout), new PropertyMetadata(null));
+
+
+
+    public object Paginable
+    {
+      get { return (IPaginable)GetValue(PaginableProperty); }
+      set { SetValue(PaginableProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for Paginable.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty PaginableProperty =
+        DependencyProperty.Register("Paginable", typeof(object), typeof(DictionaryLayout), new PropertyMetadata(null));
+
+
   }
 }

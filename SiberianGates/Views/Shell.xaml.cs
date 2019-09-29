@@ -21,9 +21,23 @@ namespace SiberianGates
   [AddINotifyPropertyChangedInterface]
   public class ShellViewModel : IShell
   {
+
+    public ICommand NavigateUri { get; }
+    public ICommand NavigatePage { get; }
+
+
     public void Navigate(string uri)
     {
       this.Uri = uri;
+      this.IsDrawerOpened = false;
+    }
+
+    public void Navigate(Page page)
+    {
+      this.Uri = null;
+      this.IsDrawerOpened = false;
+      page.GetType().GetMethod("InitializeComponent").Invoke(page, null);
+      this.Content = page;
     }
 
     public void GoBack()
@@ -35,19 +49,27 @@ namespace SiberianGates
     }
 
     public bool IsDrawerOpened { get; set; }
-    public IModel Model { get;}
+    public IModel Model { get; }
     public Visibilities Visibilities { get; }
 
     private NavigationService navigationService;
-  
+
     public ShellViewModel()
     {
-      Model = new JsonModel(); 
+      Model = new JsonModel();
+
+
+      this.NavigateUri = new RelayCommand<string>(this.Navigate);
+
+      this.NavigatePage = new RelayCommand<Page>(this.Navigate);
+
+      this.GoBackCommand = new RelayCommand(() => 
+        GoBack());
     }
 
-    public string Uri { get; set; } = "DashBoard.xaml";
-
-    public ICommand SetupShellNavigator => new RelayCommand<NavigationService>(x => this.navigationService = x);
+    public string Uri { get; set; } = "JsonSelectModel.xaml";
+    public Page Content { get; set; }
+    public ICommand GoBackCommand { get; set; }
   }
 
   public interface IShell
@@ -55,6 +77,7 @@ namespace SiberianGates
     bool IsDrawerOpened { get; set; }
 
     void Navigate(string uri);
+    void Navigate(Page content);
     void GoBack();
   }
 

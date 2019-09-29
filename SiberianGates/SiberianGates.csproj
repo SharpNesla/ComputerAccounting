@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" />
   <Import Project="..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -38,8 +39,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Costura, Version=3.3.3.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.3.3.3\lib\net40\Costura.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -78,9 +79,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Repositories\EmployeeRepository.cs" />
+    <Compile Include="Model\Repositories\RepositoryBase.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Utils\ActivityScreenBase.cs" />
-    <Compile Include="Utils\CompositionRoot.cs" />
+    <Compile Include="Utils\Controls\DataGridAdaptiveColumn.xaml.cs">
+      <DependentUpon>DataGridAdaptiveColumn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\Grids\EmployeeGrid.xaml.cs">
+      <DependentUpon>EmployeeGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\Grids\EntityGridBase.cs" />
+    <Compile Include="Utils\Controls\Paginator.xaml.cs">
+      <DependentUpon>Paginator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\DataContextBase.cs" />
     <Compile Include="Utils\Controls\DrawerItem.xaml.cs">
       <DependentUpon>DrawerItem.xaml</DependentUpon>
     </Compile>
@@ -102,14 +114,45 @@
     <Compile Include="Utils\Layouts\DrawerLayout.xaml.cs">
       <DependentUpon>DrawerLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Layouts\EditorLayout.xaml.cs">
+      <DependentUpon>EditorLayout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Views\Cards\Card.cs" />
+    <Compile Include="Views\Computers.xaml.cs">
+      <DependentUpon>Computers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashBoard.xaml.cs">
       <DependentUpon>DashBoard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
+    <Compile Include="Views\EmployeeEditor.xaml.cs">
+      <DependentUpon>EmployeeEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Employees.xaml.cs">
+      <DependentUpon>Employees.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JsonSelectModel.xaml.cs">
+      <DependentUpon>JsonSelectModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Software.xaml.cs">
+      <DependentUpon>Software.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Subsidiaries.xaml.cs">
+      <DependentUpon>Subsidiaries.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Utils\Controls\DataGridAdaptiveColumn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utils\Controls\DrawerItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\Grids\EmployeeGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\Paginator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +168,34 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Utils\Layouts\EditorLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Computers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EmployeeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employees.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\JsonSelectModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Licences.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Parts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -132,6 +203,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Licences.xaml.cs">
+      <DependentUpon>Licences.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Parts.xaml.cs">
+      <DependentUpon>Parts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -141,9 +218,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Login.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\Software.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Subsidiaries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +238,6 @@
     <Compile Include="Model\Entities\Room.cs" />
     <Compile Include="Model\Entities\Software.cs" />
     <Compile Include="Model\Entities\Subsidiary.cs" />
-    <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -186,12 +266,13 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.4.2.1\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.4.2.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props'))" />
   </Target>
+  <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
 </Project>

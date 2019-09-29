@@ -16,9 +16,7 @@ using SiberianGates.Utils;
 
 namespace SiberianGates.Views
 {
-  class DashboardViewModel : DrawerActivityBase
+  public class JsonSelectViewModel : DataContextBase
   {
-    public ICommand Apply { get; set; } = new RelayCommand(() => MessageBox.Show("WWW!"));
-    
   }
 }

@@ -12,13 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SiberianGates.Utils;
 
 namespace SiberianGates.Views
 {
-  class DashboardViewModel : DrawerActivityBase
+  /// <summary>
+  /// Interaction logic for Licences.xaml
+  /// </summary>
+  public partial class Licences : Page
   {
-    public ICommand Apply { get; set; } = new RelayCommand(() => MessageBox.Show("WWW!"));
-    
+    public Licences()
+    {
+      InitializeComponent();
+    }
   }
 }

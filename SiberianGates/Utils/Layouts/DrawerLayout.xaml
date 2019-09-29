@@ -14,9 +14,10 @@
                                           Mode="PrimaryMid"
                                           Padding="16" MinHeight="64">
                     <StackPanel Orientation="Horizontal">
-                        <ToggleButton Name="MenuToggleButton" IsChecked="{Binding Shell.IsDrawerOpened}"
+                        <ToggleButton Name="MenuToggleButton"
+                                      IsChecked="{Binding IsDrawerButtonChecked}"
                                       Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Height="32"
-                                      Width="32" />
+                                      Width="32"/>
                         <Grid>
                             <ContentPresenter Content="{TemplateBinding Header}" VerticalAlignment="Stretch"/>
                         </Grid>
