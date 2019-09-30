@@ -5,13 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:views="clr-namespace:SiberianGates.Views"
       xmlns:layouts="clr-namespace:SiberianGates.Utils.Layouts"
+      xmlns:controls="clr-namespace:SiberianGates.Utils.Controls"
       mc:Ignorable="d"
       Background="{StaticResource MaterialDesignPaper}"
       d:DesignHeight="450" d:DesignWidth="800">
     <Page.DataContext>
-        <views:DashboardViewModel></views:DashboardViewModel>
+        <views:ComputerDictionaryViewModel></views:ComputerDictionaryViewModel>
     </Page.DataContext>
     <layouts:DictionaryLayout ApplyCommand="{Binding Apply}" DrawerButtonState="{Binding IsDrawerButtonChecked}"
-                              Kind="ComputerClassic" Title="Справочник клиентов" SearchHint="Поиск клиентов">
+                              Kind="ComputerClassic" Title="Справочник компьютеров" SearchHint="Поиск компьютеров">
+
+        <controls:ComputerGrid DataContext="{Binding EntityGrid}"></controls:ComputerGrid>
     </layouts:DictionaryLayout>
 </Page>

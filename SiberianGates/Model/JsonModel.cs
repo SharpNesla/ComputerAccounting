@@ -13,8 +13,20 @@ namespace SiberianGates.Model
     public JsonModel()
     {
       Employees = new EmployeeRepository(this, new Employee[]{new Employee{Name="Алексей"}}.AsQueryable());
+      Computers = new ComputerRepository(this, new Computer[] { new Computer() }.AsQueryable());
+    }
+
+    public void Load()
+    {
+      
+    }
+
+    public void Save()
+    {
+
     }
 
     public EmployeeRepository Employees { get; }
+    public ComputerRepository Computers { get; }
   }
 }

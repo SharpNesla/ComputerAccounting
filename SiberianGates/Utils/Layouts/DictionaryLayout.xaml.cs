@@ -101,19 +101,5 @@ namespace SiberianGates.Utils.Layouts
     // Using a DependencyProperty as the backing store for Kind.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty KindProperty =
         DependencyProperty.Register("Kind", typeof(MaterialDesignThemes.Wpf.PackIconKind), typeof(DictionaryLayout), new PropertyMetadata(null));
-
-
-
-    public object Paginable
-    {
-      get { return (IPaginable)GetValue(PaginableProperty); }
-      set { SetValue(PaginableProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for Paginable.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty PaginableProperty =
-        DependencyProperty.Register("Paginable", typeof(object), typeof(DictionaryLayout), new PropertyMetadata(null));
-
-
   }
 }

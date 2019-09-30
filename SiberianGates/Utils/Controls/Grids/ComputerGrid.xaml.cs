@@ -13,30 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SiberianGates.Model;
+using SiberianGates.Model.Entities;
 using SiberianGates.Model.Repositories;
-using SiberianGates.Utils;
-using SiberianGates.Utils.Controls;
 using SiberianGates.Utils.Controls.Grids;
+using SiberianGates.Views.Cards;
 
-namespace SiberianGates.Views
+namespace SiberianGates.Utils.Controls
 {
-  /// <summary>
-  /// Interaction logic for Employees.xaml
-  /// </summary>
-  public partial class ComputersView
+  public partial class ComputerGrid : UserControl
   {
-    public ComputersView()
+    public ComputerGrid()
     {
       InitializeComponent();
     }
   }
-
-  class ComputerDictionaryViewModel : DictionaryActivityBase<ComputerGridViewModel>
+  public class ComputerGridViewModel : EntityGrid<Computer, ComputerRepository, Card<Computer>>
   {
-    public ComputerDictionaryViewModel()
-    {
-      this.EntityGrid.Repo = Model.Computers;
-      this.EntityGrid.Refresh(0, int.MaxValue);
-    }
   }
 }

@@ -10,5 +10,6 @@ namespace SiberianGates.Model
   public interface IModel
   {
     EmployeeRepository Employees { get; }
+    ComputerRepository Computers { get; }
   }
 }

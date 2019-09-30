@@ -8,14 +8,15 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:controls="clr-namespace:SiberianGates.Utils.Controls"
         mc:Ignorable="d"
-        Width="800"
-        Height="600"
+        Height="768" Width="1024"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        DataContext="{StaticResource Shell}">
+        DataContext="{StaticResource Shell}"
+        MinWidth="1024"
+        MinHeight="768">
     <materialDesign:DialogHost DialogTheme="Inherit">
         <materialDesign:DrawerHost Name="DrawerHost" IsLeftDrawerOpen="{Binding IsDrawerOpened}">
             <materialDesign:DrawerHost.LeftDrawerContent>
@@ -67,7 +68,7 @@
                                              Command="{Binding NavigateUri}" CommandParameter="Dashboard.xaml" />
 
                         <controls:DrawerItem Label="О приложении" Kind="About"
-                                             Command="{Binding NavigateUri}" CommandParameter="Dashboard.xaml" />
+                                             Command="{Binding NavigateUri}" CommandParameter="About.xaml" />
 
                         <Separator />
 

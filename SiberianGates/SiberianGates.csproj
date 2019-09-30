@@ -79,11 +79,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Repositories\ComputerRepository.cs" />
     <Compile Include="Model\Repositories\EmployeeRepository.cs" />
     <Compile Include="Model\Repositories\RepositoryBase.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\Controls\DataGridAdaptiveColumn.xaml.cs">
       <DependentUpon>DataGridAdaptiveColumn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\Grids\ComputerGrid.xaml.cs">
+      <DependentUpon>ComputerGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Controls\Grids\EmployeeGrid.xaml.cs">
       <DependentUpon>EmployeeGrid.xaml</DependentUpon>
@@ -118,6 +122,9 @@
       <DependentUpon>EditorLayout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Views\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Cards\Card.cs" />
     <Compile Include="Views\Computers.xaml.cs">
       <DependentUpon>Computers.xaml</DependentUpon>
@@ -125,8 +132,29 @@
     <Compile Include="Views\DashBoard.xaml.cs">
       <DependentUpon>DashBoard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EmployeeEditor.xaml.cs">
+    <Compile Include="Views\Editors\ComputerEditor.xaml.cs">
+      <DependentUpon>ComputerEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editors\LicensesEditor.xaml.cs">
+      <DependentUpon>LicensesEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editors\PartsEditor.xaml.cs">
+      <DependentUpon>PartsEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editors\EmployeeEditor.xaml.cs">
       <DependentUpon>EmployeeEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editors\RoomEditor.xaml.cs">
+      <DependentUpon>RoomEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editors\SoftwareEditor.xaml.cs">
+      <DependentUpon>SoftwareEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editors\SoftwareKindEditor.xaml.cs">
+      <DependentUpon>SoftwareKindEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editors\SubsidiaryEditor.xaml.cs">
+      <DependentUpon>SubsidiaryEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Employees.xaml.cs">
       <DependentUpon>Employees.xaml</DependentUpon>
@@ -145,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Utils\Controls\DrawerItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\Grids\ComputerGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,11 +204,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Computers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EmployeeEditor.xaml">
+    <Page Include="Views\Editors\ComputerEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Editors\LicensesEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Editors\PartsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Editors\EmployeeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Editors\RoomEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Editors\SoftwareEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Editors\SoftwareKindEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Editors\SubsidiaryEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -264,7 +328,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Dictionaries\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
