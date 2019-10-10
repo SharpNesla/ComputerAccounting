@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SiberianGates.Model.Computer" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\Computer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.License" Collapsed="true">
+    <Position X="7.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\License.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Subsidiary" Collapsed="true">
+    <Position X="11.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\Subsidiary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Entities.Employee" Collapsed="true">
+    <Position X="2.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAQAAAACMAAAAUAQABAAAAAABAAIAAAAAAAE=</HashCode>
+      <FileName>Model\Entities\Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Entities.EntityBase" Collapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Model\Entities\EntityBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Entities.Part" Collapsed="true">
+    <Position X="14" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\Part.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Entities.PartType" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\Part.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Entities.Room" Collapsed="true">
+    <Position X="5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Entities.Software">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\Software.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Entities.SoftwareType" Collapsed="true">
+    <Position X="16.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\Software.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Repositories.RepositoryBase&lt;TEntity&gt;">
+    <Position X="8.75" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAABAAAAAAAAAAAAAAAQAAAgAAAAAQIA=</HashCode>
+      <FileName>Model\Repositories\RepositoryBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Repositories.ComputerRepository">
+    <Position X="7.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Repositories\ComputerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SiberianGates.Model.Repositories.EmployeeRepository">
+    <Position X="10" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Repositories\EmployeeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SiberianGates.Model.Repositories.IRepositorySource&lt;TEntity&gt;" Collapsed="true">
+    <Position X="12" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Repositories\RepositoryBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SiberianGates.Model.Entities.Gender" Collapsed="true">
+    <Position X="18.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAACA=</HashCode>
+      <FileName>Model\Entities\Employee.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="SF Pro Display" Size="9" />
+</ClassDiagram>
