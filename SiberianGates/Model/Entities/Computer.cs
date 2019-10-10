@@ -10,5 +10,6 @@ namespace SiberianGates.Model
 {
   public class Computer : EntityBase
     {
+      
     }
 }

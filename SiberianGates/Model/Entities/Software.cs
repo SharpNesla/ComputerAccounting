@@ -8,6 +8,7 @@ namespace SiberianGates.Model.Entities
 {
     class Software : EntityBase
     {
+      public SoftwareType Type { get; set; }
     }
 
     class SoftwareType : EntityBase
