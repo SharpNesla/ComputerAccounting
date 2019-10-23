@@ -1,22 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'sg-login',
+  selector: 'sg-dashboard',
   template: `
       <main>
-          <mat-card id="login-panel"><h2>Окна и фурнитура "Сибирские врата"</h2>
-              <mat-form-field appearance="outline">
-                  <mat-label>Логин</mat-label>
-                  <input matInput placeholder="Логин">
-                  <mat-icon matSuffix>account_circle</mat-icon>
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                  <mat-label>Пароль</mat-label>
-                  <input matInput placeholder="Пароль" type="password">
-                  <mat-icon matSuffix>vpn_key</mat-icon>
-              </mat-form-field>
-                  <button color="primary" mat-raised-button>Войти</button>
-          </mat-card>
+        <sg-appbar-base></sg-appbar-base>
       </main>`,
   styles: [`
       main {
@@ -33,7 +21,7 @@ import {Component, OnInit} from '@angular/core';
       }
   `]
 })
-export class LoginComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   constructor() {
   }

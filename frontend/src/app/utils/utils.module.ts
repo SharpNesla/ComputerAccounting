@@ -1,29 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import {MatCardModule} from "@angular/material/card";
-import {MatButtonModule} from "@angular/material/button";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatIconModule} from "@angular/material/icon";
-import {MatInputModule} from "@angular/material/input";
-import {DashboardComponent} from "./login/dashboard.component";
-import {RouterModule} from "@angular/router";
+import {CommonModule} from "@angular/common";
+import {AppbarBaseComponent} from "./layouts/appbar-base.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 
 
 @NgModule({
-  declarations: [LoginComponent, DashboardComponent],
+  declarations: [AppbarBaseComponent],
   exports: [
-    LoginComponent, DashboardComponent
+    AppbarBaseComponent
   ],
   imports: [
     CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    RouterModule
+    MatToolbarModule
   ]
 })
-export class ViewsModule { }
+export class UtilsModule { }
