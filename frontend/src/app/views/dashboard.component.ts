@@ -1,16 +1,15 @@
 import {Component, OnInit} from '@angular/core';
+import {AppbarBaseComponent} from "../utils/layouts/appbar-base.component";
 
 @Component({
   selector: 'sg-dashboard',
   template: `
-      <main>
-        <sg-appbar-base></sg-appbar-base>
-      </main>`,
+      <sg-appbar-base></sg-appbar-base>`,
   styles: [`
       main {
           width: 100vw;
           height: 100vh;
-          background: url("../../../assets/LoginBackground.png") center;
+          background: url("../../assets/LoginBackground.png") center;
           background-size: cover;
           display: flex;
       }
@@ -21,10 +20,8 @@ import {Component, OnInit} from '@angular/core';
       }
   `]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends AppbarBaseComponent implements OnInit {
 
-  constructor() {
-  }
 
   ngOnInit() {
   }

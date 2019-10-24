@@ -4,18 +4,21 @@ import {Component, OnInit} from '@angular/core';
   selector: 'sg-login',
   template: `
       <main>
-          <mat-card id="login-panel"><h2>Окна и фурнитура "Сибирские врата"</h2>
-              <mat-form-field appearance="outline">
-                  <mat-label>Логин</mat-label>
-                  <input matInput placeholder="Логин">
-                  <mat-icon matSuffix>account_circle</mat-icon>
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                  <mat-label>Пароль</mat-label>
-                  <input matInput placeholder="Пароль" type="password">
-                  <mat-icon matSuffix>vpn_key</mat-icon>
-              </mat-form-field>
+          <mat-card id="login-panel">
+              <mat-toolbar color="primary">Окна и фурнитура "Сибирские врата</mat-toolbar>
+              <div id="login-panel-content">
+                  <mat-form-field appearance="outline">
+                      <mat-label>Логин</mat-label>
+                      <input matInput placeholder="Логин">
+                      <mat-icon matSuffix>account_circle</mat-icon>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                      <mat-label>Пароль</mat-label>
+                      <input matInput placeholder="Пароль" type="password">
+                      <mat-icon matSuffix>vpn_key</mat-icon>
+                  </mat-form-field>
                   <button color="primary" mat-raised-button routerLink="dashboard">Войти</button>
+              </div>
           </mat-card>
       </main>`,
   styles: [`
@@ -28,8 +31,16 @@ import {Component, OnInit} from '@angular/core';
       }
 
       #login-panel {
+          flex-direction: column;
           margin: auto;
           width: 500px;
+          padding: 0;
+      }
+
+      #login-panel-content {
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
       }
   `]
 })
