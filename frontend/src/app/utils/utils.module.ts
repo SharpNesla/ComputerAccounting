@@ -7,12 +7,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
 import { DrawerAppbarBaseComponent } from './layouts/drawer-appbar-base/drawer-appbar-base.component';
+import { CrudComponent } from './grids/crud.component';
 
 
 
 
 @NgModule({
-  declarations: [AppbarBaseComponent, DrawerButtonComponent, DrawerAppbarBaseComponent],
+  declarations: [AppbarBaseComponent, DrawerButtonComponent, DrawerAppbarBaseComponent, CrudComponent],
   exports: [
     AppbarBaseComponent,
     DrawerButtonComponent

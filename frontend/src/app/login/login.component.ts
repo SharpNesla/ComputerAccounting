@@ -5,7 +5,9 @@ import {Component, OnInit} from '@angular/core';
   template: `
       <main>
           <mat-card id="login-panel">
-              <mat-toolbar color="primary">Окна и фурнитура "Сибирские врата</mat-toolbar>
+              <mat-toolbar id="login-header" color="primary">
+                  Окна и фурнитура "Сибирские врата
+              </mat-toolbar>
               <div id="login-panel-content">
                   <mat-form-field appearance="outline">
                       <mat-label>Логин</mat-label>
@@ -17,7 +19,7 @@ import {Component, OnInit} from '@angular/core';
                       <input matInput placeholder="Пароль" type="password">
                       <mat-icon matSuffix>vpn_key</mat-icon>
                   </mat-form-field>
-                  <button color="primary" mat-raised-button routerLink="dashboard">Войти</button>
+                  <button color="primary" mat-raised-button routerLink="computers">Войти</button>
               </div>
           </mat-card>
       </main>`,
@@ -25,7 +27,7 @@ import {Component, OnInit} from '@angular/core';
       main {
           width: 100vw;
           height: 100vh;
-          background: url("../../../assets/LoginBackground.png") center;
+          background: url("../../assets/LoginBackground.png") center;
           background-size: cover;
           display: flex;
       }
@@ -41,6 +43,10 @@ import {Component, OnInit} from '@angular/core';
           padding: 16px;
           display: flex;
           flex-direction: column;
+      }
+
+      #login-header {
+          border-radius: 4px 4px 0px 0px;
       }
   `]
 })

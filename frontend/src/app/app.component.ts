@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
           <mat-drawer-content>
               <router-outlet></router-outlet>
           </mat-drawer-content>
-          <mat-drawer mode="over" style="background-color: #303030" opened>
+          <mat-drawer mode="over" opened>
               <div id="drawer-content-container">
                   <sg-drawer-button link="dashboard" icon="dashboard">Обзор</sg-drawer-button>
                   <mat-divider></mat-divider>

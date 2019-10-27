@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ModelService} from "../../model/model.service";
 
 @Component({
   selector: 'sg-computer-directory',
@@ -13,10 +12,10 @@ import {ModelService} from "../../model/model.service";
           </mat-tab-group>
       </sg-appbar-base>`
 })
-export class ComputerDirectoryComponent implements OnInit {
+export class ComputersComponent implements OnInit {
 
-  constructor(private _model : ModelService) {
-    console.log(_model);
+  constructor() {
+
   }
 
   ngOnInit() {
