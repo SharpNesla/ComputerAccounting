@@ -6,6 +6,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {ComputerEditorComponent} from './computer-editor.component';
 import {ComputerGridComponent} from './computer-grid.component';
 import {ComputerCardComponent} from './computer-card.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {ComputerCardComponent} from './computer-card.component';
   imports: [
     CommonModule,
     UtilsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule
   ],
   exports: [ComputersComponent]
 })

@@ -9,7 +9,7 @@ import {Component, OnInit} from '@angular/core';
           <sg-computer-grid></sg-computer-grid>
       </sg-drawer-appbar-base>`
 })
-export class ComputersComponent implements OnInit {
+export class PartTypesComponent implements OnInit {
 
   constructor() {
 

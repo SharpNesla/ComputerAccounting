@@ -6,24 +6,36 @@ import {DrawerButtonComponent} from "./drawer-button.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
-import { DrawerAppbarBaseComponent } from './layouts/drawer-appbar-base/drawer-appbar-base.component';
+import { DrawerAppbarBaseComponent } from './layouts/drawer-appbar-base.component';
 import { CrudComponent } from './grids/crud.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import { DialogLayoutComponent } from './layouts/dialog-layout.component';
 
 
 
 
 @NgModule({
-  declarations: [AppbarBaseComponent, DrawerButtonComponent, DrawerAppbarBaseComponent, CrudComponent],
+  declarations: [AppbarBaseComponent, DrawerButtonComponent, DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent],
   exports: [
     AppbarBaseComponent,
-    DrawerButtonComponent
+    DrawerButtonComponent,
+    CrudComponent,
+    DrawerAppbarBaseComponent,
+    DialogLayoutComponent
   ],
   imports: [
     CommonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class UtilsModule { }

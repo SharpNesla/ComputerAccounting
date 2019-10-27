@@ -11,10 +11,12 @@ import {MatIconModule} from "@angular/material/icon";
 import {UtilsModule} from "./utils/utils.module";
 import {LoginModule} from "./login/login.module";
 import {ComputersModule} from "./computers/computers.module";
+import { PageNotFoundComponent } from './page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     LoginModule,

@@ -1,26 +1,27 @@
 import {Component} from '@angular/core';
+import {NavigationService} from "./navigation.service";
 
 @Component({
   selector: 'app-root',
   template: `
-      <mat-drawer-container>
-          <mat-drawer-content>
+      <mat-sidenav-container>
+          <mat-sidenav-content>
               <router-outlet></router-outlet>
-          </mat-drawer-content>
-          <mat-drawer mode="over" opened>
+          </mat-sidenav-content>
+          <mat-sidenav mode="over" [(opened)]="this.IsDrawerOpened">
               <div id="drawer-content-container">
                   <sg-drawer-button link="dashboard" icon="dashboard">Обзор</sg-drawer-button>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="computers" icon="desktop_mac">компьютеры</sg-drawer-button>
-                  <button mat-flat-button>Филиалы</button>
-                  <button mat-flat-button></button>
-                  <button mat-flat-button>Обзор</button>
-                  <button mat-flat-button>Обзор</button>
-                  <button mat-flat-button>Обзор</button>
-                  <button mat-flat-button routerLink="">Выход</button>
+                  <sg-drawer-button>Филиалы</sg-drawer-button>
+                  <sg-drawer-button></sg-drawer-button>
+                  <sg-drawer-button>Обзор</sg-drawer-button>
+                  <sg-drawer-button>Обзор</sg-drawer-button>
+                  <sg-drawer-button>Обзор</sg-drawer-button>
+                  <sg-drawer-button link="">Выход</sg-drawer-button>
               </div>
-          </mat-drawer>
-      </mat-drawer-container>`,
+          </mat-sidenav>
+      </mat-sidenav-container>`,
   styles: [`
       mat-divider {
           margin: 8px;
@@ -34,4 +35,15 @@ import {Component} from '@angular/core';
   `]
 })
 export class AppComponent {
+
+  get IsDrawerOpened(): boolean {
+    return this.navService.IsDrawerOpened;
+  }
+
+  set IsDrawerOpened(value: boolean) {
+    this.navService.IsDrawerOpened = value;
+  }
+
+  constructor(private navService: NavigationService) {
+  }
 }

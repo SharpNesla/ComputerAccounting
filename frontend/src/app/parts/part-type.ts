@@ -1,6 +1,6 @@
 import {EntityBase} from "../model/entities/entity-base";
 
-export class Computer extends EntityBase{
+export class PartType extends EntityBase{
   InventoryId : String;
   Name : String;
   Owner;

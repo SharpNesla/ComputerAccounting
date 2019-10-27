@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ComputerService} from "./computer.service";
+import {PartTypeService} from "./part-type.service";
 
 
 @Component({
@@ -7,7 +7,7 @@ import {ComputerService} from "./computer.service";
   template: `    
       <sg-crud router-link="/computers/add" entity-name="компьютеров" is-compact="false"></sg-crud>`
 })
-export class ComputerGridComponent implements OnInit {
+export class PartTypeGridComponent implements OnInit {
 
   constructor() {
   }
