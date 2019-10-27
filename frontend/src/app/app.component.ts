@@ -12,10 +12,10 @@ import {NavigationService} from "./navigation.service";
               <div id="drawer-content-container">
                   <sg-drawer-button link="dashboard" icon="dashboard">Обзор</sg-drawer-button>
                   <mat-divider></mat-divider>
-                  <sg-drawer-button link="computers" icon="desktop_mac">компьютеры</sg-drawer-button>
+                  <sg-drawer-button link="computers" icon="desktop_mac">Компьютеры</sg-drawer-button>
                   <sg-drawer-button>Филиалы</sg-drawer-button>
                   <sg-drawer-button></sg-drawer-button>
-                  <sg-drawer-button>Обзор</sg-drawer-button>
+                  <sg-drawer-button link="parts" icon="memory">Комплектующие</sg-drawer-button>
                   <sg-drawer-button>Обзор</sg-drawer-button>
                   <sg-drawer-button>Обзор</sg-drawer-button>
                   <sg-drawer-button link="">Выход</sg-drawer-button>

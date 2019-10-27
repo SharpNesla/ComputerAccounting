@@ -6,14 +6,23 @@ import {NavigationService} from "../../navigation.service";
   template: `
       <main>
           <mat-toolbar color="primary" class="mat-elevation-z8">
-              <button (click)="openDrawer()" mat-icon-button><mat-icon>menu</mat-icon></button>
-              <ng-content select="header"></ng-content></mat-toolbar>
+              <button id="drawer-button" (click)="openDrawer()" mat-icon-button>
+                  <mat-icon>menu</mat-icon>
+              </button>
+              <ng-content select="header"></ng-content>
+          </mat-toolbar>
           <ng-content></ng-content>
-      </main>`
+      </main>`,
+  styles: [`
+      #drawer-button {
+          margin-left: -8px;
+          margin-right: 8px;
+      }
+  `]
 })
 export class DrawerAppbarBaseComponent implements OnInit {
 
-  constructor(private nav : NavigationService) {
+  constructor(private nav: NavigationService) {
   }
 
   ngOnInit() {

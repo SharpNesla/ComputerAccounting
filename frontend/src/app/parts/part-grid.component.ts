@@ -3,14 +3,14 @@ import {PartTypeService} from "./part-type.service";
 
 
 @Component({
-  selector: 'sg-part-type-grid',
+  selector: 'sg-part-grid',
   template: `
       <sg-crud router-link="/part-types/add"
                icon="memory"
-               entity-name="типов комплектующих"
+               entity-name="комплектующих"
                is-compact="false"></sg-crud>`
 })
-export class PartTypeGridComponent implements OnInit {
+export class PartGridComponent implements OnInit {
 
   constructor() {
   }
