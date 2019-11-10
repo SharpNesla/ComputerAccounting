@@ -7,6 +7,7 @@ import {ComputerEditorComponent} from './computer-editor.component';
 import {ComputerGridComponent} from './computer-grid.component';
 import {ComputerCardComponent} from './computer-card.component';
 import {MatTableModule} from "@angular/material/table";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {MatTableModule} from "@angular/material/table";
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     UtilsModule,
     MatTabsModule,
     MatTableModule

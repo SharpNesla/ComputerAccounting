@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavigationService} from "../../navigation.service";
 
 @Component({
@@ -72,7 +72,6 @@ export class CrudComponent implements OnInit {
   @Input('is-compact') IsCompact: boolean;
   @Input('router-link') link: string;
   @Input() icon: string;
-  @Output() Add;
   @Output() Search;
   @Output() Paginate;
 

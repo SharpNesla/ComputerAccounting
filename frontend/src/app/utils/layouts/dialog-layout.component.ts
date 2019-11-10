@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -10,8 +10,8 @@ import { Location } from '@angular/common';
           </mat-toolbar>
           <ng-content></ng-content>
           <div id="sg-button-container">
-              <button mat-button color="primary">ПРИНЯТЬ</button>
-              <button id="discard-button" (click)="this.cancel()"
+              <button mat-button color="primary" (click)="Accept.emit()">ПРИНЯТЬ</button>
+              <button id="discard-button" (click)="Deny.emit()"
                       mat-button color="primary">ОТМЕНИТЬ</button>
           </div>
       </main>`,
@@ -29,7 +29,8 @@ import { Location } from '@angular/common';
   `]
 })
 export class DialogLayoutComponent implements OnInit {
-
+  @Output() Accept = new EventEmitter();
+  @Output() Deny = new EventEmitter();
   constructor(private location: Location) { }
 
   cancel() {

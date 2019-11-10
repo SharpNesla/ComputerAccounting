@@ -26,7 +26,9 @@ import {NavigationService} from "./navigation.service";
       mat-divider {
           margin: 8px;
       }
-
+      mat-sidenav-container{
+          height: 100vh;
+      }
       #drawer-content-container {
           display: flex;
           flex-direction: column;

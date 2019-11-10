@@ -11,8 +11,7 @@ const routes: Routes = [
   {path: 'computers', component: ComputersComponent},
   {path: 'computers/add', component: ComputerEditorComponent},
   {path: 'computers/:id', component: ComputersComponent},
-  {path: 'parts', component: PartsComponent},
-  {path: '**', component: PageNotFoundComponent}
+  {path: 'parts', component: PartsComponent}
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import {PartTypeGridComponent} from './part-type-grid.component';
 import {PartTypeCardComponent} from './part-type-card.component';
 import {MatTableModule} from "@angular/material/table";
 import {PartGridComponent} from "./part-grid.component";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {PartGridComponent} from "./part-grid.component";
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     UtilsModule,
     MatTabsModule,
     MatTableModule
