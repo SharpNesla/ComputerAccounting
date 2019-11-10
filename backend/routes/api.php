@@ -18,4 +18,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/computer/get', 'ComputerController@get');
-Route::put('/computer/add', 'ComputerController@add');
+Route::get('/computer/{id}', 'ComputerController@getById');
+Route::get('/computer/count', 'ComputerController@getCount');
+Route::post('/computer/add', 'ComputerController@add');
+Route::delete('/computer/remove/{id}', 'ComputerController@delete');
+
+Route::get('/room/get', 'RoomController@get');
+Route::get('/room/{id}', 'RoomController@getById');
+Route::get('/room/count', 'RoomController@getCount');
+Route::post('/room/add', 'RoomController@add');
+Route::delete('/room/remove/{id}', 'RoomController@delete');
+
+Route::get('/subsidiary/get', 'SubsidiaryController@get');
+Route::get('/subsidiary/{id}', 'SubsidiaryController@getById');
+Route::get('/subsidiary/count', 'SubsidiaryController@getCount');
+Route::post('/subsidiary/add', 'SubsidiaryController@add');
+Route::delete('/subsidiary/remove/{id}', 'SubsidiaryController@delete');

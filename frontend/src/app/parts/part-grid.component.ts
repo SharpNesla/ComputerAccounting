@@ -2,12 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {PartTypeService} from "./part-type.service";
 import {Observable} from "rxjs";
 import {Computer} from "../computers/computer";
+import {EditorBase} from "../utils/editor-base";
+import {Part} from "./part";
+import {PartService} from "./part.service";
+import {EntityGridBase} from "../utils/entity-grid-base";
 
 
 @Component({
   selector: 'sg-part-grid',
   template: `<div id="sg-table-container">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <table mat-table [dataSource]="this.Entities" class="mat-elevation-z8">
 
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
@@ -20,17 +24,17 @@ import {Computer} from "../computers/computer";
 
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>Имя</th>
+              <th mat-header-cell *matHeaderCellDef>Модель</th>
               <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
           </ng-container>
 
           <ng-container matColumnDef="inventory_id">
-              <th mat-header-cell *matHeaderCellDef>Инвентарный номер</th>
+              <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element"> {{element.InventoryId}} </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-header-row *matHeaderRowDef="DisplayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: DisplayedColumns;"></tr>
       </table>
   </div>
       <sg-crud router-link="/part-types/add"
@@ -38,16 +42,8 @@ import {Computer} from "../computers/computer";
                entity-name="комплектующих"
                is-compact="false"></sg-crud>`
 })
-export class PartGridComponent implements OnInit {
-
-  displayedColumns: string[] = ['id', 'name', 'inventory_id'];
-  dataSource: Observable<Computer[]>;
-
-  constructor() {
+export class PartGridComponent extends EntityGridBase<Part, PartService>{
+  constructor(service : PartService){
+    super(service, ['id', 'name', 'inventory_id']);
   }
-
-  ngOnInit() {
-
-  }
-
 }

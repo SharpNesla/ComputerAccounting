@@ -8,6 +8,11 @@ import {ComputerGridComponent} from './computer-grid.component';
 import {ComputerCardComponent} from './computer-card.component';
 import {MatTableModule} from "@angular/material/table";
 import {HttpClientModule} from "@angular/common/http";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -22,7 +27,13 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
     UtilsModule,
     MatTabsModule,
-    MatTableModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
   ],
   exports: [ComputersComponent]
 })

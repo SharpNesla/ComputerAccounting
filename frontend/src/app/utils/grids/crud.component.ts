@@ -8,20 +8,20 @@ import {NavigationService} from "../../navigation.service";
       <mat-toolbar id="search-toolbar" color="primary">
           <mat-icon>{{this.icon}}</mat-icon>
           <mat-card id="search-input">
-              <button mat-icon-button>
+              <button mat-icon-button (click)="this.Search.emit(this.SearchString)">
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field class="searchbar-input" appearance="standard">
-                  <input matInput placeholder="Поиск {{EntityName}}">
+                  <input matInput  placeholder="Поиск {{EntityName}}">
               </mat-form-field>
           </mat-card>
           <mat-card id="paginator">
               <div>
-                  {{EntityName}} на странице 10 1 из 1
-                  <button mat-flat-button>
+                  {{EntityName}} на странице 10 {{currentPage}} из {{MaxPages}}
+                  <button mat-flat-button (click)="MoveNext()" disabled="!this.IsBackEnbaled">
                       <mat-icon>arrow_back</mat-icon>
                   </button>
-                  <button mat-flat-button>
+                  <button mat-flat-button (click)="MovePrevious()" disabled="!this.IsNextEnbaled">
                       <mat-icon>arrow_forward</mat-icon>
                   </button>
               </div>
@@ -57,7 +57,7 @@ import {NavigationService} from "../../navigation.service";
           padding: 4px 4px 4px 24px;
       }
 
-      .searchbar-input{
+      .searchbar-input {
           width: calc(100% - 56px);
           flex-grow: 1;
           flex-direction: column;
@@ -71,9 +71,44 @@ export class CrudComponent implements OnInit {
   @Input('entity-name') EntityName: string;
   @Input('is-compact') IsCompact: boolean;
   @Input('router-link') link: string;
+  @Input() count: number;
   @Input() icon: string;
-  @Output() Search;
-  @Output() Paginate;
+  @Output() Search : EventEmitter<string>;
+  @Output() Paginate : EventEmitter<number>;
+
+  IsNextEnabled : boolean;
+  IsBackEnabled : boolean;
+  SearchString : string;
+  public currentPage: number;
+  private elementsPerPage: number;
+
+  public get MaxPages() {
+
+    if (this.count != 0) {
+      return Math.ceil(this.count / this.elementsPerPage);
+    }
+
+    return 1;
+  }
+
+
+  public MoveNext() {
+    this.currentPage++;
+  }
+
+  public ChangeElementsPerPage() {
+    this.currentPage = 1;
+  }
+
+
+  public MovePrevious() {
+    this.currentPage--;
+  }
+  public CheckButtons() {
+    this.IsBackEnabled = this.currentPage != 1;
+    this.IsNextEnabled = this.currentPage != this.MaxPages;
+  }
+
 
   constructor() {
   }

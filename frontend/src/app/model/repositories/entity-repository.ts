@@ -69,9 +69,39 @@ export abstract class EntityRepository<T extends EntityBase> {
 
   }
 
-  public get(offset: number, limit: number, filterDefinition: T[],
-             sortDefinition: string, sortOrder: string): Observable<T[]> {
-    return this.client.get<T[]>(`api/${this.entityPrefix}/get`)
+  public getCount(filterDefinition: T[]): Observable<number> {
+    return this.client.get<number>(`api/${this.entityPrefix}/count`);
+  }
+
+  public remove(entity: T) {
+    return this.client.delete(`api/${this.entityPrefix}/delete/${entity.id}`)
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      )
+  }
+
+  public getById(id: number): Observable<T> {
+    return this.client.get<T>(`api/${this.entityPrefix}/${id}`)
+      .pipe(map(
+        y => keysToCamel(y)
+      ));
+  }
+
+  public getBySearchString(searchString: string,
+                           offset: number,
+                           limit: number,
+                           filterDefinition: T[],
+                           sortDefinition: string,
+                           sortOrder: string): Observable<T[]> {
+    const params = new HttpParams()
+      .set("offset", offset.toString())
+      .set("limit", limit.toString())
+      .set("sort-definition", sortDefinition)
+      .set("sort-order", sortOrder)
+      .set("search-string", searchString);
+
+    return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
       .pipe(map(x => x.map(
         y => {
           const d = keysToCamel(y);
@@ -81,8 +111,44 @@ export abstract class EntityRepository<T extends EntityBase> {
         }
       )))
   }
-  public add(entity : T){
+
+  public get(offset: number, limit: number, filterDefinition: T[],
+             sortDefinition: string, sortOrder: string): Observable<T[]> {
+    const params = new HttpParams()
+      .set("offset", offset.toString())
+      .set("limit", limit.toString())
+      .set("sort-definition", sortDefinition)
+      .set("sort-order", sortOrder);
+
+    return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
+      .pipe(map(x => x.map(
+        y => {
+          const d = keysToCamel(y);
+
+          console.log(keysToSnake(d));
+          return d;
+        }
+      )))
+  }
+
+  public add(entity: T) {
     delete entity.id;
-    this.client.post(`api/${this.entityPrefix}/add`, keysToSnake(entity));
+    console.log(entity);
+    const result = this.client.post(`api/${this.entityPrefix}/add`, keysToSnake(entity))
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      )
+    ;
+  }
+
+  public update(entity: T) {
+    delete entity.id;
+    const result = this.client.post(`api/${this.entityPrefix}/update`, keysToSnake(entity))
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      )
+    ;
   }
 }

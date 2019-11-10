@@ -1,34 +1,64 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ComputerService} from "./computer.service";
 import {Computer} from "./computer";
+import {EditorBase} from "../utils/editor-base";
 
 @Component({
   selector: 'sg-computer-editor',
-  template:`<sg-dialog-layout (Accept)="add()">
-      <header>Добавление компьютера</header>
-      <div id="sg-table-container"></div>
-  </sg-dialog-layout>`,
+  template: `
+      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()">
+          <header>Добавление компьютера</header>
+          <div id="sg-editor-card-container">
+              <mat-card id="left-section">
+                  <mat-form-field>
+                      <input matInput placeholder="Имя компьютера"
+                             [(ngModel)]="this.Entity.Name">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput placeholder="Инвентарный номер" 
+                      [(ngModel)]="this.Entity.InventoryId">
+                  </mat-form-field>
+              </mat-card>
+              <mat-card id="right-section">
+                  <mat-form-field appearance="outline">
+                      <mat-label>Комментарий</mat-label>
+                      <input matInput placeholder="Комментарий">
+                  </mat-form-field>
+              </mat-card>
+          </div>
+      </sg-dialog-layout>`,
   styles: [
-    `:host {
+      `:host {
           flex-grow: 1;
           display: flex;
           flex-direction: column;
       }
-      #sg-table-container{
+
+      #left-section > * {
+          width: 100%;
+      }
+      #right-section > * {
+          width: 100%;
+      }
+      #left-section {
+
+          width: 300px;
+          margin-right: 2rem;
+      }
+
+      #right-section {
           flex-grow: 1;
       }
-      table {
-          margin: 2em;
-          width: calc(100% - 4em);
+
+      #sg-editor-card-container {
+          flex-grow: 1;
+          display: flex;
+          margin: 1.5em 1.5em 0 1.5em;
       }`]
 })
-export class ComputerEditorComponent implements OnInit {
+export class ComputerEditorComponent extends EditorBase<Computer, ComputerService> {
 
-  constructor(private service : ComputerService) { }
-  add(){
-    this.service.add({Name: "testname", InventoryId: "inventoryId", id: 0, Owner: null});
+  constructor(private service: ComputerService) {
+    super(service, new Computer());
   }
-  ngOnInit() {
-  }
-
 }
