@@ -30,7 +30,7 @@ class CrudControllerBase extends Controller
 
     public function getCount()
     {
-        return $this->facade::all()->count();
+        return $this->facade::count();
     }
 
     public function update(Request $request)

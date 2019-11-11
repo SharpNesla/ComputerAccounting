@@ -33,10 +33,9 @@ import {EntityGridBase} from "../utils/entity-grid-base";
       </div>
       <sg-crud router-link="/computers/add"
                icon="desktop_mac"
-
+               [count] = "this.Count"
                entity-name="компьютеров"
-               is-compact="false"
-               [count]="this.Count"></sg-crud>`,
+               is-compact="false"></sg-crud>`,
   styles: [
       `:host {
           flex-grow: 1;

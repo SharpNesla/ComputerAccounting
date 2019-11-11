@@ -1,6 +1,7 @@
 import {EntityBase} from "../model/entities/entity-base";
 import {EntityRepository} from "../model/repositories/entity-repository";
 import {OnInit} from "@angular/core";
+import {Location} from "@angular/common";
 
 export class EditorBase<TEntity extends EntityBase,
   TRepository extends EntityRepository<TEntity>> implements OnInit {
@@ -27,7 +28,6 @@ export class EditorBase<TEntity extends EntityBase,
   }
 
   public discardChanges(){
-
   }
 
   ngOnInit(): void {

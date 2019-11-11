@@ -12,7 +12,4 @@ class ComputerController extends CrudControllerBase
         parent::__construct(Computer::class);
     }
 
-
-
-
 }

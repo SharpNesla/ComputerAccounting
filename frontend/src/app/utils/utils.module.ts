@@ -13,6 +13,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {DialogLayoutComponent} from './layouts/dialog-layout.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {DialogLayoutComponent} from './layouts/dialog-layout.component';
     MatPaginatorModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ]
 })
 export class UtilsModule {

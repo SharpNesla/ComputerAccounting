@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {ComputerService} from "./computer.service";
 import {Computer} from "./computer";
 import {EditorBase} from "../utils/editor-base";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'sg-computer-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()">
+      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/computers">
           <header>Добавление компьютера</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
@@ -15,8 +16,8 @@ import {EditorBase} from "../utils/editor-base";
                              [(ngModel)]="this.Entity.Name">
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput placeholder="Инвентарный номер" 
-                      [(ngModel)]="this.Entity.InventoryId">
+                      <input matInput placeholder="Инвентарный номер"
+                             [(ngModel)]="this.Entity.InventoryId">
                   </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
@@ -37,9 +38,11 @@ import {EditorBase} from "../utils/editor-base";
       #left-section > * {
           width: 100%;
       }
+
       #right-section > * {
           width: 100%;
       }
+
       #left-section {
 
           width: 300px;

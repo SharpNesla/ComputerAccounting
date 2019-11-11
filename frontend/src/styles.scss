@@ -51,7 +51,13 @@ main {
 #sg-table-container{
   flex-grow: 1;
 }
+.flex-spacer{
+  flex-grow: 10000;
+}
 
+mat-divider{
+  border-top-width: 2px !important;
+}
 table {
   margin: 2em;
   width: calc(100% - 4em);
