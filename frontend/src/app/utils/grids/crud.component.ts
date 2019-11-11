@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavigationService} from "../../navigation.service";
+import {element} from "protractor";
 
 @Component({
   selector: 'sg-crud',
   template: `
 
-      <mat-toolbar id="search-toolbar" color="primary">
+      <mat-toolbar id="search-toolbar" color="primary" class="mat-elevation-z4">
           <mat-icon>{{this.icon}}</mat-icon>
           <mat-card id="search-input">
               <button mat-icon-button (click)="this.Search.emit(this.SearchString)">
@@ -25,11 +26,11 @@ import {NavigationService} from "../../navigation.service";
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
-                  {{currentPage}} из {{MaxPages}}
-                  <button mat-flat-button (click)="MoveNext()" disabled="!this.IsBackEnbaled">
+                  {{this.CurrentPage}} из {{MaxPages}}
+                  <button mat-flat-button (click)="MovePrevious()" [disabled]="!this.IsBackEnabled">
                       <mat-icon>arrow_back</mat-icon>
                   </button>
-                  <button mat-flat-button (click)="MovePrevious()" disabled="!this.IsNextEnbaled">
+                  <button mat-flat-button (click)="MoveNext()" [disabled]="!this.IsNextEnabled">
                       <mat-icon>arrow_forward</mat-icon>
                   </button>
               </div>
@@ -64,13 +65,16 @@ import {NavigationService} from "../../navigation.service";
       #paginator {
           padding: 5px 4px 0 16px;
       }
-      #searchbar{
+
+      #searchbar {
 
           width: calc(100% - 56px);
       }
-      #paginator-input{
+
+      #paginator-input {
           width: 50px;
       }
+
       .searchbar-input {
           flex-grow: 1;
           flex-direction: column;
@@ -87,20 +91,33 @@ export class CrudComponent implements OnInit {
   @Input() count: number;
   @Input() icon: string;
   @Output() Search: EventEmitter<string>;
-  @Output() Paginate: EventEmitter<number>;
+  @Output() Paginate: EventEmitter<{ offset: number, limit: number }>
+    = new EventEmitter<{ offset: number, limit: number }>();
   public values = [5, 10, 20, 100];
-  public get EntityNameCapitalized(){
+
+  public get EntityNameCapitalized() {
 
     return this.EntityName.charAt(0).toUpperCase() + this.EntityName.slice(1);
   }
+
   IsNextEnabled: boolean;
   IsBackEnabled: boolean;
   SearchString: string;
-  public currentPage: number;
+  private currentPage: number;
   public elementsPerPage: number = 5;
 
+  public set CurrentPage(value){
+    this.currentPage = value;
+    this.Paginate.emit(
+      {offset: (this.currentPage - 1) * this.elementsPerPage, limit: this.elementsPerPage});
+    this.CheckButtons();
+  }
+  public get CurrentPage(){
+    return this.currentPage;
+  }
   public set ElementsPerPage(value) {
     this.elementsPerPage = value;
+    this.CurrentPage = 1;
   }
 
   public get ElementsPerPage() {
@@ -108,7 +125,6 @@ export class CrudComponent implements OnInit {
   }
 
   public get MaxPages() {
-
     if (this.count != 0) {
       return Math.ceil(this.count / this.elementsPerPage);
     }
@@ -118,16 +134,11 @@ export class CrudComponent implements OnInit {
 
 
   public MoveNext() {
-    this.currentPage++;
+    this.CurrentPage++;
   }
-
-  public ChangeElementsPerPage() {
-    this.currentPage = 1;
-  }
-
 
   public MovePrevious() {
-    this.currentPage--;
+    this.CurrentPage--;
   }
 
   public CheckButtons() {

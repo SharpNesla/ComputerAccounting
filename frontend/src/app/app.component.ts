@@ -10,7 +10,13 @@ import {NavigationService} from "./navigation.service";
           </mat-sidenav-content>
           <mat-sidenav mode="over" [(opened)]="this.IsDrawerOpened">
               <div id="drawer-content-container">
+                  <div id="sg-drawer-userbar">
+                      <button id="sg-drawer-userbar-close" mat-icon-button (click)="this.closeDrawer()">
+                          <mat-icon>arrow_forward</mat-icon>
+                      </button>
+                  </div>
                   <sg-drawer-button link="dashboard" icon="dashboard">Обзор</sg-drawer-button>
+                  <sg-drawer-button link="analytics" icon="insert_chart_outlined">Аналитика</sg-drawer-button>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="employees" icon="account_circle">Работники</sg-drawer-button>
                   <sg-drawer-button link="subsidiaries" icon="storefront">Филиалы</sg-drawer-button>
@@ -34,6 +40,10 @@ import {NavigationService} from "./navigation.service";
           margin: 8px;
       }
 
+      #sg-drawer-userbar-close {
+          transform: scale(1.5);
+      }
+      
       mat-sidenav-container {
           height: 100vh;
       }
@@ -56,6 +66,10 @@ export class AppComponent {
 
   set IsDrawerOpened(value: boolean) {
     this.navService.IsDrawerOpened = value;
+  }
+
+  closeDrawer(){
+    this.navService.IsDrawerOpened = false;
   }
 
   constructor(private navService: NavigationService) {

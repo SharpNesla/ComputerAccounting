@@ -11,20 +11,22 @@ class CrudControllerBase extends Controller
 {
     private $facade;
 
-    function __construct($f) {
+    function __construct($f)
+    {
         $this->facade = $f;
     }
 
 
-    public function getById($id){
+    public function getById($id)
+    {
         return $this->facade::find($id);
     }
 
     public function get(Request $request)
     {
-        return $this->facade::all()
-            ->skip($request->offset)
-            ->take($request->limit);
+        return $this->facade::skip($request->offset)
+            ->take($request->limit)
+            ->get();
     }
 
 

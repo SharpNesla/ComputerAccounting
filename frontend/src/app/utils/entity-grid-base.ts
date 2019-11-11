@@ -26,11 +26,18 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   public DisplayedColumns: string[];
 
+  public Refresh(offset : number, limit : number) {
+
+    this.Entities = this.Repo.get(offset, limit,
+      [], null, null)
+  }
+
   Remove() {
     this.Repo.remove(null);
   };
 
   ngOnInit(): void {
     this.Entities = this.Repo.get(0, 5, [], null, null)
+    this.Repo.getCount(null).subscribe(x => this.Count = x);
   }
 }

@@ -34,6 +34,7 @@ import {EntityGridBase} from "../utils/entity-grid-base";
       <sg-crud router-link="/computers/add"
                icon="desktop_mac"
                [count] = "this.Count"
+               (Paginate)="this.Refresh($event.offset, $event.limit)"
                entity-name="компьютеров"
                is-compact="false"></sg-crud>`,
   styles: [

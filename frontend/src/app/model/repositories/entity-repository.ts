@@ -117,18 +117,19 @@ export abstract class EntityRepository<T extends EntityBase> {
     const params = new HttpParams()
       .set("offset", offset.toString())
       .set("limit", limit.toString())
-      .set("sort-definition", sortDefinition)
+      .set("sort-definition", sortDefinition == null ?  "id" : sortDefinition)
       .set("sort-order", sortOrder);
-
     return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
-      .pipe(map(x => x.map(
+      .pipe(map(x =>{
+        console.log(x)
+        return x.map(
         y => {
           const d = keysToCamel(y);
 
           console.log(keysToSnake(d));
           return d;
-        }
-      )))
+        })}
+      ))
   }
 
   public add(entity: T) {

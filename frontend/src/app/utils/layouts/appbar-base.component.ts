@@ -4,7 +4,7 @@ import {Component, OnInit} from '@angular/core';
   selector: 'sg-appbar-base',
   template: `
       <main>
-          <mat-toolbar color="primary" class="mat-elevation-z8">
+          <mat-toolbar color="primary" class="mat-elevation-z4">
               <ng-content select="header"></ng-content></mat-toolbar>
           <ng-content></ng-content>
       </main>`,

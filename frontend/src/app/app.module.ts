@@ -12,11 +12,15 @@ import {UtilsModule} from "./utils/utils.module";
 import {LoginModule} from "./login/login.module";
 import {ComputersModule} from "./computers/computers.module";
 import {PageNotFoundComponent} from './page-not-found.component';
+import { AboutComponent } from './about.component';
+import { SettingsComponent } from './settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    AboutComponent,
+    SettingsComponent,
   ],
   imports: [
     LoginModule,

@@ -5,7 +5,7 @@ import {NavigationService} from "../../navigation.service";
   selector: 'sg-drawer-appbar-base',
   template: `
       <main>
-          <mat-toolbar color="primary" class="mat-elevation-z8">
+          <mat-toolbar color="primary" class="mat-elevation-z4">
               <button id="drawer-button" (click)="openDrawer()" mat-icon-button>
                   <mat-icon>menu</mat-icon>
               </button>
