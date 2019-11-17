@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubsidiariesTable extends Migration
+class CreateLicensesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateSubsidiariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('subsidiaries', function (Blueprint $table) {
+        Schema::create('licenses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->text('address');
+            $table->decimal('cost');
+            $table->timestamp('expiration-date');
+            $table->text('eula')->nullable();
+            $table->integer('max-apply-count');
+            $table->time('purchase-date');
+            $table->text('comment')->nullable();
         });
     }
 
@@ -27,6 +32,6 @@ class CreateSubsidiariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subsidiaries');
+        Schema::dropIfExists('licenses');
     }
 }

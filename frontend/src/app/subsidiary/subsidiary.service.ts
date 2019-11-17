@@ -1,0 +1,13 @@
+import { Injectable } from '@angular/core';
+import {EntityRepository} from "../model/repositories/entity-repository";
+import {HttpClient} from "@angular/common/http";
+import {Subsidiary} from "./subsidiary";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SubsidiaryService extends EntityRepository<Subsidiary> {
+  constructor(httpClient : HttpClient){
+    super(httpClient,"subsidiary" ,[]);
+  }
+}

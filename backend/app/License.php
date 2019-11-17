@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Subsidiary extends Model
+class License extends Model
 {
-
+    //
 }

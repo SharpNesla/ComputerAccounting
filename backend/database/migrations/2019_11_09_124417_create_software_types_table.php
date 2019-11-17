@@ -17,6 +17,7 @@ class CreateSoftwareTypesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->text('model');
+            $table->text('comment')->nullable();
 
         });
     }

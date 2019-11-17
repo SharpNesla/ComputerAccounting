@@ -8,6 +8,6 @@ class Room extends Model
 {
     public function subsidiary()
     {
-        return $this->belongsTo(App\Subsidiary::class);
+        return $this->belongsTo(Subsidiary::class);
     }
 }

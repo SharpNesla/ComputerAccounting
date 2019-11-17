@@ -10,6 +10,8 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AboutComponent} from "./about.component";
 import {SettingsComponent} from "./settings.component";
 import {LicensesComponent} from "./licenses/licenses.component";
+import {SubsidiaryEditorComponent} from "./subsidiary/subsidiary-editor.component";
+import {RoomEditorComponent} from "./room/room-editor.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -32,12 +34,11 @@ const routes: Routes = [
   {path: 'parts/add', component: ComputerEditorComponent},
   {path: 'parts/:id', component: ComputersComponent},
 
-
-
   {path: 'subsidiaries', component: SubsidiariesComponent},
-  {path: 'subsidiaries/add', component: ComputerEditorComponent},
+  {path: 'subsidiaries/add', component: SubsidiaryEditorComponent},
   {path: 'subsidiaries/:id', component: ComputersComponent},
-  {path: 'rooms/add', component: ComputerEditorComponent},
+
+  {path: 'rooms/add', component: RoomEditorComponent},
   {path: 'rooms/:id', component: ComputersComponent},
 
 

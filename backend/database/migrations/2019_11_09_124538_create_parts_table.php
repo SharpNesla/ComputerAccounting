@@ -16,6 +16,7 @@ class CreatePartsTable extends Migration
         Schema::create('parts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->text('comment')->nullable();
         });
     }
 

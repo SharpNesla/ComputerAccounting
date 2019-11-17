@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
       <sg-drawer-appbar-base>
           <header>Комплектующие</header>
           <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
-              <mat-tab  label="Справочник комплектующих">
+              <mat-tab label="Справочник комплектующих">
                   <sg-part-grid></sg-part-grid>
               </mat-tab>
               <mat-tab label="Справочник типов комплектующих">

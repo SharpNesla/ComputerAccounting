@@ -27,14 +27,18 @@ import {element} from "protractor";
                       </mat-select>
                   </mat-form-field>
                   {{this.CurrentPage}} из {{MaxPages}}
-                  <button mat-flat-button (click)="MovePrevious()" [disabled]="!this.IsBackEnabled">
+                  <button mat-icon-button class="sg-paginator-button"
+                          (click)="MovePrevious()" [disabled]="!this.IsBackEnabled">
                       <mat-icon>arrow_back</mat-icon>
                   </button>
-                  <button mat-flat-button (click)="MoveNext()" [disabled]="!this.IsNextEnabled">
+                  <button mat-icon-button  class="sg-paginator-button" (click)="MoveNext()" [disabled]="!this.IsNextEnabled">
                       <mat-icon>arrow_forward</mat-icon>
                   </button>
               </div>
           </mat-card>
+          <button mat-icon-button>
+              <mat-icon>filter_list</mat-icon>
+          </button>
           <button id="button-add" routerLink="{{this.link}}" mat-fab>
               <mat-icon>add</mat-icon>
           </button>
@@ -51,7 +55,8 @@ import {element} from "protractor";
       #search-toolbar {
           display: flex;
           font-size: 1em;
-          margin-top: 32px
+          margin-top: 32px;
+          margin-bottom: 2px;
       }
 
       #search-input {
@@ -61,7 +66,13 @@ import {element} from "protractor";
           padding: 0;
       }
 
-
+        .sg-paginator-button{
+            position: relative;
+            top: -1px;
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+        
       #paginator {
           padding: 5px 4px 0 16px;
       }
@@ -88,7 +99,13 @@ export class CrudComponent implements OnInit {
   @Input('entity-name') EntityName: string;
   @Input('is-compact') IsCompact: boolean;
   @Input('router-link') link: string;
-  @Input() count: number;
+
+  @Input('count') set Count(value) {
+    this.count = value;
+    this.CheckButtons();
+  }
+
+  count: number;
   @Input() icon: string;
   @Output() Search: EventEmitter<string>;
   @Output() Paginate: EventEmitter<{ offset: number, limit: number }>
@@ -100,21 +117,23 @@ export class CrudComponent implements OnInit {
     return this.EntityName.charAt(0).toUpperCase() + this.EntityName.slice(1);
   }
 
-  IsNextEnabled: boolean;
-  IsBackEnabled: boolean;
+  IsNextEnabled: boolean = false;
+  IsBackEnabled: boolean = false;
   SearchString: string;
   private currentPage: number;
   public elementsPerPage: number = 5;
 
-  public set CurrentPage(value){
+  public set CurrentPage(value) {
     this.currentPage = value;
     this.Paginate.emit(
       {offset: (this.currentPage - 1) * this.elementsPerPage, limit: this.elementsPerPage});
     this.CheckButtons();
   }
-  public get CurrentPage(){
+
+  public get CurrentPage() {
     return this.currentPage;
   }
+
   public set ElementsPerPage(value) {
     this.elementsPerPage = value;
     this.CurrentPage = 1;

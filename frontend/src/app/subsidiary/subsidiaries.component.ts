@@ -7,11 +7,10 @@ import {Component, OnInit} from '@angular/core';
           <header>Филиалы</header>
           <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
               <mat-tab  label="Справочник филиалов">
-                  <ng-container>
-                      
-                  </ng-container>
+                  <sg-subsidiary-grid></sg-subsidiary-grid>
               </mat-tab>
-              <mat-tab label="Справочник помещений">
+              <mat-tab label="Справочник помещений" id="rooms" >
+                  <sg-room-grid ></sg-room-grid>
               </mat-tab>
           </mat-tab-group>
       </sg-drawer-appbar-base>`

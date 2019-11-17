@@ -16,6 +16,7 @@ class CreateSoftwareTable extends Migration
         Schema::create('software', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->text('comment')->nullable();
         });
     }
 

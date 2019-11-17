@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Computer;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class CrudControllerBase extends Controller
@@ -22,11 +23,21 @@ class CrudControllerBase extends Controller
         return $this->facade::find($id);
     }
 
+    protected function queryFilters(Request $request, Builder $query): Builder
+    {
+
+        return $query;
+    }
+
+    protected function queryRelations(Request $request, Builder $query): Builder
+    {
+        return $query;
+    }
+
     public function get(Request $request)
     {
         return $this->facade::skip($request->offset)
-            ->take($request->limit)
-            ->get();
+            ->take($request->limit)->get();
     }
 
 
