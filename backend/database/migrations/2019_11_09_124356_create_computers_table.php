@@ -15,10 +15,17 @@ class CreateComputersTable extends Migration
     {
         Schema::create('computers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+
+
+            $table->bigInteger('room_id')->unsigned()->nullable();
+            $table->foreign('room_id')
+                ->references('id')->on('rooms')->onDelete('cascade');
+
             $table->text('name')->nullable();
             $table->text('inventory_id')->nullable();
             $table->text('comment')->nullable();
+            $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

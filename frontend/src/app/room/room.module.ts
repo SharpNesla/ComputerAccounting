@@ -9,10 +9,17 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import {RoomEditorComponent} from "./room-editor.component";
+import {SubsidiarySearchComponent} from "./subsidiary-search.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatSelectModule} from "@angular/material/select";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
-  declarations: [RoomGridComponent, RoomEditorComponent],
+  declarations: [RoomGridComponent, RoomEditorComponent, SubsidiarySearchComponent],
   exports: [
     RoomGridComponent
   ],
@@ -24,7 +31,15 @@ import {RoomEditorComponent} from "./room-editor.component";
     MatTableModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    FormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCheckboxModule
   ]
 })
 export class RoomModule {

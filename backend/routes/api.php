@@ -20,17 +20,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/computer/get', 'ComputerController@get');
 Route::get('/computer/count', 'ComputerController@getCount');
 Route::post('/computer/add', 'ComputerController@add');
-Route::delete('/computer/remove/{id}', 'ComputerController@delete');
+Route::delete('/computer/remove/{id}', 'ComputerController@remove');
 Route::get('/computer/{id}', 'ComputerController@getById');
 
 Route::get('/room/get', 'RoomController@get');
-Route::get('/room/{id}', 'RoomController@getById');
 Route::get('/room/count', 'RoomController@getCount');
 Route::post('/room/add', 'RoomController@add');
-Route::delete('/room/remove/{id}', 'RoomController@delete');
+Route::delete('/room/remove/{id}', 'RoomController@remove');
+Route::get('/room/{id}', 'RoomController@getById');
 
 Route::get('/subsidiary/get', 'SubsidiaryController@get');
 Route::get('/subsidiary/count', 'SubsidiaryController@getCount');
 Route::post('/subsidiary/add', 'SubsidiaryController@add');
-Route::delete('/subsidiary/remove/{id}', 'SubsidiaryController@delete');
+Route::delete('/subsidiary/remove/{id}', 'SubsidiaryController@remove');
 Route::get('/subsidiary/{id}', 'SubsidiaryController@getById');
+
+
+Route::get('/part/get', 'PartController@get');
+Route::get('/part/count', 'PartController@getCount');
+Route::post('/part/add', 'PartController@add');
+Route::delete('/part/remove/{id}', 'PartController@remove');
+Route::get('/part/{id}', 'PartController@getById');
+
+
+Route::get('/parttype/get', 'PartTypeController@get');
+Route::get('/parttype/count', 'PartTypeController@getCount');
+Route::post('/parttype/add', 'PartTypeController@add');
+Route::delete('/parttype/remove/{id}', 'PartTypeController@remove');
+Route::get('/parttype/{id}', 'PartTypeController@getById');

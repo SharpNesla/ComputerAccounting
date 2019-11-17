@@ -11,6 +11,7 @@ import {Location} from "@angular/common";
           <header>Добавление компьютера</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
+                  <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
                       <input matInput placeholder="Имя компьютера"
                              [(ngModel)]="this.Entity.Name">
@@ -21,6 +22,7 @@ import {Location} from "@angular/common";
                   </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
+                  <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
                       <input matInput placeholder="Комментарий">
@@ -28,36 +30,7 @@ import {Location} from "@angular/common";
               </mat-card>
           </div>
       </sg-dialog-layout>`,
-  styles: [
-      `:host {
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-      }
-
-      #left-section > * {
-          width: 100%;
-      }
-
-      #right-section > * {
-          width: 100%;
-      }
-
-      #left-section {
-
-          width: 300px;
-          margin-right: 2rem;
-      }
-
-      #right-section {
-          flex-grow: 1;
-      }
-
-      #sg-editor-card-container {
-          flex-grow: 1;
-          display: flex;
-          margin: 1.5em 1.5em 0 1.5em;
-      }`]
+  styleUrls: ['../utils/editors-styles.scss']
 })
 export class ComputerEditorComponent extends EditorBase<Computer, ComputerService> {
 

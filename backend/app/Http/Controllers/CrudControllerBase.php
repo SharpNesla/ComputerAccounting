@@ -36,7 +36,7 @@ class CrudControllerBase extends Controller
 
     public function get(Request $request)
     {
-        return $this->facade::skip($request->offset)
+        return $this->facade::where('deleted_at', null)->skip($request->offset)
             ->take($request->limit)->get();
     }
 
@@ -60,7 +60,11 @@ class CrudControllerBase extends Controller
         $model->save();
     }
 
-    public function delete()
+    public function remove($id)
     {
+        error_log($id);
+        $model = $this->facade::find($id);
+        $model->deleted_at = now();
+        $model->save();
     }
 }

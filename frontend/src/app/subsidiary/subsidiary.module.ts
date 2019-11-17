@@ -11,15 +11,16 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import {RoomModule} from "../room/room.module";
+import { SubsidiarySearchComponent } from '../room/subsidiary-search.component';
 
 
 @NgModule({
   declarations: [SubsidiariesComponent, SubsidiaryGridComponent, SubsidiaryGridComponent,
-  SubsidiaryEditorComponent],
+    SubsidiaryEditorComponent],
   imports: [
     CommonModule,
-    RoomModule,
     HttpClientModule,
+    RoomModule,
     UtilsModule,
     MatTabsModule,
     MatTableModule,

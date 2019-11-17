@@ -15,8 +15,13 @@ class CreatePartsTable extends Migration
     {
         Schema::create('parts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+
+            $table->bigInteger('part_type_id')->unsigned()->nullable();
+            $table->foreign('part_type_id')
+                ->references('id')->on('part_types')->onDelete('cascade');
+
             $table->text('comment')->nullable();
+            $table->timestamps();
         });
     }
 

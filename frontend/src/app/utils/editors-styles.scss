@@ -1,0 +1,19 @@
+#left-section {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-right: 2rem;
+}
+
+#right-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+}
+
+#sg-editor-card-container {
+  flex-grow: 1;
+  display: flex;
+  margin: 1.5em 1.5em 0 1.5em;
+}

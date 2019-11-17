@@ -25,8 +25,8 @@ import {SubsidiaryService} from "./subsidiary.service";
       </div>
       <sg-crud router-link="/subsidiaries/add"
                icon="storefront"
-               [count] = "this.Count"
-               (Paginate)="this.Refresh($event.offset, $event.limit)"
+               [count]="this.Count"
+               (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="компьютеров"
                is-compact="false"></sg-crud>`,
   styles: [

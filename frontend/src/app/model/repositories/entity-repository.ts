@@ -74,7 +74,7 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
   public remove(entity: T) {
-    return this.client.delete(`api/${this.entityPrefix}/delete/${entity.id}`)
+    return this.client.delete(`api/${this.entityPrefix}/remove/${entity.Id}`)
       .subscribe(
         response => console.log(response),
         error => console.log(error)
@@ -133,7 +133,7 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
   public add(entity: T) {
-    delete entity.id;
+    delete entity.Id;
     console.log(entity);
     const result = this.client.post(`api/${this.entityPrefix}/add`, keysToSnake(entity))
       .subscribe(
@@ -144,7 +144,7 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
   public update(entity: T) {
-    delete entity.id;
+    delete entity.Id;
     const result = this.client.post(`api/${this.entityPrefix}/update`, keysToSnake(entity))
       .subscribe(
         response => console.log(response),
