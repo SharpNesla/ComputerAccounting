@@ -23,6 +23,7 @@ class CreateRoomsTable extends Migration
 
             $table->text('number')->nullable();
             $table->text('comment')->nullable();
+            $table->softDeletes();
         });
     }
 

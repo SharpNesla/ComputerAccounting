@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {EntityGridBase} from "../utils/entity-grid-base";
 import {Room} from "./room";
 import {RoomService} from "./room.service";
+import {PartTypeService} from "../parts/part-type.service";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -28,7 +30,7 @@ import {RoomService} from "./room.service";
                is-compact="false"></sg-crud>`,
 })
 export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
-  constructor(private rooms: RoomService) {
-    super(rooms, ['select' ,'id', 'info'])
+  constructor(private rooms: RoomService, dialog: MatDialog) {
+    super(rooms, dialog, ['id'])
   }
 }

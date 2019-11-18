@@ -1,15 +1,16 @@
 import {EntityBase} from "../model/entities/entity-base";
 import {EntityRepository} from "../model/repositories/entity-repository";
-import {OnInit} from "@angular/core";
+import {OnDestroy, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
+import {ActivatedRoute} from "@angular/router";
 
 export class EditorBase<TEntity extends EntityBase,
   TRepository extends EntityRepository<TEntity>> implements OnInit {
   public Entity: TEntity;
-  private IsNew: boolean = true;
+  public isNew: boolean;
   protected Repo: TRepository;
 
-  constructor(repository : TRepository, addEntity : TEntity){
+  constructor(repository : TRepository, protected route : ActivatedRoute, addEntity : TEntity){
     this.Repo = repository;
     console.log(addEntity);
     this.Entity = addEntity;
@@ -17,7 +18,7 @@ export class EditorBase<TEntity extends EntityBase,
 
   public applyChanges()
   {
-    if (this.IsNew)
+    if (this.isNew)
     {
       this.Repo.add(this.Entity);
     }
@@ -30,7 +31,13 @@ export class EditorBase<TEntity extends EntityBase,
   public discardChanges(){
   }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
+    if (this.route.snapshot.url[1].path == 'add') {
+      this.isNew = true;
+    } else {
+      this.route.params.subscribe(params => {
+        this.Repo.getById(+params['id']).subscribe(x => this.Entity = x)
+      });
+    }
   }
 }

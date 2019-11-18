@@ -3,12 +3,14 @@ import {ComputerService} from "./computer.service";
 import {Computer} from "./computer";
 import {EditorBase} from "../utils/editor-base";
 import {Location} from "@angular/common";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'sg-computer-editor',
   template: `
       <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/computers">
-          <header>Добавление компьютера</header>
+          <header><mat-icon id="sg-editor-icon">desktop_mac</mat-icon> {{isNew ? 'Добавление' : 'Изменение'}} 
+              компьютера {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
@@ -25,7 +27,8 @@ import {Location} from "@angular/common";
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
-                      <input matInput placeholder="Комментарий">
+                      <textarea matInput placeholder="Комментарий"
+                        [(ngModel)]="this.Entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>
@@ -34,7 +37,9 @@ import {Location} from "@angular/common";
 })
 export class ComputerEditorComponent extends EditorBase<Computer, ComputerService> {
 
-  constructor(private service: ComputerService) {
-    super(service, new Computer());
+
+  constructor(private service: ComputerService, route: ActivatedRoute) {
+    super(service, route, new Computer());
   }
+
 }

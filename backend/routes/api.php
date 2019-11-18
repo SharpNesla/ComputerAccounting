@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/computer/get', 'ComputerController@get');
 Route::get('/computer/count', 'ComputerController@getCount');
 Route::post('/computer/add', 'ComputerController@add');
+Route::post('/computer/edit/{id}', 'ComputerController@update');
 Route::delete('/computer/remove/{id}', 'ComputerController@remove');
 Route::get('/computer/{id}', 'ComputerController@getById');
 
@@ -42,9 +43,8 @@ Route::post('/part/add', 'PartController@add');
 Route::delete('/part/remove/{id}', 'PartController@remove');
 Route::get('/part/{id}', 'PartController@getById');
 
-
-Route::get('/parttype/get', 'PartTypeController@get');
-Route::get('/parttype/count', 'PartTypeController@getCount');
-Route::post('/parttype/add', 'PartTypeController@add');
-Route::delete('/parttype/remove/{id}', 'PartTypeController@remove');
-Route::get('/parttype/{id}', 'PartTypeController@getById');
+Route::get('/part-type/get', 'PartTypeController@get');
+Route::get('/part-type/count', 'PartTypeController@getCount');
+Route::post('/part-type/add', 'PartTypeController@add');
+Route::delete('/part-type/remove/{id}', 'PartTypeController@remove');
+Route::get('/part-type/{id}', 'PartTypeController@getById');

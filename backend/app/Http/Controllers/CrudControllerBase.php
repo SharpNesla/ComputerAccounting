@@ -36,7 +36,7 @@ class CrudControllerBase extends Controller
 
     public function get(Request $request)
     {
-        return $this->facade::where('deleted_at', null)->skip($request->offset)
+        return $this->facade::orderBy('id')->skip($request->offset)
             ->take($request->limit)->get();
     }
 
@@ -49,8 +49,10 @@ class CrudControllerBase extends Controller
     public function update(Request $request)
     {
         $decodedAsArray = json_decode($request->getContent(), true);
-        $model = $this->facade::forceCreate($decodedAsArray);
+        $model = $this->facade::find($decodedAsArray['id']);
+        $model->forcefill($decodedAsArray);
         $model->save();
+
     }
 
     public function add(Request $request)
@@ -62,9 +64,6 @@ class CrudControllerBase extends Controller
 
     public function remove($id)
     {
-        error_log($id);
-        $model = $this->facade::find($id);
-        $model->deleted_at = now();
-        $model->save();
+        $model = $this->facade::destroy($id);
     }
 }

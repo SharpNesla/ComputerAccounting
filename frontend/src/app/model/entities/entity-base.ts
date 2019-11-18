@@ -1,5 +1,4 @@
 export abstract class EntityBase {
-  Id : number
-
-
+  Id : number;
+  Comment : string;
 }

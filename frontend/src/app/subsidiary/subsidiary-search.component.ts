@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {Subsidiary} from "../subsidiary/subsidiary";
-import {SubsidiaryService} from "../subsidiary/subsidiary.service";
+import {Subsidiary} from "./subsidiary";
+import {SubsidiaryService} from "./subsidiary.service";
 
 @Component({
   selector: 'sg-subsidiary-search',

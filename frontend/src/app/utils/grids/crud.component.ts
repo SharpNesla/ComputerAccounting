@@ -121,7 +121,7 @@ export class CrudComponent implements OnInit {
   IsBackEnabled: boolean = false;
   SearchString: string;
   private currentPage: number;
-  public elementsPerPage: number = 5;
+  public elementsPerPage: number = 10;
 
   public set CurrentPage(value) {
     this.currentPage = value;
@@ -171,6 +171,7 @@ export class CrudComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = 1;
+    this.CheckButtons();
   }
 
 }

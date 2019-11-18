@@ -4,6 +4,8 @@ import {Computer} from "./computer";
 import {EntityGridBase} from "../utils/entity-grid-base";
 import {SelectionModel} from "@angular/cdk/collections";
 import {MatMenuTrigger} from "@angular/material/menu";
+import {MatDialog} from "@angular/material/dialog";
+import {ComputerCardComponent} from "./computer-card.component";
 
 
 @Component({
@@ -44,7 +46,7 @@ import {MatMenuTrigger} from "@angular/material/menu";
               <ng-container matColumnDef="info" stickyEnd>
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                      <button mat-icon-button>
+                      <button mat-icon-button (click)="showInfoCard(element)">
                           <mat-icon>error_outline</mat-icon>
                       </button>
                   </td>
@@ -60,13 +62,12 @@ import {MatMenuTrigger} from "@angular/material/menu";
           </div>
           <mat-menu #contextMenu="matMenu">
               <ng-template matMenuContent let-item="item">
-                  <button mat-menu-item (click)="edit(item)">
+                  <button mat-menu-item [routerLink]="'/computers/edit/' + item.Id">
 
                       <mat-icon>edit</mat-icon>
                       Изменить
                   </button>
                   <button mat-menu-item (click)="remove(item)">
-
                       <mat-icon>remove_circle_outline</mat-icon>
                       Удалить
                   </button>
@@ -79,16 +80,20 @@ import {MatMenuTrigger} from "@angular/material/menu";
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="компьютеров"
                is-compact="false"></sg-crud>`,
-  styles: [
-      `:host {
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-      }
-    `]
 })
 export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
-  constructor(private computers: ComputerService) {
-    super(computers, ['select', 'id', 'name', 'inventory_id', 'info'])
+  constructor(computers: ComputerService, private dialogref: MatDialog) {
+    super(computers, dialogref, ['select', 'id', 'name', 'inventory_id', 'info'])
+  }
+
+  showInfoCard(element: Computer) {
+    const dialogRef = this.dialogref.open(ComputerCardComponent, {
+      data: element,
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

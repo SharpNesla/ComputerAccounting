@@ -60,11 +60,18 @@ table {
   margin: 2em;
   width: calc(100% - 4em);
 }
-
+.mat-dialog-container {
+  padding: 0 !important;
+  background: map-get($mat-light-theme-background, background);
+}
 .sg-table-info-button{
   width: 12px;
 }
 .sg-table-checkbox{
   width: 48px;
   padding-top: 2px;
+}
+.sg-appbar > header{
+  display: flex;
+  align-items: center;
 }

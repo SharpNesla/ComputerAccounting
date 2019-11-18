@@ -25,7 +25,7 @@ class CreateComputersTable extends Migration
             $table->text('inventory_id')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
         });
     }
 

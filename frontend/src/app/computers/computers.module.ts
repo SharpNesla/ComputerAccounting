@@ -16,6 +16,8 @@ import {FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatDialogModule} from "@angular/material/dialog";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -39,9 +41,12 @@ import {MatMenuModule} from "@angular/material/menu";
     FormsModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    RouterModule
   ],
-  exports: [ComputersComponent]
+  exports: [ComputersComponent],
+  entryComponents: [ ComputerCardComponent ]
 })
 export class ComputersModule {
 }

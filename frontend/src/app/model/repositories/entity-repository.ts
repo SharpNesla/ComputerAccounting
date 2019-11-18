@@ -75,10 +75,6 @@ export abstract class EntityRepository<T extends EntityBase> {
 
   public remove(entity: T) {
     return this.client.delete(`api/${this.entityPrefix}/remove/${entity.Id}`)
-      .subscribe(
-        response => console.log(response),
-        error => console.log(error)
-      )
   }
 
   public getById(id: number): Observable<T> {
@@ -144,8 +140,7 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
   public update(entity: T) {
-    delete entity.Id;
-    const result = this.client.post(`api/${this.entityPrefix}/update`, keysToSnake(entity))
+    const result = this.client.post(`api/${this.entityPrefix}/edit/${entity.Id}`, keysToSnake(entity))
       .subscribe(
         response => console.log(response),
         error => console.log(error)

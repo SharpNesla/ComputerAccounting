@@ -10,23 +10,40 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
-import {RoomModule} from "../room/room.module";
-import { SubsidiarySearchComponent } from '../room/subsidiary-search.component';
+import {SubsidiarySearchComponent} from './subsidiary-search.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatMenuModule} from "@angular/material/menu";
+import {RouterModule} from "@angular/router";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {FormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
+import {RoomGridComponent} from "./room-grid.component";
+import {RoomEditorComponent} from "./room-editor.component";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
   declarations: [SubsidiariesComponent, SubsidiaryGridComponent, SubsidiaryGridComponent,
-    SubsidiaryEditorComponent],
+    SubsidiaryEditorComponent, RoomGridComponent, RoomEditorComponent,
+    SubsidiarySearchComponent],
   imports: [
     CommonModule,
     HttpClientModule,
-    RoomModule,
     UtilsModule,
     MatTabsModule,
     MatTableModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
+    MatMenuModule,
+    RouterModule,
+    MatIconModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatButtonModule,
+    MatSelectModule
   ]
 })
 export class SubsidiaryModule {

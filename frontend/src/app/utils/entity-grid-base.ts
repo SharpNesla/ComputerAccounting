@@ -5,6 +5,9 @@ import {Observable} from "rxjs";
 import {SelectionModel} from "@angular/cdk/collections";
 import {Computer} from "../computers/computer";
 import {MatMenuTrigger} from "@angular/material/menu";
+import {ComputerCardComponent} from "../computers/computer-card.component";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog.component";
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
   TRepository extends EntityRepository<TEntity>> implements OnInit {
@@ -22,21 +25,20 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   public SearchString: string;
 
-  protected constructor(repository: TRepository, displayedColumns: string[]) {
+  protected constructor(repository: TRepository, protected dialog: MatDialog, displayedColumns: string[]) {
     this.Repo = repository;
     this.DisplayedColumns = displayedColumns;
   }
 
   public DisplayedColumns: string[];
-  private offset : number;
-  private limit : number;
-  public refreshPrevious(){
+  private offset: number;
+  private limit: number;
 
-    this.Entities = this.Repo.get(this.offset, this.limit,
-      [], null, null)
+  public refreshPrevious() {
+    this.refresh(this.offset, this.limit)
   }
 
-  public refresh(offset : number, limit : number) {
+  public refresh(offset: number, limit: number) {
     this.offset = offset;
     this.limit = limit;
     this.Entities = this.Repo.get(offset, limit,
@@ -57,17 +59,23 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     this.contextMenu.openMenu();
   }
 
-  edit(item: TEntity) {
-
-  }
-
-  remove(item: TEntity) {
-    this.Repo.remove(item);
-    this.refreshPrevious();
+  async remove(item: TEntity) {
+    const dialog = this.dialog.open(DeleteDialogComponent, {
+      width: '300px',
+      data: true
+    });
+    dialog.afterClosed().subscribe(x => {
+      console.log(x);
+      if (x){
+        this.Repo.remove(item).subscribe(x => {
+          this.refreshPrevious()
+        });
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.Entities = this.Repo.get(0, 5, [], null, null)
+    this.refresh(0, 10);
     this.Repo.getCount(null).subscribe(x => this.Count = x);
   }
 }

@@ -14,6 +14,8 @@ import {ComputersModule} from "./computers/computers.module";
 import {PageNotFoundComponent} from './page-not-found.component';
 import { AboutComponent } from './about.component';
 import { SettingsComponent } from './settings.component';
+import {DeleteDialogComponent} from "./delete-dialog.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { SettingsComponent } from './settings.component';
     PageNotFoundComponent,
     AboutComponent,
     SettingsComponent,
+    DeleteDialogComponent
   ],
   imports: [
     LoginModule,
@@ -32,10 +35,12 @@ import { SettingsComponent } from './settings.component';
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
-    UtilsModule
+    UtilsModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteDialogComponent]
 })
 export class AppModule {
 }

@@ -18,7 +18,7 @@ class CreateSoftwareTypesTable extends Migration
             $table->timestamps();
             $table->text('model');
             $table->text('comment')->nullable();
-
+            $table->softDeletes();
         });
     }
 

@@ -15,9 +15,11 @@ class CreateSubsidiariesTable extends Migration
     {
         Schema::create('subsidiaries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+
             $table->text('address')->nullable();
             $table->text('comment')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

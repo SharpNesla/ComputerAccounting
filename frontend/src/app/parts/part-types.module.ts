@@ -9,6 +9,13 @@ import {PartTypeCardComponent} from './part-type-card.component';
 import {MatTableModule} from "@angular/material/table";
 import {PartGridComponent} from "./part-grid.component";
 import {HttpClientModule} from "@angular/common/http";
+import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
+import {RouterModule} from "@angular/router";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -24,7 +31,13 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
     UtilsModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    MatIconModule,
+    MatMenuModule,
+    RouterModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   exports: [PartsComponent]
 })
