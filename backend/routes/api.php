@@ -36,6 +36,11 @@ Route::post('/subsidiary/add', 'SubsidiaryController@add');
 Route::delete('/subsidiary/remove/{id}', 'SubsidiaryController@remove');
 Route::get('/subsidiary/{id}', 'SubsidiaryController@getById');
 
+Route::get('/license/get', 'LicenseController@get');
+Route::get('/license/count', 'LicenseController@getCount');
+Route::post('/license/add', 'LicenseController@add');
+Route::delete('/license/remove/{id}', 'LicenseController@remove');
+Route::get('/license/{id}', 'LicenseController@getById');
 
 Route::get('/part/get', 'PartController@get');
 Route::get('/part/count', 'PartController@getCount');

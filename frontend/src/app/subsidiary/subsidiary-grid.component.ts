@@ -34,7 +34,7 @@ import {MatDialog} from "@angular/material/dialog";
           </ng-container>
           
           <ng-container matColumnDef="address">
-              <th mat-header-cell *matHeaderCellDef>Имя</th>
+              <th mat-header-cell *matHeaderCellDef>Адрес</th>
               <td mat-cell *matCellDef="let element"
                   (contextmenu)="onContextMenu($event, element)"> {{element.Address}} </td>
           </ng-container>

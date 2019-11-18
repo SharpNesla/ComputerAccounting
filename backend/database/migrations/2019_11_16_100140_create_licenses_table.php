@@ -16,11 +16,11 @@ class CreateLicensesTable extends Migration
         Schema::create('licenses', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->decimal('cost');
-            $table->timestamp('expiration-date');
+            $table->decimal('cost')->nullable();
+            $table->timestamp('expiration-date')->nullable();
             $table->text('eula')->nullable();
-            $table->integer('max-apply-count');
-            $table->time('purchase-date');
+            $table->integer('max-apply-count')->nullable();
+            $table->time('purchase-date')->nullable();
 
             $table->bigInteger('software_id')->unsigned()->nullable();
             $table->foreign('software_id')

@@ -8,7 +8,9 @@ import {ActivatedRoute} from "@angular/router";
   selector: 'sg-room-editor',
   template: `
       <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/subsidiaries">
-          <header>Добавление помещения</header>
+          <header><mat-icon id="sg-editor-icon">storefront</mat-icon> {{isNew ?
+                  'Добавление' : 'Изменение'}}
+              помещения {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>

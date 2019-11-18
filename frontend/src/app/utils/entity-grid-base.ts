@@ -74,6 +74,17 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     });
   }
 
+ 
+
+
+
+
+
+
+
+
+
+
   ngOnInit(): void {
     this.refresh(0, 10);
     this.Repo.getCount(null).subscribe(x => this.Count = x);

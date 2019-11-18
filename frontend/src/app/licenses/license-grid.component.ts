@@ -1,15 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ComputerService} from "./computer.service";
-import {Computer} from "./computer";
+import {LicensesService} from "./licenses.service";
+import {License} from "./license";
 import {EntityGridBase} from "../utils/entity-grid-base";
-import {SelectionModel} from "@angular/cdk/collections";
-import {MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
-import {ComputerCardComponent} from "./computer-card.component";
 
 
 @Component({
-  selector: 'sg-computer-grid',
+  selector: 'sg-license-grid',
   template: `
       <div id="sg-table-container">
           <table mat-table [dataSource]="this.Entities" class="mat-elevation-z4">
@@ -46,7 +43,7 @@ import {ComputerCardComponent} from "./computer-card.component";
               <ng-container matColumnDef="info" stickyEnd>
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                      <button mat-icon-button (click)="showInfoCard(element)">
+                      <button mat-icon-button>
                           <mat-icon>error_outline</mat-icon>
                       </button>
                   </td>
@@ -62,7 +59,7 @@ import {ComputerCardComponent} from "./computer-card.component";
           </div>
           <mat-menu #contextMenu="matMenu">
               <ng-template matMenuContent let-item="item">
-                  <button mat-menu-item [routerLink]="'/computers/edit/' + item.Id">
+                  <button mat-menu-item [routerLink]="'/licenses/edit/' + item.Id">
 
                       <mat-icon>edit</mat-icon>
                       Изменить
@@ -74,27 +71,15 @@ import {ComputerCardComponent} from "./computer-card.component";
               </ng-template>
           </mat-menu>
       </div>
-      <sg-crud router-link="/computers/add"
-               icon="desktop_mac"
+      <sg-crud router-link="/licenses/add"
+               icon="shop"
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
-               entity-name="компьютеров"
+               entity-name="Лицензий"
                is-compact="false"></sg-crud>`,
 })
-export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
-  constructor(computers: ComputerService, private dialogref: MatDialog) {
-    super(computers, dialogref, ['select', 'id', 'name', 'inventory_id', 'info'])
-  }
-
-  showInfoCard(element: Computer) {
-
-    const dialogRef = this.dialogref.open(ComputerCardComponent, {
-      data: element,
-      width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+export class LicenseGridComponent extends EntityGridBase<License, LicensesService> {
+  constructor(licenses: LicensesService, private dialogref: MatDialog) {
+    super(licenses, dialogref, ['select', 'id', 'name', 'inventory_id', 'info'])
   }
 }

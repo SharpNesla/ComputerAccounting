@@ -24,7 +24,7 @@ import {NavigationService} from "./navigation.service";
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="computers" icon="desktop_mac">Компьютеры</sg-drawer-button>
                   <sg-drawer-button link="software" icon="developer_board">Программы</sg-drawer-button>
-                  <sg-drawer-button link="licences" icon="shop">Лицензии</sg-drawer-button>
+                  <sg-drawer-button link="licenses" icon="shop">Лицензии</sg-drawer-button>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="settings" icon="settings">Настройки</sg-drawer-button>
                   <sg-drawer-button link="about" icon="info">О системе</sg-drawer-button>

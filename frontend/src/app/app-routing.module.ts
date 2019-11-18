@@ -12,6 +12,8 @@ import {SettingsComponent} from "./settings.component";
 import {LicensesComponent} from "./licenses/licenses.component";
 import {SubsidiaryEditorComponent} from "./subsidiary/subsidiary-editor.component";
 import {RoomEditorComponent} from "./subsidiary/room-editor.component";
+import {License} from "./licenses/license";
+import {LicenseEditorComponent} from "./licenses/license-editor.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -28,10 +30,10 @@ const routes: Routes = [
   {path: 'software/edit/:id', component: ComputerEditorComponent},
   {path: 'software/:id', component: ComputersComponent},
 
-  {path: 'licences', component: LicensesComponent},
-  {path: 'licences/add', component: ComputerEditorComponent},
-  {path: 'licenses/edit/:id', component: ComputerEditorComponent},
-  {path: 'licences/:id', component: ComputersComponent},
+  {path: 'licenses', component: LicensesComponent},
+  {path: 'licenses/add', component: LicenseEditorComponent},
+  {path: 'licenses/edit/:id', component: LicenseEditorComponent},
+  {path: 'licenses/:id', component: ComputersComponent},
 
   {path: 'parts', component: PartsComponent},
   {path: 'parts/add', component: ComputerEditorComponent},
@@ -44,8 +46,8 @@ const routes: Routes = [
   {path: 'subsidiaries/:id', component: ComputersComponent},
 
   {path: 'rooms/add', component: RoomEditorComponent},
+  {path: 'rooms/edit/:id', component: RoomEditorComponent},
   {path: 'rooms/:id', component: ComputersComponent},
-
 
   {path: 'settings', component: SettingsComponent},
   {path: 'about', component: AboutComponent},

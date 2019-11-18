@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'sg-computer-directory',
+  selector: 'sg-licenses-directory',
   template: `
       <sg-drawer-appbar-base>
           <header>Лицензии</header>
+          <sg-license-grid></sg-license-grid>
       </sg-drawer-appbar-base>`
 
 })
