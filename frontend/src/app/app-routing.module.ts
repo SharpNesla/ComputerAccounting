@@ -14,6 +14,10 @@ import {SubsidiaryEditorComponent} from "./subsidiary/subsidiary-editor.componen
 import {RoomEditorComponent} from "./subsidiary/room-editor.component";
 import {License} from "./licenses/license";
 import {LicenseEditorComponent} from "./licenses/license-editor.component";
+import {SoftwareListComponent} from "./software/software-list.component";
+import {SoftwareEditorComponent} from "./software/software-editor.component";
+import {ComputerCardComponent} from "./computers/computer-card.component";
+import {SoftwareTypeEditorComponent} from "./software/software-type-editor.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -23,12 +27,16 @@ const routes: Routes = [
   {path: 'computers', component: ComputersComponent},
   {path: 'computers/add', component: ComputerEditorComponent},
   {path: 'computers/edit/:id', component: ComputerEditorComponent},
-  {path: 'computers/:id', component: ComputersComponent},
+  {path: 'computers/:id', component: ComputerCardComponent},
 
-  {path: 'software', component: PartsComponent},
-  {path: 'software/add', component: ComputerEditorComponent},
-  {path: 'software/edit/:id', component: ComputerEditorComponent},
+  {path: 'software', component: SoftwareListComponent},
+  {path: 'software/add', component: SoftwareEditorComponent},
+  {path: 'software/edit/:id', component: SoftwareEditorComponent},
   {path: 'software/:id', component: ComputersComponent},
+
+  {path: 'software-type/add', component: SoftwareTypeEditorComponent},
+  {path: 'software-type/edit/:id', component: SoftwareTypeEditorComponent},
+  {path: 'software-type/:id', component: ComputersComponent},
 
   {path: 'licenses', component: LicensesComponent},
   {path: 'licenses/add', component: LicenseEditorComponent},

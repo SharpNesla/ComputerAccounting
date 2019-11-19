@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Location } from '@angular/common';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'sg-dialog-layout',
@@ -11,9 +11,12 @@ import { Location } from '@angular/common';
           <ng-content></ng-content>
           <div id="sg-button-container">
               <button mat-button color="primary" [routerLink]="EndLink"
-                      (click)="Accept.emit()">ПРИНЯТЬ</button>
-              <button id="discard-button" [routerLink]="EndLink" (click)="Deny.emit()"
-                      mat-button color="primary">ОТМЕНИТЬ</button>
+                      (click)="Accept.emit()">ПРИНЯТЬ
+              </button>
+              <button id="discard-button"
+                      [routerLink]="EndLink" (click)="Deny.emit()"
+                      mat-button color="primary">ОТМЕНИТЬ
+              </button>
           </div>
       </main>`,
   styles: [`
@@ -22,21 +25,28 @@ import { Location } from '@angular/common';
           display: flex;
           width: calc(100% - 2.6rem);
       }
-    
-    #discard-button{
-        margin-left: auto;
-    }
-        
+
+      #discard-button {
+          margin-left: auto;
+      }
+
   `]
 })
 export class DialogLayoutComponent implements OnInit {
-  @Input('end-link') EndLink : string;
+  @Input('end-link') EndLink: string;
   @Output() Accept = new EventEmitter();
   @Output() Deny = new EventEmitter();
-  constructor(private location: Location) { }
+
+  constructor(private location: Location) {
+  }
 
   cancel() {
     this.location.back()
+  }
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event:
+                                                                          KeyboardEvent) {
+    this.Deny.emit();
   }
 
   ngOnInit() {
