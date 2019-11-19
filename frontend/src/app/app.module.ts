@@ -16,6 +16,10 @@ import { AboutComponent } from './about.component';
 import { SettingsComponent } from './settings.component';
 import {DeleteDialogComponent} from "./delete-dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatCardModule} from "@angular/material/card";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatDividerModule,
     MatIconModule,
     UtilsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent],
