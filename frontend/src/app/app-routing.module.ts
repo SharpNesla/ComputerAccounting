@@ -53,6 +53,7 @@ const routes: Routes = [
   {path: 'subsidiaries/edit/:id', component: SubsidiaryEditorComponent},
   {path: 'subsidiaries/:id', component: ComputersComponent},
 
+  {path: 'rooms', component: SubsidiariesComponent},
   {path: 'rooms/add', component: RoomEditorComponent},
   {path: 'rooms/edit/:id', component: RoomEditorComponent},
   {path: 'rooms/:id', component: ComputersComponent},

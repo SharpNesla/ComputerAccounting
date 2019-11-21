@@ -43,15 +43,16 @@ import {NavigationService} from "./navigation.service";
       #sg-drawer-userbar-close {
           transform: scale(1.5);
       }
-      mat-sidenav-content{
+
+      mat-sidenav-content {
           flex-direction: column;
           display: flex;
           align-content: stretch;
           justify-content: stretch;
       }
+
       mat-sidenav-container {
           height: 100vh;
-          
       }
 
       #drawer-content-container {
@@ -74,7 +75,7 @@ export class AppComponent {
     this.navService.IsDrawerOpened = value;
   }
 
-  closeDrawer(){
+  closeDrawer() {
     this.navService.IsDrawerOpened = false;
   }
 

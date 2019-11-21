@@ -28,8 +28,8 @@ import {SoftwareTypeService} from "./software-type.service";
 export class SoftwareTypeEditorComponent extends EditorBase<SoftwareType, SoftwareTypeService> {
 
 
-  constructor(private service: SoftwareService, route: ActivatedRoute) {
-    super(service, route, new Software());
+  constructor(private service: SoftwareTypeService, route: ActivatedRoute) {
+    super(service, route, new SoftwareType());
   }
 
 }

@@ -4,8 +4,7 @@ import {element} from "protractor";
 
 @Component({
   selector: 'sg-crud',
-  template: `
-
+  template: `    
       <mat-toolbar id="search-toolbar" color="primary" class="mat-elevation-z4">
           <mat-icon>{{this.icon}}</mat-icon>
           <mat-card id="search-input">
@@ -55,7 +54,6 @@ import {element} from "protractor";
       #search-toolbar {
           display: flex;
           font-size: 1em;
-          margin-top: 32px;
           margin-bottom: 2px;
       }
 

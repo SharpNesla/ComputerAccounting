@@ -17,12 +17,18 @@ import {MatInputModule} from "@angular/material/input";
 import {SoftwareTypeEditorComponent} from "./software-type-editor.component";
 import {SoftwareTypeGridComponent} from "./software-type-grid.component";
 import {MatButtonModule} from "@angular/material/button";
+import {SoftwareTypeSearchComponent} from "./software-type-search.component";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 
 
 @NgModule({
   declarations: [SoftwareListComponent, SoftwareEditorComponent, SoftwareGridComponent,
-  SoftwareTypeEditorComponent, SoftwareTypeGridComponent],
+    SoftwareTypeEditorComponent, SoftwareTypeGridComponent, SoftwareTypeSearchComponent],
+  exports: [
+    SoftwareTypeSearchComponent
+  ],
   imports: [
     CommonModule,
     MatTabsModule,
@@ -36,7 +42,9 @@ import {MatButtonModule} from "@angular/material/button";
     MatTableModule,
     MatCheckboxModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class SoftwareModule { }

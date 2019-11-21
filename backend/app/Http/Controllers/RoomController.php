@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Room;
-use http\QueryString;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 
 class RoomController extends CrudControllerBase
 {
-    function __construct() {
+    function __construct()
+    {
         parent::__construct(Room::class);
     }
-
-    protected function queryRelations(Request $request, Builder $query): Builder
+    public function getById($id)
     {
-        return parent::queryRelations($request, $query)
-            ->with('subsidiary');
+        return Room::with('subsidiary')->find($id);
     }
 }

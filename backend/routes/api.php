@@ -27,7 +27,7 @@ Route::get('/computer/{id}', 'ComputerController@getById');
 Route::get('/room/get', 'RoomController@get');
 Route::get('/room/count', 'RoomController@getCount');
 Route::post('/room/add', 'RoomController@add');
-Route::post('/room/edit/{id}', 'RoomConrtoller@update');
+Route::post('/room/edit/{id}', 'RoomController@update');
 Route::delete('/room/remove/{id}', 'RoomController@remove');
 Route::get('/room/{id}', 'RoomController@getById');
 

@@ -1,30 +1,26 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Observable} from "rxjs";
-import {Subsidiary} from "./subsidiary";
-import {SubsidiaryService} from "./subsidiary.service";
-import {map} from "rxjs/operators";
+import {Component} from '@angular/core';
 import {SingleSearchBase} from "../utils/single-search-base";
+import {SoftwareType} from "./software-type";
+import {SoftwareTypeService} from "./software-type.service";
 
 @Component({
-  selector: 'sg-subsidiary-search',
+  selector: 'sg-software-type-search',
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [value]="selectedEntity"
-                      (opened)="this.search()"                            
-                      (valueChange)="selectedEntityChanged.emit($event)">
+          <mat-select [value]="selectedEntity" (valueChange)="selectedEntityChanged.emit($event)">
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field appearance="standard">
-                  <input matInput placeholder="Поиск сущности"
+                  <input matInput [placeholder]="'Поиск ' + searchHint"
                          (keydown)="$event.stopPropagation()"
                          type="search"
                          [(ngModel)]="searchString">
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">
-                  {{entity.Id}} {{entity.Address}}
+                  {{entity.Id}} {{entity.TypeName}} {{entity.Category}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,
@@ -38,8 +34,9 @@ import {SingleSearchBase} from "../utils/single-search-base";
           margin-right: 4px;
       }`]
 })
-export class SubsidiarySearchComponent extends SingleSearchBase<Subsidiary, SubsidiaryService> {
-  constructor(service : SubsidiaryService){
+export class SoftwareTypeSearchComponent extends
+  SingleSearchBase<SoftwareType, SoftwareTypeService> {
+  constructor(service : SoftwareTypeService){
     super(service);
   }
 }

@@ -9,7 +9,9 @@ import {ActivatedRoute} from "@angular/router";
   selector: 'sg-computer-editor',
   template: `
       <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/licenses">
-          <header><mat-icon id="sg-editor-icon">shop</mat-icon> {{isNew ? 'Добавление' : 'Изменение'}} 
+          <header>
+              <mat-icon id="sg-editor-icon">shop</mat-icon>
+              {{isNew ? 'Добавление' : 'Изменение'}}
               лицензии {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
@@ -19,11 +21,17 @@ import {ActivatedRoute} from "@angular/router";
                              [(ngModel)]="Entity.Cost" placeholder="Цена">
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput [(ngModel)]="Entity.MaxApplyCount"
+                      <input [(ngModel)]="Entity.MaxApplyCount" type="number"
+                             step=1 matInput required
                              placeholder="Количество возможных применений">
                   </mat-form-field>
+                  <sg-software-type-search hint="Тип ПО" searchHint="типа ПО"></sg-software-type-search>
+
+                  <mat-checkbox>Disabled</mat-checkbox>
                   <mat-form-field>
-                      <input matInput placeholder="Input">
+                      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
@@ -31,7 +39,7 @@ import {ActivatedRoute} from "@angular/router";
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput placeholder="Комментарий"
-                        [(ngModel)]="this.Entity.Comment"></textarea>
+                                [(ngModel)]="this.Entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>

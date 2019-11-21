@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
           <header>Справочник компьютеров</header>
           
           <sg-computer-grid></sg-computer-grid>
-      </sg-drawer-appbar-base>`
+      </sg-drawer-appbar-base>`,
 })
 export class ComputersComponent implements OnInit {
 

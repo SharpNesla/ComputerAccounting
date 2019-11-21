@@ -21,12 +21,18 @@ import {MatButtonModule} from "@angular/material/button";
 import {RoomGridComponent} from "./room-grid.component";
 import {RoomEditorComponent} from "./room-editor.component";
 import {MatSelectModule} from "@angular/material/select";
+import {MatDividerModule} from "@angular/material/divider";
+import {RoomSearchComponent} from "./room-search.component";
 
 
 @NgModule({
   declarations: [SubsidiariesComponent, SubsidiaryGridComponent, SubsidiaryGridComponent,
-    SubsidiaryEditorComponent, RoomGridComponent, RoomEditorComponent,
+    SubsidiaryEditorComponent, RoomGridComponent, RoomEditorComponent, RoomSearchComponent,
     SubsidiarySearchComponent],
+  exports: [
+    SubsidiarySearchComponent,
+    RoomSearchComponent
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -43,7 +49,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatCheckboxModule,
     FormsModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule
   ]
 })
 export class SubsidiaryModule {

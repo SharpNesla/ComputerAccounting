@@ -4,15 +4,15 @@ import {Subsidiary} from "./subsidiary";
 import {SubsidiaryService} from "./subsidiary.service";
 import {map} from "rxjs/operators";
 import {SingleSearchBase} from "../utils/single-search-base";
+import {Room} from "./room";
+import {RoomService} from "./room.service";
 
 @Component({
-  selector: 'sg-subsidiary-search',
+  selector: 'sg-room-search',
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [value]="selectedEntity"
-                      (opened)="this.search()"                            
-                      (valueChange)="selectedEntityChanged.emit($event)">
+          <mat-select [value]="selectedEntity" (valueChange)="selectedEntityChanged.emit($event)">
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
@@ -24,7 +24,7 @@ import {SingleSearchBase} from "../utils/single-search-base";
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">
-                  {{entity.Id}} {{entity.Address}}
+                  {{entity.Id}} {{entity.Number}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,
@@ -38,8 +38,8 @@ import {SingleSearchBase} from "../utils/single-search-base";
           margin-right: 4px;
       }`]
 })
-export class SubsidiarySearchComponent extends SingleSearchBase<Subsidiary, SubsidiaryService> {
-  constructor(service : SubsidiaryService){
+export class RoomSearchComponent extends SingleSearchBase<Room, RoomService> {
+  constructor(service : RoomService){
     super(service);
   }
 }

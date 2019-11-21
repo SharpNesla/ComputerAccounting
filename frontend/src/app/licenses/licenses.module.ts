@@ -15,7 +15,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {SoftwareModule} from "../software/software.module";
+import {PortalModule} from "@angular/cdk/portal";
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {A11yModule} from "@angular/cdk/a11y";
 
 
 @NgModule({
@@ -34,7 +37,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatDatepickerModule
+    SoftwareModule,
+    MatDatepickerModule,
   ]
 })
 export class LicensesModule {

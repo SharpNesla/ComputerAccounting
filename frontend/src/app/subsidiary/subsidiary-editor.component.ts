@@ -18,7 +18,8 @@ import {ActivatedRoute} from "@angular/router";
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
-                      <input matInput placeholder="Название">
+                      <input matInput placeholder="Название"
+                             [(ngModel)]="this.Entity.Name">
                   </mat-form-field>
                   <mat-form-field>
                       <input matInput placeholder="Адрес"

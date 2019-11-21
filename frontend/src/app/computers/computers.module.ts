@@ -18,6 +18,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {RouterModule} from "@angular/router";
+import {SubsidiaryModule} from "../subsidiary/subsidiary.module";
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {RouterModule} from "@angular/router";
     MatButtonModule,
     MatMenuModule,
     MatDialogModule,
-    RouterModule
+    RouterModule,
+    SubsidiaryModule
   ],
   exports: [ComputersComponent],
   entryComponents: [ ComputerCardComponent ]

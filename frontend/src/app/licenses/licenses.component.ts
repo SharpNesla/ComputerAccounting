@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
       <sg-drawer-appbar-base>
           <header>Лицензии</header>
           <sg-license-grid></sg-license-grid>
-      </sg-drawer-appbar-base>`
+      </sg-drawer-appbar-base>`,
 
 })
 export class LicensesComponent implements OnInit {

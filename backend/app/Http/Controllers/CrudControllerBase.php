@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Computer;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class CrudControllerBase extends Controller
@@ -20,28 +21,28 @@ class CrudControllerBase extends Controller
 
     public function getById($id)
     {
-        return $this->facade::find($id);
+        return $this->facade::findorfail($id);
     }
 
-    protected function queryFilters(Request $request, Builder $query): Builder
+    protected function queryMany(Request $request, Builder $builder): Builder
     {
-
-        return $query;
+        return $builder;
     }
 
-    protected function queryRelations(Request $request, Builder $query): Builder
+    protected function querySave(Array $object, Model $model): Model
     {
-        return $query;
+        return $model;
     }
 
     public function get(Request $request)
     {
-        return $this->facade::orderBy('id')->skip($request->offset)
+        return $this->queryMany($request, $this->facade::orderBy('id'))
+            ->skip($request->offset)
             ->take($request->limit)->get();
     }
 
 
-    public function getCount()
+    public function getCount(Request $request)
     {
         return $this->facade::count();
     }
@@ -50,7 +51,8 @@ class CrudControllerBase extends Controller
     {
         $decodedAsArray = json_decode($request->getContent(), true);
         $model = $this->facade::find($decodedAsArray['id']);
-        $model->forcefill($decodedAsArray);
+        $model->fill($decodedAsArray);
+        $model = $this->querySave($decodedAsArray ,$model);
         $model->save();
 
     }

@@ -7,7 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'sg-room-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/subsidiaries">
+      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/rooms">
           <header><mat-icon id="sg-editor-icon">storefront</mat-icon> {{isNew ?
                   'Добавление' : 'Изменение'}}
               помещения {{!isNew ? '№' + this.Entity.Id : ''}}</header>
@@ -18,7 +18,7 @@ import {ActivatedRoute} from "@angular/router";
                       <input matInput placeholder="Номер помещения"
                              [(ngModel)]="this.Entity.Number">
                   </mat-form-field>
-                  <sg-subsidiary-search></sg-subsidiary-search>
+                  <sg-subsidiary-search [(selected)]="Entity.Subsidiary"></sg-subsidiary-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>

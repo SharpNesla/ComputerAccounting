@@ -130,6 +130,7 @@ export abstract class EntityRepository<T extends EntityBase> {
 
   public add(entity: T) {
     delete entity.Id;
+    this.prepareEntity(entity);
     console.log(entity);
     const result = this.client.post(`api/${this.entityPrefix}/add`, keysToSnake(entity))
       .subscribe(
@@ -140,11 +141,16 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
   public update(entity: T) {
+    this.prepareEntity(entity);
     const result = this.client.post(`api/${this.entityPrefix}/edit/${entity.Id}`, keysToSnake(entity))
       .subscribe(
         response => console.log(response),
         error => console.log(error)
       )
     ;
+  }
+
+  protected prepareEntity(entity : T) : T{
+    return entity;
   }
 }

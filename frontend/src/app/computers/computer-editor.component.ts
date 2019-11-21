@@ -22,6 +22,8 @@ import {ActivatedRoute} from "@angular/router";
                       <input matInput placeholder="Инвентарный номер"
                              [(ngModel)]="this.Entity.InventoryId">
                   </mat-form-field>
+                  <sg-subsidiary-search hint="Филиал помещения"></sg-subsidiary-search>
+                  <sg-room-search hint="Помещение"></sg-room-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
