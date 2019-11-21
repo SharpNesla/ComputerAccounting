@@ -11,10 +11,16 @@ import {NavigationService} from "./navigation.service";
           <mat-sidenav mode="over" [(opened)]="this.IsDrawerOpened">
               <div id="drawer-content-container">
                   <div id="sg-drawer-userbar">
+                      <div>
+                          <b>Иванов Иван Иванович</b>
+                          <div>Директор</div>
+                      </div>
+                      <div class="flex-spacer"></div>
                       <button id="sg-drawer-userbar-close" mat-icon-button (click)="this.closeDrawer()">
                           <mat-icon>arrow_forward</mat-icon>
                       </button>
                   </div>
+                  <mat-divider></mat-divider>
                   <sg-drawer-button link="dashboard" icon="dashboard">Обзор</sg-drawer-button>
                   <sg-drawer-button link="analytics" icon="insert_chart_outlined">Аналитика</sg-drawer-button>
                   <mat-divider></mat-divider>
@@ -42,6 +48,13 @@ import {NavigationService} from "./navigation.service";
 
       #sg-drawer-userbar-close {
           transform: scale(1.5);
+          margin-left: 1em;
+      }
+
+      #sg-drawer-userbar {
+          display: flex;
+          align-items: center;
+          padding: 1em 2em 1em 1.8em;
       }
 
       mat-sidenav-content {

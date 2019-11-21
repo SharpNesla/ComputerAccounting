@@ -10,8 +10,7 @@ import {SingleSearchBase} from "../utils/single-search-base";
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [value]="selectedEntity"
-                      (opened)="this.search()"                            
+          <mat-select [value]="selectedEntity"                           
                       (valueChange)="selectedEntityChanged.emit($event)">
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>

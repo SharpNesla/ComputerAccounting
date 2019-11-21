@@ -9,8 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-room-grid',
   template: `
-      <div id="sg-table-container">
-          <table mat-table [dataSource]="this.Entities" class="mat-elevation-z4">
+          <table mat-table [dataSource]="this.Entities" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox>
@@ -29,7 +28,7 @@ import {MatDialog} from "@angular/material/dialog";
               </ng-container>
 
               <ng-container matColumnDef="number">
-                  <th mat-header-cell *matHeaderCellDef>Имя</th>
+                  <th mat-header-cell *matHeaderCellDef>Номер</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.Number}} </td>
               </ng-container>
@@ -64,7 +63,6 @@ import {MatDialog} from "@angular/material/dialog";
                   </button>
               </ng-template>
           </mat-menu>
-      </div>
       <sg-crud router-link="/rooms/add"
                icon="storefront"
                [count]="this.Count"
@@ -74,6 +72,6 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
   constructor(private rooms: RoomService, dialog: MatDialog) {
-    super(rooms, dialog, ['select', 'id', 'info'])
+    super(rooms, dialog, ['select', 'id', 'number', 'info'])
   }
 }

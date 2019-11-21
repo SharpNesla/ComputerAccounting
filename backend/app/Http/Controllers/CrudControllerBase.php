@@ -21,7 +21,7 @@ class CrudControllerBase extends Controller
 
     public function getById($id)
     {
-        return $this->facade::findorfail($id);
+        return $this->facade::findOrFail($id);
     }
 
     protected function queryMany(Request $request, Builder $builder): Builder

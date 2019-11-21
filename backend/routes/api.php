@@ -45,6 +45,21 @@ Route::post('/license/edit/{id}', 'LicenseController@update');
 Route::delete('/license/remove/{id}', 'LicenseController@remove');
 Route::get('/license/{id}', 'LicenseController@getById');
 
+Route::get('/software/get', 'SoftwareController@get');
+Route::get('/software/count', 'SoftwareController@getCount');
+Route::post('/software/add', 'SoftwareController@add');
+Route::post('/software-type/edit/{id}', 'SoftwareController@update');
+Route::delete('/software/remove/{id}', 'SoftwareController@remove');
+Route::get('/software/{id}', 'SoftwareController@getById');
+
+Route::get('/software-type/get', 'SoftwareTypeController@get');
+Route::get('/software-type/count', 'SoftwareTypeController@getCount');
+Route::post('/software-type/add', 'SoftwareTypeController@add');
+Route::post('/software-type/edit/{id}', 'SoftwareTypeController@update');
+Route::delete('/software-type/remove/{id}', 'SoftwareTypeController@remove');
+Route::get('/software-type/{id}', 'SoftwareTypeController@getById');
+
+
 Route::get('/part/get', 'PartController@get');
 Route::get('/part/count', 'PartController@getCount');
 Route::post('/part/add', 'PartController@add');

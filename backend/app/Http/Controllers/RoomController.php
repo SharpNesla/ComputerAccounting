@@ -11,8 +11,11 @@ class RoomController extends CrudControllerBase
     {
         parent::__construct(Room::class);
     }
+
+
+
     public function getById($id)
     {
-        return Room::with('subsidiary')->find($id);
+        return Room::with('subsidiary')->findOrFail($id);
     }
 }

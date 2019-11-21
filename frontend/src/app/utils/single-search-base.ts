@@ -7,14 +7,14 @@ import {EntityBase} from "../model/entities/entity-base";
 import {EntityRepository} from "../model/repositories/entity-repository";
 
 export class SingleSearchBase<TEntity extends EntityBase,
-  TEntityRepository extends EntityRepository<TEntity>> {
+  TEntityRepository extends EntityRepository<TEntity>> implements OnInit {
 
 
   entities: Observable<TEntity[]>;
   @Input('selected') selectedEntity: TEntity;
-  @Input() hint : string;
-  @Input() searchHint : string;
-  @Input() filterDefinition : TEntity[];
+  @Input() hint: string;
+  @Input() searchHint: string;
+  @Input() filterDefinition: TEntity[];
   @Output('selectedChange') selectedEntityChanged: EventEmitter<TEntity>;
   searchString: string;
 
@@ -29,8 +29,15 @@ export class SingleSearchBase<TEntity extends EntityBase,
         }));
   }
 
-  constructor(private service : TEntityRepository) {
+  constructor(private service: TEntityRepository) {
     this.selectedEntityChanged = new EventEmitter<TEntity>();
+  }
+
+  ngOnInit(): void {
+    // this.entities = new Observable<TEntity[]>((observer) => {
+    //   observer.next([this.selectedEntity]);
+    // });
+    this.search()
   }
 
 }

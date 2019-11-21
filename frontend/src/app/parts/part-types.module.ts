@@ -16,6 +16,9 @@ import {MatMenuModule} from "@angular/material/menu";
 import {RouterModule} from "@angular/router";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
+import {PartEditorComponent} from "./part-editor.component";
+import {FormsModule} from "@angular/forms";
+import {MaterialModule} from "../material-module";
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import {MatButtonModule} from "@angular/material/button";
     PartTypeEditorComponent,
     PartTypeGridComponent,
     PartTypeCardComponent,
-    PartGridComponent
+    PartTypeEditorComponent,
+    PartGridComponent,
+    PartEditorComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +42,9 @@ import {MatButtonModule} from "@angular/material/button";
     MatMenuModule,
     RouterModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    MaterialModule
   ],
   exports: [PartsComponent]
 })

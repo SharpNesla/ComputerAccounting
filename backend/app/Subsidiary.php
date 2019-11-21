@@ -11,4 +11,10 @@ class Subsidiary extends Model
     use SoftDeletes;
 
     protected $fillable = ['name', 'address', 'comment'];
+
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

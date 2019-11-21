@@ -15,4 +15,9 @@ class Room extends Model
     {
         return $this->belongsTo(Subsidiary::class);
     }
+
+    public function computers()
+    {
+        return $this->belongsTo(Computer::class);
+    }
 }

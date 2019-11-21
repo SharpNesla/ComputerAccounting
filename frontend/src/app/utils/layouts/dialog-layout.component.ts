@@ -5,7 +5,7 @@ import {Location} from '@angular/common';
   selector: 'sg-dialog-layout',
   template: `
       <main>
-          <mat-toolbar color="primary" class="mat-elevation-z4 sg-appbar">
+          <mat-toolbar color="primary" class="mat-elevation-z2 sg-appbar">
               <ng-content select="header"></ng-content>
           </mat-toolbar>
           <ng-content></ng-content>

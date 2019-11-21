@@ -18,11 +18,16 @@ import {SoftwareListComponent} from "./software/software-list.component";
 import {SoftwareEditorComponent} from "./software/software-editor.component";
 import {ComputerCardComponent} from "./computers/computer-card.component";
 import {SoftwareTypeEditorComponent} from "./software/software-type-editor.component";
+import {PartEditorComponent} from "./parts/part-editor.component";
+import {PartTypeEditorComponent} from "./parts/part-type-editor.component";
+import {AnalyticsComponent} from "./analytics/analytics.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
 
   {path: 'dashboard', component: DashboardComponent},
+
+  {path: 'analytics', component: AnalyticsComponent},
 
   {path: 'computers', component: ComputersComponent},
   {path: 'computers/add', component: ComputerEditorComponent},
@@ -44,9 +49,14 @@ const routes: Routes = [
   {path: 'licenses/:id', component: ComputersComponent},
 
   {path: 'parts', component: PartsComponent},
-  {path: 'parts/add', component: ComputerEditorComponent},
-  {path: 'parts/edit/:id', component: ComputerEditorComponent},
+  {path: 'parts/add', component: PartEditorComponent},
+  {path: 'parts/edit/:id', component: PartEditorComponent},
   {path: 'parts/:id', component: ComputersComponent},
+
+  {path: 'part-types', component: PartsComponent},
+  {path: 'part-types/add', component: PartTypeEditorComponent},
+  {path: 'part-types/edit/:id', component: PartTypeEditorComponent},
+  {path: 'part-types/:id', component: ComputersComponent},
 
   {path: 'subsidiaries', component: SubsidiariesComponent},
   {path: 'subsidiaries/add', component: SubsidiaryEditorComponent},

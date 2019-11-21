@@ -12,7 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
 
       <div class="sg-grid-container">
           <div id="sg-table-container">
-              <table mat-table [dataSource]="this.Entities" class="mat-elevation-z4">
+              <table mat-table [dataSource]="this.Entities" class="sg-table">
                   <ng-container matColumnDef="select">
                       <th mat-header-cell *matHeaderCellDef>
                           <mat-checkbox>
@@ -31,7 +31,7 @@ import {MatDialog} from "@angular/material/dialog";
                   </ng-container>
 
                   <ng-container matColumnDef="name">
-                      <th mat-header-cell *matHeaderCellDef>Имя</th>
+                      <th mat-header-cell *matHeaderCellDef>Название</th>
                       <td mat-cell *matCellDef="let element"
                           (contextmenu)="onContextMenu($event, element)"> {{element.Name}} </td>
                   </ng-container>
@@ -42,6 +42,11 @@ import {MatDialog} from "@angular/material/dialog";
                           (contextmenu)="onContextMenu($event, element)"> {{element.Address}} </td>
                   </ng-container>
 
+                  <ng-container matColumnDef="roomcount">
+                      <th mat-header-cell *matHeaderCellDef>Комнаты</th>
+                      <td mat-cell *matCellDef="let element"
+                          (contextmenu)="onContextMenu($event, element)"> {{element.RoomsCount}} </td>
+                  </ng-container>
 
                   <ng-container matColumnDef="info" stickyEnd>
                       <th mat-header-cell *matHeaderCellDef></th>
@@ -84,6 +89,6 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, SubsidiaryService> {
   constructor(private computers: SubsidiaryService, dialog: MatDialog) {
-    super(computers, dialog, ['select', 'id', 'name', 'address', 'info'])
+    super(computers, dialog, ['select', 'id', 'name', 'address', 'roomcount', 'info'])
   }
 }

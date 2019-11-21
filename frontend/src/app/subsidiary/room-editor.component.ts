@@ -18,7 +18,8 @@ import {ActivatedRoute} from "@angular/router";
                       <input matInput placeholder="Номер помещения"
                              [(ngModel)]="this.Entity.Number">
                   </mat-form-field>
-                  <sg-subsidiary-search [(selected)]="Entity.Subsidiary"></sg-subsidiary-search>
+                  <sg-subsidiary-search [(selected)]="Entity.Subsidiary"
+                  hint="Филиал"></sg-subsidiary-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>

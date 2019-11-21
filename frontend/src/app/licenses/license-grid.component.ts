@@ -33,10 +33,17 @@ import {MatDialog} from "@angular/material/dialog";
                   (contextmenu)="onContextMenu($event, element)"> {{element.Name}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="inventory_id">
+          <ng-container matColumnDef="cost">
               <th mat-header-cell *matHeaderCellDef>Стоимость</th>
               <td mat-cell *matCellDef="let element"
                   (contextmenu)="onContextMenu($event, element)"> {{element.Cost}} ₽
+              </td>
+          </ng-container>
+
+          <ng-container matColumnDef="max_applies">
+              <th mat-header-cell *matHeaderCellDef>Количество мест</th>
+              <td mat-cell *matCellDef="let element"
+                  (contextmenu)="onContextMenu($event, element)"> {{element.MaxApplyCount}}
               </td>
           </ng-container>
 
@@ -79,6 +86,6 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicensesService> {
   constructor(licenses: LicensesService, private dialogref: MatDialog) {
-    super(licenses, dialogref, ['select', 'id', 'name', 'inventory_id', 'info'])
+    super(licenses, dialogref, ['select', 'id', 'name', 'cost', 'max_applies', 'info'])
   }
 }
