@@ -21,6 +21,9 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MaterialModule} from "./material-module";
+import {ErrorInterceptor} from "./login/error-interceptor.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {JwtInterceptorService} from "./login/jwt-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import {MaterialModule} from "./material-module";
     MaterialModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {provide: MAT_DATE_LOCALE, useValue: 'ru-ru'}
     ],
   bootstrap: [AppComponent],

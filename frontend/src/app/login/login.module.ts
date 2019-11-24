@@ -8,6 +8,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {RouterModule} from "@angular/router";
     MatIconModule,
     MatInputModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [LoginComponent]
 })

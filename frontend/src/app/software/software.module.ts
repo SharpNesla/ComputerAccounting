@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {SoftwareListComponent} from "./software-list.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import {UtilsModule} from "../utils/utils.module";
@@ -20,14 +20,21 @@ import {MatButtonModule} from "@angular/material/button";
 import {SoftwareTypeSearchComponent} from "./software-type-search.component";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-
+import {SoftwareSearchComponent} from "./software-search.component";
 
 
 @NgModule({
-  declarations: [SoftwareListComponent, SoftwareEditorComponent, SoftwareGridComponent,
-    SoftwareTypeEditorComponent, SoftwareTypeGridComponent, SoftwareTypeSearchComponent],
-  exports: [
+  declarations: [SoftwareListComponent,
+    SoftwareEditorComponent,
+    SoftwareGridComponent,
+    SoftwareSearchComponent,
+    SoftwareTypeEditorComponent,
+    SoftwareTypeGridComponent,
     SoftwareTypeSearchComponent
+  ],
+  exports: [
+    SoftwareTypeSearchComponent,
+    SoftwareSearchComponent
   ],
   imports: [
     CommonModule,
@@ -47,4 +54,5 @@ import {MatSelectModule} from "@angular/material/select";
     MatSelectModule
   ]
 })
-export class SoftwareModule { }
+export class SoftwareModule {
+}

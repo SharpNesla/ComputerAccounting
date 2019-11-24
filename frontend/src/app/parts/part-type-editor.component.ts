@@ -25,6 +25,13 @@ import {PartTypeService} from "./part-type.service";
                       <input type="number" step=0.01 min="0.01" matInput required
                              [(ngModel)]="Entity.Cost" placeholder="Цена">
                   </mat-form-field>
+                  <mat-form-field>
+                      <mat-select placeholder="Категория">
+                          <mat-option *ngFor="let elem of PartTypes">
+                              {{elem}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Характеристики и комментарий</h2>
@@ -45,7 +52,8 @@ import {PartTypeService} from "./part-type.service";
 })
 export class PartTypeEditorComponent extends EditorBase<PartType, PartTypeService> {
 
-
+  PartTypes = ['Центральный процессор',
+    '',''];
   constructor(private service: PartTypeService, route: ActivatedRoute) {
     super(service, route, new PartType());
   }

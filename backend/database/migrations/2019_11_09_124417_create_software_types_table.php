@@ -16,7 +16,7 @@ class CreateSoftwareTypesTable extends Migration
         Schema::create('software_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->text('model');
+            $table->text('model')->nullable();
             $table->text('comment')->nullable();
             $table->softDeletes();
         });

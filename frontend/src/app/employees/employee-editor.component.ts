@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {LicensesService} from "./licenses.service";
-import {License} from "./license";
+import {EmployeesService} from "./employees.service";
+import {Employee} from "./employee";
 import {EditorBase} from "../utils/editor-base";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
@@ -16,15 +16,6 @@ import {ActivatedRoute} from "@angular/router";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <mat-form-field>
-                      <input type="number" step=0.01 min="0.01"  matInput required
-                             [(ngModel)]="Entity.Cost" placeholder="Цена">
-                  </mat-form-field>
-                  <mat-form-field>
-                      <input [(ngModel)]="Entity.MaxApplyCount" type="number"
-                             step=1 matInput required
-                             placeholder="Количество возможных применений">
-                  </mat-form-field>
                   
                   <sg-software-type-search hint="Тип программного обеспечния"
                                            searchHint="Иипа ПО"></sg-software-type-search>
@@ -65,8 +56,8 @@ import {ActivatedRoute} from "@angular/router";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class LicenseEditorComponent extends EditorBase<License, LicensesService> {
-  constructor(private service: LicensesService, route: ActivatedRoute) {
-    super(service, route, new License());
+export class EmployeeEditorComponent extends EditorBase<Employee, EmployeesService> {
+  constructor(private service: EmployeesService, route: ActivatedRoute) {
+    super(service, route, new Employee());
   }
 }

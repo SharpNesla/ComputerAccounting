@@ -17,6 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/login', 'EmployeeController@login');
+Route::post('/logout', 'EmployeeController@logout');
+
 Route::get('/computer/get', 'ComputerController@get');
 Route::get('/computer/count', 'ComputerController@getCount');
 Route::post('/computer/add', 'ComputerController@add');

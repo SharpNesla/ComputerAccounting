@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Software extends Model
 {
+    protected $fillable = ['software_type_id', 'computer_id', 'comment'];
     use SoftDeletes;
 }

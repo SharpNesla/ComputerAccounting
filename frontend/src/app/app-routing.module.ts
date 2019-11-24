@@ -21,6 +21,8 @@ import {SoftwareTypeEditorComponent} from "./software/software-type-editor.compo
 import {PartEditorComponent} from "./parts/part-editor.component";
 import {PartTypeEditorComponent} from "./parts/part-type-editor.component";
 import {AnalyticsComponent} from "./analytics/analytics.component";
+import {EmployeeEditorComponent} from "./employees/employee-editor.component";
+import {EmployeesComponent} from "./employees/employees.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -39,9 +41,9 @@ const routes: Routes = [
   {path: 'software/edit/:id', component: SoftwareEditorComponent},
   {path: 'software/:id', component: ComputersComponent},
 
-  {path: 'software-type/add', component: SoftwareTypeEditorComponent},
-  {path: 'software-type/edit/:id', component: SoftwareTypeEditorComponent},
-  {path: 'software-type/:id', component: ComputersComponent},
+  {path: 'software-types/add', component: SoftwareTypeEditorComponent},
+  {path: 'software-types/edit/:id', component: SoftwareTypeEditorComponent},
+  {path: 'software-types/:id', component: ComputersComponent},
 
   {path: 'licenses', component: LicensesComponent},
   {path: 'licenses/add', component: LicenseEditorComponent},
@@ -67,6 +69,10 @@ const routes: Routes = [
   {path: 'rooms/add', component: RoomEditorComponent},
   {path: 'rooms/edit/:id', component: RoomEditorComponent},
   {path: 'rooms/:id', component: ComputersComponent},
+
+  {path: 'employees', component: EmployeesComponent},
+  {path: 'employees/add', component: EmployeeEditorComponent},
+  {path: 'employees/edit/:id', component: EmployeeEditorComponent},
 
   {path: 'settings', component: SettingsComponent},
   {path: 'about', component: AboutComponent},

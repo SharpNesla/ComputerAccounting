@@ -24,6 +24,9 @@ import {A11yModule} from "@angular/cdk/a11y";
 @NgModule({
   declarations: [LicensesComponent,
     LicenseGridComponent, LicenseEditorComponent],
+  exports: [
+    LicenseGridComponent
+  ],
   imports: [
     CommonModule,
     UtilsModule,

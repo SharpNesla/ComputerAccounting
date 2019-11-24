@@ -7,7 +7,7 @@ import {Employee} from "../employees/employee";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
   private currentUserSubject: BehaviorSubject<Employee>;
   public currentUser: Observable<Employee>;
 
@@ -21,7 +21,7 @@ export class AuthServiceService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`api/users/authenticate`, { username, password })
+    return this.http.post<any>(`api/login`, { username, password })
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));

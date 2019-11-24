@@ -1,6 +1,5 @@
-export class Employee {
-  id: number;
-  username: string;
-  password: string;
-  token?: string;
+import {EntityBase} from "../model/entities/entity-base";
+
+export class Employee extends EntityBase{
+  token;
 }

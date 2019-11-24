@@ -20,6 +20,10 @@ class CreateSoftwareTable extends Migration
             $table->foreign('software_type_id')
                 ->references('id')->on('software_types')->onDelete('cascade');
 
+            $table->bigInteger('computer_id')->unsigned()->nullable();
+            $table->foreign('computer_id')
+                ->references('id')->on('computers')->onDelete('cascade');
+
             $table->text('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();

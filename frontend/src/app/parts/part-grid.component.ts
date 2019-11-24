@@ -46,7 +46,7 @@ import {MatDialog} from "@angular/material/dialog";
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                  <button mat-icon-button (click)="showInfoCard(element)">
+                  <button mat-icon-button>
                       <mat-icon>error_outline</mat-icon>
                   </button>
               </td>
