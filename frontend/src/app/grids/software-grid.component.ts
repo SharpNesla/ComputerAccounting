@@ -3,6 +3,7 @@ import {SoftwareService} from "../services/software.service";
 import {Software} from "../entities/software";
 import {EntityGridBase} from "../utils/entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
+import {SoftwareCardComponent} from "../cards/software-card.component";
 
 
 @Component({
@@ -49,7 +50,7 @@ import {MatDialog} from "@angular/material/dialog";
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                  <button mat-icon-button>
+                  <button mat-icon-button (click)="showInfoCard(element)">
                       <mat-icon>error_outline</mat-icon>
                   </button>
               </td>
@@ -86,6 +87,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareService> {
   constructor(software: SoftwareService, private dialogref: MatDialog) {
-    super(software, dialogref, ['select', 'id', 'info'])
+    super(software, dialogref, ['select', 'id', 'info'],
+      SoftwareCardComponent)
   }
 }

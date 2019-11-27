@@ -5,6 +5,7 @@ import {EntityGridBase} from "../utils/entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {SoftwareType} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
+import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
 
 
 @Component({
@@ -88,6 +89,7 @@ import {SoftwareTypeService} from "../services/software-type.service";
 })
 export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, SoftwareTypeService> {
   constructor(software: SoftwareTypeService, private dialogref: MatDialog) {
-    super(software, dialogref, ['select', 'id', 'info'])
+    super(software, dialogref, ['select', 'id', 'info'],
+      SoftwareTypeCardComponent)
   }
 }

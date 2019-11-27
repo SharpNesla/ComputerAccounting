@@ -1,5 +1,5 @@
-import {EntityBase} from "../model/entities/entity-base";
-import {EntityRepository} from "../model/repositories/entity-repository";
+import {EntityBase} from "../entities/entity-base";
+import {EntityRepository} from "../services/entity-repository";
 import {Input, OnInit, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
 import {SelectionModel} from "@angular/cdk/collections";

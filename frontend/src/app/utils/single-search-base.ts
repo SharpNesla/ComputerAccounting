@@ -3,8 +3,8 @@ import {Observable} from "rxjs";
 import {Subsidiary} from "../entities/subsidiary";
 import {map} from "rxjs/operators";
 import {SubsidiaryService} from "../services/subsidiary.service";
-import {EntityBase} from "../model/entities/entity-base";
-import {EntityRepository} from "../model/repositories/entity-repository";
+import {EntityBase} from "../entities/entity-base";
+import {EntityRepository} from "../services/entity-repository";
 
 export class SingleSearchBase<TEntity extends EntityBase,
   TEntityRepository extends EntityRepository<TEntity>> implements OnInit {

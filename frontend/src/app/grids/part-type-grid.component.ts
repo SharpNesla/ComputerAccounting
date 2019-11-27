@@ -3,6 +3,7 @@ import {PartTypeService} from "../services/part-type.service";
 import {EntityGridBase} from "../utils/entity-grid-base";
 import {PartType} from "../entities/part-type";
 import {MatDialog} from "@angular/material/dialog";
+import {PartTypeCardComponent} from "../cards/part-type-card.component";
 
 
 @Component({
@@ -49,7 +50,7 @@ import {MatDialog} from "@angular/material/dialog";
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                  <button mat-icon-button>
+                  <button mat-icon-button (click)="showInfoCard(element)">
                       <mat-icon>error_outline</mat-icon>
                   </button>
               </td>
@@ -87,7 +88,9 @@ import {MatDialog} from "@angular/material/dialog";
 export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeService> {
 
   constructor(service: PartTypeService, dialog: MatDialog) {
-    super(service, dialog, ['select', 'id', 'name', 'cost', 'parts_count', 'info']);
+    super(service, dialog,
+      ['select', 'id', 'name', 'cost', 'parts_count', 'info'],
+      PartTypeCardComponent);
   }
 
 }

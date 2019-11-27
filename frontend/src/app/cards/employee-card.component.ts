@@ -10,7 +10,7 @@ import {EmployeeService} from "../services/employee.service";
       <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Компьютер №{{(Entity | async)?.Id}}
+              Работник №{{(Entity | async)?.Id}}
           </header>
               <div id="sg-editor-card-container">
                   <mat-card id="left-section">

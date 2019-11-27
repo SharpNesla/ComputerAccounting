@@ -1,4 +1,4 @@
-import {EntityBase} from "../model/entities/entity-base";
+import {EntityBase} from "./entity-base";
 import {Subsidiary} from "./subsidiary";
 
 export class Room extends EntityBase {

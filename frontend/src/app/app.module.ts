@@ -24,6 +24,7 @@ import {ErrorInterceptor} from "./login/error-interceptor.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtInterceptorService} from "./login/jwt-interceptor.service";
 import {LoginComponent} from "./login/login.component";
+import {CardsModule} from "./cards/cards.module";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {LoginComponent} from "./login/login.component";
     MatCardModule,
     MatSlideToggleModule,
     MatFormFieldModule,
-    MaterialModule
+    MaterialModule,
+    CardsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },

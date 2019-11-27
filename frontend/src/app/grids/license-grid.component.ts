@@ -3,6 +3,7 @@ import {LicensesService} from "../services/licenses.service";
 import {License} from "../entities/license";
 import {EntityGridBase} from "../utils/entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
+import {LicenseCardComponent} from "../cards/license-card.component";
 
 
 @Component({
@@ -50,7 +51,7 @@ import {MatDialog} from "@angular/material/dialog";
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                  <button mat-icon-button>
+                  <button mat-icon-button (click)="showInfoCard(element)">
                       <mat-icon>error_outline</mat-icon>
                   </button>
               </td>
@@ -86,6 +87,8 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicensesService> {
   constructor(licenses: LicensesService, private dialogref: MatDialog) {
-    super(licenses, dialogref, ['select', 'id', 'name', 'cost', 'max_applies', 'info'])
+    super(licenses, dialogref,
+      ['select', 'id', 'name', 'cost', 'max_applies', 'info'],
+      LicenseCardComponent)
   }
 }

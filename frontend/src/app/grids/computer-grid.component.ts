@@ -2,8 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComputerService} from "../services/computer.service";
 import {Computer} from "../entities/computer";
 import {EntityGridBase} from "../utils/entity-grid-base";
-import {SelectionModel} from "@angular/cdk/collections";
-import {MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
 import {ComputerCardComponent} from "../cards/computer-card.component";
 

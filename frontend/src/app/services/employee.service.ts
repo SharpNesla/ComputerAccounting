@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {EntityRepository} from "../model/repositories/entity-repository";
+import {EntityRepository} from "./entity-repository";
 import {Employee} from "../entities/employee";
 import {HttpClient} from "@angular/common/http";
 

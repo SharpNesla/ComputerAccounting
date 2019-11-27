@@ -1,5 +1,5 @@
-import {EntityBase} from "../model/entities/entity-base";
-import {EntityRepository} from "../model/repositories/entity-repository";
+import {EntityBase} from "../entities/entity-base";
+import {EntityRepository} from "../services/entity-repository";
 import {OnDestroy, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";

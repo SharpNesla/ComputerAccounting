@@ -1,4 +1,4 @@
-import {EntityBase} from "../model/entities/entity-base";
+import {EntityBase} from "./entity-base";
 
 export class License extends EntityBase{
   Cost : number;

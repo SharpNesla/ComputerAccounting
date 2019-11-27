@@ -1,7 +1,7 @@
 import {Inject, OnInit} from "@angular/core";
-import {EntityBase} from "../model/entities/entity-base";
+import {EntityBase} from "../entities/entity-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {EntityRepository} from "../model/repositories/entity-repository";
+import {EntityRepository} from "../services/entity-repository";
 import {Observable} from "rxjs";
 
 export class CardBase<TEntity extends EntityBase, TRepo extends EntityRepository<TEntity>>
