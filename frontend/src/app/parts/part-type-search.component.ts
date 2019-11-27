@@ -1,27 +1,26 @@
 import {Component} from '@angular/core';
-import {Subsidiary} from "./subsidiary";
-import {SubsidiaryService} from "./subsidiary.service";
 import {SingleSearchBase} from "../utils/single-search-base";
+import {PartType} from "./part-type";
+import {PartTypeService} from "./part-type.service";
 
 @Component({
-  selector: 'sg-subsidiary-search',
+  selector: 'sg-software-search',
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [value]="selectedEntity"                           
-                      (valueChange)="selectedEntityChanged.emit($event)">
+          <mat-select [value]="selectedEntity" (valueChange)="selectedEntityChanged.emit($event)">
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field appearance="standard">
-                  <input matInput placeholder="Поиск сущности"
+                  <input matInput [placeholder]="'Поиск ' + searchHint"
                          (keydown)="$event.stopPropagation()"
                          type="search"
                          [(ngModel)]="searchString">
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">
-                  {{entity.Id}} {{entity.Address}}
+                  {{entity.Id}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,
@@ -35,8 +34,8 @@ import {SingleSearchBase} from "../utils/single-search-base";
           margin-right: 4px;
       }`]
 })
-export class SubsidiarySearchComponent extends SingleSearchBase<Subsidiary, SubsidiaryService> {
-  constructor(service : SubsidiaryService){
+export class PartTypeSearchComponent extends SingleSearchBase<PartType, PartTypeService> {
+  constructor(service : PartTypeService){
     super(service);
   }
 }

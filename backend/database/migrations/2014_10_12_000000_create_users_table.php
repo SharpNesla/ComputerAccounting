@@ -18,6 +18,15 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('username');
             $table->string('password');
+
+
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('patronymic')->nullable();
+
+
+            $table->unsignedTinyInteger('role')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -26,6 +35,9 @@ class CreateUsersTable extends Migration
         $user = new User();
         $user->username = 'admin';
         $user->password = bcrypt('admin');
+        $user->name = 'Иван';
+        $user->surname = 'Иванов';
+        $user->patronymic = 'Иванович';
         $user->save();
     }
 

@@ -84,7 +84,7 @@ import {SoftwareTypeService} from "./software-type.service";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="типов ПО"
-               is-compact="false"></sg-crud>`,
+               [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, SoftwareTypeService> {
   constructor(software: SoftwareTypeService, private dialogref: MatDialog) {

@@ -19,6 +19,8 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {RouterModule} from "@angular/router";
 import {SubsidiaryModule} from "../subsidiary/subsidiary.module";
+import {PartTypesModule} from "../parts/part-types.module";
+import {SoftwareModule} from "../software/software.module";
 
 
 @NgModule({
@@ -45,9 +47,11 @@ import {SubsidiaryModule} from "../subsidiary/subsidiary.module";
     MatMenuModule,
     MatDialogModule,
     RouterModule,
+    PartTypesModule,
+    SoftwareModule,
     SubsidiaryModule
   ],
-  exports: [ComputersComponent],
+  exports: [ComputersComponent, ComputerGridComponent],
   entryComponents: [ ComputerCardComponent ]
 })
 export class ComputersModule {

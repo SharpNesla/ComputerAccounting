@@ -28,6 +28,13 @@ Route::group([
     });
 });
 
+Route::get('/employee/get', 'EmployeeController@get');
+Route::get('/employee/count', 'EmployeeController@getCount');
+Route::post('/employee/add', 'EmployeeController@add');
+Route::post('/employee/edit/{id}', 'EmployeeController@update');
+Route::delete('/employee/remove/{id}', 'EmployeeController@remove');
+Route::get('/employee/{id}', 'EmployeeController@getById');
+
 Route::get('/computer/get', 'ComputerController@get');
 Route::get('/computer/count', 'ComputerController@getCount');
 Route::post('/computer/add', 'ComputerController@add');

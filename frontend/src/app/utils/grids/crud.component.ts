@@ -4,44 +4,83 @@ import {element} from "protractor";
 
 @Component({
   selector: 'sg-crud',
-  template: `    
-      <mat-toolbar id="search-toolbar" color="primary" class="mat-elevation-z4">
-          <mat-icon>{{this.icon}}</mat-icon>
-          <mat-card id="search-input">
-              <button mat-icon-button (click)="this.Search.emit(this.SearchString)">
-                  <mat-icon>search</mat-icon>
-              </button>
-              <mat-form-field id="searchbar" class="searchbar-input" appearance="standard">
-                  <input matInput placeholder="Поиск {{EntityName}}">
-              </mat-form-field>
-          </mat-card>
-          <mat-card id="paginator">
-              <div>
-                  {{EntityNameCapitalized}} на странице:
-                  <mat-form-field id="paginator-input" class="searchbar-input">
-                      <mat-select [(value)]="ElementsPerPage">
-                          <mat-option *ngFor="let amount of values" [value]="amount">
-                              {{amount}}
-                          </mat-option>
-                      </mat-select>
+  template: `
+      <ng-template
+              *ngIf="this.isCompact;then compactview; else fullview">
+      </ng-template>
+      <ng-template #fullview>
+          <mat-toolbar id="search-toolbar" color="primary" class="mat-elevation-z4">
+              <mat-icon>{{this.icon}}</mat-icon>
+              <mat-card id="search-input">
+                  <button mat-icon-button (click)="this.Search.emit(this.SearchString)">
+                      <mat-icon>search</mat-icon>
+                  </button>
+                  <mat-form-field id="searchbar" class="searchbar-input" appearance="standard">
+                      <input matInput placeholder="Поиск {{EntityName}}">
                   </mat-form-field>
-                  {{this.CurrentPage}} из {{MaxPages}}
-                  <button mat-icon-button class="sg-paginator-button"
-                          (click)="MovePrevious()" [disabled]="!this.IsBackEnabled">
-                      <mat-icon>arrow_back</mat-icon>
+              </mat-card>
+              <mat-card id="paginator">
+                  <div>
+                      {{EntityNameCapitalized}} на странице:
+                      <mat-form-field id="paginator-input" class="searchbar-input">
+                          <mat-select [(value)]="ElementsPerPage">
+                              <mat-option *ngFor="let amount of values" [value]="amount">
+                                  {{amount}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      {{this.CurrentPage}} из {{MaxPages}}
+                      <button mat-icon-button class="sg-paginator-button"
+                              (click)="MovePrevious()" [disabled]="!this.IsBackEnabled">
+                          <mat-icon>arrow_back</mat-icon>
+                      </button>
+                      <button mat-icon-button class="sg-paginator-button" (click)="MoveNext()"
+                              [disabled]="!this.IsNextEnabled">
+                          <mat-icon>arrow_forward</mat-icon>
+                      </button>
+                  </div>
+              </mat-card>
+              <button mat-icon-button>
+                  <mat-icon>filter_list</mat-icon>
+              </button>
+              <button id="button-add" routerLink="{{this.link}}" mat-fab>
+                  <mat-icon>add</mat-icon>
+              </button>
+          </mat-toolbar>
+      </ng-template>
+      <ng-template #compactview>
+          <div id="search-toolbar">
+              <div id="search-input">
+                  <button mat-icon-button (click)="this.Search.emit(this.SearchString)">
+                      <mat-icon>search</mat-icon>
                   </button>
-                  <button mat-icon-button  class="sg-paginator-button" (click)="MoveNext()" [disabled]="!this.IsNextEnabled">
-                      <mat-icon>arrow_forward</mat-icon>
-                  </button>
+                  <mat-form-field id="searchbar" class="searchbar-input" appearance="standard">
+                      <input matInput placeholder="Поиск {{EntityName}}">
+                  </mat-form-field>
               </div>
-          </mat-card>
-          <button mat-icon-button>
-              <mat-icon>filter_list</mat-icon>
-          </button>
-          <button id="button-add" routerLink="{{this.link}}" mat-fab>
-              <mat-icon>add</mat-icon>
-          </button>
-      </mat-toolbar>
+              <div id="paginator">
+                  <div>
+                      {{EntityNameCapitalized}} на странице:
+                      <mat-form-field id="paginator-input" class="searchbar-input">
+                          <mat-select [(value)]="ElementsPerPage">
+                              <mat-option *ngFor="let amount of values" [value]="amount">
+                                  {{amount}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      {{this.CurrentPage}} из {{MaxPages}}
+                      <button mat-icon-button class="sg-paginator-button"
+                              (click)="MovePrevious()" [disabled]="!this.IsBackEnabled">
+                          <mat-icon>arrow_back</mat-icon>
+                      </button>
+                      <button mat-icon-button class="sg-paginator-button" (click)="MoveNext()"
+                              [disabled]="!this.IsNextEnabled">
+                          <mat-icon>arrow_forward</mat-icon>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </ng-template>
 
   `,
   styles: [
@@ -64,13 +103,13 @@ import {element} from "protractor";
           padding: 0;
       }
 
-        .sg-paginator-button{
-            position: relative;
-            top: -1px;
-            margin-left: 2px;
-            margin-right: 2px;
-        }
-        
+      .sg-paginator-button {
+          position: relative;
+          top: -1px;
+          margin-left: 2px;
+          margin-right: 2px;
+      }
+
       #paginator {
           padding: 5px 4px 0 16px;
       }
@@ -95,7 +134,7 @@ import {element} from "protractor";
 })
 export class CrudComponent implements OnInit {
   @Input('entity-name') EntityName: string;
-  @Input('is-compact') IsCompact: boolean;
+  @Input() isCompact: boolean = false;
   @Input('router-link') link: string;
 
   @Input('count') set Count(value) {

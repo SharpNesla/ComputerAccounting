@@ -4,6 +4,7 @@ import {Room} from "./room";
 import {RoomService} from "./room.service";
 import {PartTypeService} from "../parts/part-type.service";
 import {MatDialog} from "@angular/material/dialog";
+import {RoomCardComponent} from "./room-card.component";
 
 
 @Component({
@@ -36,7 +37,7 @@ import {MatDialog} from "@angular/material/dialog";
               <ng-container matColumnDef="info" stickyEnd>
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                      <button mat-icon-button>
+                      <button mat-icon-button (click)="showInfoCard(element)">
                           <mat-icon>error_outline</mat-icon>
                       </button>
                   </td>
@@ -68,10 +69,10 @@ import {MatDialog} from "@angular/material/dialog";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="помещений"
-               is-compact="false"></sg-crud>`,
+               [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
   constructor(private rooms: RoomService, dialog: MatDialog) {
-    super(rooms, dialog, ['select', 'id', 'number', 'info'])
+    super(rooms, dialog, ['select', 'id', 'number', 'info'], RoomCardComponent)
   }
 }

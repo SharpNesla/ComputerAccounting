@@ -16,13 +16,21 @@ import {FormsModule} from "@angular/forms";
 import {SoftwareModule} from "../software/software.module";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCardModule} from "@angular/material/card";
+import {RolePipe} from "./role.pipe";
+import {MaterialModule} from "../material-module";
+import {MatInputModule} from "@angular/material/input";
+import {EmployeeCardComponent} from "./employee-card.component";
+import {PartTypesModule} from "../parts/part-types.module";
+import {ComputerCardComponent} from "../computers/computer-card.component";
 
 
 @NgModule({
   declarations: [
     EmployeeEditorComponent,
     EmployeeGridComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    EmployeeCardComponent,
+    RolePipe
     ],
   imports: [
     CommonModule,
@@ -38,8 +46,12 @@ import {MatCardModule} from "@angular/material/card";
     FormsModule,
     SoftwareModule,
     MatDatepickerModule,
-    MatCardModule
-  ]
+    MatCardModule,
+    MatInputModule,
+    MaterialModule,
+    PartTypesModule
+  ],
+  entryComponents: [ EmployeeCardComponent]
 })
 export class EmployeesModule {
 }

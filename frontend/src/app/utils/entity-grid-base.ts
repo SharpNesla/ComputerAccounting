@@ -14,7 +14,6 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   public Filter: TEntity[];
   public Entities: Observable<TEntity[]>;
   public SelectedEntity: TEntity;
-  public IsCompact: boolean;
   public Count: number = 0;
 
   protected Repo: TRepository;
@@ -22,10 +21,12 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   @Input() public IsDisplaySubtotals: boolean;
   @Input() public IsSearchDrawerOpened: boolean;
   @Input() public DisplaySelectionColumn: boolean;
+  @Input() public isCompact : boolean;
 
   public SearchString: string;
 
-  protected constructor(repository: TRepository, protected dialog: MatDialog, displayedColumns: string[]) {
+  protected constructor(repository: TRepository, protected dialog: MatDialog,
+                        displayedColumns: string[], protected card = null) {
     this.Repo = repository;
     this.DisplayedColumns = displayedColumns;
   }
@@ -37,7 +38,6 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   public refreshPrevious() {
     this.refresh(this.offset, this.limit)
   }
-
   public refresh(offset: number, limit: number) {
     this.offset = offset;
     this.limit = limit;
@@ -59,6 +59,18 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     this.contextMenu.openMenu();
   }
 
+  showInfoCard(element: Computer) {
+
+    const dialogRef = this.dialog.open(this.card, {
+      data: element.Id,
+      minWidth: '50em'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   async remove(item: TEntity) {
     const dialog = this.dialog.open(DeleteDialogComponent, {
       width: '300px',
@@ -73,17 +85,6 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
       }
     });
   }
-
- 
-
-
-
-
-
-
-
-
-
 
   ngOnInit(): void {
     this.refresh(0, 10);

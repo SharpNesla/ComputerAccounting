@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "../utils/card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {PartType} from "./part-type";
-import {PartTypeService} from "./part-type.service";
+import {Room} from "./room";
+import {RoomService} from "./room.service";
 
 @Component({
-  selector: 'sg-part-type-card',
+  selector: 'sg-room-card',
   template: `
       <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
           <header>
@@ -19,19 +19,18 @@ import {PartTypeService} from "./part-type.service";
 
               </mat-card>
               <mat-card id="right-section">
-                  <h2 class="mat-title">Комментарий</h2>
-
+                  <h2 class="mat-title">Компьютеры</h2>
               </mat-card>
           </div>
       </sg-dialog-layout>`,
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class PartTypeCardComponent extends CardBase<PartType, PartTypeService> {
+export class RoomCardComponent extends CardBase<Room, RoomService> {
 
   constructor(
-    public dialogRef: MatDialogRef<PartTypeCardComponent>,
-    service: PartTypeService,
+    public dialogRef: MatDialogRef<RoomCardComponent>,
+    service: RoomService,
     @Inject(MAT_DIALOG_DATA) public data: number) {
     super(dialogRef, service, data);
   }

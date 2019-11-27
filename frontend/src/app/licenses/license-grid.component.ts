@@ -82,7 +82,7 @@ import {MatDialog} from "@angular/material/dialog";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="Лицензий"
-               is-compact="false"></sg-crud>`,
+               [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicensesService> {
   constructor(licenses: LicensesService, private dialogref: MatDialog) {

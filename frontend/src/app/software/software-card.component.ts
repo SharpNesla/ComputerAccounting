@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "../utils/card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {PartType} from "./part-type";
-import {PartTypeService} from "./part-type.service";
+import {Software} from "./software";
+import {SoftwareService} from "./software.service";
 
 @Component({
   selector: 'sg-part-type-card',
@@ -27,11 +27,11 @@ import {PartTypeService} from "./part-type.service";
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class PartTypeCardComponent extends CardBase<PartType, PartTypeService> {
+export class SoftwareCardComponent extends CardBase<Software, SoftwareService> {
 
   constructor(
-    public dialogRef: MatDialogRef<PartTypeCardComponent>,
-    service: PartTypeService,
+    public dialogRef: MatDialogRef<SoftwareCardComponent>,
+    service: SoftwareService,
     @Inject(MAT_DIALOG_DATA) public data: number) {
     super(dialogRef, service, data);
   }

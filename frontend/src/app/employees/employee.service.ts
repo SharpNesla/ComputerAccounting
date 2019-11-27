@@ -6,8 +6,8 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeesService extends EntityRepository<Employee> {
+export class EmployeeService extends EntityRepository<Employee> {
   constructor(httpClient : HttpClient){
-    super(httpClient,"employees" ,[]);
+    super(httpClient,"employee" ,[]);
   }
 }

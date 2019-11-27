@@ -77,23 +77,13 @@ import {ComputerCardComponent} from "./computer-card.component";
                icon="desktop_mac"
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
-               entity-name="компьютеров"
-               is-compact="false"></sg-crud>`
+               entity-name="компьютеров"></sg-crud>`
 })
 export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
   constructor(computers: ComputerService, private dialogref: MatDialog) {
-    super(computers, dialogref, ['select', 'id', 'name', 'inventory_id', 'info'])
+    super(computers, dialogref,
+      ['select', 'id', 'name', 'inventory_id', 'info'], ComputerCardComponent)
   }
 
-  showInfoCard(element: Computer) {
 
-    const dialogRef = this.dialogref.open(ComputerCardComponent, {
-      data: element,
-      width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 }

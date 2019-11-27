@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'sg-login',
@@ -25,7 +26,8 @@ import {Router} from "@angular/router";
                           <mat-icon matSuffix>vpn_key</mat-icon>
                       </mat-form-field>
                       <button color="primary" (click)="login()"
-                              mat-raised-button>Войти</button>
+                              mat-raised-button>Войти
+                      </button>
                   </div>
               </form>
 
@@ -62,8 +64,9 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(private auth: AuthService,
-              private router : Router,
-              private fb: FormBuilder) {
+              private router: Router,
+              private fb: FormBuilder,
+              private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -77,16 +80,19 @@ export class LoginComponent implements OnInit {
       this.auth.login(val.email, val.password)
         .subscribe(
           x => {
-            console.log("User is logged in");
+            this.router.navigateByUrl('/dashboard')
           },
-          err =>{
-
+          err => {
+            this.snackBar.open('Неправильный логин или пароль', '', {
+              duration: 2000,
+            });
           }
         );
     }
   }
 
   ngOnInit() {
+
   }
 
 }

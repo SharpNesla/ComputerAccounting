@@ -82,7 +82,7 @@ import {MatDialog} from "@angular/material/dialog";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="типов комплектующих"
-               is-compact="false"></sg-crud>`
+               [isCompact]="this.isCompact"></sg-crud>`
 })
 export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeService> {
 

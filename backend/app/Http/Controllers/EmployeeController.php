@@ -29,10 +29,11 @@ class EmployeeController extends CrudControllerBase
             'remember_me' => 'boolean'
         ]);
         $credentials = request(['username', 'password']);
+
         if(!Auth::attempt($credentials))
             return response()->json([
-                'message' => 'Unauthorized'
-            ], 401);
+                'message' => 'Invalid credentials'
+            ], 403);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;

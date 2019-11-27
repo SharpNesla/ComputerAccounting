@@ -24,6 +24,7 @@ import {MaterialModule} from "./material-module";
 import {ErrorInterceptor} from "./login/error-interceptor.service";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {JwtInterceptorService} from "./login/jwt-interceptor.service";
+import {LoginComponent} from "./login/login.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,6 @@ import {JwtInterceptorService} from "./login/jwt-interceptor.service";
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {provide: MAT_DATE_LOCALE, useValue: 'ru-ru'}
     ],
   bootstrap: [AppComponent],

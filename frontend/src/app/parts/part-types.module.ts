@@ -19,6 +19,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {PartEditorComponent} from "./part-editor.component";
 import {FormsModule} from "@angular/forms";
 import {MaterialModule} from "../material-module";
+import {PartTypeSearchComponent} from "./part-type-search.component";
+import {PartCardComponent} from "./part-card.component";
 
 
 @NgModule({
@@ -28,8 +30,10 @@ import {MaterialModule} from "../material-module";
     PartTypeGridComponent,
     PartTypeCardComponent,
     PartTypeEditorComponent,
+    PartTypeSearchComponent,
     PartGridComponent,
-    PartEditorComponent
+    PartEditorComponent,
+    PartCardComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +50,7 @@ import {MaterialModule} from "../material-module";
     FormsModule,
     MaterialModule
   ],
-  exports: [PartsComponent]
+  exports: [PartsComponent, PartTypeGridComponent, PartGridComponent]
 })
 export class PartTypesModule {
 }

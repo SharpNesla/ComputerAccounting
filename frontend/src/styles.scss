@@ -99,12 +99,20 @@ mat-divider{
 .sg-table {
   margin: 2em;
   width: calc(100% - 4em);
-  @include mat-elevation(4);
+  background: transparent !important;
 }
+.mat-dialog-container .dark-theme{
+
+}
+
 .mat-dialog-container {
   padding: 0 !important;
-  background: map-get($mat-light-theme-background, background);
+  background: map-get($mat-dark-theme-background, background) !important;
 }
+.mat-cell, .mat-footer-cell, .mat-header-cell{
+  border-bottom-width: 2px !important;
+}
+
 .sg-table-info-button{
   width: 12px;
 }
@@ -131,6 +139,3 @@ mat-divider{
   display: flex;
   align-items: center;
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

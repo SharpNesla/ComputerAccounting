@@ -21,6 +21,8 @@ import {SoftwareTypeSearchComponent} from "./software-type-search.component";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {SoftwareSearchComponent} from "./software-search.component";
+import {SoftwareTypeCardComponent} from "./software-type-card.component";
+import {SoftwareCardComponent} from "./software-card.component";
 
 
 @NgModule({
@@ -28,13 +30,16 @@ import {SoftwareSearchComponent} from "./software-search.component";
     SoftwareEditorComponent,
     SoftwareGridComponent,
     SoftwareSearchComponent,
+    SoftwareCardComponent,
     SoftwareTypeEditorComponent,
     SoftwareTypeGridComponent,
-    SoftwareTypeSearchComponent
+    SoftwareTypeSearchComponent,
+    SoftwareTypeCardComponent
   ],
   exports: [
     SoftwareTypeSearchComponent,
-    SoftwareSearchComponent
+    SoftwareSearchComponent,
+    SoftwareGridComponent
   ],
   imports: [
     CommonModule,

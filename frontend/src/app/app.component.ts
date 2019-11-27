@@ -1,5 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavigationService} from "./navigation.service";
+import {AuthService} from "./login/auth.service";
+import {Employee} from "./employees/employee";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +15,8 @@ import {NavigationService} from "./navigation.service";
               <div id="drawer-content-container">
                   <div id="sg-drawer-userbar">
                       <div>
-                          <b>Иванов Иван Иванович</b>
+<!--                          <b>{{(CurrentEmployee | async).Surname}} {{(CurrentEmployee | async).Name}}-->
+<!--                              {{(CurrentEmployee | async).Patronymic}}</b>-->
                           <div>Директор</div>
                       </div>
                       <div class="flex-spacer"></div>
@@ -37,7 +41,7 @@ import {NavigationService} from "./navigation.service";
                   <mat-divider></mat-divider>
                   <div class="flex-spacer"></div>
                   <mat-divider></mat-divider>
-                  <sg-drawer-button link="" icon="exit_to_app">Выход</sg-drawer-button>
+                  <sg-drawer-button (click)="logout()" link="" icon="exit_to_app">Выход</sg-drawer-button>
               </div>
           </mat-sidenav>
       </mat-sidenav-container>`,
@@ -78,8 +82,7 @@ import {NavigationService} from "./navigation.service";
       }
   `]
 })
-export class AppComponent {
-
+export class AppComponent implements OnInit {
   get IsDrawerOpened(): boolean {
     return this.navService.IsDrawerOpened;
   }
@@ -92,6 +95,17 @@ export class AppComponent {
     this.navService.IsDrawerOpened = false;
   }
 
-  constructor(private navService: NavigationService) {
+  constructor(private navService: NavigationService,
+              private auth: AuthService) {
   }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  ngOnInit(): void {
+
+  }
+
+
 }

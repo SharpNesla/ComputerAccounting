@@ -10,7 +10,6 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
-import {SubsidiarySearchComponent} from './subsidiary-search.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatMenuModule} from "@angular/material/menu";
 import {RouterModule} from "@angular/router";
@@ -23,16 +22,22 @@ import {RoomEditorComponent} from "./room-editor.component";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDividerModule} from "@angular/material/divider";
 import {RoomSearchComponent} from "./room-search.component";
+import {SubsidiaryCardComponent} from "./subsidiary-card.component";
+import {RoomCardComponent} from "./room-card.component";
+import {SubsidiarySearchComponent} from "./subsidiary-search.component";
 
 
 @NgModule({
-  declarations: [SubsidiariesComponent, SubsidiaryGridComponent, SubsidiaryGridComponent,
-    SubsidiaryEditorComponent, RoomGridComponent, RoomEditorComponent, RoomSearchComponent,
-    SubsidiarySearchComponent],
-  exports: [
+  declarations: [
+    SubsidiariesComponent,
+    SubsidiaryGridComponent,
+    SubsidiaryCardComponent,
+    SubsidiaryEditorComponent,
     SubsidiarySearchComponent,
-    RoomSearchComponent
-  ],
+    RoomGridComponent,
+    RoomEditorComponent,
+    RoomCardComponent,
+    RoomSearchComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -51,7 +56,12 @@ import {RoomSearchComponent} from "./room-search.component";
     MatButtonModule,
     MatSelectModule,
     MatDividerModule
-  ]
+  ],
+  exports: [
+    SubsidiarySearchComponent,
+    RoomSearchComponent
+  ],
+  entryComponents: [SubsidiaryCardComponent, RoomCardComponent]
 })
 export class SubsidiaryModule {
 }

@@ -14,6 +14,7 @@ import {Location} from '@angular/common';
                       (click)="Accept.emit()">ПРИНЯТЬ
               </button>
               <button id="discard-button"
+                      *ngIf="!acceptOnly"
                       [routerLink]="EndLink" (click)="Deny.emit()"
                       mat-button color="primary">ОТМЕНИТЬ
               </button>
@@ -36,6 +37,7 @@ export class DialogLayoutComponent implements OnInit {
   @Input('end-link') EndLink: string;
   @Output() Accept = new EventEmitter();
   @Output() Deny = new EventEmitter();
+  @Input() acceptOnly : boolean;
 
   constructor(private location: Location) {
   }
