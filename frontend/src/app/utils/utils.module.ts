@@ -14,18 +14,19 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {DialogLayoutComponent} from './layouts/dialog-layout.component';
 import {MatSelectModule} from "@angular/material/select";
-import { RolePipe } from '../employees/role.pipe';
+import {RolePipe} from './role.pipe';
 
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
-    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent],
+    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe],
   exports: [
     AppbarBaseComponent,
     DrawerButtonComponent,
     CrudComponent,
     DrawerAppbarBaseComponent,
-    DialogLayoutComponent
+    DialogLayoutComponent,
+    RolePipe
   ],
   imports: [
     CommonModule,

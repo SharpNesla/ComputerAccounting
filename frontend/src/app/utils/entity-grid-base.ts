@@ -3,9 +3,9 @@ import {EntityRepository} from "../model/repositories/entity-repository";
 import {Input, OnInit, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
 import {SelectionModel} from "@angular/cdk/collections";
-import {Computer} from "../computers/computer";
+import {Computer} from "../entities/computer";
 import {MatMenuTrigger} from "@angular/material/menu";
-import {ComputerCardComponent} from "../computers/computer-card.component";
+import {ComputerCardComponent} from "../cards/computer-card.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog.component";
 

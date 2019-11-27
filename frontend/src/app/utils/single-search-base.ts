@@ -1,8 +1,8 @@
 import {EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Observable} from "rxjs";
-import {Subsidiary} from "../subsidiary/subsidiary";
+import {Subsidiary} from "../entities/subsidiary";
 import {map} from "rxjs/operators";
-import {SubsidiaryService} from "../subsidiary/subsidiary.service";
+import {SubsidiaryService} from "../services/subsidiary.service";
 import {EntityBase} from "../model/entities/entity-base";
 import {EntityRepository} from "../model/repositories/entity-repository";
 

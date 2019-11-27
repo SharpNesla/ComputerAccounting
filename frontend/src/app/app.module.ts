@@ -10,7 +10,6 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import {UtilsModule} from "./utils/utils.module";
 import {LoginModule} from "./login/login.module";
-import {ComputersModule} from "./computers/computers.module";
 import {PageNotFoundComponent} from './page-not-found.component';
 import {AboutComponent} from './about.component';
 import {SettingsComponent} from './settings.component';
@@ -22,7 +21,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MaterialModule} from "./material-module";
 import {ErrorInterceptor} from "./login/error-interceptor.service";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtInterceptorService} from "./login/jwt-interceptor.service";
 import {LoginComponent} from "./login/login.component";
 
@@ -36,7 +35,7 @@ import {LoginComponent} from "./login/login.component";
   ],
   imports: [
     LoginModule,
-    ComputersModule,
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

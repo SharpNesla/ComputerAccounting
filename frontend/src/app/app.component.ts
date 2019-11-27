@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from "./navigation.service";
 import {AuthService} from "./login/auth.service";
-import {Employee} from "./employees/employee";
+import {Employee} from "./entities/employee";
 import {Observable} from "rxjs";
 
 @Component({
