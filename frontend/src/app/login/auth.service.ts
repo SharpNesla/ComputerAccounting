@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Employee} from "../entities/employee";
@@ -9,12 +9,22 @@ import {Employee} from "../entities/employee";
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {
+  private currentEmployee: Subject<Employee>;
 
+  public get CurrentEmployee(): Observable<Employee> {
+    return this.currentEmployee;
   }
 
-  public get currentUser(): Observable<Employee> {
-    return this.http.get<Employee>(`api/auth/user`);
+  constructor(private http: HttpClient) {
+    this.currentEmployee = new Subject<Employee>();
+    if (this.isLogin()) {
+      this.currentUser();
+    }
+  }
+
+  private currentUser(){
+    this.http.get<Employee>(`api/auth/user`)
+      .subscribe(x => this.currentEmployee.next(x));
   }
 
   isLogin(): boolean {

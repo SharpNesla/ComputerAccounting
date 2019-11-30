@@ -9,7 +9,8 @@ import {PartTypeCardComponent} from "../cards/part-type-card.component";
 @Component({
   selector: 'sg-part-type-grid',
   template: `
-      <table mat-table [dataSource]="this.Entities" class="sg-table">
+      <table mat-table [dataSource]="this.Entities"
+             [class.sg-table-compact]="isCompact" class="sg-table">
           <ng-container matColumnDef="select">
               <th mat-header-cell *matHeaderCellDef>
                   <mat-checkbox>
@@ -37,21 +38,32 @@ import {PartTypeCardComponent} from "../cards/part-type-card.component";
           <ng-container matColumnDef="cost">
               <th mat-header-cell *matHeaderCellDef>Стоимость</th>
               <td mat-cell *matCellDef="let element"
-                  (contextmenu)="onContextMenu($event, element)"> {{element.Cost}} ₽
+                  (contextmenu)="onContextMenu($event, element)"> {{element.Cost}}₽
               </td>
           </ng-container>
 
           <ng-container matColumnDef="parts_count">
               <th mat-header-cell *matHeaderCellDef>Комплектущих</th>
               <td mat-cell *matCellDef="let element"
-                  (contextmenu)="onContextMenu($event, element)"> {{element.PartsCount}} </td>
+                  (contextmenu)="onContextMenu($event, element)"> {{element.PartsCount}}шт</td>
           </ng-container>
 
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                  <button mat-icon-button (click)="showInfoCard(element)">
-                      <mat-icon>error_outline</mat-icon>
+              <td mat-cell *matCellDef="let element"
+                  [class.sg-table-action-button-container-compact]="isCompact"
+                  class="sg-table-action-button-container">
+                  <button mat-icon-button
+                          *ngIf="!isCompact" (click)="remove(element)">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="!isCompact"
+                          [routerLink]="'/computers/edit/' + element.Id">
+                      <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button
+                          (click)="showInfoCard(element)">
+                      <mat-icon class="sg-table-info-button">error_outline</mat-icon>
                   </button>
               </td>
           </ng-container>

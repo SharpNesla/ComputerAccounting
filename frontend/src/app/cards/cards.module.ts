@@ -12,6 +12,7 @@ import {SoftwareTypeCardComponent} from "./software-type-card.component";
 import {SubsidiaryCardComponent} from "./subsidiary-card.component";
 import {UtilsModule} from "../utils/utils.module";
 import {GridsModule} from "../grids/grids.module";
+import {SearchesModule} from "../searches/searches.module";
 
 
 
@@ -31,7 +32,8 @@ import {GridsModule} from "../grids/grids.module";
     CommonModule,
     MaterialModule,
     UtilsModule,
-    GridsModule
+    GridsModule,
+    SearchesModule
   ],
   entryComponents:[
     ComputerCardComponent,

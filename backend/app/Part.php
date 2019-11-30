@@ -18,4 +18,9 @@ class Part extends Model
     {
         return $this->belongsTo(Computer::class);
     }
+
+    public function subsidiary()
+    {
+        return $this->belongsTo(Subsidiary::class);
+    }
 }

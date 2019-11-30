@@ -10,12 +10,12 @@ import {RoomService} from "../services/room.service";
       <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Компьютер №{{(Entity | async)?.Id}}
+              Помещение №{{(Entity | async)?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-
+                  
 
               </mat-card>
               <mat-card id="right-section">

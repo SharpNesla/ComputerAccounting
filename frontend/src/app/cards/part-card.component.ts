@@ -3,7 +3,6 @@ import {CardBase} from "../utils/card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Part} from "../entities/part";
 import {PartService} from "../services/part.service";
-import {PartTypeService} from "../services/part-type.service";
 
 @Component({
   selector: 'sg-license-card',
@@ -11,19 +10,17 @@ import {PartTypeService} from "../services/part-type.service";
       <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Компьютер №{{(Entity | async)?.Id}}
+              Комплектующее №{{(Entity | async)?.Id}}
           </header>
-              <div id="sg-editor-card-container">
-                  <mat-card id="left-section">
-                      <h2 class="mat-title">Общая информация</h2>
-                      
-                      
-                  </mat-card>
-                  <mat-card id="right-section">
-                      <h2 class="mat-title">Комментарий</h2>
+          <div id="sg-editor-card-container">
+              <mat-card id="left-section">
+                  <h2 class="mat-title">Общая информация</h2>
+              </mat-card>
+              <mat-card id="right-section">
+                  <h2 class="mat-title">Комплектующие данного типа</h2>
 
-                  </mat-card>
-              </div>
+              </mat-card>
+          </div>
       </sg-dialog-layout>`,
 
   styleUrls: ['../utils/editors-styles.scss']
@@ -31,8 +28,7 @@ import {PartTypeService} from "../services/part-type.service";
 export class PartCardComponent extends CardBase<Part, PartService> {
 
   constructor(
-    public dialogRef: MatDialogRef<PartCardComponent>,
-    service: PartTypeService,
+    public dialogRef: MatDialogRef<PartCardComponent>, service: PartService,
     @Inject(MAT_DIALOG_DATA) public data: number) {
     super(dialogRef, service, data);
   }

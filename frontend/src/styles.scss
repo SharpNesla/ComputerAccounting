@@ -101,6 +101,11 @@ mat-divider{
   width: calc(100% - 4em);
   background: transparent !important;
 }
+
+.sg-table-compact {
+  margin: 1em;
+  width: calc(100% - 2em);
+}
 .mat-dialog-container .dark-theme{
 
 }
@@ -113,9 +118,23 @@ mat-divider{
   border-bottom-width: 2px !important;
 }
 
-.sg-table-info-button{
-  width: 12px;
+.sg-table-action-button-container{
+  width: 130px;
 }
+
+.sg-table-action-button-container-compact{
+  width: 10px;
+}
+
+.sg-table-info-button{
+  transform: rotate(180deg);
+}
+.sg-card-table{
+  margin-top: 1.5em;
+  margin-right: 1.5em;
+  margin-left: 1.5em;
+}
+
 .sg-table-checkbox{
   width: 48px;
   padding-top: 2px;

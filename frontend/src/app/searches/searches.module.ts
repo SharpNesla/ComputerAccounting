@@ -7,6 +7,7 @@ import {SoftwareTypeSearchComponent} from "./software-type-search.component";
 import {SubsidiarySearchComponent} from "./subsidiary-search.component";
 import {MaterialModule} from "../material-module";
 import {FormsModule} from "@angular/forms";
+import {ComputerSearchComponent} from "./computer-search.component";
 
 
 
@@ -16,14 +17,16 @@ import {FormsModule} from "@angular/forms";
     RoomSearchComponent,
     SoftwareSearchComponent,
     SoftwareTypeSearchComponent,
-    SubsidiarySearchComponent
+    SubsidiarySearchComponent,
+    ComputerSearchComponent
   ],
   exports: [
     PartTypeSearchComponent,
     RoomSearchComponent,
     SoftwareSearchComponent,
     SoftwareTypeSearchComponent,
-    SubsidiarySearchComponent
+    SubsidiarySearchComponent,
+    ComputerSearchComponent
   ],
   imports: [
     CommonModule,

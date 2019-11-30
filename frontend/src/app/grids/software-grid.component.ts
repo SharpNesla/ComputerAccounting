@@ -49,9 +49,20 @@ import {SoftwareCardComponent} from "../cards/software-card.component";
 
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                  <button mat-icon-button (click)="showInfoCard(element)">
-                      <mat-icon>error_outline</mat-icon>
+              <td mat-cell *matCellDef="let element"
+                  [class.sg-table-action-button-container-compact]="isCompact"
+                  class="sg-table-action-button-container">
+                  <button mat-icon-button
+                          *ngIf="!isCompact" (click)="remove(element)">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="!isCompact"
+                          [routerLink]="'/computers/edit/' + element.Id">
+                      <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button
+                          (click)="showInfoCard(element)">
+                      <mat-icon class="sg-table-info-button">error_outline</mat-icon>
                   </button>
               </td>
           </ng-container>

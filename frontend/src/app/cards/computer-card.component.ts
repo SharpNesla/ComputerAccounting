@@ -29,10 +29,14 @@ import {ComputerService} from "../services/computer.service";
                   </div>
               </mat-tab>
               <mat-tab label="Установленные комплектующие">
-                  <sg-part-grid isCompact="true"></sg-part-grid>
+                  <mat-card class="sg-card-table">
+                      <sg-part-grid isCompact="true"></sg-part-grid>
+                  </mat-card>
               </mat-tab>
               <mat-tab label="Установленное ПО">
-                  <sg-software-grid isCompact="true"></sg-software-grid>
+                  <mat-card class="sg-card-table">
+                      <sg-software-grid isCompact="true"></sg-software-grid>
+                  </mat-card>
               </mat-tab>
           </mat-tab-group>
       </sg-dialog-layout>`,
@@ -43,9 +47,9 @@ export class ComputerCardComponent extends CardBase<Computer, ComputerService> {
 
   constructor(
     public dialogRef: MatDialogRef<ComputerCardComponent>,
-    service : ComputerService,
+    service: ComputerService,
     @Inject(MAT_DIALOG_DATA) public data: number) {
-    super(dialogRef,service, data);
+    super(dialogRef, service, data);
   }
 
 

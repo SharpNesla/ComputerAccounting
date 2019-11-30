@@ -50,14 +50,6 @@ import {element} from "protractor";
       </ng-template>
       <ng-template #compactview>
           <div id="search-toolbar">
-              <div id="search-input">
-                  <button mat-icon-button (click)="this.Search.emit(this.SearchString)">
-                      <mat-icon>search</mat-icon>
-                  </button>
-                  <mat-form-field id="searchbar" class="searchbar-input" appearance="standard">
-                      <input matInput placeholder="Поиск {{EntityName}}">
-                  </mat-form-field>
-              </div>
               <div id="paginator">
                   <div>
                       {{EntityNameCapitalized}} на странице:

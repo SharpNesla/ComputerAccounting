@@ -20,18 +20,24 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   @Input() public IsDisplaySubtotals: boolean;
   @Input() public IsSearchDrawerOpened: boolean;
-  @Input() public DisplaySelectionColumn: boolean;
   @Input() public isCompact : boolean;
 
   public SearchString: string;
 
-  protected constructor(repository: TRepository, protected dialog: MatDialog,
-                        displayedColumns: string[], protected card = null) {
-    this.Repo = repository;
-    this.DisplayedColumns = displayedColumns;
+  public get DisplayedColumns() : string[]{
+    if (this.isCompact){
+      return this.displayedColumns.filter(x=>x != "select");
+    }else {
+      return this.displayedColumns;
+    }
   }
 
-  public DisplayedColumns: string[];
+
+  protected constructor(repository: TRepository, protected dialog: MatDialog,
+                        private displayedColumns: string[], protected card = null) {
+    this.Repo = repository;
+  }
+
   private offset: number;
   private limit: number;
 
@@ -63,7 +69,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
     const dialogRef = this.dialog.open(this.card, {
       data: element.Id,
-      minWidth: '50em'
+      minWidth: '900px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

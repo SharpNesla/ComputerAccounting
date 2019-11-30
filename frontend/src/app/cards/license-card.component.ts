@@ -10,17 +10,18 @@ import {LicensesService} from "../services/licenses.service";
       <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Компьютер №{{(Entity | async)?.Id}}
+              Лицензии №{{(Entity | async)?.Id}}
           </header>
               <div id="sg-editor-card-container">
                   <mat-card id="left-section">
                       <h2 class="mat-title">Общая информация</h2>
-                      
+
+                      <p>Стоимость: {{(Entity | async)?.Cost}}₽</p>
+                      <p>Максимальное число применений: {{(Entity | async)?.MaxApplyCount}}</p>
                       
                   </mat-card>
                   <mat-card id="right-section">
-                      <h2 class="mat-title">Комментарий</h2>
-
+                      <h2 class="mat-title">Комментарии</h2>
                   </mat-card>
               </div>
       </sg-dialog-layout>`,

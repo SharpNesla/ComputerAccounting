@@ -13,7 +13,8 @@ import {PartCardComponent} from "../cards/part-card.component";
 @Component({
   selector: 'sg-part-grid',
   template: `
-      <table mat-table [dataSource]="this.Entities" class="sg-table">
+      <table mat-table [dataSource]="this.Entities"
+             [class.sg-table-compact]="isCompact" class="sg-table">
           <ng-container matColumnDef="select">
               <th mat-header-cell *matHeaderCellDef>
                   <mat-checkbox>
@@ -41,14 +42,25 @@ import {PartCardComponent} from "../cards/part-card.component";
           <ng-container matColumnDef="inventory_id">
               <th mat-header-cell *matHeaderCellDef>Инвентарный номер</th>
               <td mat-cell *matCellDef="let element"
-                  (contextmenu)="onContextMenu($event, element)"> {{element.InventoryId}} </td>
+                  (contextmenu)="onContextMenu($event, element)"> {{element.InventoryId}}</td>
           </ng-container>
 
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element" class="sg-table-info-button">
-                  <button mat-icon-button (click)="showInfoCard(element)">
-                      <mat-icon>error_outline</mat-icon>
+              <td mat-cell *matCellDef="let element"
+                  [class.sg-table-action-button-container-compact]="isCompact"
+                  class="sg-table-action-button-container">
+                  <button mat-icon-button
+                          *ngIf="!isCompact" (click)="remove(element)">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="!isCompact"
+                          [routerLink]="'/computers/edit/' + element.Id">
+                      <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button
+                          (click)="showInfoCard(element)">
+                      <mat-icon class="sg-table-info-button">error_outline</mat-icon>
                   </button>
               </td>
           </ng-container>
@@ -75,12 +87,12 @@ import {PartCardComponent} from "../cards/part-card.component";
               </button>
           </ng-template>
       </mat-menu>
-  <sg-crud router-link="/parts/add"
-           icon="memory"
-           [count]="this.Count"
-           (Paginate)="this.refresh($event.offset, $event.limit)"
-           entity-name="комплектующих"
-           [isCompact]="this.isCompact"></sg-crud>`
+      <sg-crud router-link="/parts/add"
+               icon="memory"
+               [count]="this.Count"
+               (Paginate)="this.refresh($event.offset, $event.limit)"
+               entity-name="комплектующих"
+               [isCompact]="this.isCompact"></sg-crud>`
 })
 export class PartGridComponent extends EntityGridBase<Part, PartService> {
   constructor(service: PartService, dialog: MatDialog) {

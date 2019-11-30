@@ -15,8 +15,8 @@ import {Observable} from "rxjs";
               <div id="drawer-content-container">
                   <div id="sg-drawer-userbar">
                       <div>
-<!--                          <b>{{(CurrentEmployee | async).Surname}} {{(CurrentEmployee | async).Name}}-->
-<!--                              {{(CurrentEmployee | async).Patronymic}}</b>-->
+                          <b>{{(CurrentEmployee | async)?.Surname}} {{(CurrentEmployee | async)?.Name}}
+                              {{(CurrentEmployee | async)?.Patronymic}}</b>
                           <div>Директор</div>
                       </div>
                       <div class="flex-spacer"></div>
@@ -83,6 +83,7 @@ import {Observable} from "rxjs";
   `]
 })
 export class AppComponent implements OnInit {
+  CurrentEmployee : Observable<Employee>;
   get IsDrawerOpened(): boolean {
     return this.navService.IsDrawerOpened;
   }
@@ -97,6 +98,7 @@ export class AppComponent implements OnInit {
 
   constructor(private navService: NavigationService,
               private auth: AuthService) {
+    this.CurrentEmployee = auth.CurrentEmployee;
   }
 
   logout() {

@@ -10,17 +10,20 @@ import {PartTypeService} from "../services/part-type.service";
       <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Компьютер №{{(Entity | async)?.Id}}
+              Тип комплектующего №{{(Entity | async)?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
+                  <p>Модель: {{(Entity | async)?.Model}}</p>
+                  <p>Стоимость: {{(Entity | async)?.Cost}}₽</p>
+                  <p>Характеристики: {{(Entity | async)?.Characteristics}}</p>
 
-
+                  <p>Комментарий: {{(Entity | async)?.Comment}}</p>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
-
+                  <sg-part-grid isCompact="true"></sg-part-grid>
               </mat-card>
           </div>
       </sg-dialog-layout>`,
