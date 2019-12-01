@@ -13,8 +13,15 @@ class SubsidiaryController extends CrudControllerBase
         parent::__construct(Subsidiary::class);
     }
 
+
+
     protected function queryMany(Request $request, Builder $builder): Builder
     {
         return $builder->withCount('rooms');
+    }
+
+    public function getById($id)
+    {
+        return Subsidiary::with('director')->findOrFail($id);
     }
 }

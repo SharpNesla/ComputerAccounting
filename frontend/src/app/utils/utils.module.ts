@@ -15,18 +15,22 @@ import {MatInputModule} from "@angular/material/input";
 import {DialogLayoutComponent} from './layouts/dialog-layout.component';
 import {MatSelectModule} from "@angular/material/select";
 import {RolePipe} from './role.pipe';
+import { PartCategoryPipe } from './part-category.pipe';
+import { ComputerTypePipe } from './computer-type.pipe';
 
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
-    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe],
+    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe, PartCategoryPipe, ComputerTypePipe],
   exports: [
     AppbarBaseComponent,
     DrawerButtonComponent,
     CrudComponent,
     DrawerAppbarBaseComponent,
     DialogLayoutComponent,
-    RolePipe
+    RolePipe,
+    PartCategoryPipe,
+    ComputerTypePipe
   ],
   imports: [
     CommonModule,

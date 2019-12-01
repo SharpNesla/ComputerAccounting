@@ -1,10 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {SingleSearchBase} from "../utils/single-search-base";
-import {Room} from "../entities/room";
-import {RoomService} from "../services/room.service";
+import {Computer} from "../entities/computer";
+import {ComputerService} from "../services/computer.service";
+import {Employee} from "../entities/employee";
+import {EmployeeService} from "../services/employee.service";
 
 @Component({
-  selector: 'sg-room-search',
+  selector: 'sg-employee-search',
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
@@ -13,14 +15,14 @@ import {RoomService} from "../services/room.service";
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field appearance="standard">
-                  <input matInput placeholder="Поиск сущности"
+                  <input matInput [placeholder]="'Поиск ' + searchHint"
                          (keydown)="$event.stopPropagation()"
                          type="search"
                          [(ngModel)]="searchString">
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">
-                  {{entity.Id}} {{entity.Number}}
+                  {{entity.Id}} {{entity.Name}} {{entity.Surname}} {{entity.Role | role}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,
@@ -34,8 +36,8 @@ import {RoomService} from "../services/room.service";
           margin-right: 4px;
       }`]
 })
-export class RoomSearchComponent extends SingleSearchBase<Room, RoomService> {
-  constructor(service : RoomService){
+export class EmployeeSearchComponent extends SingleSearchBase<Employee, EmployeeService> {
+  constructor(service : EmployeeService){
     super(service);
   }
 }

@@ -9,10 +9,16 @@ class Computer extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'inventory_id', 'comment'];
+    protected $fillable = ['name', 'room_id', 'responsible_id', 'type',
+        'inventory_id', 'comment'];
 
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function responsible()
+    {
+        return $this->belongsTo(User::class, 'responsible_id');
     }
 }

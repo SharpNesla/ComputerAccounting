@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ComputerService} from "../services/computer.service";
-import {Computer} from "../entities/computer";
+import {Computer, ComputerType} from "../entities/computer";
 import {EditorBase} from "../utils/editor-base";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
@@ -23,7 +23,18 @@ import {ActivatedRoute} from "@angular/router";
                              [(ngModel)]="this.Entity.InventoryId">
                   </mat-form-field>
                   <sg-subsidiary-search hint="Филиал помещения"></sg-subsidiary-search>
-                  <sg-room-search hint="Помещение"></sg-room-search>
+                  <sg-room-search [(selected)]="Entity.Room" hint="Помещение"></sg-room-search>
+                  <sg-employee-search [(selected)]="Entity.Responsible" hint="Ответственное лицо">
+                      
+                  </sg-employee-search>
+
+                  <mat-form-field>
+                      <mat-select [(ngModel)]="Entity.Type" placeholder="Категория">
+                          <mat-option *ngFor="let elem of types" [value]="elem">
+                              {{elem | computerType}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -38,7 +49,16 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['../utils/editors-styles.scss']
 })
 export class ComputerEditorComponent extends EditorBase<Computer, ComputerService> {
-
+  types =[
+    ComputerType.PC,
+    ComputerType.Server,
+    ComputerType.Laptop,
+    ComputerType.Tablet,
+    ComputerType.NetBook,
+    ComputerType.NetTop,
+    ComputerType.SmartPhone,
+    ComputerType.Other
+  ]
 
   constructor(private service: ComputerService, route: ActivatedRoute) {
     super(service, route, new Computer());

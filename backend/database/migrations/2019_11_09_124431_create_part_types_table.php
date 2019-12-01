@@ -16,6 +16,8 @@ class CreatePartTypesTable extends Migration
         Schema::create('part_types', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->tinyInteger('category')->unsigned()->nullable();
+
             $table->text('model')->nullable();
             $table->decimal('cost')->nullable();
             $table->text('characteristics')->nullable();

@@ -8,9 +8,19 @@ export enum Roles {
   Responsible,
   StoreKeeper
 }
+
+export enum Gender {
+  Male,
+  Female,
+  Unrecognized
+}
+
 export class Employee extends EntityBase{
   Name : string;
   Surname : string;
   Patronymic : string;
   Role : Roles;
+  Gender : Gender;
+  PassportSerial : string;
+  Address : string;
 }

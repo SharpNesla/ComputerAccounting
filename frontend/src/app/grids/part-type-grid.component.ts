@@ -45,7 +45,15 @@ import {PartTypeCardComponent} from "../cards/part-type-card.component";
           <ng-container matColumnDef="parts_count">
               <th mat-header-cell *matHeaderCellDef>Комплектущих</th>
               <td mat-cell *matCellDef="let element"
-                  (contextmenu)="onContextMenu($event, element)"> {{element.PartsCount}}шт</td>
+                  (contextmenu)="onContextMenu($event, element)"> {{element.PartsCount}}шт
+              </td>
+          </ng-container>
+
+          <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef>Категория</th>
+              <td mat-cell *matCellDef="let element"
+                  (contextmenu)="onContextMenu($event, element)"> {{element.Category | partCategory}}
+              </td>
           </ng-container>
 
           <ng-container matColumnDef="info" stickyEnd>
@@ -101,7 +109,7 @@ export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeServ
 
   constructor(service: PartTypeService, dialog: MatDialog) {
     super(service, dialog,
-      ['select', 'id', 'name', 'cost', 'parts_count', 'info'],
+      ['select', 'id', 'name', 'cost', 'parts_count', 'category', 'info'],
       PartTypeCardComponent);
   }
 

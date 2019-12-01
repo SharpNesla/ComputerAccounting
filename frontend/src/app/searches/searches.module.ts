@@ -8,6 +8,8 @@ import {SubsidiarySearchComponent} from "./subsidiary-search.component";
 import {MaterialModule} from "../material-module";
 import {FormsModule} from "@angular/forms";
 import {ComputerSearchComponent} from "./computer-search.component";
+import {EmployeeSearchComponent} from "./employee-search.component";
+import {UtilsModule} from "../utils/utils.module";
 
 
 
@@ -18,7 +20,8 @@ import {ComputerSearchComponent} from "./computer-search.component";
     SoftwareSearchComponent,
     SoftwareTypeSearchComponent,
     SubsidiarySearchComponent,
-    ComputerSearchComponent
+    ComputerSearchComponent,
+    EmployeeSearchComponent
   ],
   exports: [
     PartTypeSearchComponent,
@@ -26,12 +29,14 @@ import {ComputerSearchComponent} from "./computer-search.component";
     SoftwareSearchComponent,
     SoftwareTypeSearchComponent,
     SubsidiarySearchComponent,
-    ComputerSearchComponent
+    ComputerSearchComponent,
+    EmployeeSearchComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    UtilsModule
   ]
 })
 export class SearchesModule { }

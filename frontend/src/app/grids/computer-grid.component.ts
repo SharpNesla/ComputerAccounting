@@ -41,6 +41,13 @@ import {ComputerCardComponent} from "../cards/computer-card.component";
                   (contextmenu)="onContextMenu($event, element)"> {{element.InventoryId}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef>Инвентарный номер</th>
+              <td mat-cell *matCellDef="let element"
+                  (contextmenu)="onContextMenu($event, element)"> {{element.Type | computerType}}
+              </td>
+          </ng-container>
+
           <ng-container matColumnDef="info" stickyEnd>
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element"
@@ -92,7 +99,8 @@ import {ComputerCardComponent} from "../cards/computer-card.component";
 export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
   constructor(computers: ComputerService, private dialogref: MatDialog) {
     super(computers, dialogref,
-      ['select', 'id', 'name', 'inventory_id', 'info'], ComputerCardComponent)
+      ['select', 'id', 'name', 'inventory_id', 'type', 'info'],
+      ComputerCardComponent)
   }
 
 

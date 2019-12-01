@@ -158,3 +158,16 @@ mat-divider{
   display: flex;
   align-items: center;
 }
+
+.sg-vertical-radio-group{
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  margin-right: 0;
+  margin-left: -5px;
+  margin-bottom: 16px;
+}
+
+.sg-vertical-radio-button {
+  margin: 5px;
+}

@@ -16,6 +16,10 @@ class CreateSubsidiariesTable extends Migration
         Schema::create('subsidiaries', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->bigInteger('director_id')->unsigned()->nullable();
+            $table->foreign('director_id')
+                ->references('id')->on('users')->onDelete('cascade');
+
             $table->text('name')->nullable();
             $table->text('address')->nullable();
             $table->text('comment')->nullable();

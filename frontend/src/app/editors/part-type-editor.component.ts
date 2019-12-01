@@ -3,7 +3,7 @@ import {EditorBase} from "../utils/editor-base";
 import {Part} from "../entities/part";
 import {PartService} from "../services/part.service";
 import {ActivatedRoute} from "@angular/router";
-import {PartType} from "../entities/part-type";
+import {PartCategory, PartType} from "../entities/part-type";
 import {PartTypeService} from "../services/part-type.service";
 
 @Component({
@@ -26,9 +26,9 @@ import {PartTypeService} from "../services/part-type.service";
                              [(ngModel)]="Entity.Cost" placeholder="Цена">
                   </mat-form-field>
                   <mat-form-field>
-                      <mat-select placeholder="Категория">
-                          <mat-option *ngFor="let elem of PartTypes">
-                              {{elem}}
+                      <mat-select [(ngModel)]="Entity.Category" placeholder="Категория">
+                          <mat-option *ngFor="let elem of partCategories" [value]="elem">
+                              {{elem | partCategory}}
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
@@ -52,8 +52,20 @@ import {PartTypeService} from "../services/part-type.service";
 })
 export class PartTypeEditorComponent extends EditorBase<PartType, PartTypeService> {
 
-  PartTypes = ['Центральный процессор',
-    '',''];
+  partCategories = [
+    PartCategory.CPU,
+    PartCategory.GPU,
+    PartCategory.RAM,
+    PartCategory.SATADevice,
+    PartCategory.PCIExtension,
+    PartCategory.Motherboard,
+    PartCategory.PowerSupply,
+    PartCategory.Case,
+    PartCategory.Mouse,
+    PartCategory.KeyBoard,
+    PartCategory.Monitor,
+    PartCategory.Other
+  ];
   constructor(private service: PartTypeService, route: ActivatedRoute) {
     super(service, route, new PartType());
   }

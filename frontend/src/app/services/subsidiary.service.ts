@@ -10,4 +10,13 @@ export class SubsidiaryService extends EntityRepository<Subsidiary> {
   constructor(httpClient : HttpClient){
     super(httpClient,"subsidiary" ,[]);
   }
+
+  protected prepareEntity(entity: Subsidiary): Subsidiary {
+    entity.DirectorId = entity.Director.Id;
+
+    delete entity.Director;
+    delete entity.RoomsCount;
+
+    return super.prepareEntity(entity);
+  }
 }

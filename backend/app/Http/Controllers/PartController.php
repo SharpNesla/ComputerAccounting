@@ -16,7 +16,7 @@ class PartController extends CrudControllerBase
 
     public function getById($id)
     {
-        return Part::with('part_type')
+        return Part::with('partType')
             ->with('subsidiary')
             ->with('computer')
             ->findOrFail($id);

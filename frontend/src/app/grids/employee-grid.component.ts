@@ -66,7 +66,7 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
                       <mat-icon>delete</mat-icon>
                   </button>
                   <button mat-icon-button *ngIf="!isCompact"
-                          [routerLink]="'/computers/edit/' + element.Id">
+                          [routerLink]="'/employees/edit/' + element.Id">
                       <mat-icon>edit</mat-icon>
                   </button>
                   <button mat-icon-button

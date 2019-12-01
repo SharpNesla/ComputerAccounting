@@ -10,4 +10,17 @@ export class ComputerService extends EntityRepository<Computer> {
   constructor(httpClient : HttpClient){
     super(httpClient,"computer" ,[]);
   }
+
+  protected prepareEntity(entity: Computer): Computer {
+    if (entity.Room.Id != null){
+      entity.RoomId = entity.Room.Id;
+    }
+
+    entity.ResponsibleId = entity.Responsible.Id;
+
+    delete entity.Room;
+    delete entity.Responsible;
+
+    return super.prepareEntity(entity);
+  }
 }
