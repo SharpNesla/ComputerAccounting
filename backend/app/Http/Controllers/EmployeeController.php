@@ -71,4 +71,11 @@ class EmployeeController extends CrudControllerBase
     {
         return response()->json($request->user());
     }
+
+    public function getById($id)
+    {
+        return User::with('superior')
+            ->with('subsidiary')
+            ->findOrFail($id);
+    }
 }

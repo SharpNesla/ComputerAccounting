@@ -16,19 +16,13 @@ import {PartService} from "../services/part.service";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-part-type-search [(selected)]="Entity.PartType"
-                                       hint="Тип комплектующего">
-                  </sg-part-type-search>
-                  <sg-subsidiary-search [(selected)]="Entity.Subsidiary"
-                          hint="Филиал"></sg-subsidiary-search>
-                  <sg-computer-search [(selected)]="Entity.Computer"
-                                      hint="Компьютер"></sg-computer-search>
+                  <sg-part-type-search></sg-part-type-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
-                      <textarea matInput placeholder="Комментарий"
+                      <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.Entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>

@@ -1,12 +1,14 @@
 import {EntityBase} from "./entity-base";
 
-export enum Category{
+export enum SoftwareCategory {
+  Program,
   Driver,
   OS,
-  Program
+  Other
 }
 
-export class SoftwareType extends EntityBase{
-  TypeName : string;
-  Category : Category;
+export class SoftwareType extends EntityBase {
+  Typename: string;
+  Category: SoftwareCategory;
+  SoftwareCount: number;
 }

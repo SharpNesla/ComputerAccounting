@@ -54,7 +54,8 @@ import {CardsModule} from "./cards/cards.module";
     CardsModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {provide: MAT_DATE_LOCALE, useValue: 'ru-ru'}
   ],
   bootstrap: [AppComponent],

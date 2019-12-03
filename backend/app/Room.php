@@ -18,6 +18,6 @@ class Room extends Model
 
     public function computers()
     {
-        return $this->belongsTo(Computer::class);
+        return $this->hasMany(Computer::class);
     }
 }

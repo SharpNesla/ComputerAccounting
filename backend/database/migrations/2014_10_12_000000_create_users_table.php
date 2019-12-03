@@ -20,12 +20,19 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
 
-            $table->string('name')->nullable();
-            $table->string('surname')->nullable();
-            $table->string('patronymic')->nullable();
-
+            $table->text('name')->nullable();
+            $table->text('surname')->nullable();
+            $table->text('patronymic')->nullable();
 
             $table->unsignedTinyInteger('role')->nullable();
+            $table->unsignedTinyInteger('gender')->nullable();
+
+            $table->text('passport_serial')->nullable();
+            $table->text('address')->nullable();
+
+            $table->bigInteger('superior_id')->unsigned()->nullable();
+            $table->foreign('superior_id')
+                ->references('id')->on('users')->onDelete('cascade');
 
             $table->rememberToken();
             $table->timestamps();

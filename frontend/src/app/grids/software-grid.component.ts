@@ -57,7 +57,7 @@ import {SoftwareCardComponent} from "../cards/software-card.component";
                       <mat-icon>delete</mat-icon>
                   </button>
                   <button mat-icon-button *ngIf="!isCompact"
-                          [routerLink]="'/computers/edit/' + element.Id">
+                          [routerLink]="'/software/edit/' + element.Id">
                       <mat-icon>edit</mat-icon>
                   </button>
                   <button mat-icon-button
@@ -78,7 +78,7 @@ import {SoftwareCardComponent} from "../cards/software-card.component";
 
       <mat-menu #contextMenu="matMenu">
           <ng-template matMenuContent let-item="item">
-              <button mat-menu-item [routerLink]="'/part-types/edit/' + item.Id">
+              <button mat-menu-item [routerLink]="'/software/edit/' + item.Id">
 
                   <mat-icon>edit</mat-icon>
                   Изменить

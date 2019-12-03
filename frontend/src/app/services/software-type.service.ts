@@ -11,4 +11,9 @@ export class SoftwareTypeService extends EntityRepository<SoftwareType> {
   constructor(httpClient : HttpClient){
     super(httpClient,"software-type" ,[]);
   }
+
+  protected prepareEntity(entity: SoftwareType): SoftwareType {
+    delete entity.SoftwareCount;
+    return super.prepareEntity(entity);
+  }
 }

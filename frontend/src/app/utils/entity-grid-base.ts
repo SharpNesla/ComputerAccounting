@@ -51,8 +51,6 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
       [], null, null)
   }
 
-  selection = new SelectionModel<Computer>(true, []);
-
   @ViewChild(MatMenuTrigger, {static: false}) contextMenu: MatMenuTrigger;
 
   contextMenuPosition = {x: '0px', y: '0px'};

@@ -7,6 +7,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Software extends Model
 {
-    protected $fillable = ['software_type_id', 'computer_id', 'comment'];
     use SoftDeletes;
+
+    protected $fillable = ['software_type_id', 'computer_id', 'comment'];
+
+    public function softwareType()
+    {
+        return $this->belongsTo(SoftwareType::class);
+    }
+
+    public function computer()
+    {
+        return $this->belongsTo(Computer::class);
+    }
+
 }

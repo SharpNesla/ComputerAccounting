@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NavigationService} from "./navigation.service";
 import {AuthService} from "./login/auth.service";
 import {Employee} from "./entities/employee";
 import {Observable} from "rxjs";
+import {Computer} from "./entities/computer";
+import {EmployeeCardComponent} from "./cards/employee-card.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-root',
@@ -15,9 +18,12 @@ import {Observable} from "rxjs";
               <div id="drawer-content-container">
                   <div id="sg-drawer-userbar">
                       <div>
-                          <b>{{(CurrentEmployee | async)?.Surname}} {{(CurrentEmployee | async)?.Name}}
-                              {{(CurrentEmployee | async)?.Patronymic}}</b>
-                          <div>Директор</div>
+<!--                          <button mat-flat-button class="sg-drawer-userbar-name" (click)="showInfoCard()">-->
+                              <b>{{CurrentEmployee?.Surname}} {{CurrentEmployee?.Name}}
+                                  {{CurrentEmployee?.Patronymic}}</b>
+                              <div>{{CurrentEmployee?.Role | role}}</div>
+<!--                          </button>-->
+                          
                       </div>
                       <div class="flex-spacer"></div>
                       <button id="sg-drawer-userbar-close" mat-icon-button (click)="this.closeDrawer()">
@@ -82,8 +88,9 @@ import {Observable} from "rxjs";
       }
   `]
 })
-export class AppComponent implements OnInit {
-  CurrentEmployee : Observable<Employee>;
+export class AppComponent implements OnInit, OnDestroy {
+  CurrentEmployee: Employee;
+
   get IsDrawerOpened(): boolean {
     return this.navService.IsDrawerOpened;
   }
@@ -97,8 +104,9 @@ export class AppComponent implements OnInit {
   }
 
   constructor(private navService: NavigationService,
-              private auth: AuthService) {
-    this.CurrentEmployee = auth.CurrentEmployee;
+              private auth: AuthService,
+              private dialog : MatDialog) {
+    this.CurrentEmployee = new Employee();
   }
 
   logout() {
@@ -106,8 +114,26 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.auth.CurrentEmployee.subscribe(x => {
+      console.log(x);
+      this.CurrentEmployee = x
+    },
+      x=>console.log(x));
   }
 
+  showInfoCard() {
+    const dialogRef = this.dialog.open(EmployeeCardComponent, {
+      data: this.CurrentEmployee.Id,
+      minWidth: '900px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.auth.CurrentEmployee.unsubscribe();
+  }
 
 }

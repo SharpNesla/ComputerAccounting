@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 
-const toCamel = (s) => {
+export const toCamel = (s) => {
   var str = s.replace(/([-_][a-z])/ig, ($1) => {
     return $1.toUpperCase()
       .replace('-', '')
@@ -20,7 +20,7 @@ const isObject = function (o) {
   return o === Object(o) && !isArray(o) && typeof o !== 'function';
 };
 
-const keysToCamel = function (o) {
+export const keysToCamel = function (o) {
   if (isObject(o)) {
     const n = {};
 

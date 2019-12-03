@@ -12,17 +12,18 @@ import {SoftwareTypeService} from "../services/software-type.service";
       <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Компьютер №{{(Entity | async)?.Id}}
+              Тип ПО №{{(Entity | async)?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-
+                  <p class="mat-body">Название: {{(Entity | async)?.Typename}}</p>
+                  <p class="mat-body">Категория: {{(Entity | async)?.Category | softwareCategory}}</p>
 
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
-
+                  <sg-software-grid isCompact="true"></sg-software-grid>
               </mat-card>
           </div>
       </sg-dialog-layout>`,

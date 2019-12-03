@@ -17,11 +17,12 @@ import {MatSelectModule} from "@angular/material/select";
 import {RolePipe} from './role.pipe';
 import { PartCategoryPipe } from './part-category.pipe';
 import { ComputerTypePipe } from './computer-type.pipe';
+import { SoftwareCategoryPipe } from './software-category.pipe';
 
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
-    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe, PartCategoryPipe, ComputerTypePipe],
+    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe, PartCategoryPipe, ComputerTypePipe, SoftwareCategoryPipe],
   exports: [
     AppbarBaseComponent,
     DrawerButtonComponent,
@@ -30,7 +31,8 @@ import { ComputerTypePipe } from './computer-type.pipe';
     DialogLayoutComponent,
     RolePipe,
     PartCategoryPipe,
-    ComputerTypePipe
+    ComputerTypePipe,
+    SoftwareCategoryPipe
   ],
   imports: [
     CommonModule,

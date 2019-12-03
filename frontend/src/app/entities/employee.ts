@@ -1,4 +1,5 @@
 import {EntityBase} from "./entity-base";
+import {Subsidiary} from "./subsidiary";
 
 export enum Roles {
   Director,
@@ -15,12 +16,22 @@ export enum Gender {
   Unrecognized
 }
 
-export class Employee extends EntityBase{
-  Name : string;
-  Surname : string;
-  Patronymic : string;
-  Role : Roles;
-  Gender : Gender;
-  PassportSerial : string;
-  Address : string;
+export class Employee extends EntityBase {
+  Name: string;
+  Surname: string;
+  Patronymic: string;
+
+  Username: string;
+
+  Role: Roles;
+  Gender: Gender;
+
+  PassportSerial: string;
+  Address: string;
+
+  SubsidiaryId: number;
+  Subsidiary: Subsidiary;
+
+  SuperiorId: number;
+  Superior: Employee;
 }

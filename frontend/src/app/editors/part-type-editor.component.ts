@@ -37,12 +37,12 @@ import {PartTypeService} from "../services/part-type.service";
                   <h2 class="mat-title">Характеристики и комментарий</h2>
                   <mat-form-field appearance="outline">
                       <mat-label>Характеристики</mat-label>
-                      <textarea matInput placeholder="Характеристики"
+                      <textarea matInput cdkTextareaAutosize="false" placeholder="Характеристики"
                                 [(ngModel)]="this.Entity.Characteristics"></textarea>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
-                      <textarea matInput placeholder="Комментарий"
+                      <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.Entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>

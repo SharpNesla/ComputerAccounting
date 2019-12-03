@@ -31,23 +31,23 @@ import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
           </ng-container>
 
           <!-- Name Column -->
-          <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>Модель</th>
+          <ng-container matColumnDef="typename">
+              <th mat-header-cell *matHeaderCellDef>Название</th>
               <td mat-cell *matCellDef="let element"
-                  (contextmenu)="onContextMenu($event, element)"> {{element.Model}} </td>
+                  (contextmenu)="onContextMenu($event, element)"> {{element.Typename}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="cost">
-              <th mat-header-cell *matHeaderCellDef>Стоимость</th>
+          <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef>Категория</th>
               <td mat-cell *matCellDef="let element"
-                  (contextmenu)="onContextMenu($event, element)"> {{element.Cost}} ₽
+                  (contextmenu)="onContextMenu($event, element)"> {{element.Category | softwareCategory}}
               </td>
           </ng-container>
 
-          <ng-container matColumnDef="parts_count">
-              <th mat-header-cell *matHeaderCellDef>Комплектущих</th>
+          <ng-container matColumnDef="software_count">
+              <th mat-header-cell *matHeaderCellDef>ПО</th>
               <td mat-cell *matCellDef="let element"
-                  (contextmenu)="onContextMenu($event, element)"> {{element.PartsCount}} </td>
+                  (contextmenu)="onContextMenu($event, element)"> {{element.SoftwareCount}} </td>
           </ng-container>
 
           <ng-container matColumnDef="info" stickyEnd>
@@ -101,7 +101,8 @@ import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
 })
 export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, SoftwareTypeService> {
   constructor(software: SoftwareTypeService, private dialogref: MatDialog) {
-    super(software, dialogref, ['select', 'id', 'info'],
+    super(software, dialogref, ['select', 'id', 'typename',
+        'category','software_count', 'info'],
       SoftwareTypeCardComponent)
   }
 }

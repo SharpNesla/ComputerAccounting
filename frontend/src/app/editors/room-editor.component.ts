@@ -25,7 +25,7 @@ import {ActivatedRoute} from "@angular/router";
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field class="sg-editor-comment" appearance="outline">
                       <mat-label>Комментарий</mat-label>
-                      <textarea matInput placeholder="Комментарий"></textarea>
+                      <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>

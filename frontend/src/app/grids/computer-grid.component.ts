@@ -4,6 +4,7 @@ import {Computer} from "../entities/computer";
 import {EntityGridBase} from "../utils/entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {ComputerCardComponent} from "../cards/computer-card.component";
+import {MatSort} from "@angular/material/sort";
 
 
 @Component({
@@ -42,7 +43,7 @@ import {ComputerCardComponent} from "../cards/computer-card.component";
           </ng-container>
 
           <ng-container matColumnDef="type">
-              <th mat-header-cell *matHeaderCellDef>Инвентарный номер</th>
+              <th mat-header-cell *matHeaderCellDef>Тип</th>
               <td mat-cell *matCellDef="let element"
                   (contextmenu)="onContextMenu($event, element)"> {{element.Type | computerType}}
               </td>
@@ -100,8 +101,6 @@ export class ComputerGridComponent extends EntityGridBase<Computer, ComputerServ
   constructor(computers: ComputerService, private dialogref: MatDialog) {
     super(computers, dialogref,
       ['select', 'id', 'name', 'inventory_id', 'type', 'info'],
-      ComputerCardComponent)
+      ComputerCardComponent);
   }
-
-
 }

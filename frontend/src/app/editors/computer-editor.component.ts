@@ -40,7 +40,9 @@ import {ActivatedRoute} from "@angular/router";
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
-                      <textarea matInput placeholder="Комментарий"
+                      <textarea matInput cdkTextareaAutosize="false"
+                                placeholder="Комментарий"
+                                
                         [(ngModel)]="this.Entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>

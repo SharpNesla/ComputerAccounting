@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'password',
+        'name', 'surname', 'patronymic', 'gender', 'passport_serial',
+        'superior_id', 'subsidiary_id',
+        'address', 'password', 'role'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -29,4 +30,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function subsidiary()
+    {
+        return $this->belongsTo(Subsidiary::class);
+    }
+
+    public function superior()
+    {
+        return $this->belongsTo(User::class, 'superior_id');
+    }
 }

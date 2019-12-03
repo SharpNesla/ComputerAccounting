@@ -25,7 +25,8 @@ import {ActivatedRoute} from "@angular/router";
                       <input matInput placeholder="Адрес"
                              [(ngModel)]="this.Entity.Address">
                   </mat-form-field>
-                  <sg-employee-search [(selected)]="Entity.Director"></sg-employee-search>
+                  <sg-employee-search hint="Директор филиала" 
+                          [(selected)]="Entity.Director"></sg-employee-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>

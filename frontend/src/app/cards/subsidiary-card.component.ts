@@ -17,7 +17,15 @@ import {SubsidiaryService} from "../services/subsidiary.service";
                   <h2 class="mat-title">Общая информация</h2>
                   <p class="mat-body">Название: {{(Entity | async)?.Name}}</p>
                   <p class="mat-body">Адрес: {{(Entity | async)?.Address}}</p>
+
+                  <p class="mat-body">Директор филиала:
+                      {{(Entity | async)?.Director.Id}}
+                      {{(Entity | async)?.Director.Name}}
+                      {{(Entity | async)?.Director.Surname}}
+                  </p>
+                  
                   <p class="mat-body">Комментарий:<br> {{(Entity | async)?.Comment}}</p>
+
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Помещения</h2>

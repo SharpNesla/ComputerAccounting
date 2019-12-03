@@ -11,13 +11,15 @@ import {ActivatedRoute} from "@angular/router";
           <header>
               <mat-icon id="sg-editor-icon">shop</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              Работника {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              работника {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
 
-                  <sg-employee-search hint="Непосредственный руководитель"></sg-employee-search>
-                  <sg-subsidiary-search hint="Филиал"></sg-subsidiary-search>
+                  <sg-employee-search hint="Непосредственный руководитель"
+                                      [(selected)]="Entity.Superior"></sg-employee-search>
+                  <sg-subsidiary-search hint="Филиал"
+                                        [(selected)]="Entity.Subsidiary"></sg-subsidiary-search>
 
                   <mat-form-field>
                       <input matInput placeholder="Имя"
@@ -33,10 +35,9 @@ import {ActivatedRoute} from "@angular/router";
                   </mat-form-field>
 
                   <label>Пол:</label>
-
                   <mat-radio-group
                           class="sg-vertical-radio-group"
-                          aria-label="Выберите пол" [(ngModel)]="Entity.Gender">
+                          aria-label="Выберите пол" [(ngModel)]="this.Entity.Gender">
                       <mat-radio-button
                               class="sg-vertical-radio-button"
                               *ngFor="let gender of genders" [value]="gender">
@@ -64,14 +65,15 @@ import {ActivatedRoute} from "@angular/router";
                               {{role.value | role}}
                           </mat-option>
                       </mat-select>
+                  </mat-form-field>
 
+                  <mat-form-field>
+                      <input matInput placeholder="Имя пользователя"
+                             [(ngModel)]="this.Entity.Username">
                   </mat-form-field>
                   <mat-form-field appearance="outline">
-
                       <mat-label>Комментарий</mat-label>
-
-
-                      <textarea matInput placeholder="Комментарий"
+                      <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.Entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>

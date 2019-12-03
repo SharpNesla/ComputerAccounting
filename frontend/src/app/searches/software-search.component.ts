@@ -37,7 +37,7 @@ import {SoftwareService} from "../services/software.service";
       }`]
 })
 export class SoftwareSearchComponent extends SingleSearchBase<Software, SoftwareService> {
-  constructor(service : SoftwareTypeService){
+  constructor(service : SoftwareService){
     super(service);
   }
 }

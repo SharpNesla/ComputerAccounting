@@ -15,8 +15,12 @@ import {RoomService} from "../services/room.service";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  
-
+                  <p class="mat-body">Номер: {{(Entity | async)?.Number}}</p>
+                  <p class="mat-body">Филиал:
+                      №{{(Entity | async)?.Subsidiary.Id}}
+                      "{{(Entity | async)?.Subsidiary.Name}}"
+                      {{(Entity | async)?.Subsidiary.Address}}
+                  </p>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Компьютеры</h2>
