@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FulltextBuilder;
 use App\Room;
 use App\Subsidiary;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +18,9 @@ class SubsidiaryController extends CrudControllerBase
 
     protected function queryMany(Request $request, Builder $builder): Builder
     {
-        return $builder->withCount('rooms');
+        $fulltext = new FulltextBuilder(['name', 'address']);
+
+        return $builder->withCount('rooms')->where($fulltext->search('ром'));
     }
 
     public function getById($id)

@@ -23,6 +23,9 @@ class CreateSubsidiariesTable extends Migration
             $table->text('name')->nullable();
             $table->text('address')->nullable();
             $table->text('comment')->nullable();
+
+            $table->index(['name','address'], 'fulltext');
+
             $table->timestamps();
             $table->softDeletes();
         });
