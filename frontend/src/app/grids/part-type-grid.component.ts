@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PartTypeService} from "../services/part-type.service";
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {PartType} from "../entities/part-type";
 import {MatDialog} from "@angular/material/dialog";
 import {PartTypeCardComponent} from "../cards/part-type-card.component";

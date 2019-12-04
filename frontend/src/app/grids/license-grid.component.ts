@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {LicensesService} from "../services/licenses.service";
 import {License} from "../entities/license";
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {LicenseCardComponent} from "../cards/license-card.component";
 

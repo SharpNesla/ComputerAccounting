@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {EmployeeService} from "../services/employee.service";
 import {Employee} from "../entities/employee";
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployeeCardComponent} from "../cards/employee-card.component";
 

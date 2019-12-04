@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EditorBase} from "../utils/editor-base";
+import {EditorBase} from "./editor-base";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {Part} from "../entities/part";

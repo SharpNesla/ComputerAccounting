@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {Subsidiary} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {PartTypeService} from "../services/part-type.service";
@@ -72,6 +72,9 @@ import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
           <tr mat-header-row *matHeaderRowDef="DisplayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: DisplayedColumns;"></tr>
       </table>
+      <div class="sg-search-drawer">
+          
+      </div>
       <div style="visibility: hidden; position: fixed"
            [style.left]="contextMenuPosition.x"
            [style.top]="contextMenuPosition.y"
@@ -95,6 +98,7 @@ import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="филиалов"
+               (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`
 })
 export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, SubsidiaryService> {

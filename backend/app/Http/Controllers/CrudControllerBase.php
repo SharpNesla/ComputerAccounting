@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Computer;
+use App\FulltextBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -12,10 +13,11 @@ use Illuminate\Http\Request;
 class CrudControllerBase extends Controller
 {
     private $facade;
-
-    function __construct($f)
+    private $fulltextBuilder;
+    function __construct($f, $s = ['id'])
     {
         $this->facade = $f;
+        $this->fulltextBuilder = new FulltextBuilder($s);
     }
 
 
@@ -36,7 +38,13 @@ class CrudControllerBase extends Controller
 
     public function get(Request $request)
     {
-        return $this->queryMany($request, $this->facade::orderBy('id'))
+        $query = $this->queryMany($request, $this->facade::orderBy('id'));
+
+        if ($request->searchstring != null) {
+            $query = $query->where($this->fulltextBuilder->search($request->searchstring));
+        }
+
+        return $query
             ->skip($request->offset)
             ->take($request->limit)->get();
     }

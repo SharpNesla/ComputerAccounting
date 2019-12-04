@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ComputerService} from "../services/computer.service";
 import {Computer, ComputerType} from "../entities/computer";
-import {EditorBase} from "../utils/editor-base";
+import {EditorBase} from "./editor-base";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 

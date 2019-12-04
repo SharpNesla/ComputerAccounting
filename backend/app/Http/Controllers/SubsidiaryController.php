@@ -10,17 +10,15 @@ use Illuminate\Http\Request;
 
 class SubsidiaryController extends CrudControllerBase
 {
-    function __construct() {
-        parent::__construct(Subsidiary::class);
+    function __construct()
+    {
+        parent::__construct(Subsidiary::class, ['id', 'name', 'address']);
     }
-
 
 
     protected function queryMany(Request $request, Builder $builder): Builder
     {
-        $fulltext = new FulltextBuilder(['name', 'address']);
-
-        return $builder->withCount('rooms')->where($fulltext->search('ром'));
+        return $builder->withCount('rooms');
     }
 
     public function getById($id)

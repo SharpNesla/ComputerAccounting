@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {PartTypeService} from "../services/part-type.service";
 import {Observable} from "rxjs";
 import {Computer} from "../entities/computer";
-import {EditorBase} from "../utils/editor-base";
+import {EditorBase} from "../editors/editor-base";
 import {Part} from "../entities/part";
 import {PartService} from "../services/part.service";
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {PartCardComponent} from "../cards/part-card.component";
 

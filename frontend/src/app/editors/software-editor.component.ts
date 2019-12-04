@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SoftwareService} from "../services/software.service";
 import {Software} from "../entities/software";
-import {EditorBase} from "../utils/editor-base";
+import {EditorBase} from "./editor-base";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

@@ -18,7 +18,7 @@ import {RolePipe} from './role.pipe';
 import { PartCategoryPipe } from './part-category.pipe';
 import { ComputerTypePipe } from './computer-type.pipe';
 import { SoftwareCategoryPipe } from './software-category.pipe';
-
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
@@ -44,7 +44,8 @@ import { SoftwareCategoryPipe } from './software-category.pipe';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule
   ]
 })
 export class UtilsModule {

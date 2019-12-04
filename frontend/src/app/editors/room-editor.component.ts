@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {EditorBase} from "../utils/editor-base";
+import {EditorBase} from "./editor-base";
 import {RoomService} from "../services/room.service";
 import {Room} from "../entities/room";
 import {ActivatedRoute} from "@angular/router";

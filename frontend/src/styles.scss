@@ -175,3 +175,8 @@ mat-divider{
 .sg-drawer-userbar-name{
   padding: 0;
 }
+
+.sg-search-drawer{
+  height: 300px;
+  background: map-get($mat-dark-theme-background, card)
+}

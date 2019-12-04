@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {Room} from "../entities/room";
 import {RoomService} from "../services/room.service";
 import {MatDialog} from "@angular/material/dialog";

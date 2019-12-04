@@ -84,48 +84,33 @@ export abstract class EntityRepository<T extends EntityBase> {
       ));
   }
 
-  public getBySearchString(searchString: string,
-                           offset: number,
-                           limit: number,
-                           filterDefinition: T[],
-                           sortDefinition: string,
-                           sortOrder: string): Observable<T[]> {
+
+
+  public getBySearchString(searchString: string, offset: number, limit: number, filterDefinition: T[],
+             sortDefinition: string, sortOrder: string): Observable<T[]> {
     const params = new HttpParams()
+      .set('searchstring', searchString)
       .set("offset", offset.toString())
       .set("limit", limit.toString())
-      .set("sort-definition", sortDefinition)
-      .set("sort-order", sortOrder)
-      .set("search-string", searchString);
-
+      .set("sort-definition", sortDefinition == null ? "id" : sortDefinition)
+      .set("sort-order", sortOrder);
     return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
-      .pipe(map(x => x.map(
-        y => {
-          const d = keysToCamel(y);
+      .pipe(map(x => {
+          console.log(x)
+          return x.map(
+            y => {
+              const d = keysToCamel(y);
 
-          console.log(keysToSnake(d));
-          return d;
+              console.log(keysToSnake(d));
+              return d;
+            })
         }
-      )))
+      ))
   }
 
   public get(offset: number, limit: number, filterDefinition: T[],
              sortDefinition: string, sortOrder: string): Observable<T[]> {
-    const params = new HttpParams()
-      .set("offset", offset.toString())
-      .set("limit", limit.toString())
-      .set("sort-definition", sortDefinition == null ?  "id" : sortDefinition)
-      .set("sort-order", sortOrder);
-    return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
-      .pipe(map(x =>{
-        console.log(x)
-        return x.map(
-        y => {
-          const d = keysToCamel(y);
-
-          console.log(keysToSnake(d));
-          return d;
-        })}
-      ))
+    return this.getBySearchString("",offset, limit, filterDefinition, sortDefinition, sortOrder);
   }
 
   public add(entity: T) {
@@ -136,8 +121,7 @@ export abstract class EntityRepository<T extends EntityBase> {
       .subscribe(
         response => console.log(response),
         error => console.log(error)
-      )
-    ;
+      );
   }
 
   public update(entity: T) {
@@ -150,7 +134,7 @@ export abstract class EntityRepository<T extends EntityBase> {
     ;
   }
 
-  protected prepareEntity(entity : T) : T{
+  protected prepareEntity(entity: T): T {
     return entity;
   }
 }

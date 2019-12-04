@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComputerService} from "../services/computer.service";
 import {Computer} from "../entities/computer";
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {ComputerCardComponent} from "../cards/computer-card.component";
 import {MatSort} from "@angular/material/sort";

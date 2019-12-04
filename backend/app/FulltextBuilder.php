@@ -81,6 +81,7 @@ class FulltextBuilder
      */
     protected function makeSearchVector(array $columns): string
     {
+        $columns = array_map(function ($arg){return $arg."::text";}, $columns);
         return implode("|| ' ' ||", $columns);
     }
 }

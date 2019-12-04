@@ -11,9 +11,14 @@ import {DeleteDialogComponent} from "../delete-dialog.component";
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
   TRepository extends EntityRepository<TEntity>> implements OnInit {
+
+  set SearchString(value: string) {
+    this._SearchString = value;
+    this.refreshPrevious();
+  }
+
   public Filter: TEntity[];
   public Entities: Observable<TEntity[]>;
-  public SelectedEntity: TEntity;
   public Count: number = 0;
 
   protected Repo: TRepository;
@@ -22,7 +27,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   @Input() public IsSearchDrawerOpened: boolean;
   @Input() public isCompact : boolean;
 
-  public SearchString: string;
+  private _SearchString: string;
 
   public get DisplayedColumns() : string[]{
     if (this.isCompact){
@@ -47,8 +52,14 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   public refresh(offset: number, limit: number) {
     this.offset = offset;
     this.limit = limit;
-    this.Entities = this.Repo.get(offset, limit,
-      [], null, null)
+    if (this._SearchString != null || this._SearchString != ""){
+      this.Entities = this.Repo.getBySearchString(this._SearchString ,offset, limit,
+        [], null, null);
+    }
+    else {
+      this.Entities = this.Repo.get(offset, limit,
+        [], null, null)
+    }
   }
 
   @ViewChild(MatMenuTrigger, {static: false}) contextMenu: MatMenuTrigger;

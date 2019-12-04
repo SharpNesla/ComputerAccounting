@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {EmployeeService} from "../services/employee.service";
 import {Employee, Gender, Roles} from "../entities/employee";
-import {EditorBase} from "../utils/editor-base";
+import {EditorBase} from "./editor-base";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

@@ -16,7 +16,7 @@ import {element} from "protractor";
                       <mat-icon>search</mat-icon>
                   </button>
                   <mat-form-field id="searchbar" class="searchbar-input" appearance="standard">
-                      <input matInput placeholder="Поиск {{EntityName}}">
+                      <input [(ngModel)]="SearchString" matInput placeholder="Поиск {{EntityName}}">
                   </mat-form-field>
               </mat-card>
               <mat-card id="paginator">
@@ -136,7 +136,7 @@ export class CrudComponent implements OnInit {
 
   count: number;
   @Input() icon: string;
-  @Output() Search: EventEmitter<string>;
+  @Output() Search: EventEmitter<string> = new EventEmitter<string>();
   @Output() Paginate: EventEmitter<{ offset: number, limit: number }>
     = new EventEmitter<{ offset: number, limit: number }>();
   public values = [5, 10, 20, 100];

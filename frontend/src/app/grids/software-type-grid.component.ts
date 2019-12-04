@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SoftwareService} from "../services/software.service";
 import {Software} from "../entities/software";
-import {EntityGridBase} from "../utils/entity-grid-base";
+import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {SoftwareType} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
