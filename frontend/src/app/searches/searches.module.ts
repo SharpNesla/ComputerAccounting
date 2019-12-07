@@ -6,7 +6,7 @@ import {SoftwareSearchComponent} from "./software-search.component";
 import {SoftwareTypeSearchComponent} from "./software-type-search.component";
 import {SubsidiarySearchComponent} from "./subsidiary-search.component";
 import {MaterialModule} from "../material-module";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ComputerSearchComponent} from "./computer-search.component";
 import {EmployeeSearchComponent} from "./employee-search.component";
 import {UtilsModule} from "../utils/utils.module";
@@ -36,7 +36,8 @@ import {UtilsModule} from "../utils/utils.module";
     CommonModule,
     MaterialModule,
     FormsModule,
-    UtilsModule
+    UtilsModule,
+    ReactiveFormsModule
   ]
 })
 export class SearchesModule { }

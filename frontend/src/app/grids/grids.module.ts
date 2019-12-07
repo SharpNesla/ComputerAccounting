@@ -12,6 +12,7 @@ import {SoftwareTypeGridComponent} from "./software-type-grid.component";
 import {MaterialModule} from "../material-module";
 import {UtilsModule} from "../utils/utils.module";
 import {RouterModule} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {RouterModule} from "@angular/router";
     CommonModule,
     MaterialModule,
     UtilsModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class GridsModule { }

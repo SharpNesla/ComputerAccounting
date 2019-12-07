@@ -10,7 +10,6 @@ import {ResponsibleDashboardComponent} from "./responsible-dashboard.component";
 import {AdminDashboardComponent} from "./admin-dashboard.component";
 
 
-
 @NgModule({
   declarations: [
     DashboardComponent,

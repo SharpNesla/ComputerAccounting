@@ -17,7 +17,9 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     this.refreshPrevious();
   }
 
-  public Filter: TEntity[];
+  public FilterA : TEntity = {} as TEntity;
+  public FilterB : TEntity = {} as TEntity;
+
   public Entities: Observable<TEntity[]>;
   public Count: number = 0;
 
@@ -52,7 +54,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   public refresh(offset: number, limit: number) {
     this.offset = offset;
     this.limit = limit;
-    if (this._SearchString != null || this._SearchString != ""){
+    if (this._SearchString){
       this.Entities = this.Repo.getBySearchString(this._SearchString ,offset, limit,
         [], null, null);
     }

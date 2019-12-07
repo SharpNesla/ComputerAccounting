@@ -73,7 +73,36 @@ import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
           <tr mat-row *matRowDef="let row; columns: DisplayedColumns;"></tr>
       </table>
       <div class="sg-search-drawer">
+
+          <div class="sg-search-drawer-ruleset">
+              <mat-checkbox>По количеству комнат</mat-checkbox>
+              <mat-form-field>
+                  <input matInput placeholder="Нижняя граница">
+              </mat-form-field>
+              <mat-form-field>
+                  <input matInput placeholder="Верхняя граница">
+              </mat-form-field>
+          </div>
+
+          <div class="sg-search-drawer-ruleset">
+              <mat-checkbox>По количеству компьютеров</mat-checkbox>
+              <mat-form-field>
+                  <input matInput placeholder="Нижняя граница">
+              </mat-form-field>
+              <mat-form-field>
+                  <input matInput placeholder="Верхняя граница">
+              </mat-form-field>
+          </div>
           
+          <div class="sg-search-drawer-ruleset">
+              <mat-checkbox>По количеству работников</mat-checkbox>
+              <mat-form-field>
+                  <input matInput placeholder="Нижняя граница">
+              </mat-form-field>
+              <mat-form-field>
+                  <input matInput placeholder="Верхняя граница">
+              </mat-form-field>
+          </div>
       </div>
       <div style="visibility: hidden; position: fixed"
            [style.left]="contextMenuPosition.x"

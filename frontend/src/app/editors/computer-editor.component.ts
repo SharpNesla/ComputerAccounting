@@ -23,7 +23,7 @@ import {ActivatedRoute} from "@angular/router";
                              [(ngModel)]="this.Entity.InventoryId">
                   </mat-form-field>
                   <sg-subsidiary-search hint="Филиал помещения"></sg-subsidiary-search>
-                  <sg-room-search [(selected)]="Entity.Room" hint="Помещение"></sg-room-search>
+                  <sg-room-search [(ngModel)]="Entity.Room" hint="Помещение" required></sg-room-search>
                   <sg-employee-search [(selected)]="Entity.Responsible" hint="Ответственное лицо">
                       
                   </sg-employee-search>

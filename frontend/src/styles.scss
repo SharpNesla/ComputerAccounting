@@ -177,6 +177,13 @@ mat-divider{
 }
 
 .sg-search-drawer{
-  height: 300px;
+  display: flex;
   background: map-get($mat-dark-theme-background, card)
+}
+.sg-search-drawer-ruleset{
+  display: flex;
+  flex-direction: column;
+
+  margin: 1em;
+  padding: 0.5em;
 }
