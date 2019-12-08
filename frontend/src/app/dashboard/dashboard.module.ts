@@ -8,6 +8,7 @@ import {BranchDirectorDashboardComponent} from "./branch-director-dashboard.comp
 import {StorekeeperDashboardComponent} from "./storekeeper-dashboard.component";
 import {ResponsibleDashboardComponent} from "./responsible-dashboard.component";
 import {AdminDashboardComponent} from "./admin-dashboard.component";
+import {BarChartModule, NgxChartsModule} from "@swimlane/ngx-charts";
 
 
 @NgModule({
@@ -22,7 +23,9 @@ import {AdminDashboardComponent} from "./admin-dashboard.component";
   ],
   imports: [
     CommonModule,
-    UtilsModule
+    UtilsModule,
+    BarChartModule,
+    NgxChartsModule
   ]
 })
 export class DashboardModule { }

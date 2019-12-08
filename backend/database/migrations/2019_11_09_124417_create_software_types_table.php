@@ -15,9 +15,11 @@ class CreateSoftwareTypesTable extends Migration
     {
         Schema::create('software_types', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->text('typename')->nullable();
             $table->tinyInteger('category')->unsigned()->nullable();
             $table->text('comment')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

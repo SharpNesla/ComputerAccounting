@@ -3,8 +3,6 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Computer;
 use App\FulltextBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -49,15 +47,21 @@ class CrudControllerBase extends Controller
             ->take($request->limit)->get();
     }
 
-
     public function getCount(Request $request)
     {
         return $this->facade::count();
     }
 
+    protected function validateEntity(array $array) : bool {
+        return false;
+    }
+
     public function update(Request $request)
     {
         $decodedAsArray = json_decode($request->getContent(), true);
+        if ($decodedAsArray == null){
+            return response("Corrupted request body", 400);
+        }
         $model = $this->facade::find($decodedAsArray['id']);
         $model->fill($decodedAsArray);
         $model = $this->querySave($decodedAsArray ,$model);
@@ -68,8 +72,16 @@ class CrudControllerBase extends Controller
     public function add(Request $request)
     {
         $decodedAsArray = json_decode($request->getContent(), true);
+        if ($decodedAsArray == null){
+            return response("Corrupted request body", 400);
+        }
+        if ($this->validateEntity($decodedAsArray)){
+            return response("Invalid entity", 400);
+        }
+
         $model = $this->facade::forceCreate($decodedAsArray);
         $model->save();
+        return response('Entity is added', 200);
     }
 
     public function remove($id)

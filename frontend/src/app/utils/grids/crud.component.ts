@@ -16,7 +16,8 @@ import {element} from "protractor";
                       <mat-icon>search</mat-icon>
                   </button>
                   <mat-form-field id="searchbar" class="searchbar-input" appearance="standard">
-                      <input [(ngModel)]="SearchString" matInput placeholder="Поиск {{EntityName}}">
+                      <input [(ngModel)]="SearchString" matInput placeholder="Поиск {{EntityName}}"
+                        (keydown.enter)="this.Search.emit(this.SearchString)">
                   </mat-form-field>
               </mat-card>
               <mat-card id="paginator">

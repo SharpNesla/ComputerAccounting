@@ -94,6 +94,7 @@ import {SoftwareCardComponent} from "../cards/software-card.component";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="ПО"
+               (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareService> {

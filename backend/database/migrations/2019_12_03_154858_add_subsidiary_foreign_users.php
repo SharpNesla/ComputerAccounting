@@ -13,7 +13,7 @@ class AddSubsidiaryForeignUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table){
+        Schema::table('employees', function (Blueprint $table){
             $table->bigInteger('subsidiary_id')->unsigned()->nullable();
             $table->foreign('subsidiary_id')
                 ->references('id')->on('subsidiaries')->onDelete('cascade');
@@ -27,7 +27,7 @@ class AddSubsidiaryForeignUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table){
+        Schema::table('employees', function (Blueprint $table){
             $table->removeColumn('subsidiary_id');
         });
     }

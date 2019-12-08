@@ -49,16 +49,11 @@ const keysToSnake = function (o) {
 
     Object.keys(o)
       .forEach((k) => {
-        n[toSnake(k)] = keysToSnake(o[k]);
+        n[toSnake(k)] = o[k];
       });
 
     return n;
-  } else if (isArray(o)) {
-    return o.map((i) => {
-      return toSnake(i);
-    });
   }
-
   return o;
 };
 

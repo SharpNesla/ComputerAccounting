@@ -9,7 +9,7 @@ class RoomController extends CrudControllerBase
 {
     function __construct()
     {
-        parent::__construct(Room::class);
+        parent::__construct(Room::class, ['id', 'number']);
     }
 
 

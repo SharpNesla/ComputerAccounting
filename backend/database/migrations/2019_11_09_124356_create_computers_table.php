@@ -25,7 +25,7 @@ class CreateComputersTable extends Migration
 
             $table->bigInteger('responsible_id')->unsigned()->nullable();
             $table->foreign('responsible_id')
-                ->references('id')->on('users')->onDelete('cascade');
+                ->references('id')->on('employees')->onDelete('cascade');
 
             $table->text('name')->nullable();
             $table->text('inventory_id')->nullable();

@@ -103,6 +103,7 @@ import {PartTypeCardComponent} from "../cards/part-type-card.component";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="типов комплектующих"
+               (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`
 })
 export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeService> {

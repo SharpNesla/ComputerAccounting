@@ -94,6 +94,7 @@ import {MatSort} from "@angular/material/sort";
       <sg-crud router-link="/computers/add"
                icon="desktop_mac"
                [count]="this.Count"
+               (Search)="SearchString = $event"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="компьютеров"></sg-crud>`
 })

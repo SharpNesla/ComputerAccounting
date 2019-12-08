@@ -11,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens, SoftDeletes;
-
+    protected $table = 'employees';
     /**
      * The attributes that are mass assignable.
      *

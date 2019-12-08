@@ -18,8 +18,11 @@ export class ComputerService extends EntityRepository<Computer> {
 
     entity.ResponsibleId = entity.Responsible.Id;
 
+    entity = Object.assign(entity, {UserIds: entity.Users.map(x=>x.Id) });
+
     delete entity.Room;
     delete entity.Responsible;
+    delete entity.Users;
 
     return super.prepareEntity(entity);
   }

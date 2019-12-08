@@ -26,7 +26,7 @@ import {PartTypeService} from "../services/part-type.service";
                              [(ngModel)]="Entity.Cost" placeholder="Цена">
                   </mat-form-field>
                   <mat-form-field>
-                      <mat-select [(ngModel)]="Entity.Category" placeholder="Категория">
+                      <mat-select [(ngModel)]="Entity.Category" placeholder="Категория" required>
                           <mat-option *ngFor="let elem of partCategories" [value]="elem">
                               {{elem | partCategory}}
                           </mat-option>

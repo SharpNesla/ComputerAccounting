@@ -18,7 +18,8 @@ import {EmployeeService} from "../services/employee.service";
                   <input matInput [placeholder]="'Поиск ' + searchHint"
                          (keydown)="$event.stopPropagation()"
                          type="search"
-                         [(ngModel)]="searchString">
+                         [(ngModel)]="searchString"
+                         >
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">

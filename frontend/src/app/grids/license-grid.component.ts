@@ -95,6 +95,7 @@ import {LicenseCardComponent} from "../cards/license-card.component";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="Лицензий"
+               (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicensesService> {

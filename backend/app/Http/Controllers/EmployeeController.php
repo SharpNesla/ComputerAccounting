@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -9,8 +11,9 @@ class EmployeeController extends CrudControllerBase
 {
     public function __construct()
     {
-        parent::__construct(User::class);
+        parent::__construct(User::class, ['id', 'name', 'surname', 'patronymic']);
     }
+
     /**
      * Login user and create token
      *
@@ -30,15 +33,19 @@ class EmployeeController extends CrudControllerBase
         ]);
         $credentials = request(['username', 'password']);
 
-        if(!Auth::attempt($credentials))
+        if (!Auth::attempt($credentials))
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 403);
+
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
-        if ($request->remember_me)
+
+        if ($request->remember_me) {
             $token->expires_at = Carbon::now()->addWeeks(1);
+        }
+
         $token->save();
         return response()->json([
             'access_token' => $tokenResult->accessToken,

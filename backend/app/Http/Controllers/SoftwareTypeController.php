@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class SoftwareTypeController extends CrudControllerBase
 {
     function __construct() {
-        parent::__construct(SoftwareType::class);
+        parent::__construct(SoftwareType::class, ['id', 'typename']);
     }
 
     protected function queryMany(Request $request, Builder $builder): Builder

@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {Computer} from "./entities/computer";
 import {EmployeeCardComponent} from "./cards/employee-card.component";
 import {MatDialog} from "@angular/material/dialog";
+import {VisibilitiesService} from "./login/visibilities.service";
 
 @Component({
   selector: 'app-root',
@@ -18,12 +19,12 @@ import {MatDialog} from "@angular/material/dialog";
               <div id="drawer-content-container">
                   <div id="sg-drawer-userbar">
                       <div>
-<!--                          <button mat-flat-button class="sg-drawer-userbar-name" (click)="showInfoCard()">-->
-                              <b>{{CurrentEmployee?.Surname}} {{CurrentEmployee?.Name}}
-                                  {{CurrentEmployee?.Patronymic}}</b>
-                              <div>{{CurrentEmployee?.Role | role}}</div>
-<!--                          </button>-->
-                          
+                          <!--                          <button mat-flat-button class="sg-drawer-userbar-name" (click)="showInfoCard()">-->
+                          <b>{{(CurrentEmployeeObservable | async)?.Surname}} {{(CurrentEmployeeObservable | async)?.Name}}
+                              {{(CurrentEmployeeObservable | async)?.Patronymic}}</b>
+                          <div>{{(CurrentEmployeeObservable | async)?.Role | role}}</div>
+                          <!--                          </button>-->
+
                       </div>
                       <div class="flex-spacer"></div>
                       <button id="sg-drawer-userbar-close" mat-icon-button (click)="this.closeDrawer()">
@@ -32,15 +33,22 @@ import {MatDialog} from "@angular/material/dialog";
                   </div>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="dashboard" icon="dashboard">Обзор</sg-drawer-button>
-                  <sg-drawer-button link="analytics" icon="insert_chart_outlined">Аналитика</sg-drawer-button>
+                  <sg-drawer-button link="analytics" icon="insert_chart_outlined"
+                                    *ngIf="visibilities.Directors | async">Аналитика
+                  </sg-drawer-button>
                   <mat-divider></mat-divider>
-                  <sg-drawer-button link="employees" icon="account_circle">Работники</sg-drawer-button>
-                  <sg-drawer-button link="subsidiaries" icon="storefront">Филиалы</sg-drawer-button>
+                  <sg-drawer-button link="employees" icon="account_circle"
+                                    *ngIf="visibilities.Directors | async">Работники
+                  </sg-drawer-button>
+                  <sg-drawer-button link="subsidiaries" icon="storefront"
+                                    *ngIf="visibilities.LeadDirectorsAndAdmins | async">Филиалы</sg-drawer-button>
                   <sg-drawer-button link="parts" icon="memory">Комплектующие</sg-drawer-button>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="computers" icon="desktop_mac">Компьютеры</sg-drawer-button>
-                  <sg-drawer-button link="software" icon="developer_board">Программы</sg-drawer-button>
-                  <sg-drawer-button link="licenses" icon="shop">Лицензии</sg-drawer-button>
+                  <sg-drawer-button link="software" icon="developer_board"
+                                    *ngIf="visibilities.AllDirectorsAndAdmins | async">Программы</sg-drawer-button>
+                  <sg-drawer-button link="licenses" icon="shop"
+                                    *ngIf="visibilities.AllDirectorsAndAdmins | async">Лицензии</sg-drawer-button>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="settings" icon="settings">Настройки</sg-drawer-button>
                   <sg-drawer-button link="about" icon="info">О системе</sg-drawer-button>
@@ -88,8 +96,8 @@ import {MatDialog} from "@angular/material/dialog";
       }
   `]
 })
-export class AppComponent implements OnInit, OnDestroy {
-  CurrentEmployee: Employee;
+export class AppComponent implements OnInit {
+  CurrentEmployeeObservable: Observable<Employee>;
 
   get IsDrawerOpened(): boolean {
     return this.navService.IsDrawerOpened;
@@ -105,8 +113,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private navService: NavigationService,
               private auth: AuthService,
-              private dialog : MatDialog) {
-    this.CurrentEmployee = new Employee();
+              private dialog: MatDialog,
+              public visibilities: VisibilitiesService) {
+    this.CurrentEmployeeObservable = auth.CurrentEmployee;
   }
 
   logout() {
@@ -114,26 +123,5 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.auth.CurrentEmployee.subscribe(x => {
-      console.log(x);
-      this.CurrentEmployee = x
-    },
-      x=>console.log(x));
   }
-
-  showInfoCard() {
-    const dialogRef = this.dialog.open(EmployeeCardComponent, {
-      data: this.CurrentEmployee.Id,
-      minWidth: '900px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.auth.CurrentEmployee.unsubscribe();
-  }
-
 }

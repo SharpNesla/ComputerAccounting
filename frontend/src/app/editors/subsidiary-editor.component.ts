@@ -6,26 +6,28 @@ import {SubsidiaryService} from "../services/subsidiary.service";
 import {Subsidiary} from "../entities/subsidiary";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'sg-subsidiary-editor',
   template: `
       <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()"
-                        end-link="/subsidiaries">
+                        end-link="/subsidiaries"
+                        [acceptDisabled]="name.checkValidity() || address.checkValidity()">
           <header><mat-icon id="sg-editor-icon">storefront</mat-icon> {{isNew ? 'Добавление' : 'Изменение'}}
               филиала {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
-                      <input matInput placeholder="Название"
-                             [(ngModel)]="this.Entity.Name">
+                      <input matInput placeholder="Название" #name
+                             [(ngModel)]="this.Entity.Name" required>
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput placeholder="Адрес"
-                             [(ngModel)]="this.Entity.Address">
+                      <input matInput placeholder="Адрес" #address
+                             [(ngModel)]="this.Entity.Address" required>
                   </mat-form-field>
-                  <sg-employee-search hint="Директор филиала" 
+                  <sg-employee-search hint="Директор филиала" #director
                           [(selected)]="Entity.Director"></sg-employee-search>
               </mat-card>
               <mat-card id="right-section">
@@ -41,7 +43,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SubsidiaryEditorComponent extends EditorBase<Subsidiary, SubsidiaryService> {
 
-  constructor(private service: SubsidiaryService, route: ActivatedRoute) {
+  constructor(private service: SubsidiaryService, route: ActivatedRoute, formBuilder : FormBuilder) {
     super(service, route, new Subsidiary());
   }
 }

@@ -133,6 +133,7 @@ mat-divider{
   margin-top: 1.5em;
   margin-right: 1.5em;
   margin-left: 1.5em;
+  padding: 0.5em;
 }
 
 .sg-table-checkbox{
@@ -186,4 +187,13 @@ mat-divider{
 
   margin: 1em;
   padding: 0.5em;
+}
+
+.sg-many-many-card{
+  flex-direction: column;
+}
+.sg-many-many-card-searchbar{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
 }

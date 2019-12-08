@@ -102,6 +102,7 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="Лицензий"
+               (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeService> {

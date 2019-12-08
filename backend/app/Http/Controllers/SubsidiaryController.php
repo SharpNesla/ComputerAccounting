@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\FulltextBuilder;
-use App\Room;
 use App\Subsidiary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SubsidiaryController extends CrudControllerBase
 {
@@ -24,5 +23,13 @@ class SubsidiaryController extends CrudControllerBase
     public function getById($id)
     {
         return Subsidiary::with('director')->findOrFail($id);
+    }
+
+    public function validateEntity(array $array) : bool
+    {
+        return Validator::make($array,[
+            'name' => 'required',
+            'address' => 'required'
+        ])->fails();
     }
 }

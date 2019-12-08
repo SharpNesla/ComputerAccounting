@@ -8,6 +8,13 @@ import {EntityRepository} from "../services/entity-repository";
 
 export class SingleSearchBase<TEntity extends EntityBase,
   TEntityRepository extends EntityRepository<TEntity>> implements OnInit {
+  get searchString(): string {
+    return this._searchString;
+  }
+
+  set searchString(value: string) {
+    this._searchString = value;
+  }
 
 
   entities: Observable<TEntity[]>;
@@ -16,7 +23,7 @@ export class SingleSearchBase<TEntity extends EntityBase,
   @Input() searchHint: string;
   @Input() filterDefinition: TEntity[];
   @Output('selectedChange') selectedEntityChanged: EventEmitter<TEntity>;
-  searchString: string;
+  private _searchString: string;
 
   search() {
     this.entities =

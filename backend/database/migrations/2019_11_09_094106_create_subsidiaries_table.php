@@ -18,7 +18,7 @@ class CreateSubsidiariesTable extends Migration
 
             $table->bigInteger('director_id')->unsigned()->nullable();
             $table->foreign('director_id')
-                ->references('id')->on('users')->onDelete('cascade');
+                ->references('id')->on('employees')->onDelete('cascade');
 
             $table->text('name')->nullable();
             $table->text('address')->nullable();

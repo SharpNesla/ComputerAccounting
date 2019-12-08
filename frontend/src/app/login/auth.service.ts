@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  private current: Subject<Employee> = new Subject<Employee>();
+  private current: BehaviorSubject<Employee> = new BehaviorSubject<Employee>(null);
 
   public get CurrentEmployee() {
     return this.current;

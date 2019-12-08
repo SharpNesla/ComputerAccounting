@@ -80,6 +80,7 @@ import {RoomCardComponent} from "../cards/room-card.component";
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="помещений"
+               (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class RoomGridComponent extends EntityGridBase<Room, RoomService> {

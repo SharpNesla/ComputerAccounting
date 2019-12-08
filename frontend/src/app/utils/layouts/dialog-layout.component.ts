@@ -10,8 +10,9 @@ import {Location} from '@angular/common';
           </mat-toolbar>
           <ng-content></ng-content>
           <div id="sg-button-container">
-              <button mat-button color="primary" [routerLink]="EndLink"
-                      (click)="Accept.emit()">ПРИНЯТЬ
+              <button mat-button color="primary"
+                      (click)="Accept.emit()"
+                      [disabled]="!acceptDisabled">ПРИНЯТЬ
               </button>
               <button id="discard-button"
                       *ngIf="!acceptOnly"
@@ -38,7 +39,7 @@ export class DialogLayoutComponent implements OnInit {
   @Output() Accept = new EventEmitter();
   @Output() Deny = new EventEmitter();
   @Input() acceptOnly : boolean;
-
+  @Input() acceptDisabled : boolean = true;
   constructor(private location: Location) {
   }
 
