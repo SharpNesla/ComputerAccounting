@@ -2,10 +2,8 @@ import {EntityBase} from "../entities/entity-base";
 import {EntityRepository} from "../services/entity-repository";
 import {Input, OnInit, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
-import {SelectionModel} from "@angular/cdk/collections";
 import {Computer} from "../entities/computer";
 import {MatMenuTrigger} from "@angular/material/menu";
-import {ComputerCardComponent} from "../cards/computer-card.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog.component";
 
@@ -17,8 +15,8 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     this.refreshPrevious();
   }
 
-  public FilterA : TEntity = {} as TEntity;
-  public FilterB : TEntity = {} as TEntity;
+  public FilterA: TEntity = {} as TEntity;
+  public FilterB: TEntity = {} as TEntity;
 
   public Entities: Observable<TEntity[]>;
   public Count: number = 0;
@@ -27,14 +25,28 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   @Input() public IsDisplaySubtotals: boolean;
   @Input() public IsSearchDrawerOpened: boolean;
-  @Input() public isCompact : boolean;
+  @Input() public isCompact: boolean;
+  @Input() public customDataSource : TEntity[];
+
+  public get isCustomDataSource() : boolean{
+    let b = this.iscust();
+    console.log(b);
+    return b
+  }
+
+  public iscust() : boolean{
+    if (this.customDataSource){
+      return true;
+    }
+    return false;
+  }
 
   private _SearchString: string;
 
-  public get DisplayedColumns() : string[]{
-    if (this.isCompact){
-      return this.displayedColumns.filter(x=>x != "select");
-    }else {
+  public get DisplayedColumns(): string[] {
+    if (this.isCompact) {
+      return this.displayedColumns.filter(x => x != "select");
+    } else {
       return this.displayedColumns;
     }
   }
@@ -51,14 +63,15 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   public refreshPrevious() {
     this.refresh(this.offset, this.limit)
   }
+
   public refresh(offset: number, limit: number) {
     this.offset = offset;
     this.limit = limit;
-    if (this._SearchString){
-      this.Entities = this.Repo.getBySearchString(this._SearchString ,offset, limit,
+
+    if (this._SearchString) {
+      this.Entities = this.Repo.getBySearchString(this._SearchString, offset, limit,
         [], null, null);
-    }
-    else {
+    } else {
       this.Entities = this.Repo.get(offset, limit,
         [], null, null)
     }
@@ -77,14 +90,9 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   }
 
   showInfoCard(element: Computer) {
-
     const dialogRef = this.dialog.open(this.card, {
       data: element.Id,
       minWidth: '900px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -95,12 +103,16 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     });
     dialog.afterClosed().subscribe(x => {
       console.log(x);
-      if (x){
+      if (x) {
         this.Repo.remove(item).subscribe(x => {
           this.refreshPrevious()
         });
       }
     });
+  }
+
+  constructFilter(): TEntity[] {
+    return null;
   }
 
   ngOnInit(): void {

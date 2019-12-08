@@ -4,6 +4,7 @@ import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {Part} from "../entities/part";
 import {PartService} from "../services/part.service";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-part-editor',
@@ -33,8 +34,8 @@ import {PartService} from "../services/part.service";
 export class PartEditorComponent extends EditorBase<Part, PartService> {
 
 
-  constructor(private service: PartService, route: ActivatedRoute) {
-    super(service, route, new Part());
+  constructor(private service: PartService, route: ActivatedRoute, dialog : MatDialog) {
+    super(service, route, dialog, new Part());
   }
 
 }

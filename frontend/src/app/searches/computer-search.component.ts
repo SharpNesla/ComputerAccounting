@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {SingleSearchBase} from "../utils/single-search-base";
+import {SingleSearchBase} from "./single-search-base";
 import {Computer} from "../entities/computer";
 import {ComputerService} from "../services/computer.service";
 

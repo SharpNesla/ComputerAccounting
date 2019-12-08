@@ -13,6 +13,7 @@ import {MaterialModule} from "../material-module";
 import {SearchesModule} from "../searches/searches.module";
 import {FormsModule} from "@angular/forms";
 import {UtilsModule} from "../utils/utils.module";
+import {GridsModule} from "../grids/grids.module";
 
 
 
@@ -34,7 +35,8 @@ import {UtilsModule} from "../utils/utils.module";
     MaterialModule,
     SearchesModule,
     FormsModule,
-    UtilsModule
+    UtilsModule,
+    GridsModule
   ]
 })
 export class EditorsModule { }

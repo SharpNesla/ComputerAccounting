@@ -15,4 +15,9 @@ class SoftwareType extends Model
     {
         return $this->hasMany(Software::class);
     }
+
+    public function dependencies()
+    {
+        return $this->hasMany(SoftwareType::class);
+    }
 }

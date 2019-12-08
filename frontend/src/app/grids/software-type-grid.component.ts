@@ -11,7 +11,7 @@ import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
 @Component({
   selector: 'sg-software-type-grid',
   template: `
-      <table mat-table [dataSource]="this.Entities"
+      <table mat-table [dataSource]="isCustomDataSource ? customDataSource : this.Entities"
              [class.sg-table-compact]="isCompact" class="sg-table">
           <ng-container matColumnDef="select">
               <th mat-header-cell *matHeaderCellDef>

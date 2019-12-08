@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import {EntityRepository} from "./entity-repository";
 import {Computer} from "../entities/computer";
 import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +20,9 @@ export class ComputerService extends EntityRepository<Computer> {
 
     entity = Object.assign(entity, {UserIds: entity.Users.map(x=>x.Id) });
 
-    delete entity.Room;
-    delete entity.Responsible;
-    delete entity.Users;
+    entity.Room = undefined;
+    entity.Responsible = undefined;
+    entity.Users = undefined;
 
     return super.prepareEntity(entity);
   }

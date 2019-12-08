@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {SingleSearchBase} from "../utils/single-search-base";
+import {SingleSearchBase} from "./single-search-base";
 import {Computer} from "../entities/computer";
 import {ComputerService} from "../services/computer.service";
 import {Employee} from "../entities/employee";
@@ -16,10 +16,8 @@ import {EmployeeService} from "../services/employee.service";
               </button>
               <mat-form-field appearance="standard">
                   <input matInput [placeholder]="'Поиск ' + searchHint"
-                         (keydown)="$event.stopPropagation()"
-                         type="search"
-                         [(ngModel)]="searchString"
-                         >
+                         (keydown)="$event.stopPropagation(); "
+                         type="search">
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">

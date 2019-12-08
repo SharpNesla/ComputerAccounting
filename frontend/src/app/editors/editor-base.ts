@@ -3,6 +3,9 @@ import {EntityRepository} from "../services/entity-repository";
 import {OnDestroy, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog.component";
+import {BadRequestDialogComponent} from "../bad-request-dialog.component";
 
 export class EditorBase<TEntity extends EntityBase,
   TRepository extends EntityRepository<TEntity>> implements OnInit {
@@ -10,7 +13,8 @@ export class EditorBase<TEntity extends EntityBase,
   public isNew: boolean;
   protected Repo: TRepository;
 
-  constructor(repository : TRepository, protected route : ActivatedRoute, addEntity : TEntity){
+  constructor(repository : TRepository, protected route : ActivatedRoute, private dialog : MatDialog,
+              addEntity : TEntity){
     this.Repo = repository;
     console.log(addEntity);
     this.Entity = addEntity;
@@ -20,7 +24,15 @@ export class EditorBase<TEntity extends EntityBase,
   {
     if (this.isNew)
     {
-      this.Repo.add(this.Entity);
+      this.Repo.add(this.Entity).subscribe(
+        response => console.log(response),
+        error => {
+          console.log(error);
+          this.dialog.open(BadRequestDialogComponent, {
+          width: '300px',
+          data: true
+        })}
+      );
     }
     else
     {

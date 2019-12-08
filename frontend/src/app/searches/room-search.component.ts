@@ -1,5 +1,5 @@
 import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
-import {SingleSearchBase} from "../utils/single-search-base";
+import {SingleSearchBase} from "./single-search-base";
 import {Room} from "../entities/room";
 import {RoomService} from "../services/room.service";
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";

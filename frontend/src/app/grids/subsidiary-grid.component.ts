@@ -6,6 +6,7 @@ import {PartTypeService} from "../services/part-type.service";
 import {MatDialog} from "@angular/material/dialog";
 import {RoomCardComponent} from "../cards/room-card.component";
 import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
+import {retry} from "rxjs/operators";
 
 
 @Component({
@@ -75,32 +76,36 @@ import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
       <div class="sg-search-drawer">
 
           <div class="sg-search-drawer-ruleset">
-              <mat-checkbox>По количеству комнат</mat-checkbox>
+              <mat-checkbox [(ngModel)]="filterApplies.ByRoomCount">По количеству комнат</mat-checkbox>
               <mat-form-field>
-                  <input matInput placeholder="Нижняя граница">
+                  <input [ngModel]="FilterA.RoomsCount"
+                         [disabled]="!filterApplies.ByRoomCount" matInput placeholder="Нижняя граница">
               </mat-form-field>
               <mat-form-field>
-                  <input matInput placeholder="Верхняя граница">
+                  <input [ngModel]="FilterB.RoomsCount"
+                         [disabled]="!filterApplies.ByRoomCount" matInput placeholder="Верхняя граница">
               </mat-form-field>
           </div>
 
           <div class="sg-search-drawer-ruleset">
-              <mat-checkbox>По количеству компьютеров</mat-checkbox>
+              <mat-checkbox [(ngModel)]="filterApplies.ByComputerCount">По количеству компьютеров</mat-checkbox>
               <mat-form-field>
-                  <input matInput placeholder="Нижняя граница">
+                  <input
+                          [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Нижняя граница">
               </mat-form-field>
               <mat-form-field>
-                  <input matInput placeholder="Верхняя граница">
+                  <input
+                          [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Верхняя граница">
               </mat-form-field>
           </div>
-          
+
           <div class="sg-search-drawer-ruleset">
-              <mat-checkbox>По количеству работников</mat-checkbox>
+              <mat-checkbox [(ngModel)]="filterApplies.ByEmployeeCount">По количеству работников</mat-checkbox>
               <mat-form-field>
-                  <input matInput placeholder="Нижняя граница">
+                  <input [disabled]="!filterApplies.ByEmployeeCount" matInput placeholder="Нижняя граница">
               </mat-form-field>
               <mat-form-field>
-                  <input matInput placeholder="Верхняя граница">
+                  <input [disabled]="!filterApplies.ByEmployeeCount" matInput placeholder="Верхняя граница">
               </mat-form-field>
           </div>
       </div>
@@ -131,9 +136,34 @@ import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
                [isCompact]="this.isCompact"></sg-crud>`
 })
 export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, SubsidiaryService> {
+
+  filterApplies = {
+    ByRoomCount: false,
+    ByComputerCount: false,
+    ByEmployeeCount: false
+  };
+
+
   constructor(private computers: SubsidiaryService, dialog: MatDialog) {
     super(computers, dialog,
       ['select', 'id', 'name', 'address', 'roomcount', 'info'],
       SubsidiaryCardComponent)
+  }
+
+  constructFilter(): Subsidiary[] {
+    let subs = [new Subsidiary(), new Subsidiary()];
+    if (this.filterApplies.ByRoomCount) {
+      subs[0].RoomsCount = this.FilterA.RoomsCount;
+      subs[1].RoomsCount = this.FilterB.RoomsCount;
+    }
+    if (this.filterApplies.ByRoomCount) {
+      subs[0].RoomsCount = this.FilterA.RoomsCount;
+      subs[1].RoomsCount = this.FilterB.RoomsCount;
+    }
+    if (this.filterApplies.ByRoomCount) {
+      subs[0].RoomsCount = this.FilterA.RoomsCount;
+      subs[1].RoomsCount = this.FilterB.RoomsCount;
+    }
+    return subs;
   }
 }

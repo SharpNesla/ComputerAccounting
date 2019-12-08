@@ -5,6 +5,8 @@ export class Subsidiary extends EntityBase {
   Name : string;
   Address : string;
   RoomsCount : number;
+  EmployeesCount : number;
+  ComputersCount : number;
 
   Director : Employee;
   DirectorId : number | null;

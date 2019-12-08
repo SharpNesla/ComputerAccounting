@@ -43,7 +43,7 @@ import {FormBuilder} from "@angular/forms";
 })
 export class SubsidiaryEditorComponent extends EditorBase<Subsidiary, SubsidiaryService> {
 
-  constructor(private service: SubsidiaryService, route: ActivatedRoute, formBuilder : FormBuilder) {
-    super(service, route, new Subsidiary());
+  constructor(private service: SubsidiaryService, route: ActivatedRoute, dialog : MatDialog) {
+    super(service, route, dialog, new Subsidiary());
   }
 }

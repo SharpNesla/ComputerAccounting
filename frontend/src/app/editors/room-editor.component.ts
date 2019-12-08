@@ -3,6 +3,7 @@ import {EditorBase} from "./editor-base";
 import {RoomService} from "../services/room.service";
 import {Room} from "../entities/room";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-room-editor',
@@ -35,7 +36,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class RoomEditorComponent extends EditorBase<Room, RoomService> {
 
-  constructor(private service: RoomService, route : ActivatedRoute) {
-    super(service, route, new Room());
+  constructor(private service: RoomService, route : ActivatedRoute, dialog : MatDialog) {
+    super(service, route, dialog, new Room());
   }
 }

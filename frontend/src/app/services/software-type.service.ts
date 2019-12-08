@@ -13,7 +13,7 @@ export class SoftwareTypeService extends EntityRepository<SoftwareType> {
   }
 
   protected prepareEntity(entity: SoftwareType): SoftwareType {
-    delete entity.SoftwareCount;
+    entity.SoftwareCount = undefined;
     return super.prepareEntity(entity);
   }
 }

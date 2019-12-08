@@ -26,6 +26,7 @@ import {JwtInterceptorService} from "./login/jwt-interceptor.service";
 import {LoginComponent} from "./login/login.component";
 import {CardsModule} from "./cards/cards.module";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {BadRequestDialogComponent} from "./bad-request-dialog.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     PageNotFoundComponent,
     AboutComponent,
     SettingsComponent,
+    BadRequestDialogComponent,
     DeleteDialogComponent
   ],
   imports: [
@@ -61,7 +63,7 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     {provide: MAT_DATE_LOCALE, useValue: 'ru-ru'}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteDialogComponent]
+  entryComponents: [DeleteDialogComponent, BadRequestDialogComponent]
 })
 export class AppModule {
 }

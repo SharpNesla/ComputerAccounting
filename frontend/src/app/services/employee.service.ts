@@ -24,13 +24,13 @@ export class EmployeeService extends EntityRepository<Employee> {
       entity.SubsidiaryId = entity.Subsidiary.Id;
     }
 
-    delete entity.Subsidiary;
 
     if (entity.Superior != null){
       entity.SuperiorId = entity.Superior.Id;
     }
 
-    delete entity.Superior;
+    entity.Subsidiary = undefined;
+    entity.Superior = undefined;
 
     return super.prepareEntity(entity);
   }

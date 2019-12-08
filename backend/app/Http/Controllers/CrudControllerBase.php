@@ -29,6 +29,11 @@ class CrudControllerBase extends Controller
         return $builder;
     }
 
+    protected function queryFilters($filterA, $filterB, Builder $builder): Builder
+    {
+        return $builder;
+    }
+
     protected function querySave(Array $object, Model $model): Model
     {
         return $model;
@@ -53,6 +58,10 @@ class CrudControllerBase extends Controller
     }
 
     protected function validateEntity(array $array) : bool {
+        return false;
+    }
+
+    protected function validateFilters(array $filterA, array $filterB) : bool {
         return false;
     }
 
@@ -81,7 +90,6 @@ class CrudControllerBase extends Controller
 
         $model = $this->facade::forceCreate($decodedAsArray);
         $model->save();
-        return response('Entity is added', 200);
     }
 
     public function remove($id)

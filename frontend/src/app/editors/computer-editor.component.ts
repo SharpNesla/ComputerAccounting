@@ -8,6 +8,7 @@ import {Employee} from "../entities/employee";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-computer-editor',
@@ -85,7 +86,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
                               <td mat-cell *matCellDef="let element"> {{element.Surname}}
                               </td>
                           </ng-container>
-                          
+
                           <ng-container matColumnDef="role">
                               <th mat-header-cell *matHeaderCellDef>Должность</th>
                               <td mat-cell *matCellDef="let element"> {{element.Role | role}}
@@ -117,7 +118,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
               </mat-tab>
 
               <mat-tab label="Комплектующие">
-                  
+
               </mat-tab>
               <mat-tab label="Программы и лицензии">
 
@@ -141,11 +142,11 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
   UserDisplayedColumns = ['remove_button', 'id',
     'name', 'surname', 'role', 'info'];
 
-  constructor(private service: ComputerService, route: ActivatedRoute, private snackBar: MatSnackBar) {
-    super(service, route, new Computer());
+  constructor(private service: ComputerService, route: ActivatedRoute, private snackBar: MatSnackBar, dialog: MatDialog) {
+    super(service, route, dialog, new Computer());
   }
 
-  addUser(user : Employee) {
+  addUser(user: Employee) {
     if (!user) {
       this.snackBar.open("Не выбран работник для привязки");
       return;

@@ -5,6 +5,7 @@ import {PartService} from "../services/part.service";
 import {ActivatedRoute} from "@angular/router";
 import {PartCategory, PartType} from "../entities/part-type";
 import {PartTypeService} from "../services/part-type.service";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-part-editor',
@@ -66,8 +67,8 @@ export class PartTypeEditorComponent extends EditorBase<PartType, PartTypeServic
     PartCategory.Monitor,
     PartCategory.Other
   ];
-  constructor(private service: PartTypeService, route: ActivatedRoute) {
-    super(service, route, new PartType());
+  constructor(private service: PartTypeService, route: ActivatedRoute, dialog : MatDialog) {
+    super(service, route, dialog, new PartType());
   }
 
 }

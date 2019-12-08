@@ -4,6 +4,7 @@ import {License} from "../entities/license";
 import {EditorBase} from "./editor-base";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-computer-editor',
@@ -66,7 +67,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['../utils/editors-styles.scss']
 })
 export class LicenseEditorComponent extends EditorBase<License, LicensesService> {
-  constructor(private service: LicensesService, route: ActivatedRoute) {
-    super(service, route, new License());
+  constructor(private service: LicensesService, route: ActivatedRoute, dialog : MatDialog) {
+    super(service, route, dialog, new License());
   }
 }

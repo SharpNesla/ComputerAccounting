@@ -13,7 +13,7 @@ export class RoomService extends EntityRepository<Room> {
 
   protected prepareEntity(entity: Room): Room {
     entity.SubsidiaryId = entity.Subsidiary.Id;
-    delete entity.Subsidiary;
+    entity.Subsidiary = undefined;
     return super.prepareEntity(entity);
   }
 }

@@ -1,13 +1,13 @@
-import {EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {Observable} from "rxjs";
+import {EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {BehaviorSubject, interval, Observable} from "rxjs";
 import {Subsidiary} from "../entities/subsidiary";
-import {map} from "rxjs/operators";
+import {map, throttle} from "rxjs/operators";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {EntityBase} from "../entities/entity-base";
 import {EntityRepository} from "../services/entity-repository";
 
 export class SingleSearchBase<TEntity extends EntityBase,
-  TEntityRepository extends EntityRepository<TEntity>> implements OnInit {
+  TEntityRepository extends EntityRepository<TEntity>> implements OnInit, OnDestroy {
   get searchString(): string {
     return this._searchString;
   }
@@ -16,6 +16,7 @@ export class SingleSearchBase<TEntity extends EntityBase,
     this._searchString = value;
   }
 
+  SearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   entities: Observable<TEntity[]>;
   @Input('selected') selectedEntity: TEntity;
@@ -36,6 +37,10 @@ export class SingleSearchBase<TEntity extends EntityBase,
         }));
   }
 
+  makeSearchRequest(string: string) {
+    this.SearchSubject.next(string);
+  }
+
   constructor(private service: TEntityRepository) {
     this.selectedEntityChanged = new EventEmitter<TEntity>();
   }
@@ -44,7 +49,12 @@ export class SingleSearchBase<TEntity extends EntityBase,
     // this.entities = new Observable<TEntity[]>((observer) => {
     //   observer.next([this.selectedEntity]);
     // });
-    this.search()
+    this.SearchSubject
+      .pipe(throttle(val => interval(500)))
+      .subscribe(x=>this.search())
   }
 
+  ngOnDestroy(): void {
+    this.SearchSubject.unsubscribe()
+  }
 }

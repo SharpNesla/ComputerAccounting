@@ -14,8 +14,8 @@ export class SubsidiaryService extends EntityRepository<Subsidiary> {
   protected prepareEntity(entity: Subsidiary): Subsidiary {
     entity.DirectorId = entity.Director.Id;
 
-    delete entity.Director;
-    delete entity.RoomsCount;
+    entity.Director = undefined;
+    entity.RoomsCount = undefined;
 
     return super.prepareEntity(entity);
   }

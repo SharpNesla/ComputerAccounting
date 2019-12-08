@@ -3,6 +3,7 @@ import {EmployeeService} from "../services/employee.service";
 import {Employee, Gender, Roles} from "../entities/employee";
 import {EditorBase} from "./editor-base";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-employee-editor',
@@ -98,7 +99,7 @@ export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeServic
     {value: Roles.StoreKeeper},
   ];
 
-  constructor(private service: EmployeeService, route: ActivatedRoute) {
-    super(service, route, new Employee());
+  constructor(private service: EmployeeService, route: ActivatedRoute, dialog : MatDialog) {
+    super(service, route, dialog, new Employee());
   }
 }

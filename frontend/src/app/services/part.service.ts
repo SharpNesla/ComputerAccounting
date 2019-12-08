@@ -14,17 +14,19 @@ export class PartService extends EntityRepository<Part> {
 
   protected prepareEntity(entity: Part): Part {
     entity.ComputerId = entity.Computer.Id;
-    delete entity.ComputerId;
+
 
     if (entity.PartType != null){
       entity.PartTypeId = entity.PartType.Id;
     }
-    delete entity.PartTypeId;
 
     if(entity.Subsidiary){
       entity.SubsidiaryId = entity.Subsidiary.Id;
     }
-    delete entity.SubsidiaryId;
+
+    entity.ComputerId = undefined;
+    entity.PartTypeId = undefined;
+    entity.SubsidiaryId = undefined;
 
     return super.prepareEntity(entity);
   }

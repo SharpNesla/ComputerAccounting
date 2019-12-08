@@ -19,7 +19,7 @@ export class SoftwareService extends EntityRepository<Software> {
       entity.ComputerId = entity.Computer.Id;
     }
 
-    delete entity.ComputerId;
+    entity.ComputerId = undefined;
 
     return super.prepareEntity(entity);
   }

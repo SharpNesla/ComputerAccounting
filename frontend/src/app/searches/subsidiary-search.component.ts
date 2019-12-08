@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Subsidiary} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
-import {SingleSearchBase} from "../utils/single-search-base";
+import {SingleSearchBase} from "./single-search-base";
 
 @Component({
   selector: 'sg-subsidiary-search',

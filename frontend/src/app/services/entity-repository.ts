@@ -80,9 +80,8 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
 
-
   public getBySearchString(searchString: string, offset: number, limit: number, filterDefinition: T[],
-             sortDefinition: string, sortOrder: string): Observable<T[]> {
+                           sortDefinition: string, sortOrder: string): Observable<T[]> {
     const params = new HttpParams()
       .set('searchstring', searchString)
       .set("offset", offset.toString())
@@ -105,23 +104,17 @@ export abstract class EntityRepository<T extends EntityBase> {
 
   public get(offset: number, limit: number, filterDefinition: T[],
              sortDefinition: string, sortOrder: string): Observable<T[]> {
-    return this.getBySearchString("",offset, limit, filterDefinition, sortDefinition, sortOrder);
+    return this.getBySearchString("", offset, limit, filterDefinition, sortDefinition, sortOrder);
   }
 
   public add(entity: T) {
-    delete entity.Id;
-    this.prepareEntity(entity);
-    console.log(entity);
-    const result = this.client.post(`api/${this.entityPrefix}/add`, keysToSnake(entity))
-      .subscribe(
-        response => console.log(response),
-        error => console.log(error)
-      );
+    const preparedEntity = this.prepareEntity({...entity});
+    return this.client.post(`api/${this.entityPrefix}/add`, keysToSnake(preparedEntity))
   }
 
   public update(entity: T) {
-    this.prepareEntity(entity);
-    const result = this.client.post(`api/${this.entityPrefix}/edit/${entity.Id}`, keysToSnake(entity))
+    const preparedEntity = this.prepareEntity({...entity});
+    const result = this.client.post(`api/${this.entityPrefix}/edit/${entity.Id}`, keysToSnake(preparedEntity))
       .subscribe(
         response => console.log(response),
         error => console.log(error)

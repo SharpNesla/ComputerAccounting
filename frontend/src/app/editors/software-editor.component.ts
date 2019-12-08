@@ -3,12 +3,15 @@ import {SoftwareService} from "../services/software.service";
 import {Software} from "../entities/software";
 import {EditorBase} from "./editor-base";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-software-editor',
   template: `
       <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/software">
-          <header><mat-icon id="sg-editor-icon">developer_board</mat-icon> {{isNew ? 'Добавление' : 'Изменение'}} 
+          <header>
+              <mat-icon id="sg-editor-icon">developer_board</mat-icon>
+              {{isNew ? 'Добавление' : 'Изменение'}}
               ПО {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
@@ -33,8 +36,8 @@ import {ActivatedRoute} from "@angular/router";
 export class SoftwareEditorComponent extends EditorBase<Software, SoftwareService> {
 
 
-  constructor(private service: SoftwareService, route: ActivatedRoute) {
-    super(service, route, new Software());
+  constructor(private service: SoftwareService, route: ActivatedRoute, dialog: MatDialog) {
+    super(service, route, dialog, new Software());
   }
 
 }
