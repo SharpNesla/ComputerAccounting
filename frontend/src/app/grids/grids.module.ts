@@ -14,12 +14,15 @@ import {UtilsModule} from "../utils/utils.module";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {SearchesModule} from "../searches/searches.module";
+import {EmployeeTreeComponent} from "./employee-tree.component";
+import {AngularTreeGridModule} from "angular-tree-grid";
 
 
 @NgModule({
   declarations: [
     ComputerGridComponent,
     EmployeeGridComponent,
+    EmployeeTreeComponent,
     LicenseGridComponent,
     PartGridComponent,
     PartTypeGridComponent,
@@ -31,6 +34,7 @@ import {SearchesModule} from "../searches/searches.module";
   exports: [
     ComputerGridComponent,
     EmployeeGridComponent,
+    EmployeeTreeComponent,
     LicenseGridComponent,
     PartGridComponent,
     PartTypeGridComponent,
@@ -45,7 +49,8 @@ import {SearchesModule} from "../searches/searches.module";
     UtilsModule,
     RouterModule,
     FormsModule,
-    SearchesModule
+    SearchesModule,
+    AngularTreeGridModule
   ]
 })
 export class GridsModule { }

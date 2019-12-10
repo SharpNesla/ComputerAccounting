@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class CrudControllerBase extends Controller
 {
     private $facade;
-    private $fulltextBuilder;
+    protected $fulltextBuilder;
     function __construct($f, $s = ['id'])
     {
         $this->facade = $f;

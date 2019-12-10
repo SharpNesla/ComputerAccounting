@@ -23,16 +23,16 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   @Input() public IsDisplaySubtotals: boolean;
   @Input() public IsSearchDrawerOpened: boolean;
   @Input() public isCompact: boolean;
-  @Input() public customDataSource : TEntity[];
+  @Input() public customDataSource: TEntity[];
 
-  public get isCustomDataSource() : boolean{
+  public get isCustomDataSource(): boolean {
     let b = this.iscust();
     console.log(b);
     return b
   }
 
-  public iscust() : boolean{
-    if (this.customDataSource){
+  public iscust(): boolean {
+    if (this.customDataSource) {
       return true;
     }
     return false;
@@ -56,6 +56,8 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   private offset: number;
   private limit: number;
+  private filterState: boolean;
+
 
   public refreshPrevious() {
     this.refresh(this.offset, this.limit)

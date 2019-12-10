@@ -35,12 +35,13 @@ Route::post('/employee/edit/{id}', 'EmployeeController@update');
 Route::delete('/employee/remove/{id}', 'EmployeeController@remove');
 Route::get('/employee/{id}', 'EmployeeController@getById');
 
-Route::get('/computer/get', 'ComputerController@get');
-Route::get('/computer/count', 'ComputerController@getCount');
-Route::post('/computer/add', 'ComputerController@add');
-Route::post('/computer/edit/{id}', 'ComputerController@update');
-Route::delete('/computer/remove/{id}', 'ComputerController@remove');
-Route::get('/computer/{id}', 'ComputerController@getById');
+Route::middleware()->get('/computer/get', 'ComputerController@get');
+Route::middleware()->get('/computer/get-dependency-satisfying', 'ComputerController@getDependencySatisfying');
+Route::middleware()->get('/computer/count', 'ComputerController@getCount');
+Route::middleware()->post('/computer/add', 'ComputerController@add');
+Route::middleware()->post('/computer/edit/{id}', 'ComputerController@update');
+Route::middleware()->delete('/computer/remove/{id}', 'ComputerController@remove');
+Route::middleware()->get('/computer/{id}', 'ComputerController@getById');
 
 Route::get('/room/get', 'RoomController@get');
 Route::get('/room/count', 'RoomController@getCount');

@@ -18,9 +18,9 @@ class SubsidiaryController extends CrudControllerBase
     protected function queryMany(Request $request, Builder $builder): Builder
     {
         return $builder
-            ->withCount('rooms');/*
-            ->withCount('computers')
-            ->withCount('employees');*/
+            ->withCount('rooms')
+            /*->withCount('computers');*/
+            ->withCount('employees');
     }
 
     protected function applyFilters(array $filter, Builder $builder): Builder

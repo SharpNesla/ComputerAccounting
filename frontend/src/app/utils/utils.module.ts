@@ -19,10 +19,11 @@ import { PartCategoryPipe } from './part-category.pipe';
 import { ComputerTypePipe } from './computer-type.pipe';
 import { SoftwareCategoryPipe } from './software-category.pipe';
 import {FormsModule} from "@angular/forms";
+import { GenderPipe } from './gender.pipe';
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
-    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe, PartCategoryPipe, ComputerTypePipe, SoftwareCategoryPipe],
+    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe, PartCategoryPipe, ComputerTypePipe, SoftwareCategoryPipe, GenderPipe],
   exports: [
     AppbarBaseComponent,
     DrawerButtonComponent,
@@ -32,7 +33,8 @@ import {FormsModule} from "@angular/forms";
     RolePipe,
     PartCategoryPipe,
     ComputerTypePipe,
-    SoftwareCategoryPipe
+    SoftwareCategoryPipe,
+    GenderPipe
   ],
   imports: [
     CommonModule,

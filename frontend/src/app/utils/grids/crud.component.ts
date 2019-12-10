@@ -41,8 +41,8 @@ import {element} from "protractor";
                       </button>
                   </div>
               </mat-card>
-              <button mat-icon-button>
-                  <mat-icon>filter_list</mat-icon>
+              <button mat-icon-button (click)="toggleFiltersMethod()">
+                  <mat-icon>{{this.filterState ? "arrow_downward" : "filter_list"}}</mat-icon>
               </button>
               <button id="button-add" routerLink="{{this.link}}" mat-fab>
                   <mat-icon>add</mat-icon>
@@ -81,6 +81,7 @@ import {element} from "protractor";
           position: relative;
           margin-left: 24px;
           top: -32px;
+          z-index: 2;
       }
 
       #search-toolbar {
@@ -140,6 +141,10 @@ export class CrudComponent implements OnInit {
   @Output() Search: EventEmitter<string> = new EventEmitter<string>();
   @Output() Paginate: EventEmitter<{ offset: number, limit: number }>
     = new EventEmitter<{ offset: number, limit: number }>();
+  @Output() toggleFilters : EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  public filterState : boolean = false;
+
   public values = [5, 10, 20, 100];
 
   public get EntityNameCapitalized() {
@@ -204,4 +209,8 @@ export class CrudComponent implements OnInit {
     this.CheckButtons();
   }
 
+  toggleFiltersMethod() {
+    this.filterState = !this.filterState;
+    this.toggleFilters.emit(this.filterState);
+  }
 }

@@ -83,7 +83,9 @@ class EmployeeController extends CrudControllerBase
 
     public function querySave(array $object, Model $model): Model
     {
-        $model->password = bcrypt($object['password']);
+        if (array_key_exists('password', $object)){
+            $model->password = bcrypt($object['password']);
+        }
         return parent::querySave($object, $model);
     }
 
@@ -97,14 +99,20 @@ class EmployeeController extends CrudControllerBase
     public function validateEntity(array $array) : bool
     {
         return Validator::make($array,[
+            'superior_id' => 'required',
+            'subsidiary_id' => 'required',
+
             'name' => 'required',
             'surname' => 'required',
             'patronymic' => 'required',
-            'gender' => 'required',
-            'role' => 'required',
+
+            'gender' => 'required|numeric|min:0|max:2',
+            'role' => 'required|numeric|min:0|max:5',
 
             'passport_serial' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+
+            'username' => 'required'
         ])->fails();
     }
 }

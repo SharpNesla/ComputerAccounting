@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {EmployeeService} from "../services/employee.service";
 import {Employee} from "../entities/employee";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployeeCardComponent} from "../cards/employee-card.component";
-
 
 @Component({
   selector: 'sg-employee-grid',
@@ -99,10 +98,10 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
           </ng-template>
       </mat-menu>
       <sg-crud router-link="/employees/add"
-               icon="shop"
+               icon="account_circle"
                [count]="this.Count"
                (Paginate)="this.refresh($event.offset, $event.limit)"
-               entity-name="Лицензий"
+               entity-name="работников"
                (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })

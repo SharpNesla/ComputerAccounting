@@ -10,7 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
   template: `
       <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/employees">
           <header>
-              <mat-icon id="sg-editor-icon">shop</mat-icon>
+              <mat-icon id="sg-editor-icon">account_circle</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
               работника {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
@@ -42,7 +42,7 @@ import {MatDialog} from "@angular/material/dialog";
                       <mat-radio-button
                               class="sg-vertical-radio-button"
                               *ngFor="let gender of genders" [value]="gender">
-                          {{gender.label}}
+                          {{gender | gender}}
                       </mat-radio-button>
                   </mat-radio-group>
 
@@ -72,6 +72,19 @@ import {MatDialog} from "@angular/material/dialog";
                       <input matInput placeholder="Имя пользователя"
                              [(ngModel)]="this.Entity.Username">
                   </mat-form-field>
+
+                  <mat-checkbox *ngIf="!isNew" [(ngModel)]="this.isPasswordChange">Сменить пароль</mat-checkbox>
+
+                  <mat-form-field>
+                      <input matInput placeholder="Пароль" [disabled]="!this.isPasswordChange"
+                             [(ngModel)]="this.password" type="password">
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <input matInput placeholder="Пароль (повтор)" [disabled]="!this.isPasswordChange"
+                             [(ngModel)]="this.passwordRepeat" type="password">
+                  </mat-form-field>
+
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
@@ -84,10 +97,9 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeService> {
   genders = [
-    {label: 'Мужской', value: Gender.Male},
-    {label: 'Женский', value: Gender.Female},
-    {label: 'Не определён', value: Gender.Unrecognized},
-
+    Gender.Male,
+    Gender.Female,
+    Gender.Unrecognized
   ];
 
   roles = [
@@ -99,7 +111,19 @@ export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeServic
     {value: Roles.StoreKeeper},
   ];
 
-  constructor(private service: EmployeeService, route: ActivatedRoute, dialog : MatDialog) {
+  isPasswordChange: boolean;
+  password: string;
+  passwordRepeat: string;
+
+  constructor(private service: EmployeeService, route: ActivatedRoute, dialog: MatDialog) {
     super(service, route, dialog, new Employee());
+  }
+
+  public applyChanges() {
+    if (this.isPasswordChange && this.password == this.passwordRepeat) {
+      this.Entity['Password'] = this.password;
+      this.Entity['PasswordRepeat'] = this.passwordRepeat;
+    }
+    super.applyChanges();
   }
 }

@@ -2,11 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ComputerService} from "../services/computer.service";
 import {Computer, ComputerType} from "../entities/computer";
 import {EditorBase} from "./editor-base";
-import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {Employee} from "../entities/employee";
-import {MatTableDataSource} from "@angular/material/table";
-import {Subject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 

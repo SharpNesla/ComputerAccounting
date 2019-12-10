@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -38,10 +37,10 @@ $siberian-gates-theme: mat-light-theme($siberian-gates-primary, $siberian-gates-
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $candy-app-primary: mat-palette($mat-blue);
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$candy-app-warn:    mat-palette($mat-red);
+$candy-app-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $sg-dark-theme: mat-dark-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
@@ -52,7 +51,7 @@ $sg-light-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-a
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 
-body{
+body {
   margin: 0;
   width: 100vw;
   height: 100vh;
@@ -60,12 +59,12 @@ body{
 
 @include angular-material-theme($sg-light-theme);
 
-.dark-theme{
+.dark-theme {
   @include angular-material-theme($sg-dark-theme);
 }
 
-.mat-drawer-backdrop{
-  background-color: rgba(0,0,0,.6) !important;
+.mat-drawer-backdrop {
+  background-color: rgba(0, 0, 0, .6) !important;
 }
 
 main {
@@ -75,30 +74,27 @@ main {
   background-size: cover;
 }
 
-mat-checkbox{
+mat-checkbox {
   margin-bottom: 1em;
 }
 
-#sg-table-container{
-  flex-grow: 1;
-}
-
-.sg-grid-container{
+.sg-grid-container {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.flex-spacer{
+.flex-spacer {
   flex-grow: 10000;
 }
 
-mat-divider{
+mat-divider {
   border-top-width: 2px !important;
 }
+
 .sg-table {
-  margin: 2em;
-  width: calc(100% - 4em);
+  padding: 2em;
+  width: 100%;
   background: transparent !important;
 }
 
@@ -106,7 +102,8 @@ mat-divider{
   margin: 1em;
   width: calc(100% - 2em);
 }
-.mat-dialog-container .dark-theme{
+
+.mat-dialog-container .dark-theme {
 
 }
 
@@ -114,33 +111,36 @@ mat-divider{
   padding: 0 !important;
   background: map-get($mat-dark-theme-background, background) !important;
 }
-.mat-cell, .mat-footer-cell, .mat-header-cell{
+
+.mat-cell, .mat-footer-cell, .mat-header-cell {
   border-bottom-width: 2px !important;
 }
 
-.sg-table-action-button-container{
+.sg-table-action-button-container {
   width: 130px;
 }
 
-.sg-table-action-button-container-compact{
+.sg-table-action-button-container-compact {
   width: 10px;
 }
 
-.sg-table-info-button{
+.sg-table-info-button {
   transform: rotate(180deg);
 }
-.sg-card-table{
+
+.sg-card-table {
   margin-top: 1.5em;
   margin-right: 1.5em;
   margin-left: 1.5em;
   padding: 0.5em;
 }
 
-.sg-table-checkbox{
+.sg-table-checkbox {
   width: 48px;
   padding-top: 2px;
 }
-.sg-grid-filter-drawer{
+
+.sg-grid-filter-drawer {
   margin-right: 2em;
   margin-left: 2em;
 
@@ -151,16 +151,17 @@ mat-divider{
   transition: height ease-in-out 1s;
 }
 
-.sg-grid-filter-drawer-active{
+.sg-grid-filter-drawer-active {
 
   height: 120px;
 }
-.sg-appbar > header{
+
+.sg-appbar > header {
   display: flex;
   align-items: center;
 }
 
-.sg-vertical-radio-group{
+.sg-vertical-radio-group {
   display: flex;
   flex-direction: column;
   margin-top: 8px;
@@ -173,16 +174,30 @@ mat-divider{
   margin: 5px;
 }
 
-.sg-drawer-userbar-name{
+.sg-drawer-userbar-name {
   padding: 0;
 }
 
-.sg-search-drawer{
-  display: flex;
+.sg-search-drawer {
+  display: none;
   flex-wrap: wrap;
-  background: map-get($mat-dark-theme-background, card)
+  background: map-get($mat-dark-theme-background, card);
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
 }
-.sg-search-drawer-ruleset{
+
+.sg-search-drawer-active {
+  display: flex;
+}
+
+.sg-table-container {
+  position: relative;
+  overflow: visible;
+}
+
+.sg-search-drawer-ruleset {
   display: flex;
   flex-direction: column;
 
@@ -190,11 +205,19 @@ mat-divider{
   padding: 0.5em;
 }
 
-.sg-many-many-card{
+.sg-many-many-card {
   flex-direction: column;
 }
-.sg-many-many-card-searchbar{
+
+.sg-many-many-card-searchbar {
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
+
+.db-tree-view {
+  margin: 2em;
+  width: calc(100% - 4em) !important;
+  color: inherit !important;
+}
+
