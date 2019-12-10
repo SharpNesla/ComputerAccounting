@@ -29,7 +29,7 @@ class CrudControllerBase extends Controller
         return $builder;
     }
 
-    protected function queryFilters($filterA, $filterB, Builder $builder): Builder
+    protected function applyFilters(array $filter, Builder $builder): Builder
     {
         return $builder;
     }
@@ -42,6 +42,12 @@ class CrudControllerBase extends Controller
     public function get(Request $request)
     {
         $query = $this->queryMany($request, $this->facade::orderBy('id'));
+
+        $filter = json_decode($request->filter, true);
+
+        if ($filter != null && $this->validateFilters($filter)) {
+            $query = $this->applyFilters($filter, $query);
+        }
 
         if ($request->searchstring != null) {
             $query = $query->where($this->fulltextBuilder->search($request->searchstring));
@@ -61,8 +67,8 @@ class CrudControllerBase extends Controller
         return false;
     }
 
-    protected function validateFilters(array $filterA, array $filterB) : bool {
-        return false;
+    protected function validateFilters(array $filterA) : bool {
+        return true;
     }
 
     public function update(Request $request)

@@ -8,6 +8,10 @@ import {RoomCardComponent} from "../cards/room-card.component";
 import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
 import {retry} from "rxjs/operators";
 
+class SubsidiaryFilter {
+  RoomsCountLowBound: number;
+  RoomsCountHighBound: number;
+}
 
 @Component({
   selector: 'sg-subsidiary-grid',
@@ -44,10 +48,22 @@ import {retry} from "rxjs/operators";
                   (contextmenu)="onContextMenu($event, element)"> {{element.Address}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="roomcount">
+          <ng-container matColumnDef="rooms_count">
               <th mat-header-cell *matHeaderCellDef>Комнаты</th>
               <td mat-cell *matCellDef="let element"
                   (contextmenu)="onContextMenu($event, element)"> {{element.RoomsCount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="computers_count">
+              <th mat-header-cell *matHeaderCellDef>Компьютеры</th>
+              <td mat-cell *matCellDef="let element"
+                  (contextmenu)="onContextMenu($event, element)"> {{element.ComputersCount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="employees_count">
+              <th mat-header-cell *matHeaderCellDef>Сотрудники</th>
+              <td mat-cell *matCellDef="let element"
+                  (contextmenu)="onContextMenu($event, element)"> {{element.EmployeesCount}} </td>
           </ng-container>
 
           <ng-container matColumnDef="info" stickyEnd>
@@ -78,11 +94,11 @@ import {retry} from "rxjs/operators";
           <div class="sg-search-drawer-ruleset">
               <mat-checkbox [(ngModel)]="filterApplies.ByRoomCount">По количеству комнат</mat-checkbox>
               <mat-form-field>
-                  <input [ngModel]="FilterA.RoomsCount"
+                  <input [(ngModel)]="filter.RoomsCountLowBound"
                          [disabled]="!filterApplies.ByRoomCount" matInput placeholder="Нижняя граница">
               </mat-form-field>
               <mat-form-field>
-                  <input [ngModel]="FilterB.RoomsCount"
+                  <input [(ngModel)]="filter.RoomsCountHighBound"
                          [disabled]="!filterApplies.ByRoomCount" matInput placeholder="Верхняя граница">
               </mat-form-field>
           </div>
@@ -107,6 +123,12 @@ import {retry} from "rxjs/operators";
               <mat-form-field>
                   <input [disabled]="!filterApplies.ByEmployeeCount" matInput placeholder="Верхняя граница">
               </mat-form-field>
+          </div>
+
+          <div class="sg-search-drawer-ruleset">
+              <mat-checkbox [(ngModel)]="filterApplies.ByDirector">По количеству компьютеров</mat-checkbox>
+              <sg-employee-search hint="Директор филиала"
+                                  [disabled]="!filterApplies.ByDirector"></sg-employee-search>
           </div>
       </div>
       <div style="visibility: hidden; position: fixed"
@@ -140,30 +162,24 @@ export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, Subsidia
   filterApplies = {
     ByRoomCount: false,
     ByComputerCount: false,
-    ByEmployeeCount: false
+    ByEmployeeCount: false,
+    ByDirector: false
   };
 
+  filter: SubsidiaryFilter = new SubsidiaryFilter();
 
   constructor(private computers: SubsidiaryService, dialog: MatDialog) {
     super(computers, dialog,
-      ['select', 'id', 'name', 'address', 'roomcount', 'info'],
+      ['select', 'id', 'name', 'address', 'rooms_count', 'computers_count', 'employees_count', 'info'],
       SubsidiaryCardComponent)
   }
 
-  constructFilter(): Subsidiary[] {
-    let subs = [new Subsidiary(), new Subsidiary()];
-    if (this.filterApplies.ByRoomCount) {
-      subs[0].RoomsCount = this.FilterA.RoomsCount;
-      subs[1].RoomsCount = this.FilterB.RoomsCount;
+  constructFilter(): object {
+    const filter = new SubsidiaryFilter();
+    if (this.filterApplies.ByRoomCount){
+      filter.RoomsCountLowBound = this.filter.RoomsCountLowBound;
+      filter.RoomsCountHighBound = this.filter.RoomsCountHighBound;
     }
-    if (this.filterApplies.ByRoomCount) {
-      subs[0].RoomsCount = this.FilterA.RoomsCount;
-      subs[1].RoomsCount = this.FilterB.RoomsCount;
-    }
-    if (this.filterApplies.ByRoomCount) {
-      subs[0].RoomsCount = this.FilterA.RoomsCount;
-      subs[1].RoomsCount = this.FilterB.RoomsCount;
-    }
-    return subs;
+    return filter;
   }
 }

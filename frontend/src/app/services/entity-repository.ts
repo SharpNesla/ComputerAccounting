@@ -1,7 +1,7 @@
 import {EntityBase} from "../entities/entity-base";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
 
 export const toCamel = (s) => {
   var str = s.replace(/([-_][a-z])/ig, ($1) => {
@@ -80,14 +80,15 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
 
-  public getBySearchString(searchString: string, offset: number, limit: number, filterDefinition: T[],
+  public getBySearchString(searchString: string, offset: number, limit: number, filterDefinition: object,
                            sortDefinition: string, sortOrder: string): Observable<T[]> {
     const params = new HttpParams()
       .set('searchstring', searchString)
       .set("offset", offset.toString())
       .set("limit", limit.toString())
       .set("sort-definition", sortDefinition == null ? "id" : sortDefinition)
-      .set("sort-order", sortOrder);
+      .set("sort-order", sortOrder)
+      .set("filter", JSON.stringify(keysToSnake(filterDefinition)));
     return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
       .pipe(map(x => {
           console.log(x)
@@ -102,7 +103,7 @@ export abstract class EntityRepository<T extends EntityBase> {
       ))
   }
 
-  public get(offset: number, limit: number, filterDefinition: T[],
+  public get(offset: number, limit: number, filterDefinition: object,
              sortDefinition: string, sortOrder: string): Observable<T[]> {
     return this.getBySearchString("", offset, limit, filterDefinition, sortDefinition, sortOrder);
   }

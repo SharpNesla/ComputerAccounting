@@ -15,9 +15,6 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     this.refreshPrevious();
   }
 
-  public FilterA: TEntity = {} as TEntity;
-  public FilterB: TEntity = {} as TEntity;
-
   public Entities: Observable<TEntity[]>;
   public Count: number = 0;
 
@@ -70,10 +67,10 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
     if (this._SearchString) {
       this.Entities = this.Repo.getBySearchString(this._SearchString, offset, limit,
-        [], null, null);
+        this.constructFilter(), null, null);
     } else {
       this.Entities = this.Repo.get(offset, limit,
-        [], null, null)
+        this.constructFilter(), null, null)
     }
   }
 
@@ -111,8 +108,8 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     });
   }
 
-  constructFilter(): TEntity[] {
-    return null;
+  constructFilter(): object {
+    return {};
   }
 
   ngOnInit(): void {

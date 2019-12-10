@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends CrudControllerBase
 {
@@ -79,10 +81,30 @@ class EmployeeController extends CrudControllerBase
         return response()->json($request->user());
     }
 
+    public function querySave(array $object, Model $model): Model
+    {
+        $model->password = bcrypt($object['password']);
+        return parent::querySave($object, $model);
+    }
+
     public function getById($id)
     {
         return User::with('superior')
             ->with('subsidiary')
             ->findOrFail($id);
+    }
+
+    public function validateEntity(array $array) : bool
+    {
+        return Validator::make($array,[
+            'name' => 'required',
+            'surname' => 'required',
+            'patronymic' => 'required',
+            'gender' => 'required',
+            'role' => 'required',
+
+            'passport_serial' => 'required',
+            'address' => 'required'
+        ])->fails();
     }
 }

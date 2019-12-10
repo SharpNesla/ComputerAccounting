@@ -23,7 +23,10 @@ export class SingleSearchBase<TEntity extends EntityBase,
   @Input() hint: string;
   @Input() searchHint: string;
   @Input() filterDefinition: TEntity[];
+  @Input() disabled : boolean;
+
   @Output('selectedChange') selectedEntityChanged: EventEmitter<TEntity>;
+
   private _searchString: string;
 
   search() {

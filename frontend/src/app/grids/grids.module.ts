@@ -13,6 +13,7 @@ import {MaterialModule} from "../material-module";
 import {UtilsModule} from "../utils/utils.module";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {SearchesModule} from "../searches/searches.module";
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {FormsModule} from "@angular/forms";
     MaterialModule,
     UtilsModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    SearchesModule
   ]
 })
 export class GridsModule { }

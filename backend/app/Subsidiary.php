@@ -18,7 +18,18 @@ class Subsidiary extends Model
         return $this->hasMany(Room::class);
     }
 
-    public function director(){
+    public function computers()
+    {
+        return $this->hasMany(Computer::class);
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function director()
+    {
         return $this->belongsTo(User::class, 'director_id');
     }
 }

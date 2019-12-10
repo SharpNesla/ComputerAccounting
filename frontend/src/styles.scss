@@ -179,6 +179,7 @@ mat-divider{
 
 .sg-search-drawer{
   display: flex;
+  flex-wrap: wrap;
   background: map-get($mat-dark-theme-background, card)
 }
 .sg-search-drawer-ruleset{

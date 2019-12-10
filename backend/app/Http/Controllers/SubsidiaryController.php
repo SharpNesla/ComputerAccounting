@@ -17,7 +17,41 @@ class SubsidiaryController extends CrudControllerBase
 
     protected function queryMany(Request $request, Builder $builder): Builder
     {
-        return $builder->withCount('rooms');
+        return $builder
+            ->withCount('rooms');/*
+            ->withCount('computers')
+            ->withCount('employees');*/
+    }
+
+    protected function applyFilters(array $filter, Builder $builder): Builder
+    {
+        if(array_key_exists('rooms_count_low_bound', $filter)){
+            $builder = $builder
+                ->has('rooms', '>=', $filter['rooms_count_low_bound']);
+        }
+
+        if(array_key_exists('rooms_count_high_bound', $filter)){
+            $builder = $builder
+                ->has('rooms', '<=', $filter['rooms_count_high_bound']);
+        }
+
+        if(array_key_exists('computers_count', $filter)){
+            $builder = $builder
+                ->has('computers', '>=', $filter['computers_count'][0])
+                ->has('computers', '<=', $filter['computers_count'][1]);
+        }
+
+        if(array_key_exists('employees_count', $filter)){
+            $builder = $builder
+                ->has('employees', '>=', $filter['employees_count'][0])
+                ->has('employees', '<=', $filter['employees_count'][1]);
+        }
+
+        if(array_key_exists('director_id', $filter)){
+            $builder = $builder->where('director_id', $filter['director_id']);
+        }
+
+        return $builder;
     }
 
     public function getById($id)
