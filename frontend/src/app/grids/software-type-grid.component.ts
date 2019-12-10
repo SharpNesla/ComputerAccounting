@@ -1,12 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {SoftwareService} from "../services/software.service";
-import {Software} from "../entities/software";
+import {Component} from '@angular/core';
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
-import {SoftwareType} from "../entities/software-type";
+import {SoftwareCategory, SoftwareType} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
 
+class SoftwareTypeFilter {
+  SoftwareCountLowBound: number;
+  SoftwareCountHighBound: number;
+
+  Category: SoftwareCategory;
+}
 
 @Component({
   selector: 'sg-software-type-grid',
@@ -92,6 +96,33 @@ import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
               </button>
           </ng-template>
       </mat-menu>
+
+      <div class="sg-search-drawer">
+          <div class="sg-search-drawer-ruleset">
+              <mat-checkbox [(ngModel)]="filterApplies.BySoftwareCount">По количеству ПО</mat-checkbox>
+              <mat-form-field>
+                  <input [(ngModel)]="filter.SoftwareCountLowBound"
+                         [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Нижняя граница">
+              </mat-form-field>
+              <mat-form-field>
+                  <input [(ngModel)]="filter.SoftwareCountHighBound"
+                         [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Верхняя граница">
+              </mat-form-field>
+          </div>
+
+          <div class="sg-search-drawer-ruleset">
+              <mat-checkbox [(ngModel)]="filterApplies.ByCategory">По категории</mat-checkbox>
+              <mat-form-field>
+                  <mat-select [disabled]="!filterApplies.ByCategory"
+                              [(ngModel)]="filter.Category" placeholder="Категория">
+                      <mat-option *ngFor="let elem of softwareCategories" [value]="elem">
+                          {{elem | softwareCategory}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </div>
+      </div>
+
       <sg-crud router-link="/software-types/add"
                icon="developer_board"
                [count]="this.Count"
@@ -101,9 +132,38 @@ import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, SoftwareTypeService> {
+
+  softwareCategories = [
+    SoftwareCategory.Program,
+    SoftwareCategory.Driver,
+    SoftwareCategory.OS,
+    SoftwareCategory.Other
+  ];
+
+  filterApplies = {
+    BySoftwareCount: false,
+    ByCategory: false
+  };
+
+  filter: SoftwareTypeFilter = new SoftwareTypeFilter();
+
   constructor(software: SoftwareTypeService, private dialogref: MatDialog) {
     super(software, dialogref, ['select', 'id', 'typename',
-        'category','software_count', 'info'],
+        'category', 'software_count', 'info'],
       SoftwareTypeCardComponent)
+  }
+
+  constructFilter(): object {
+    const filter = new SoftwareTypeFilter();
+    if (this.filterApplies.BySoftwareCount) {
+      filter.SoftwareCountLowBound = this.filter.SoftwareCountLowBound;
+      filter.SoftwareCountHighBound = this.filter.SoftwareCountHighBound;
+    }
+
+    if (this.filterApplies.ByCategory) {
+      filter.Category = this.filter.Category;
+    }
+
+    return filter;
   }
 }

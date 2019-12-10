@@ -11,6 +11,14 @@ import {retry} from "rxjs/operators";
 class SubsidiaryFilter {
   RoomsCountLowBound: number;
   RoomsCountHighBound: number;
+
+  ComputersCountLowBound: number;
+  ComputersCountHighBound: number;
+
+  EmployeesCountLowBound: number;
+  EmployeesCountHighBound: number;
+
+  DirectorId: number;
 }
 
 @Component({
@@ -90,7 +98,6 @@ class SubsidiaryFilter {
           <tr mat-row *matRowDef="let row; columns: DisplayedColumns;"></tr>
       </table>
       <div class="sg-search-drawer">
-
           <div class="sg-search-drawer-ruleset">
               <mat-checkbox [(ngModel)]="filterApplies.ByRoomCount">По количеству комнат</mat-checkbox>
               <mat-form-field>
@@ -127,7 +134,7 @@ class SubsidiaryFilter {
 
           <div class="sg-search-drawer-ruleset">
               <mat-checkbox [(ngModel)]="filterApplies.ByDirector">По количеству компьютеров</mat-checkbox>
-              <sg-employee-search hint="Директор филиала"
+              <sg-employee-search hint="Директор филиала" [(ngModel)]="filter.RoomsCountLowBound"
                                   [disabled]="!filterApplies.ByDirector"></sg-employee-search>
           </div>
       </div>
@@ -180,6 +187,20 @@ export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, Subsidia
       filter.RoomsCountLowBound = this.filter.RoomsCountLowBound;
       filter.RoomsCountHighBound = this.filter.RoomsCountHighBound;
     }
+
+    if (this.filterApplies.ByComputerCount){
+      filter.ComputersCountLowBound = this.filter.ComputersCountLowBound;
+      filter.ComputersCountHighBound = this.filter.ComputersCountHighBound;
+    }
+
+    if (this.filterApplies.ByEmployeeCount){
+      filter.EmployeesCountLowBound = this.filter.EmployeesCountLowBound;
+      filter.EmployeesCountHighBound = this.filter.EmployeesCountHighBound;
+    }
+    if (this.filterApplies.ByDirector){
+      filter.DirectorId = this.filter.DirectorId;
+    }
+
     return filter;
   }
 }

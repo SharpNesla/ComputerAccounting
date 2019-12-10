@@ -106,7 +106,7 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
                (Search)="SearchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
-export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeService> {
+export class EmployeeTreeComponent extends EntityGridBase<Employee, EmployeeService> {
   constructor(licenses: EmployeeService, private dialogref: MatDialog) {
     super(licenses, dialogref, ['select', 'id',
       'name', 'surname', 'patronymic', 'role', 'info'], EmployeeCardComponent)
