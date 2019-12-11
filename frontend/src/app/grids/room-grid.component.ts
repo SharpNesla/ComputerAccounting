@@ -8,7 +8,7 @@ import {RoomCardComponent} from "../cards/room-card.component";
 
 @Component({
   selector: 'sg-room-grid',
-  template: `    
+  template: `
       <div class="sg-table-container">
           <table mat-table [dataSource]="this.Entities"
                  [class.sg-table-compact]="isCompact" class="sg-table">
@@ -33,6 +33,12 @@ import {RoomCardComponent} from "../cards/room-card.component";
                   <th mat-header-cell *matHeaderCellDef>Номер</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.Number}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="computers_count">
+                  <th mat-header-cell *matHeaderCellDef>Компьютеры</th>
+                  <td mat-cell *matCellDef="let element"
+                      (contextmenu)="onContextMenu($event, element)"> {{element.ComputersCount}} </td>
               </ng-container>
 
               <ng-container matColumnDef="info" stickyEnd>
@@ -99,6 +105,6 @@ import {RoomCardComponent} from "../cards/room-card.component";
 })
 export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
   constructor(private rooms: RoomService, dialog: MatDialog) {
-    super(rooms, dialog, ['select', 'id', 'number', 'info'], RoomCardComponent)
+    super(rooms, dialog, ['select', 'id', 'number', 'computers_count', 'info'], RoomCardComponent)
   }
 }

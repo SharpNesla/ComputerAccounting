@@ -91,12 +91,9 @@ export abstract class EntityRepository<T extends EntityBase> {
       .set("filter", JSON.stringify(keysToSnake(filterDefinition)));
     return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
       .pipe(map(x => {
-          console.log(x)
           return x.map(
             y => {
               const d = keysToCamel(y);
-
-              console.log(keysToSnake(d));
               return d;
             })
         }

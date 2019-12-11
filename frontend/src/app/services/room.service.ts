@@ -12,6 +12,8 @@ export class RoomService extends EntityRepository<Room> {
   }
 
   protected prepareEntity(entity: Room): Room {
+    entity.ComputersCount = undefined;
+
     entity.SubsidiaryId = entity.Subsidiary.Id;
     entity.Subsidiary = undefined;
     return super.prepareEntity(entity);

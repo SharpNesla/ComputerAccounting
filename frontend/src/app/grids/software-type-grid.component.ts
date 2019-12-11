@@ -17,7 +17,7 @@ class SoftwareTypeFilter {
   template: `
 
       <div class="sg-table-container">
-          <table mat-table [dataSource]="isCustomDataSource ? customDataSource : this.Entities"
+          <table mat-table [dataSource]="this.Entities"
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>

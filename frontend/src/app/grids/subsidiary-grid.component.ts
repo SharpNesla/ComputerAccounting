@@ -57,7 +57,7 @@ class SubsidiaryFilter {
               </ng-container>
 
               <ng-container matColumnDef="rooms_count">
-                  <th mat-header-cell *matHeaderCellDef>Комнаты</th>
+                  <th mat-header-cell *matHeaderCellDef>Помещения</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.RoomsCount}} </td>
               </ng-container>
