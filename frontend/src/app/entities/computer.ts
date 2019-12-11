@@ -29,4 +29,5 @@ export class Computer extends EntityBase{
   ResponsibleId : number;
 
   Users : Employee[] = [];
+  UsersCount: number;
 }

@@ -1,10 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComputerService} from "../services/computer.service";
-import {Computer} from "../entities/computer";
+import {Computer, ComputerType} from "../entities/computer";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {ComputerCardComponent} from "../cards/computer-card.component";
-import {MatSort} from "@angular/material/sort";
+
+class ComputerFilter {
+  UsersCountLowBound: number;
+  UsersCountHighBound: number;
+  Type: ComputerType;
+}
 
 
 @Component({
@@ -51,6 +56,13 @@ import {MatSort} from "@angular/material/sort";
                   </td>
               </ng-container>
 
+              <ng-container matColumnDef="users_count">
+                  <th mat-header-cell *matHeaderCellDef>Пользователей</th>
+                  <td mat-cell *matCellDef="let element"
+                      (contextmenu)="onContextMenu($event, element)"> {{element.UsersCount}}
+                  </td>
+              </ng-container>
+
               <ng-container matColumnDef="info" stickyEnd>
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let element"
@@ -76,12 +88,26 @@ import {MatSort} from "@angular/material/sort";
           </table>
           <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
               <div class="sg-search-drawer-ruleset">
-                  <mat-checkbox>По количеству ПО</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="filterApplies.ByUsersCount">По количеству пользователей</mat-checkbox>
                   <mat-form-field>
-                      <input matInput placeholder="Нижняя граница">
+                      <input [(ngModel)]="filter.UsersCountLowBound"
+                             [disabled]="!filterApplies.ByUsersCount" matInput placeholder="Нижняя граница">
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput placeholder="Верхняя граница">
+                      <input [(ngModel)]="filter.UsersCountHighBound"
+                             [disabled]="!filterApplies.ByUsersCount" matInput placeholder="Верхняя граница">
+                  </mat-form-field>
+              </div>
+
+              <div class="sg-search-drawer-ruleset">
+                  <mat-checkbox [(ngModel)]="filterApplies.ByType">По типу</mat-checkbox>
+                  <mat-form-field>
+                      <mat-select [disabled]="!filterApplies.ByType"
+                                  [(ngModel)]="filter.Type" placeholder="Тип">
+                          <mat-option *ngFor="let elem of types" [value]="elem">
+                              {{elem | computerType}}
+                          </mat-option>
+                      </mat-select>
                   </mat-form-field>
               </div>
           </div>
@@ -114,9 +140,42 @@ import {MatSort} from "@angular/material/sort";
                entity-name="компьютеров"></sg-crud>`
 })
 export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
+
+  filterApplies = {
+    ByUsersCount: false,
+    ByType: false
+  };
+
+  types = [
+    ComputerType.PC,
+    ComputerType.Server,
+    ComputerType.Laptop,
+    ComputerType.Tablet,
+    ComputerType.NetBook,
+    ComputerType.NetTop,
+    ComputerType.SmartPhone,
+    ComputerType.Other
+  ];
+
+  filter: ComputerFilter = new ComputerFilter();
+
   constructor(computers: ComputerService, private dialogref: MatDialog) {
     super(computers, dialogref,
-      ['select', 'id', 'name', 'inventory_id', 'type', 'info'],
+      ['select', 'id', 'name', 'inventory_id', 'type', 'users_count', 'info'],
       ComputerCardComponent);
+  }
+
+  constructFilter(): object {
+    const filter = new ComputerFilter();
+    if (this.filterApplies.ByUsersCount) {
+      filter.UsersCountLowBound = this.filter.UsersCountLowBound;
+      filter.UsersCountHighBound = this.filter.UsersCountHighBound;
+    }
+
+    if (this.filterApplies.ByType) {
+      filter.Type = this.filter.Type;
+    }
+
+    return filter;
   }
 }

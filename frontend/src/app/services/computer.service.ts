@@ -26,6 +26,8 @@ export class ComputerService extends EntityRepository<Computer> implements Count
     entity.Responsible = undefined;
     entity.Users = undefined;
 
+    entity.UsersCount = undefined;
+
     return super.prepareEntity(entity);
   }
 
