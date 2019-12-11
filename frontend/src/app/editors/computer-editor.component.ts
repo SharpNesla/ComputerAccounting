@@ -105,9 +105,9 @@ import {MatDialog} from "@angular/material/dialog";
                           <tr mat-row *matRowDef="let row; columns: UserDisplayedColumns;"></tr>
                       </table>
                       <div class="sg-many-many-card-searchbar">
-                          <sg-employee-search #employeeSearch
+                          <sg-employee-search [(selected)]="addingUser"
                                               hint="Привязать пользователя"></sg-employee-search>
-                          <button mat-icon-button (click)="addUser(employeeSearch.selectedEntity)">
+                          <button mat-icon-button (click)="addUser()">
                               <mat-icon>add</mat-icon>
                           </button>
                       </div>
@@ -138,20 +138,21 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
 
   UserDisplayedColumns = ['remove_button', 'id',
     'name', 'surname', 'role', 'info'];
+  addingUser: Employee;
 
   constructor(private service: ComputerService, route: ActivatedRoute, private snackBar: MatSnackBar, dialog: MatDialog) {
     super(service, route, dialog, new Computer());
   }
 
-  addUser(user: Employee) {
-    if (!user) {
+  addUser() {
+    if (!this.addingUser) {
       this.snackBar.open("Не выбран работник для привязки");
       return;
     }
-    if (this.Entity.Users.find(x => x.Id == user.Id)) {
+    if (this.Entity.Users.find(x => x.Id == this.addingUser.Id)) {
       this.snackBar.open("Работник уже является пользователем");
     } else {
-      this.Entity.Users.push(user);
+      this.Entity.Users.push(this.addingUser);
       //Cause change detection to update table datasource
       this.Entity.Users = [...this.Entity.Users].sort(x => x.Id);
     }

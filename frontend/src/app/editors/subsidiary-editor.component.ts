@@ -1,12 +1,9 @@
 import {Component} from "@angular/core";
 import {EditorBase} from "./editor-base";
-import {Computer} from "../entities/computer";
-import {ComputerService} from "../services/computer.service";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {Subsidiary} from "../entities/subsidiary";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
-import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'sg-subsidiary-editor',

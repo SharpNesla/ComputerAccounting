@@ -94,7 +94,7 @@ class CrudControllerBase extends Controller
             return response("Invalid entity", 400);
         }
 
-        $model = $this->facade::forceCreate($decodedAsArray);
+        $model = $this->facade::create($decodedAsArray);
         $model->save();
     }
 

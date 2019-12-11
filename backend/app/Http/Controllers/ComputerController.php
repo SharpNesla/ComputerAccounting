@@ -24,7 +24,9 @@ class ComputerController extends CrudControllerBase
 
     protected function querySave(array $object, Model $model): Model
     {
-        $model->users()->sync($object['user_ids']);
+        if (array_key_exists('user_ids' ,$object)){
+            $model->users()->sync($object['user_ids']);
+        }
 
         return parent::querySave($object, $model);
     }

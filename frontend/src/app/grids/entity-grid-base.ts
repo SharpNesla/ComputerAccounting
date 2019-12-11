@@ -56,7 +56,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   private offset: number;
   private limit: number;
-  private filterState: boolean;
+  public filterState: boolean;
 
 
   public refreshPrevious() {
@@ -66,6 +66,11 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   public refresh(offset: number, limit: number) {
     this.offset = offset;
     this.limit = limit;
+
+
+    this.Repo.getCount(null).subscribe(x => {
+      this.Count = x;
+    });
 
     if (this._SearchString) {
       this.Entities = this.Repo.getBySearchString(this._SearchString, offset, limit,
@@ -106,6 +111,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
         this.Repo.remove(item).subscribe(x => {
           this.refreshPrevious()
         });
+        this.Repo.getCount(null).subscribe(x => this.Count = x);
       }
     });
   }
