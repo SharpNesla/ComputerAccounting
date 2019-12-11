@@ -50,11 +50,13 @@ export class RoomSearchComponent implements ControlValueAccessor {
     this.writeValue(value);
     this.onTouched();
   }
+
   constructor(private service: RoomService) {
   }
 
   entities: Observable<Room[]>;
-  @Input('selected') private _selectedEntity: Room;
+  private _selectedEntity: Room;
+
   @Input() hint: string;
   @Input() searchHint: string;
   @Input() filterDefinition: Room[];

@@ -76,12 +76,12 @@ import {MatDialog} from "@angular/material/dialog";
                   <mat-checkbox *ngIf="!isNew" [(ngModel)]="this.isPasswordChange">Сменить пароль</mat-checkbox>
 
                   <mat-form-field>
-                      <input matInput placeholder="Пароль" [disabled]="!this.isPasswordChange"
+                      <input matInput placeholder="Пароль" [disabled]="!(this.isPasswordChange || isNew)"
                              [(ngModel)]="this.password" type="password">
                   </mat-form-field>
 
                   <mat-form-field>
-                      <input matInput placeholder="Пароль (повтор)" [disabled]="!this.isPasswordChange"
+                      <input matInput placeholder="Пароль (повтор)" [disabled]="!(this.isPasswordChange || isNew)"
                              [(ngModel)]="this.passwordRepeat" type="password">
                   </mat-form-field>
 
@@ -120,7 +120,7 @@ export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeServic
   }
 
   public applyChanges() {
-    if (this.isPasswordChange && this.password == this.passwordRepeat) {
+    if ((this.isPasswordChange || this.isNew) && this.password == this.passwordRepeat) {
       this.Entity['Password'] = this.password;
       this.Entity['PasswordRepeat'] = this.passwordRepeat;
     }

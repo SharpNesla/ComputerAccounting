@@ -83,7 +83,9 @@ class EmployeeController extends CrudControllerBase
 
     public function querySave(array $object, Model $model): Model
     {
-        if (array_key_exists('password', $object)){
+        if (array_key_exists('password', $object) &&
+            array_key_exists('password_repeat', $object) &&
+            $object['password'] == $object['password_repeat']){
             $model->password = bcrypt($object['password']);
         }
         return parent::querySave($object, $model);
@@ -111,7 +113,7 @@ class EmployeeController extends CrudControllerBase
 
             'passport_serial' => 'required',
             'address' => 'required',
-
+            
             'username' => 'required'
         ])->fails();
     }
