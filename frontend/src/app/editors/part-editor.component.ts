@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {EditorBase} from "./editor-base";
-import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
-import {Part} from "../entities/part";
+import {Part, PartState} from "../entities/part";
 import {PartService} from "../services/part.service";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -17,7 +16,18 @@ import {MatDialog} from "@angular/material/dialog";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-part-type-search></sg-part-type-search>
+                  <sg-part-type-search hint="Тип комплектующего"></sg-part-type-search>
+
+                  <mat-form-field>
+                      <mat-select [(ngModel)]="Entity.State" placeholder="Состояние">
+                          <mat-option *ngFor="let elem of partStates" [value]="elem">
+                              {{elem | partState}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  
+                  <sg-subsidiary-search *ngIf="displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
+                  <sg-computer-search *ngIf="displayComputer" hint="Компьютер"></sg-computer-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -32,9 +42,21 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['../utils/editors-styles.scss']
 })
 export class PartEditorComponent extends EditorBase<Part, PartService> {
+  partStates = [
+    PartState.InComputer,
+    PartState.InStore,
+    PartState.Broken
+  ];
 
+  get displaySubsidiary() {
+    return this.Entity.State == PartState.InStore || this.Entity.State == PartState.Broken;
+  }
 
-  constructor(private service: PartService, route: ActivatedRoute, dialog : MatDialog) {
+  get displayComputer(){
+    return this.Entity.State == PartState.InComputer;
+  }
+
+  constructor(private service: PartService, route: ActivatedRoute, dialog: MatDialog) {
     super(service, route, dialog, new Part());
   }
 

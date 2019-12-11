@@ -113,7 +113,7 @@ class EmployeeController extends CrudControllerBase
 
             'passport_serial' => 'required',
             'address' => 'required',
-            
+
             'username' => 'required'
         ])->fails();
     }

@@ -3,6 +3,12 @@ import {PartType} from "./part-type";
 import {Subsidiary} from "./subsidiary";
 import {Computer} from "./computer";
 
+export enum PartState {
+  InComputer,
+  InStore,
+  Broken
+}
+
 export class Part extends EntityBase {
   Computer: Computer;
   ComputerId: number;
@@ -12,4 +18,6 @@ export class Part extends EntityBase {
 
   PartType: PartType;
   PartTypeId: number;
+
+  State : PartState = PartState.InStore;
 }
