@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class Role
 {
@@ -18,20 +19,14 @@ class Role
     /**
      * Handle an incoming request.
      *
+     * @param Request $request
+     * @param Closure $next
      * @param string $role
      * @return mixed
      */
-    private function decodeRole(string $role)
+    public function handle(Request $request, Closure $next, string $role)
     {
-
-        return $this->dict[$role];
-    }
-
-    public function handle($request, Closure $next, string $role)
-    {
-        if (!Auth::check())
-            return response('Unauthorized', 401);
-        if ($request->user()->role != $this->decodeRole($role)) {
+        if ($request->user()->role != $this->dict[$role]) {
             return response('Forbidden', 403);
         }
         return $next($request);
