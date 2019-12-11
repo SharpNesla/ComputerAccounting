@@ -8,7 +8,7 @@ import {Subsidiary} from "../entities/subsidiary";
 })
 export class SubsidiaryService extends EntityRepository<Subsidiary> {
   constructor(httpClient : HttpClient){
-    super(httpClient,"subsidiary" ,[]);
+    super(httpClient, "subsidiary");
   }
 
   protected prepareEntity(entity: Subsidiary): Subsidiary {

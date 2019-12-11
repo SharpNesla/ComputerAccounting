@@ -9,6 +9,6 @@ import {HttpClient} from "@angular/common/http";
 export class PartTypeService extends EntityRepository<PartType> {
   constructor(httpClient : HttpClient){
 
-    super(httpClient, "part-type", [])
+    super(httpClient, "part-type")
   }
 }

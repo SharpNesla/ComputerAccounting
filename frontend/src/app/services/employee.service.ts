@@ -11,7 +11,7 @@ import {Software} from "../entities/software";
 })
 export class EmployeeService extends EntityRepository<Employee> {
   constructor(private httpClient: HttpClient) {
-    super(httpClient, "employee", []);
+    super(httpClient, "employee");
   }
 
   getCurrentUser(): Observable<Employee> {

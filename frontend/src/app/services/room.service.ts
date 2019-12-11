@@ -8,7 +8,7 @@ import {Room} from "../entities/room";
 })
 export class RoomService extends EntityRepository<Room> {
   constructor(httpClient: HttpClient) {
-    super(httpClient, "room", []);
+    super(httpClient, "room");
   }
 
   protected prepareEntity(entity: Room): Room {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'sg-analycs',
+  selector: 'sg-analytics',
   template: `
       <sg-drawer-appbar-base>
           <header>Аналитика</header>

@@ -2,13 +2,15 @@ import {EntityRepository} from "./entity-repository";
 import {Computer} from "../entities/computer";
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
+import {Subsidiary} from "../entities/subsidiary";
+import {CountableBySubsidiaries, CountBySubsidiaryResult} from "../analytics/chartable-by-date";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ComputerService extends EntityRepository<Computer> {
+export class ComputerService extends EntityRepository<Computer> implements CountableBySubsidiaries{
   constructor(httpClient : HttpClient){
-    super(httpClient,"computer" ,[]);
+    super(httpClient, "computer");
   }
 
   protected prepareEntity(entity: Computer): Computer {
@@ -26,4 +28,9 @@ export class ComputerService extends EntityRepository<Computer> {
 
     return super.prepareEntity(entity);
   }
+
+  getCountBySubsidiaries(filterDefinition: object): CountBySubsidiaryResult[] {
+    return [];
+  }
+
 }

@@ -58,9 +58,8 @@ const keysToSnake = function (o) {
 };
 
 export abstract class EntityRepository<T extends EntityBase> {
-  protected constructor(private client: HttpClient,
-                        private entityPrefix: string,
-                        private searchStringCriteris: string[]) {
+  protected constructor(protected client: HttpClient,
+                        protected entityPrefix: string) {
 
   }
 
@@ -122,5 +121,21 @@ export abstract class EntityRepository<T extends EntityBase> {
 
   protected prepareEntity(entity: T): T {
     return entity;
+  }
+}
+
+export abstract class PackEntityRepository<T extends EntityBase> extends EntityRepository<T> {
+  protected constructor(client: HttpClient,
+                        entityPrefix: string) {
+    super(client, entityPrefix)
+  }
+
+  protected prepareEntityRange(entity: T): T {
+    return entity;
+  }
+
+  public addRange(entity: T) {
+    const preparedEntity = this.prepareEntity({...entity});
+    return this.client.post(`api/${this.entityPrefix}/add-range`, keysToSnake(preparedEntity))
   }
 }
