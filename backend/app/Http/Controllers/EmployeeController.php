@@ -85,7 +85,7 @@ class EmployeeController extends CrudControllerBase
     {
         if (array_key_exists('password', $object) &&
             array_key_exists('password_repeat', $object) &&
-            $object['password'] == $object['password_repeat']){
+            $object['password'] == $object['password_repeat']) {
             $model->password = bcrypt($object['password']);
         }
         return parent::querySave($object, $model);
@@ -98,9 +98,9 @@ class EmployeeController extends CrudControllerBase
             ->findOrFail($id);
     }
 
-    public function validateEntity(array $array) : bool
+    public function validateEntity(array $array): bool
     {
-        return Validator::make($array,[
+        return Validator::make($array, [
             'superior_id' => 'required',
             'subsidiary_id' => 'required',
 
@@ -117,4 +117,37 @@ class EmployeeController extends CrudControllerBase
             'username' => 'required'
         ])->fails();
     }
+
+    public function getTree(Request $request)
+    {
+        $employees = $this
+            ->queryMany($request, User::orderBy('id'))
+            ->get();
+
+        if($request->exclude != null){
+
+        }
+
+        $root = $this->fetchChildrenRecursively($employees[0], $employees);
+
+        return json_encode($root);
+    }
+
+    private function fetchChildrenRecursively($subRoot, $collection, $excludeId)
+    {
+        $children =
+            $this->FetchChildren($subRoot, $collection)->map(function ($x) use ($collection) {
+                return $this->fetchChildrenRecursively($x, $collection);
+            });
+        $subRoot['children'] = $children;
+        return $subRoot;
+    }
+
+    public function FetchChildren($root, $collection)
+    {
+        return $collection->filter(function ($child) use ($root) {
+            return $child['superior_id'] == $root['id'];
+        });
+    }
+
 }

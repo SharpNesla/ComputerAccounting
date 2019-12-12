@@ -6,6 +6,16 @@ import {MatDialog} from "@angular/material/dialog";
 import {PartTypeCardComponent} from "../cards/part-type-card.component";
 
 
+class PartTypeFilter {
+  CostLowBound: number;
+  CostHighBound: number;
+
+  PartsCountLowBound: number;
+  PartsCountHighBound: number;
+
+  ByCategory: number;
+}
+
 @Component({
   selector: 'sg-part-type-grid',
   template: `
@@ -83,12 +93,21 @@ import {PartTypeCardComponent} from "../cards/part-type-card.component";
           </table>
           <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
               <div class="sg-search-drawer-ruleset">
-                  <mat-checkbox>По количеству ПО</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="filterApplies.ByCost">По цене</mat-checkbox>
                   <mat-form-field>
-                      <input matInput placeholder="Нижняя граница">
+                      <input [disabled]="!filterApplies.ByCost" matInput placeholder="Нижняя граница">
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput placeholder="Верхняя граница">
+                      <input [disabled]="!filterApplies.ByCost" matInput placeholder="Верхняя граница">
+                  </mat-form-field>
+              </div>
+              <div class="sg-search-drawer-ruleset">
+                  <mat-checkbox [(ngModel)]="filterApplies.ByPartsCount">По колчеству комплектующих</mat-checkbox>
+                  <mat-form-field>
+                      <input [disabled]="!filterApplies.ByPartsCount" matInput placeholder="Нижняя граница">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input [disabled]="!filterApplies.ByPartsCount" matInput placeholder="Верхняя граница">
                   </mat-form-field>
               </div>
           </div>
@@ -123,10 +142,35 @@ import {PartTypeCardComponent} from "../cards/part-type-card.component";
 })
 export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeService> {
 
+  filterApplies = {
+    ByCost: false,
+    ByPartsCount: false,
+    ByCategory: false
+  };
+
+  filter: PartTypeFilter = new PartTypeFilter();
+
   constructor(service: PartTypeService, dialog: MatDialog) {
     super(service, dialog,
       ['select', 'id', 'name', 'cost', 'parts_count', 'category', 'info'],
       PartTypeCardComponent);
   }
 
+  constructFilter(): object {
+    const filter = new PartTypeFilter();
+    if (this.filterApplies.ByCost) {
+      filter.CostLowBound = this.filter.CostLowBound;
+      filter.CostHighBound = this.filter.CostHighBound;
+    }
+
+    if (this.filterApplies.ByPartsCount) {
+      filter.PartsCountLowBound = this.filter.PartsCountLowBound;
+      filter.PartsCountHighBound = this.filter.PartsCountHighBound;
+    }
+    if (this.filterApplies.ByCategory) {
+      filter.ByCategory = this.filter.ByCategory;
+    }
+
+    return filter;
+  }
 }

@@ -30,6 +30,7 @@ Route::group([
 
 Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function (){
     Route::get('get', 'EmployeeController@get');
+    Route::get('get-tree', 'EmployeeController@getTree');
     Route::get('count', 'EmployeeController@getCount');
     Route::post('add', 'EmployeeController@add');
     Route::post('edit/{id}', 'EmployeeController@update');
