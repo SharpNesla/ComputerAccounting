@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EntityRepository, keysToCamel} from "./entity-repository";
+import {EntityServiceBase, keysToCamel} from "./entity-service-base";
 import {Employee} from "../entities/employee";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -9,7 +9,7 @@ import {Software} from "../entities/software";
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService extends EntityRepository<Employee> {
+export class EmployeeService extends EntityServiceBase<Employee> {
   constructor(private httpClient: HttpClient) {
     super(httpClient, "employee");
   }

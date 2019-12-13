@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {EntityRepository} from "./entity-repository";
+import {EntityServiceBase} from "./entity-service-base";
 import {HttpClient} from "@angular/common/http";
 import {Room} from "../entities/room";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoomService extends EntityRepository<Room> {
+export class RoomService extends EntityServiceBase<Room> {
   constructor(httpClient: HttpClient) {
     super(httpClient, "room");
   }

@@ -19,7 +19,7 @@ import {MatDialog} from "@angular/material/dialog";
                       <input matInput placeholder="Номер помещения"
                              [(ngModel)]="this.Entity.Number">
                   </mat-form-field>
-                  <sg-subsidiary-search [(selected)]="Entity.Subsidiary"
+                  <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
                   hint="Филиал"></sg-subsidiary-search>
               </mat-card>
               <mat-card id="right-section">

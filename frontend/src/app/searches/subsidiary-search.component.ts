@@ -1,15 +1,17 @@
-import {Component} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
 import {Subsidiary} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {SingleSearchBase} from "./single-search-base";
+import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {SoftwareType} from "../entities/software-type";
+import {SoftwareTypeService} from "../services/software-type.service";
 
 @Component({
   selector: 'sg-subsidiary-search',
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [value]="selectedEntity"                           
-                      (valueChange)="selectedEntityChanged.emit($event)">
+          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
@@ -25,18 +27,15 @@ import {SingleSearchBase} from "./single-search-base";
               </mat-option>
           </mat-select>
       </mat-form-field>`,
-  styles: [`
-      .sg-search {
-          width: 100%;
-      }
-
-      button {
-          margin-left: 8px;
-          margin-right: 4px;
-      }`]
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    multi: true,
+    useExisting: forwardRef(() => SubsidiarySearchComponent)
+  }],
+  styleUrls: ['./search-styles.scss']
 })
-export class SubsidiarySearchComponent extends SingleSearchBase<Subsidiary, SubsidiaryService> {
+export class SubsidiarySearchComponent extends SingleSearchBase<Subsidiary> {
   constructor(service : SubsidiaryService){
-    super(service);
+    super(service)
   }
 }

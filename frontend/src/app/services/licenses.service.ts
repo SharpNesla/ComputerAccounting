@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {EntityRepository, PackEntityRepository} from "./entity-repository";
+import {EntityServiceBase, PackEntityRepository} from "./entity-service-base";
 import {License} from "../entities/license";
 import {HttpClient} from "@angular/common/http";
 import {ChartableByDate, ChartResult, DateSlice} from "../analytics/countable-by-subsidiary";

@@ -109,7 +109,7 @@ mat-divider {
 
 .mat-dialog-container {
   padding: 0 !important;
-  background: map-get($mat-dark-theme-background, background) !important;
+  @extend .mat-app-background;
 }
 
 .mat-cell, .mat-footer-cell, .mat-header-cell {
@@ -219,5 +219,32 @@ mat-divider {
   margin: 2em;
   width: calc(100% - 4em) !important;
   color: inherit !important;
+  table{
+    border: none !important;
+  }
+  thead{
+    tr{
+      background: transparent;
+      th{
+        @extend .mat-header-cell;
+        color: inherit !important;
+      }
+    }
+  }
+  tbody{
+    tr.selected{
+      background: transparent;
+    }
+    tr{
+      td{
+        @extend .mat-cell;
+        border-top: none !important;
+        border-bottom: none !important;
+        border-right: none !important;
+        border-bottom: 2px !important;
+      }
+    }
+  }
+
 }
 

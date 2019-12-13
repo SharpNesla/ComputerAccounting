@@ -14,7 +14,7 @@ import {UtilsModule} from "../utils/utils.module";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {SearchesModule} from "../searches/searches.module";
-import {EmployeeTreeComponent} from "./employee-tree.component";
+import {EmployeeEditCellComponent, EmployeeTreeComponent} from "./employee-tree.component";
 import {AngularTreeGridModule} from "angular-tree-grid";
 
 
@@ -23,6 +23,7 @@ import {AngularTreeGridModule} from "angular-tree-grid";
     ComputerGridComponent,
     EmployeeGridComponent,
     EmployeeTreeComponent,
+    EmployeeEditCellComponent,
     LicenseGridComponent,
     PartGridComponent,
     PartTypeGridComponent,
@@ -51,6 +52,7 @@ import {AngularTreeGridModule} from "angular-tree-grid";
     FormsModule,
     SearchesModule,
     AngularTreeGridModule
-  ]
+  ],
+  entryComponents:[EmployeeEditCellComponent]
 })
 export class GridsModule { }

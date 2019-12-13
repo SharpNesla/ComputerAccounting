@@ -1,63 +1,75 @@
 import {EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {BehaviorSubject, interval, Observable} from "rxjs";
 import {Subsidiary} from "../entities/subsidiary";
-import {map, throttle} from "rxjs/operators";
+import {debounce, map, mergeMap, throttle} from "rxjs/operators";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {EntityBase} from "../entities/entity-base";
-import {EntityRepository} from "../services/entity-repository";
+import {EntityServiceBase} from "../services/entity-service-base";
+import {Room} from "../entities/room";
+import {RoomService} from "../services/room.service";
+import {ControlValueAccessor} from "@angular/forms";
 
-export class SingleSearchBase<TEntity extends EntityBase,
-  TEntityRepository extends EntityRepository<TEntity>> implements OnInit, OnDestroy {
-  get searchString(): string {
-    return this._searchString;
-  }
-
+export class SingleSearchBase<TEntity extends EntityBase> implements ControlValueAccessor {
   set searchString(value: string) {
-    this._searchString = value;
+    this.searchBehaviourSubject.next(value);
   }
 
-  SearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  get searchString() {
+    return null;
+  }
 
-  entities: Observable<TEntity[]>;
-  @Input('selected') selectedEntity: TEntity;
-  @Input() hint: string;
-  @Input() searchHint: string;
-  @Input() filterDefinition: TEntity[];
-  @Input() disabled : boolean;
+  searchBehaviourSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  get selectedEntity(): TEntity {
+    return this._selectedEntity;
+  }
 
-  @Output('selectedChange') selectedEntityChanged: EventEmitter<TEntity>;
+  set selectedEntity(value: TEntity) {
+    this._selectedEntity = value;
+    this.writeValue(value);
+    this.onTouched();
+  }
 
-  private _searchString: string;
-
-  search() {
-    this.entities =
-      this.service.get(0, 10, null, null, null)
-        .pipe(map(x => {
+  constructor(private service: EntityServiceBase<TEntity>) {
+    this.entities = this.searchBehaviourSubject.asObservable()
+      .pipe(
+        debounce(val => interval(300)),
+        mergeMap(x=>this.service.get(x, 0,10, null, null, null)),
+        map(x => {
           if (this.selectedEntity != null) {
+            x = x.filter(y=> y.Id != this.selectedEntity.Id);
             x.unshift(this.selectedEntity);
           }
           return x;
-        }));
+        })
+      );
   }
 
-  makeSearchRequest(string: string) {
-    this.SearchSubject.next(string);
+  entities: Observable<TEntity[]>;
+  private _selectedEntity: TEntity;
+
+  @Input() disabled: boolean;
+  @Input() hint: string;
+  @Input() searchHint: string;
+  @Input() filterDefinition: [];
+
+  search() {
   }
 
-  constructor(private service: TEntityRepository) {
-    this.selectedEntityChanged = new EventEmitter<TEntity>();
+  onChange: any = () => {
+  };
+  onTouched: any = () => {
+  };
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
   }
 
-  ngOnInit(): void {
-    // this.entities = new Observable<TEntity[]>((observer) => {
-    //   observer.next([this.selectedEntity]);
-    // });
-    this.SearchSubject
-      .pipe(throttle(val => interval(500)))
-      .subscribe(x=>this.search())
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
-  ngOnDestroy(): void {
-    this.SearchSubject.unsubscribe()
+  writeValue(obj: any): void {
+    this._selectedEntity = obj;
+    this.onChange(obj);
   }
 }

@@ -1,10 +1,10 @@
 import {Inject, OnInit} from "@angular/core";
 import {EntityBase} from "../entities/entity-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {EntityRepository} from "../services/entity-repository";
+import {EntityServiceBase} from "../services/entity-service-base";
 import {Observable} from "rxjs";
 
-export class CardBase<TEntity extends EntityBase, TRepo extends EntityRepository<TEntity>>
+export class CardBase<TEntity extends EntityBase, TRepo extends EntityServiceBase<TEntity>>
   implements OnInit {
   public Entity: Observable<TEntity>;
 

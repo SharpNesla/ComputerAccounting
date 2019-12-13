@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EntityRepository, PackEntityRepository} from "./entity-repository";
+import {EntityServiceBase, PackEntityRepository} from "./entity-service-base";
 import {HttpClient} from "@angular/common/http";
 import {Part} from "../entities/part";
 import {Subsidiary} from "../entities/subsidiary";

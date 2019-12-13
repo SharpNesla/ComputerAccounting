@@ -124,7 +124,7 @@ class EmployeeController extends CrudControllerBase
             ->queryMany($request, User::orderBy('id'))
             ->get();
 
-        if($request->exclude != null){
+        if ($request->exclude != null) {
 
         }
 
@@ -133,13 +133,13 @@ class EmployeeController extends CrudControllerBase
         return json_encode($root);
     }
 
-    private function fetchChildrenRecursively($subRoot, $collection, $excludeId)
+    private function fetchChildrenRecursively($subRoot, $collection)
     {
         $children =
             $this->FetchChildren($subRoot, $collection)->map(function ($x) use ($collection) {
                 return $this->fetchChildrenRecursively($x, $collection);
             });
-        $subRoot['children'] = $children;
+        $subRoot['subordinates'] = array_values($children->toArray());
         return $subRoot;
     }
 

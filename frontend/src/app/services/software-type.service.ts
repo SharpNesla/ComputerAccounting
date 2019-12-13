@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EntityRepository} from "./entity-repository";
+import {EntityServiceBase} from "./entity-service-base";
 import {Software} from "../entities/software";
 import {HttpClient} from "@angular/common/http";
 import {SoftwareType} from "../entities/software-type";
@@ -7,7 +7,7 @@ import {SoftwareType} from "../entities/software-type";
 @Injectable({
   providedIn: 'root'
 })
-export class SoftwareTypeService extends EntityRepository<SoftwareType> {
+export class SoftwareTypeService extends EntityServiceBase<SoftwareType> {
   constructor(httpClient: HttpClient) {
     super(httpClient, "software-type");
   }

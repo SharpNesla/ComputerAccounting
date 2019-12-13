@@ -1,5 +1,5 @@
 import {EntityBase} from "../entities/entity-base";
-import {EntityRepository} from "../services/entity-repository";
+import {EntityServiceBase} from "../services/entity-service-base";
 import {Input, OnInit, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
 import {Computer} from "../entities/computer";
@@ -8,7 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog.component";
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
-  TRepository extends EntityRepository<TEntity>> implements OnInit {
+  TRepository extends EntityServiceBase<TEntity>> implements OnInit {
 
   set SearchString(value: string) {
     this._SearchString = value;
@@ -73,10 +73,10 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     });
 
     if (this._SearchString) {
-      this.Entities = this.Repo.getBySearchString(this._SearchString, offset, limit,
+      this.Entities = this.Repo.get(this._SearchString, offset, limit,
         this.constructFilter(), null, null);
     } else {
-      this.Entities = this.Repo.get(offset, limit,
+      this.Entities = this.Repo.get(null ,offset, limit,
         this.constructFilter(), null, null)
     }
   }

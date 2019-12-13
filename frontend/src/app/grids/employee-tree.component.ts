@@ -1,37 +1,124 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {EmployeeService} from "../services/employee.service";
 import {Employee} from "../entities/employee";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployeeCardComponent} from "../cards/employee-card.component";
 import {AngularTreeGridComponent} from "angular-tree-grid";
+import {Observable} from "rxjs";
+import {RolePipe} from "../utils/role.pipe";
+import {DefaultEditor} from 'angular-tree-grid';
+import {Computer} from "../entities/computer";
+import {DeleteDialogComponent} from "../delete-dialog.component";
+import {ComputerService} from "../services/computer.service";
 
+@Component({
+  selector: 'app-custom-editor',
+  template: `
+      <button mat-icon-button [routerLink]="'/employees/edit/' + cell_value">
+          <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button
+              (click)="showInfoCard()">
+          <mat-icon class="sg-table-info-button">error_outline</mat-icon>
+      </button>
+  `,
+})
+export class EmployeeEditCellComponent {
+  @Input()
+  column: any;
+
+  @Input()
+  cell_value: string;
+
+  constructor(computers: EmployeeService, private dialog: MatDialog) {
+
+  }
+
+  showInfoCard() {
+    const dialogRef = this.dialog.open(EmployeeCardComponent, {
+      data: this.cell_value,
+      minWidth: '900px'
+    });
+  }
+}
 
 @Component({
   selector: 'sg-employee-tree',
   template: `
-      <button mat-button (click)="collapseAll(angularGrid)">Collapse All</button>
-      <button mat-button (click)="expandAll(angularGrid)">Expand All</button>
-      <p></p>
-      <db-angular-tree-grid #angularGrid [data]="data" [configs]="configs" class="sg-employee-treetable"></db-angular-tree-grid>
+      <ng-container *ngIf="!!data2">
+          <button mat-button (click)="collapseAll(angularGrid)">Свернуть все</button>
+          <button mat-button (click)="expandAll(angularGrid)">Развернуть все</button>
+          <db-angular-tree-grid #angularGrid [data]="data2" [configs]="configs2"
+                                class="sg-employee-treetable"></db-angular-tree-grid>
+      </ng-container>
+
   `,
-  styles:[`    
+  styles: [`
   `]
 })
-export class EmployeeTreeComponent {
-  data: any = [
-    {id: 1, name: 'Bimal', age: 60, weight: 60, gender: 1, phone: 7930343463, parent: 0},
-    {id: 2, name: 'Bhagi', age: 40, weight: 95, gender: 1, phone: 7930343463, parent: 1},
-    {id: 3, name: 'Kalyana', age: 36, weight: 105, gender: 1, phone: 7930343463, parent: 1},
-    {id: 4, name: 'Prakash', age: 20, weight: 20, gender: 1, phone: 7930343463, parent: 2},
-    {id: 5, name: 'Jitu', age: 21, weight: 61, gender: 1, phone: 7930343463, parent: 3},
-    {id: 6, name: 'Sunil', age: 60, weight: 87, gender: 1, phone: 7930343463, parent: 34},
-    {id: 7, name: 'Tadit', age: 40, weight: 60, gender: 1, phone: 7930343463, parent: 6},
-    {id: 8, name: 'Suraj', age: 36, weight: 60, gender: 1, phone: 7930343463, parent: 6},
-    {id: 9, name: 'Swarup', age: 20, weight: 40, gender: 1, phone: 7930343463, parent: 8},
-    {id: 10, name: 'Lakin', age: 21, weight: 55, gender: 1, phone: 7930343463, parent: 8},
-  ];
+export class EmployeeTreeComponent implements OnInit {
+  data2: Employee[];
+  private rolePipe: RolePipe = new RolePipe();
 
+  constructor(private service: EmployeeService) {
+
+  }
+
+  public refreshPrevious() {
+
+  }
+
+  ngOnInit() {
+    this.service.get(null, 0, Number.MAX_SAFE_INTEGER, [], null, null)
+      .subscribe(x => this.data2 = x);
+  }
+
+
+  configs2: any = {
+    id_field: 'Id',
+    parent_id_field: 'SuperiorId',
+    parent_display_field: 'Name',
+    css: { // Optional
+      expand_class: 'fa fa-caret-right',
+      collapse_class: 'fa fa-caret-down',
+    },
+    columns: [
+      {
+        name: 'Id',
+        header: '№',
+        editable: true,
+        editor: EmployeeEditCellComponent
+      },
+      {
+        name: 'Name',
+        header: 'Имя',
+        width: 'auto'
+      },
+      {
+        name: 'Surname',
+        header: 'Фамилия',
+        width: 'auto'
+      },
+      {
+        name: 'Patronymic',
+        header: 'Отчество',
+        width: 'auto'
+      },
+      {
+        name: 'Role',
+        header: 'Должность',
+        width: 'auto',
+        renderer: x => this.rolePipe.transform(x)
+      },
+      {
+        name: 'Id',
+        header: '',
+        type: 'custom',
+        component: EmployeeEditCellComponent
+      }
+    ]
+  };
   configs: any = {
     id_field: 'id',
     parent_id_field: 'parent',

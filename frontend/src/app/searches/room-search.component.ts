@@ -3,20 +3,23 @@ import {SingleSearchBase} from "./single-search-base";
 import {Room} from "../entities/room";
 import {RoomService} from "../services/room.service";
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {BehaviorSubject, interval, Observable} from "rxjs";
+import {debounce, filter, map, mergeMap, throttle} from "rxjs/operators";
+import {newLineWithIndentation} from "tslint/lib/utils";
+import {Employee} from "../entities/employee";
 
 @Component({
   selector: 'sg-room-search',
   template: `
-      <mat-form-field  class="sg-search">
+      <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [(value)]="this.selectedEntity">
+          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field appearance="standard">
                   <input matInput placeholder="Поиск сущности"
+                         [(ngModel)]="this.searchString"
                          (keydown)="$event.stopPropagation()"
                          type="search">
               </mat-form-field>
@@ -31,66 +34,10 @@ import {map} from "rxjs/operators";
     multi: true,
     useExisting: forwardRef(() => RoomSearchComponent)
   }],
-  styles: [`
-      .sg-search {
-          width: 100%;
-      }
-
-      button {
-          margin-left: 8px;
-          margin-right: 4px;
-      }`]
+  styleUrls: ['./search-styles.scss']
 })
-export class RoomSearchComponent implements ControlValueAccessor {
-  get selectedEntity(): Room {
-    return this._selectedEntity;
-  }
-  set selectedEntity(value: Room) {
-    this._selectedEntity = value;
-    this.writeValue(value);
-    this.onTouched();
-  }
-
-  constructor(private service: RoomService) {
-  }
-
-  entities: Observable<Room[]>;
-  private _selectedEntity: Room;
-
-  @Input() hint: string;
-  @Input() searchHint: string;
-  @Input() filterDefinition: Room[];
-
-  search() {
-    this.entities =
-      this.service.get(0, 10, null, null, null)
-        .pipe(map(x => {
-          if (this._selectedEntity != null) {
-            x.unshift(this._selectedEntity);
-          }
-          return x;
-        }));
-  }
-
-  ngOnInit(): void {
-    this.search()
-  }
-
-  onChange: any = () => {
-  };
-  onTouched: any = () => {
-  };
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  writeValue(obj: any): void {
-    this._selectedEntity = obj;
-    this.onChange(obj);
+export class RoomSearchComponent extends SingleSearchBase<Room> {
+  constructor(service: RoomService) {
+    super(service)
   }
 }

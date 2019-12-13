@@ -18,9 +18,9 @@ import {MatDialog} from "@angular/material/dialog";
                   <h2 class="mat-title">Общая информация</h2>
 
                   <sg-employee-search hint="Непосредственный руководитель"
-                                      [(selected)]="Entity.Superior"></sg-employee-search>
+                                      [(ngModel)]="Entity.Superior"></sg-employee-search>
                   <sg-subsidiary-search hint="Филиал"
-                                        [(selected)]="Entity.Subsidiary"></sg-subsidiary-search>
+                                        [(ngModel)]="Entity.Subsidiary"></sg-subsidiary-search>
 
                   <mat-form-field>
                       <input matInput placeholder="Имя"

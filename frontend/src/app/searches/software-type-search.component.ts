@@ -1,14 +1,17 @@
-import {Component} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
 import {SingleSearchBase} from "./single-search-base";
 import {SoftwareType} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
+import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Software} from "../entities/software";
+import {SoftwareService} from "../services/software.service";
 
 @Component({
   selector: 'sg-software-type-search',
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [value]="selectedEntity" (valueChange)="selectedEntityChanged.emit($event)">
+          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
@@ -24,19 +27,15 @@ import {SoftwareTypeService} from "../services/software-type.service";
               </mat-option>
           </mat-select>
       </mat-form-field>`,
-  styles: [`
-      .sg-search {
-          width: 100%;
-      }
-
-      button {
-          margin-left: 8px;
-          margin-right: 4px;
-      }`]
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    multi: true,
+    useExisting: forwardRef(() => SoftwareTypeSearchComponent)
+  }],
+  styleUrls: ['./search-styles.scss']
 })
-export class SoftwareTypeSearchComponent extends
-  SingleSearchBase<SoftwareType, SoftwareTypeService> {
+export class SoftwareTypeSearchComponent extends SingleSearchBase<SoftwareType> {
   constructor(service : SoftwareTypeService){
-    super(service);
+    super(service)
   }
 }

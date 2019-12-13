@@ -30,21 +30,17 @@ import {MatDialog} from "@angular/material/dialog";
                   <sg-software-type-search hint="Тип программного обеспечния"
                                            searchHint="Иипа ПО"></sg-software-type-search>
 
-                  <sg-software-search hint="Программное обеспечение"
-                                           searchHint="Программное обеспечение">
-                      
-                  </sg-software-search>
-
                   <mat-form-field>
                       <input matInput [matDatepicker]="picker" placeholder="Дата приобретения">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
                   
-                  <mat-checkbox>Срок по дате истечения</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="Entity.IsEndsOnDate">Срок по дате истечения</mat-checkbox>
                   
-                  <mat-form-field>
-                      <input matInput [matDatepicker]="picker2" placeholder="Дата истечения">
+                  <mat-form-field *ngIf="Entity.IsEndsOnDate">
+                      <input matInput [matDatepicker]="picker2" [(ngModel)]="Entity.ExpirationDate"
+                             placeholder="Дата истечения">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                   </mat-form-field>

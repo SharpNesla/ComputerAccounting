@@ -30,7 +30,7 @@ import {MatDialog} from "@angular/material/dialog";
                           </mat-form-field>
                           <sg-subsidiary-search hint="Филиал помещения"></sg-subsidiary-search>
                           <sg-room-search [(ngModel)]="Entity.Room" hint="Помещение" required></sg-room-search>
-                          <sg-employee-search [(selected)]="Entity.Responsible" hint="Ответственное лицо">
+                          <sg-employee-search [(ngModel)]="Entity.Responsible" hint="Ответственное лицо">
 
                           </sg-employee-search>
 
@@ -105,7 +105,7 @@ import {MatDialog} from "@angular/material/dialog";
                           <tr mat-row *matRowDef="let row; columns: UserDisplayedColumns;"></tr>
                       </table>
                       <div class="sg-many-many-card-searchbar">
-                          <sg-employee-search [(selected)]="addingUser"
+                          <sg-employee-search [(ngModel)]="addingUser"
                                               hint="Привязать пользователя"></sg-employee-search>
                           <button mat-icon-button (click)="addUser()">
                               <mat-icon>add</mat-icon>

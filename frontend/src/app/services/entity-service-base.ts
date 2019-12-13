@@ -57,7 +57,7 @@ const keysToSnake = function (o) {
   return o;
 };
 
-export abstract class EntityRepository<T extends EntityBase> {
+export abstract class EntityServiceBase<T extends EntityBase> {
   protected constructor(protected client: HttpClient,
                         protected entityPrefix: string) {
 
@@ -79,7 +79,7 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 
 
-  public getBySearchString(searchString: string, offset: number, limit: number, filterDefinition: object,
+  public get(searchString: string, offset: number, limit: number, filterDefinition: object,
                            sortDefinition: string, sortOrder: string): Observable<T[]> {
     const params = new HttpParams()
       .set('searchstring', searchString)
@@ -97,11 +97,6 @@ export abstract class EntityRepository<T extends EntityBase> {
             })
         }
       ))
-  }
-
-  public get(offset: number, limit: number, filterDefinition: object,
-             sortDefinition: string, sortOrder: string): Observable<T[]> {
-    return this.getBySearchString("", offset, limit, filterDefinition, sortDefinition, sortOrder);
   }
 
   public add(entity: T) {
@@ -124,7 +119,7 @@ export abstract class EntityRepository<T extends EntityBase> {
   }
 }
 
-export abstract class PackEntityRepository<T extends EntityBase> extends EntityRepository<T> {
+export abstract class PackEntityRepository<T extends EntityBase> extends EntityServiceBase<T> {
   protected constructor(client: HttpClient,
                         entityPrefix: string) {
     super(client, entityPrefix)

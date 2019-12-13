@@ -1,4 +1,4 @@
-import {EntityRepository} from "./entity-repository";
+import {EntityServiceBase} from "./entity-service-base";
 import {Computer} from "../entities/computer";
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
@@ -8,7 +8,7 @@ import {CountableBySubsidiaries, CountBySubsidiaryResult} from "../analytics/cha
 @Injectable({
   providedIn: 'root'
 })
-export class ComputerService extends EntityRepository<Computer> implements CountableBySubsidiaries{
+export class ComputerService extends EntityServiceBase<Computer> implements CountableBySubsidiaries{
   constructor(httpClient : HttpClient){
     super(httpClient, "computer");
   }

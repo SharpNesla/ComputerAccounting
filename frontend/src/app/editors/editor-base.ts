@@ -1,5 +1,5 @@
 import {EntityBase} from "../entities/entity-base";
-import {EntityRepository} from "../services/entity-repository";
+import {EntityServiceBase} from "../services/entity-service-base";
 import {OnDestroy, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
@@ -8,7 +8,7 @@ import {DeleteDialogComponent} from "../delete-dialog.component";
 import {BadRequestDialogComponent} from "../bad-request-dialog.component";
 
 export class EditorBase<TEntity extends EntityBase,
-  TRepository extends EntityRepository<TEntity>> implements OnInit {
+  TRepository extends EntityServiceBase<TEntity>> implements OnInit {
   public Entity: TEntity;
   public isNew: boolean;
   protected Repo: TRepository;

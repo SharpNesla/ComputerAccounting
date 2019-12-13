@@ -16,9 +16,9 @@ import {MatDialog} from "@angular/material/dialog";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-software-type-search [(selected)]="Entity.SoftwareType">
+                  <sg-software-type-search [(ngModel)]="Entity.SoftwareType">
                   </sg-software-type-search>
-                  <sg-computer-search [(selected)]="Entity.Computer">
+                  <sg-computer-search [(ngModel)]="Entity.Computer">
                   </sg-computer-search>
               </mat-card>
               <mat-card id="right-section">
