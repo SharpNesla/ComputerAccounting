@@ -80,14 +80,18 @@ export abstract class EntityServiceBase<T extends EntityBase> {
 
 
   public get(searchString: string, offset: number, limit: number, filterDefinition: object,
-                           sortDefinition: string, sortOrder: string): Observable<T[]> {
-    const params = new HttpParams()
-      .set('searchstring', searchString)
+             sortDefinition: string, sortOrder: string): Observable<T[]> {
+    let params = new HttpParams()
       .set("offset", offset.toString())
       .set("limit", limit.toString())
       .set("sort-definition", sortDefinition == null ? "id" : sortDefinition)
       .set("sort-order", sortOrder)
       .set("filter", JSON.stringify(keysToSnake(filterDefinition)));
+
+    if (searchString) {
+      params = params.set('search', searchString);
+    }
+
     return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
       .pipe(map(x => {
           return x.map(
@@ -115,6 +119,9 @@ export abstract class EntityServiceBase<T extends EntityBase> {
   }
 
   protected prepareEntity(entity: T): T {
+    entity.CreatedAt = undefined;
+    entity.UpdatedAt = undefined;
+    entity.DeletedAt = undefined;
     return entity;
   }
 }

@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ComputerSearchComponent} from "./computer-search.component";
 import {EmployeeSearchComponent} from "./employee-search.component";
 import {UtilsModule} from "../utils/utils.module";
+import {LicenseSearchComponent} from "./license-search.component";
 
 
 
@@ -21,7 +22,8 @@ import {UtilsModule} from "../utils/utils.module";
     SoftwareTypeSearchComponent,
     SubsidiarySearchComponent,
     ComputerSearchComponent,
-    EmployeeSearchComponent
+    EmployeeSearchComponent,
+    LicenseSearchComponent
   ],
   exports: [
     PartTypeSearchComponent,
@@ -30,7 +32,8 @@ import {UtilsModule} from "../utils/utils.module";
     SoftwareTypeSearchComponent,
     SubsidiarySearchComponent,
     ComputerSearchComponent,
-    EmployeeSearchComponent
+    EmployeeSearchComponent,
+    LicenseSearchComponent
   ],
   imports: [
     CommonModule,

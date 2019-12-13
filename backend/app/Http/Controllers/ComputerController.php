@@ -77,12 +77,12 @@ class ComputerController extends CrudControllerBase
         return Validator::make($array,[
             'name' => 'required',
             'inventory_id' => 'required',
-
-            'subsidiary_id' => 'required',
+/*
+            'subsidiary_id' => 'required',*/
 
             'responsible_id' => 'required',
 
-            'category' => 'required|numeric|min:0|max:11'
+            'type' => 'required|numeric|min:0|max:11'
         ])->fails();
     }
 }

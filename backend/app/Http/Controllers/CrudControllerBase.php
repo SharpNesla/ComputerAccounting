@@ -49,8 +49,8 @@ class CrudControllerBase extends Controller
             $query = $this->applyFilters($filter, $query);
         }
 
-        if ($request->searchstring != null && $request->searchstring != '') {
-            $query = $query->where($this->fulltextBuilder->search($request->searchstring));
+        if ($request->search != null && $request->search != '') {
+            $query = $query->where($this->fulltextBuilder->search($request->search));
         }
 
         return $query

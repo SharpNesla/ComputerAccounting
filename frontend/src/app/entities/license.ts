@@ -13,4 +13,5 @@ export class License extends EntityBase {
   ApplySoftwareTypeId : number;
   ApplySoftwareType : SoftwareType;
 
+  SoftwareCount : number;
 }

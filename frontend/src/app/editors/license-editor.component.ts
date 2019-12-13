@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LicensesService} from "../services/licenses.service";
+import {LicenseService} from "../services/license.service";
 import {License} from "../entities/license";
 import {EditorBase} from "./editor-base";
 import {Location} from "@angular/common";
@@ -62,8 +62,8 @@ import {MatDialog} from "@angular/material/dialog";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class LicenseEditorComponent extends EditorBase<License, LicensesService> {
-  constructor(private service: LicensesService, route: ActivatedRoute, dialog : MatDialog) {
+export class LicenseEditorComponent extends EditorBase<License, LicenseService> {
+  constructor(private service: LicenseService, route: ActivatedRoute, dialog : MatDialog) {
     super(service, route, dialog, new License());
   }
 }

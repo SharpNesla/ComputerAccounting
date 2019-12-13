@@ -20,7 +20,10 @@ export class ComputerService extends EntityServiceBase<Computer> implements Coun
 
     entity.ResponsibleId = entity.Responsible.Id;
 
-    entity = Object.assign(entity, {UserIds: entity.Users.map(x=>x.Id) });
+    if (entity.Users){
+
+      entity = Object.assign(entity, {UserIds: entity.Users.map(x=>x.Id) });
+    }
 
     entity.Room = undefined;
     entity.Responsible = undefined;

@@ -11,7 +11,8 @@ import {VisibilitiesService} from "./login/visibilities.service";
 @Component({
   selector: 'app-root',
   template: `
-      <mat-sidenav-container>
+      <sg-login *ngIf="!auth.isLogin()"></sg-login>
+      <mat-sidenav-container *ngIf="auth.isLogin()">
           <mat-sidenav-content>
               <router-outlet></router-outlet>
           </mat-sidenav-content>
@@ -41,14 +42,17 @@ import {VisibilitiesService} from "./login/visibilities.service";
                                     *ngIf="visibilities.Directors | async">Работники
                   </sg-drawer-button>
                   <sg-drawer-button link="subsidiaries" icon="storefront"
-                                    *ngIf="visibilities.LeadDirectorsAndAdmins | async">Филиалы</sg-drawer-button>
+                                    *ngIf="visibilities.LeadDirectorsAndAdmins | async">Филиалы
+                  </sg-drawer-button>
                   <sg-drawer-button link="parts" icon="memory">Комплектующие</sg-drawer-button>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="computers" icon="desktop_mac">Компьютеры</sg-drawer-button>
                   <sg-drawer-button link="software" icon="developer_board"
-                                    *ngIf="visibilities.AllDirectorsAndAdmins | async">Программы</sg-drawer-button>
+                                    *ngIf="visibilities.AllDirectorsAndAdmins | async">Программы
+                  </sg-drawer-button>
                   <sg-drawer-button link="licenses" icon="shop"
-                                    *ngIf="visibilities.AllDirectorsAndAdmins | async">Лицензии</sg-drawer-button>
+                                    *ngIf="visibilities.AllDirectorsAndAdmins | async">Лицензии
+                  </sg-drawer-button>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="settings" icon="settings">Настройки</sg-drawer-button>
                   <sg-drawer-button link="about" icon="info">О системе</sg-drawer-button>
@@ -112,7 +116,7 @@ export class AppComponent implements OnInit {
   }
 
   constructor(private navService: NavigationService,
-              private auth: AuthService,
+              public auth: AuthService,
               private dialog: MatDialog,
               public visibilities: VisibilitiesService) {
     this.CurrentEmployeeObservable = auth.CurrentEmployee;

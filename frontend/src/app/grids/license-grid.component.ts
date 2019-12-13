@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {LicensesService} from "../services/licenses.service";
+import {LicenseService} from "../services/license.service";
 import {License} from "../entities/license";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
@@ -113,8 +113,8 @@ import {LicenseCardComponent} from "../cards/license-card.component";
                (toggleFilters)="filterState = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
-export class LicenseGridComponent extends EntityGridBase<License, LicensesService> {
-  constructor(licenses: LicensesService, private dialogref: MatDialog) {
+export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
+  constructor(licenses: LicenseService, private dialogref: MatDialog) {
     super(licenses, dialogref,
       ['select', 'id', 'name', 'cost', 'max_applies', 'info'],
       LicenseCardComponent)

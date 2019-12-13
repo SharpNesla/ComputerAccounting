@@ -42,11 +42,18 @@ export class AuthService {
       }));
   }
 
+  logoutLocal(){
+
+  }
+
   logout() {
-    this.http.get<any>(`api/auth/logout`).subscribe(x => {
+    if (this.isLogin()){
+      this.http.get<any>(`api/auth/logout`).subscribe(x => {
         localStorage.removeItem('access_token');
-      }
-    );
+      })
+    }else{
+      localStorage.removeItem('access_token');
+    }
   }
 }
 

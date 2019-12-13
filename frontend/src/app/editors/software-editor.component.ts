@@ -16,10 +16,12 @@ import {MatDialog} from "@angular/material/dialog";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-software-type-search [(ngModel)]="Entity.SoftwareType">
+                  <sg-software-type-search hint="Тип ПО" [(ngModel)]="Entity.SoftwareType">
                   </sg-software-type-search>
-                  <sg-computer-search [(ngModel)]="Entity.Computer">
+                  <sg-computer-search hint="Компьютер" [(ngModel)]="Entity.Computer">
                   </sg-computer-search>
+                  <sg-license-search hint="Лицензия" [(ngModel)]="Entity.License">
+                  </sg-license-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>

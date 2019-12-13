@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "../utils/card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {License} from "../entities/license";
-import {LicensesService} from "../services/licenses.service";
+import {LicenseService} from "../services/license.service";
 
 @Component({
   selector: 'sg-license-card',
@@ -28,11 +28,11 @@ import {LicensesService} from "../services/licenses.service";
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class LicenseCardComponent extends CardBase<License, LicensesService> {
+export class LicenseCardComponent extends CardBase<License, LicenseService> {
 
   constructor(
     public dialogRef: MatDialogRef<LicenseCardComponent>,
-    service: LicensesService,
+    service: LicenseService,
     @Inject(MAT_DIALOG_DATA) public data: number) {
     super(dialogRef, service, data);
   }

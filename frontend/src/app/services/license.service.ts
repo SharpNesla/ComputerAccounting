@@ -7,7 +7,7 @@ import {ChartableByDate, ChartResult, DateSlice} from "../analytics/countable-by
 @Injectable({
   providedIn: 'root'
 })
-export class LicensesService extends PackEntityRepository<License> implements ChartableByDate{
+export class LicenseService extends PackEntityRepository<License> implements ChartableByDate{
   constructor(httpClient : HttpClient){
     super(httpClient, "license");
   }

@@ -14,7 +14,10 @@ export class SoftwareTypeService extends EntityServiceBase<SoftwareType> {
 
   protected prepareEntity(entity: SoftwareType): SoftwareType {
     entity.SoftwareCount = undefined;
-    entity = Object.assign({DependenciesIds: entity.Dependencies.map(x => x.Id)}, entity);
+
+    if (entity.Dependencies){
+      entity = Object.assign({DependenciesIds: entity.Dependencies.map(x => x.Id)}, entity);
+    }
 
     return super.prepareEntity(entity);
   }

@@ -16,7 +16,8 @@ import {MatDialog} from "@angular/material/dialog";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-part-type-search hint="Тип комплектующего"></sg-part-type-search>
+                  <sg-part-type-search [(ngModel)]="Entity.PartType"
+                          hint="Тип комплектующего"></sg-part-type-search>
 
                   <mat-form-field>
                       <mat-select [(ngModel)]="Entity.State" placeholder="Состояние">
@@ -25,9 +26,11 @@ import {MatDialog} from "@angular/material/dialog";
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
-                  
-                  <sg-subsidiary-search *ngIf="displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
-                  <sg-computer-search *ngIf="displayComputer" hint="Компьютер"></sg-computer-search>
+
+                  <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
+                                        *ngIf="displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
+                  <sg-computer-search [(ngModel)]="Entity.Computer"
+                                      *ngIf="displayComputer" hint="Компьютер"></sg-computer-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -52,7 +55,7 @@ export class PartEditorComponent extends EditorBase<Part, PartService> {
     return this.Entity.State == PartState.InStore || this.Entity.State == PartState.Broken;
   }
 
-  get displayComputer(){
+  get displayComputer() {
     return this.Entity.State == PartState.InComputer;
   }
 

@@ -29,6 +29,12 @@ export class SoftwareService extends PackEntityRepository<Software> {
 
     entity.ComputerId = undefined;
 
+    if (entity.License != null){
+      entity.LicenseId = entity.License.Id;
+    }
+
+    entity.ComputerId = undefined;
+
     return super.prepareEntity(entity);
   }
 }

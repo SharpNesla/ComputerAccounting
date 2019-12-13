@@ -9,7 +9,7 @@ class Part extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['computer_id', 'subsidiary_id', 'part_type_id', 'comment'];
+    protected $fillable = ['state' ,'computer_id', 'subsidiary_id', 'part_type_id', 'comment'];
 
     public function partType()
     {

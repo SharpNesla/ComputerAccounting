@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {EntityServiceBase, PackEntityRepository} from "./entity-service-base";
+import {PackEntityRepository} from "./entity-service-base";
 import {HttpClient} from "@angular/common/http";
-import {Part} from "../entities/part";
-import {Subsidiary} from "../entities/subsidiary";
+import {Part, PartState} from "../entities/part";
 import {CountableBySubsidiaries, CountBySubsidiaryResult} from "../analytics/chartable-by-date";
 import {ChartableByDate, ChartResult, DateSlice} from "../analytics/countable-by-subsidiary";
 
@@ -24,16 +23,17 @@ export class PartService extends PackEntityRepository<Part> implements Countable
   }
 
   protected prepareEntity(entity: Part): Part {
-    entity.ComputerId = entity.Computer.Id;
-
-
-    if (entity.PartType != null) {
-      entity.PartTypeId = entity.PartType.Id;
+    if (entity.State == PartState.InComputer) {
+      entity.ComputerId = entity.Computer.Id;
+      entity.SubsidiaryId = null;
+    } else {
+      if (entity.Subsidiary) {
+        entity.SubsidiaryId = entity.Subsidiary.Id;
+        entity.ComputerId = null;
+      }
     }
 
-    if (entity.Subsidiary) {
-      entity.SubsidiaryId = entity.Subsidiary.Id;
-    }
+    entity.PartTypeId = entity.PartType.Id;
 
     entity.Computer = undefined;
     entity.PartType = undefined;
