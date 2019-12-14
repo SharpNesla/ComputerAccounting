@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PackEntityRepository} from "./entity-service-base";
+import {PackEntityService} from "./entity-service-base";
 import {HttpClient} from "@angular/common/http";
 import {Part, PartState} from "../entities/part";
 import {CountableBySubsidiaries, CountBySubsidiaryResult} from "../analytics/chartable-by-date";
@@ -9,17 +9,16 @@ import {ChartableByDate, ChartResult, DateSlice} from "../analytics/countable-by
 @Injectable({
   providedIn: 'root'
 })
-export class PartService extends PackEntityRepository<Part> implements CountableBySubsidiaries, ChartableByDate {
+export class PartService extends PackEntityService<Part> implements CountableBySubsidiaries, ChartableByDate {
   constructor(httpClient: HttpClient) {
     super(httpClient, "part")
   }
 
   protected prepareEntityRange(entity: Part): Part {
-    entity = this.prepareEntity(entity);
-
+    entity = super.prepareEntityRange(entity);
     entity.ComputerId = null;
 
-    return super.prepareEntityRange(entity);
+    return entity;
   }
 
   protected prepareEntity(entity: Part): Part {

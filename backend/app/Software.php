@@ -9,7 +9,7 @@ class Software extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['software_type_id', 'computer_id', 'comment'];
+    protected $fillable = ['software_type_id', 'license_id', 'computer_id', 'comment'];
 
     public function softwareType()
     {
@@ -21,4 +21,7 @@ class Software extends Model
         return $this->belongsTo(Computer::class);
     }
 
+    public function license(){
+        return $this->belongsTo(License::class);
+    }
 }

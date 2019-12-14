@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LicenseService} from "../services/license.service";
 import {License} from "../entities/license";
-import {EditorBase} from "./editor-base";
+import {EditorBase, PackEditorBase} from "./editor-base";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
@@ -44,6 +44,12 @@ import {MatDialog} from "@angular/material/dialog";
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                   </mat-form-field>
+
+                  <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
+                  <mat-form-field *ngIf="isPackAdd && isNew">
+                      <input type="number" step="1" min="1" matInput required
+                             [(ngModel)]="this.packCount" placeholder="Количество">
+                  </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -62,7 +68,7 @@ import {MatDialog} from "@angular/material/dialog";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class LicenseEditorComponent extends EditorBase<License, LicenseService> {
+export class LicenseEditorComponent extends PackEditorBase<License, LicenseService> {
   constructor(private service: LicenseService, route: ActivatedRoute, dialog : MatDialog) {
     super(service, route, dialog, new License());
   }

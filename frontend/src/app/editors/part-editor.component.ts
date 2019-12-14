@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {EditorBase} from "./editor-base";
+import {EditorBase, PackEditorBase} from "./editor-base";
 import {ActivatedRoute} from "@angular/router";
 import {Part, PartState} from "../entities/part";
 import {PartService} from "../services/part.service";
@@ -31,6 +31,12 @@ import {MatDialog} from "@angular/material/dialog";
                                         *ngIf="displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
                   <sg-computer-search [(ngModel)]="Entity.Computer"
                                       *ngIf="displayComputer" hint="Компьютер"></sg-computer-search>
+                  
+                  <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
+                  <mat-form-field *ngIf="isPackAdd && isNew">
+                      <input type="number" step="1" min="1" matInput required
+                             [(ngModel)]="this.packCount" placeholder="Количество">
+                  </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -44,7 +50,7 @@ import {MatDialog} from "@angular/material/dialog";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class PartEditorComponent extends EditorBase<Part, PartService> {
+export class PartEditorComponent extends PackEditorBase<Part, PartService> {
   partStates = [
     PartState.InComputer,
     PartState.InStore,

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\License;
 use App\Room;
+use App\Software;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-class LicenseController extends CrudControllerBase
+class LicenseController extends PackControllerBase
 {
     public function __construct()
     {
@@ -27,8 +28,15 @@ class LicenseController extends CrudControllerBase
         return $builder->withCount('software');
     }
 
-    public function getAvailableLicenses(Request $request){
-        $query = $this->queryMany($request, License::orderBy('id'));
+    public function getAvailable(Request $request)
+    {
+        //TODO Refactor this to Eloquent calls
+        $query = $this->queryMany($request, License::orderBy('id'))
+            ->whereRaw('(select count(*) from "software"
+                             where "licenses"."id" = "software"."license_id"
+                             and "software"."deleted_at" is null) < max_apply_count');
+
+
 
         $filter = json_decode($request->filter, true);
 

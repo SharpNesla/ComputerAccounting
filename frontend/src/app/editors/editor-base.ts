@@ -1,5 +1,5 @@
 import {EntityBase} from "../entities/entity-base";
-import {EntityServiceBase} from "../services/entity-service-base";
+import {EntityServiceBase, PackEntityService} from "../services/entity-service-base";
 import {OnDestroy, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
@@ -13,33 +13,30 @@ export class EditorBase<TEntity extends EntityBase,
   public isNew: boolean;
   protected Repo: TRepository;
 
-  constructor(repository : TRepository, protected route : ActivatedRoute, private dialog : MatDialog,
-              addEntity : TEntity){
+  constructor(repository: TRepository, protected route: ActivatedRoute, protected dialog: MatDialog,
+              addEntity: TEntity) {
     this.Repo = repository;
     this.Entity = addEntity;
   }
 
-  public applyChanges()
-  {
-    if (this.isNew)
-    {
+  public applyChanges() {
+    if (this.isNew) {
       this.Repo.add(this.Entity).subscribe(
         response => console.log(response),
         error => {
           console.log(error);
           this.dialog.open(BadRequestDialogComponent, {
-          width: '300px',
-          data: true
-        })}
+            width: '300px',
+            data: true
+          })
+        }
       );
-    }
-    else
-    {
+    } else {
       this.Repo.update(this.Entity);
     }
   }
 
-  public discardChanges(){
+  public discardChanges() {
   }
 
   ngOnInit() {
@@ -49,6 +46,38 @@ export class EditorBase<TEntity extends EntityBase,
       this.route.params.subscribe(params => {
         this.Repo.getById(+params['id']).subscribe(x => this.Entity = x)
       });
+    }
+  }
+}
+
+export class PackEditorBase<TEntity extends EntityBase,
+  TRepository extends PackEntityService<TEntity>> extends EditorBase<TEntity, TRepository> implements OnInit {
+  isPackAdd: boolean;
+  packCount: number;
+
+  constructor(repository: TRepository,
+              route: ActivatedRoute,
+              dialog: MatDialog,
+              addEntity: TEntity) {
+
+    super(repository, route, dialog, addEntity)
+  }
+
+
+  public applyChanges() {
+    if (this.isPackAdd && this.isNew) {
+      this.Repo.addRange(this.Entity, this.packCount).subscribe(
+        response => console.log(response),
+        error => {
+          console.log(error);
+          this.dialog.open(BadRequestDialogComponent, {
+            width: '300px',
+            data: true
+          })
+        }
+      );
+    } else {
+      super.applyChanges();
     }
   }
 }

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class CrudControllerBase extends Controller
 {
-    private $facade;
+    protected $facade;
     protected $fulltextBuilder;
     function __construct($f, $s = ['id'])
     {

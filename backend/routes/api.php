@@ -68,8 +68,10 @@ Route::group(['prefix' => 'subsidiary', 'middleware' => 'auth:api'], function ()
 
 Route::group(['prefix' => 'license', 'middleware' => 'auth:api'], function (){
     Route::get('get', 'LicenseController@get');
+    Route::get('get-available', 'LicenseController@getAvailable');
     Route::get('count', 'LicenseController@getCount');
     Route::post('add', 'LicenseController@add');
+    Route::post('add-pack', 'LicenseController@addPack');
     Route::post('edit/{id}', 'LicenseController@update');
     Route::delete('remove/{id}', 'LicenseController@remove');
     Route::get('{id}', 'LicenseController@getById');
@@ -79,6 +81,7 @@ Route::group(['prefix' => 'software', 'middleware' => 'auth:api'], function (){
     Route::get('get', 'SoftwareController@get');
     Route::get('count', 'SoftwareController@getCount');
     Route::post('add', 'SoftwareController@add');
+    Route::post('add-pack', 'SoftwareController@addPack');
     Route::post('edit/{id}', 'SoftwareController@update');
     Route::delete('remove/{id}', 'SoftwareController@remove');
     Route::get('{id}', 'SoftwareController@getById');
@@ -97,6 +100,7 @@ Route::group(['prefix' => 'part', 'middleware' => 'auth:api'], function (){
     Route::get('get', 'PartController@get');
     Route::get('count', 'PartController@getCount');
     Route::post('add', 'PartController@add');
+    Route::post('add-pack', 'PartController@addPack');
     Route::post('edit/{id}', 'PartController@update');
     Route::delete('remove/{id}', 'PartController@remove');
     Route::get('{id}', 'PartController@getById');

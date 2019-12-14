@@ -74,10 +74,10 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
     if (this._SearchString) {
       this.Entities = this.Repo.get(this._SearchString, offset, limit,
-        this.constructFilter(), null, null);
+        this.constructFilter(), this.sortActive, this.sortDirection);
     } else {
       this.Entities = this.Repo.get(null ,offset, limit,
-        this.constructFilter(), null, null)
+        this.constructFilter(), this.sortActive, this.sortDirection)
     }
   }
 
@@ -123,5 +123,13 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   ngOnInit(): void {
     this.refresh(0, 10);
     this.Repo.getCount(null).subscribe(x => this.Count = x);
+  }
+
+  private sortActive: string;
+  private sortDirection: "asc" | "desc" | "";
+
+  changeSort(direction: "asc" | "desc" | "", active: string) {
+    this.sortActive = active;
+    this.sortDirection = direction;
   }
 }

@@ -43,7 +43,7 @@ const toSnake = function (s) {
     return "_" + y.toLowerCase()
   }).replace(/^_/, "")
 };
-const keysToSnake = function (o) {
+export const keysToSnake = function (o) {
   if (isObject(o)) {
     const n = {};
 
@@ -126,18 +126,19 @@ export abstract class EntityServiceBase<T extends EntityBase> {
   }
 }
 
-export abstract class PackEntityRepository<T extends EntityBase> extends EntityServiceBase<T> {
+export abstract class PackEntityService<T extends EntityBase> extends EntityServiceBase<T> {
   protected constructor(client: HttpClient,
                         entityPrefix: string) {
     super(client, entityPrefix)
   }
 
   protected prepareEntityRange(entity: T): T {
-    return entity;
+    return this.prepareEntity(entity);
   }
 
-  public addRange(entity: T) {
-    const preparedEntity = this.prepareEntity({...entity});
-    return this.client.post(`api/${this.entityPrefix}/add-range`, keysToSnake(preparedEntity))
+  public addRange(entity: T, count: number) {
+    const preparedEntity = this.prepareEntityRange({...entity});
+    preparedEntity['Count'] = count;
+    return this.client.post(`api/${this.entityPrefix}/add-pack`, keysToSnake(preparedEntity))
   }
 }

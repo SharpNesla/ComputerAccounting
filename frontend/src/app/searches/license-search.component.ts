@@ -1,4 +1,4 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component, forwardRef, Input} from '@angular/core';
 import {Subsidiary} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {SingleSearchBase} from "./single-search-base";
@@ -7,6 +7,12 @@ import {SoftwareType} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 import {License} from "../entities/license";
 import {LicenseService} from "../services/license.service";
+import {Observable} from "rxjs";
+
+export enum LicenseSearchMode {
+  Normal = "normal",
+  Applicable = "applicable"
+}
 
 @Component({
   selector: 'sg-license-search',
@@ -37,7 +43,19 @@ import {LicenseService} from "../services/license.service";
   styleUrls: ['./search-styles.scss']
 })
 export class LicenseSearchComponent extends SingleSearchBase<License> {
-  constructor(service : LicenseService){
-    super(service)
+  @Input() mode : LicenseSearchMode;
+
+  constructor(private licenseService : LicenseService){
+    super(licenseService)
   }
+
+  public dataSource(searchString, filterDefinition: object): Observable<License[]> {
+    switch (this.mode) {
+      case LicenseSearchMode.Normal:
+        return super.dataSource(searchString, filterDefinition);
+      case LicenseSearchMode.Applicable:
+        return this.licenseService.getApplicable(searchString, 0,10, filterDefinition);
+    }
+  }
+
 }

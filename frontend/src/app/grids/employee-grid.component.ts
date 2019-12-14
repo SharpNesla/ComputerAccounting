@@ -8,10 +8,10 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
 @Component({
   selector: 'sg-employee-grid',
   template: `
-
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.Entities"
-                 [class.sg-table-compact]="isCompact" class="sg-table">
+          <table mat-table matSort matSortActive="№" [dataSource]="this.Entities"
+                 [class.sg-table-compact]="isCompact" (matSortChange)="changeSort($event.direction, $event.active)"
+                 class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox>
@@ -24,7 +24,7 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.Id}} </td>
               </ng-container>
@@ -120,8 +120,11 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeService> {
+
+
   constructor(licenses: EmployeeService, private dialogref: MatDialog) {
     super(licenses, dialogref, ['select', 'id',
       'name', 'surname', 'patronymic', 'role', 'info'], EmployeeCardComponent)
   }
+
 }

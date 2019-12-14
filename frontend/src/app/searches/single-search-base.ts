@@ -29,11 +29,11 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
     this.onTouched();
   }
 
-  constructor(private service: EntityServiceBase<TEntity>) {
+  constructor(protected service: EntityServiceBase<TEntity>) {
     this.entities = this.searchBehaviourSubject.asObservable()
       .pipe(
         debounce(val => interval(300)),
-        mergeMap(x=>this.service.get(x, 0,10, null, null, null)),
+        mergeMap(x=>this.dataSource(x, this.filterDefinition)),
         map(x => {
           if (this.selectedEntity != null) {
             x = x.filter(y=> y.Id != this.selectedEntity.Id);
@@ -50,9 +50,13 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   @Input() disabled: boolean;
   @Input() hint: string;
   @Input() searchHint: string;
-  @Input() filterDefinition: [];
+  @Input() filterDefinition;
 
   search() {
+  }
+
+  public dataSource(searchString, filterDefinition: object): Observable<TEntity[]> {
+    return this.service.get(searchString, 0,10, null, null, null)
   }
 
   onChange: any = () => {

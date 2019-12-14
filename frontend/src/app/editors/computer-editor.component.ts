@@ -48,7 +48,6 @@ import {MatDialog} from "@angular/material/dialog";
                               <mat-label>Комментарий</mat-label>
                               <textarea matInput cdkTextareaAutosize="false"
                                         placeholder="Комментарий"
-
                                         [(ngModel)]="this.Entity.Comment"></textarea>
                           </mat-form-field>
                       </mat-card>

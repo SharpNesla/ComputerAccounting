@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {LicenseService} from "../services/license.service";
 import {License} from "../entities/license";
 import {EntityGridBase} from "./entity-grid-base";
@@ -30,12 +30,6 @@ import {LicenseCardComponent} from "../cards/license-card.component";
                       (contextmenu)="onContextMenu($event, element)"> {{element.Id}} </td>
               </ng-container>
 
-              <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Имя</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Name}} </td>
-              </ng-container>
 
               <ng-container matColumnDef="cost">
                   <th mat-header-cell *matHeaderCellDef>Стоимость</th>
@@ -51,6 +45,14 @@ import {LicenseCardComponent} from "../cards/license-card.component";
                   </td>
               </ng-container>
 
+              <ng-container matColumnDef="apply_status">
+                  <th mat-header-cell *matHeaderCellDef>Применена</th>
+                  <td mat-cell *matCellDef="let element"
+                      (contextmenu)="onContextMenu($event, element)"> {{element.SoftwareCount}} /
+                      {{element.MaxApplyCount}}
+                  </td>
+              </ng-container>
+              
               <ng-container matColumnDef="info" stickyEnd>
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let element"
@@ -116,7 +118,7 @@ import {LicenseCardComponent} from "../cards/license-card.component";
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
   constructor(licenses: LicenseService, private dialogref: MatDialog) {
     super(licenses, dialogref,
-      ['select', 'id', 'name', 'cost', 'max_applies', 'info'],
+      ['select', 'id', 'cost', 'max_applies','apply_status', 'info'],
       LicenseCardComponent)
   }
 }

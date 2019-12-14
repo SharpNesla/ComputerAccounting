@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SoftwareService} from "../services/software.service";
 import {Software} from "../entities/software";
-import {EditorBase} from "./editor-base";
+import {EditorBase, PackEditorBase} from "./editor-base";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -22,6 +22,11 @@ import {MatDialog} from "@angular/material/dialog";
                   </sg-computer-search>
                   <sg-license-search hint="Лицензия" [(ngModel)]="Entity.License">
                   </sg-license-search>
+                  <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
+                  <mat-form-field *ngIf="isPackAdd && isNew">
+                      <input type="number" step="1" min="1" matInput required
+                             [(ngModel)]="this.packCount" placeholder="Количество">
+                  </mat-form-field>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -35,11 +40,8 @@ import {MatDialog} from "@angular/material/dialog";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class SoftwareEditorComponent extends EditorBase<Software, SoftwareService> {
-
-
+export class SoftwareEditorComponent extends PackEditorBase<Software, SoftwareService> {
   constructor(private service: SoftwareService, route: ActivatedRoute, dialog: MatDialog) {
     super(service, route, dialog, new Software());
   }
-
 }

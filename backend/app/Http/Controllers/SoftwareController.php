@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Software;
 
-class SoftwareController extends CrudControllerBase
+class SoftwareController extends PackControllerBase
 {
     function __construct() {
         parent::__construct(Software::class);
@@ -14,6 +14,7 @@ class SoftwareController extends CrudControllerBase
     {
         return Software::with('softwareType')
             ->with('computer')
+            ->with('license')
             ->findOrFail($id);
     }
 }

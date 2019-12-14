@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {EntityServiceBase, PackEntityRepository} from "./entity-service-base";
+import {EntityServiceBase, PackEntityService} from "./entity-service-base";
 import {Software} from "../entities/software";
 import {HttpClient} from "@angular/common/http";
 import {Part} from "../entities/part";
@@ -7,7 +7,7 @@ import {Part} from "../entities/part";
 @Injectable({
   providedIn: 'root'
 })
-export class SoftwareService extends PackEntityRepository<Software> {
+export class SoftwareService extends PackEntityService<Software> {
   constructor(httpClient : HttpClient){
     super(httpClient, "software");
   }
@@ -27,13 +27,14 @@ export class SoftwareService extends PackEntityRepository<Software> {
       entity.ComputerId = entity.Computer.Id;
     }
 
-    entity.ComputerId = undefined;
 
     if (entity.License != null){
       entity.LicenseId = entity.License.Id;
     }
 
-    entity.ComputerId = undefined;
+    entity.License = undefined;
+    entity.SoftwareType = undefined;
+    entity.Computer = undefined;
 
     return super.prepareEntity(entity);
   }

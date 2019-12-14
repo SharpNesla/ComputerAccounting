@@ -61,8 +61,6 @@ class ComputerController extends CrudControllerBase
         $query = $this->queryMany($request, Computer::orderBy('id'));
         $softwareTypeId = $request->software_type_id;
 
-        $query = $query;
-
         if ($request->searchstring != null) {
             $query = $query->where($this->fulltextBuilder->search($request->searchstring));
         }

@@ -7,7 +7,7 @@ use App\PartType;
 use App\Room;
 use Illuminate\Http\Request;
 
-class PartController extends CrudControllerBase
+class PartController extends PackControllerBase
 {
     function __construct()
     {
@@ -20,5 +20,9 @@ class PartController extends CrudControllerBase
             ->with('subsidiary')
             ->with('computer')
             ->findOrFail($id);
+    }
+
+    public function getCountsByDateSlices(Request $request){
+
     }
 }
