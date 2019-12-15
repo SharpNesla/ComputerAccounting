@@ -52,7 +52,7 @@ import {LicenseCardComponent} from "../cards/license-card.component";
                       {{element.MaxApplyCount}}
                   </td>
               </ng-container>
-              
+
               <ng-container matColumnDef="info" stickyEnd>
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let element"
@@ -114,11 +114,15 @@ import {LicenseCardComponent} from "../cards/license-card.component";
                (Search)="SearchString = $event"
                (toggleFilters)="filterState = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
+  styles: [`:host() {
+      flex-grow: 1;
+      overflow: hidden;
+  }`]
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
   constructor(licenses: LicenseService, private dialogref: MatDialog) {
     super(licenses, dialogref,
-      ['select', 'id', 'cost', 'max_applies','apply_status', 'info'],
+      ['select', 'id', 'cost', 'max_applies', 'apply_status', 'info'],
       LicenseCardComponent)
   }
 }

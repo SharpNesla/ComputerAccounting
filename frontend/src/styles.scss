@@ -54,6 +54,7 @@ $sg-light-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-a
 body {
   margin: 0;
   width: 100vw;
+  min-width: 800px;
   height: 100vh;
 }
 
@@ -67,11 +68,19 @@ body {
   background-color: rgba(0, 0, 0, .6) !important;
 }
 
+.mat-tab-group{
+  flex-grow: 1;
+}
+.mat-tab-body-wrapper{
+  flex-grow: 1;
+}
+.mat-tab-body-content{
+  overflow: hidden !important;
+}
 main {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  background-size: cover;
+  flex-grow: 1;
 }
 
 mat-checkbox {
@@ -152,7 +161,6 @@ mat-divider {
 }
 
 .sg-grid-filter-drawer-active {
-
   height: 120px;
 }
 
@@ -195,6 +203,7 @@ mat-divider {
 .sg-table-container {
   position: relative;
   overflow: visible;
+  height: calc(100% - 4.6em);
 }
 
 .sg-search-drawer-ruleset {

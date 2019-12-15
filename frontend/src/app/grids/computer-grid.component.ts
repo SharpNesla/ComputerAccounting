@@ -137,7 +137,11 @@ class ComputerFilter {
                (Search)="SearchString = $event"
                (toggleFilters)="filterState = $event"
                (Paginate)="this.refresh($event.offset, $event.limit)"
-               entity-name="компьютеров"></sg-crud>`
+               entity-name="компьютеров"></sg-crud>`,
+  styles: [`:host() {
+      flex-grow: 1;
+      overflow: hidden;
+  }`]
 })
 export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
 
