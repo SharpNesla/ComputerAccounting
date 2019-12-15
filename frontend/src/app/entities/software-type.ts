@@ -12,5 +12,5 @@ export class SoftwareType extends EntityBase {
   Category: SoftwareCategory;
   SoftwareCount: number;
 
-  Dependencies : SoftwareType[];
+  Dependencies : SoftwareType[] = [];
 }

@@ -15,16 +15,20 @@ import {MatInputModule} from "@angular/material/input";
 import {DialogLayoutComponent} from './layouts/dialog-layout.component';
 import {MatSelectModule} from "@angular/material/select";
 import {RolePipe} from './role.pipe';
-import { PartCategoryPipe } from './part-category.pipe';
-import { ComputerTypePipe } from './computer-type.pipe';
-import { SoftwareCategoryPipe } from './software-category.pipe';
+import {PartCategoryPipe} from './part-category.pipe';
+import {ComputerTypePipe} from './computer-type.pipe';
+import {SoftwareCategoryPipe} from './software-category.pipe';
 import {FormsModule} from "@angular/forms";
-import { GenderPipe } from './gender.pipe';
-import { PartStatePipe } from './part-state.pipe';
+import {GenderPipe} from './gender.pipe';
+import {PartStatePipe} from './part-state.pipe';
+import {NullDefaultValueDirective} from "./null-default-value.directive";
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
-    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent, RolePipe, PartCategoryPipe, ComputerTypePipe, SoftwareCategoryPipe, GenderPipe, PartStatePipe],
+    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent,
+    NullDefaultValueDirective,
+    RolePipe, PartCategoryPipe, ComputerTypePipe, SoftwareCategoryPipe,
+    GenderPipe, PartStatePipe],
   exports: [
     AppbarBaseComponent,
     DrawerButtonComponent,
@@ -32,6 +36,7 @@ import { PartStatePipe } from './part-state.pipe';
     DrawerAppbarBaseComponent,
     DialogLayoutComponent,
     RolePipe,
+    NullDefaultValueDirective,
     PartCategoryPipe,
     ComputerTypePipe,
     SoftwareCategoryPipe,

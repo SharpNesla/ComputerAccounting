@@ -28,12 +28,16 @@ export class SoftwareService extends PackEntityService<Software> {
   protected prepareEntity(entity: Software): Software {
     entity.SoftwareTypeId = entity.SoftwareType.Id;
 
-    if (entity.Computer != null){
+    if (entity.Computer){
       entity.ComputerId = entity.Computer.Id;
+    }else {
+      entity.ComputerId = null;
     }
 
-    if (entity.License != null){
+    if (entity.License){
       entity.LicenseId = entity.License.Id;
+    }else{
+      entity.LicenseId = null;
     }
 
     entity.License = undefined;

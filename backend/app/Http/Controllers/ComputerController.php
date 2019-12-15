@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Computer;
+use App\SoftwareType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -31,17 +32,17 @@ class ComputerController extends CrudControllerBase
 
     protected function applyFilters(array $filter, Builder $builder): Builder
     {
-        if(array_key_exists('users_count_low_bound', $filter)){
+        if (array_key_exists('users_count_low_bound', $filter)) {
             $builder = $builder
                 ->has('users', '>=', $filter['users_count_low_bound']);
         }
 
-        if(array_key_exists('users_count_high_bound', $filter)){
+        if (array_key_exists('users_count_high_bound', $filter)) {
             $builder = $builder
                 ->has('users', '<=', $filter['users_count_high_bound']);
         }
 
-        if(array_key_exists('type', $filter)){
+        if (array_key_exists('type', $filter)) {
             $builder = $builder->where('type', $filter['type']);
         }
 
@@ -50,33 +51,46 @@ class ComputerController extends CrudControllerBase
 
     protected function querySave(array $object, Model $model): Model
     {
-        if (array_key_exists('user_ids' ,$object)){
+        if (array_key_exists('user_ids', $object)) {
             $model->users()->sync($object['user_ids']);
         }
 
         return parent::querySave($object, $model);
     }
 
-    function getDependencySatisfying(Request $request){
+    function getDependencySatisfying(Request $request)
+    {
         $query = $this->queryMany($request, Computer::orderBy('id'));
-        $softwareTypeId = $request->software_type_id;
+
+        $softwareTypeIds = SoftwareType::findOrFail($request->for)
+            ->dependencies()
+            ->get()->map(function ($q){
+                return $q->id;
+            })->toArray();
 
         if ($request->searchstring != null) {
             $query = $query->where($this->fulltextBuilder->search($request->searchstring));
         }
 
-        return $query
+        $query = $query
             ->skip($request->offset)
             ->take($request->limit)->get();
+
+        return $query->filter(function ($computer) use ($softwareTypeIds){
+            $typesOnPCIds = $computer->dependencyTypes()->get()->map(function ($q){
+                return $q->id;
+            })->toArray();
+            return count(array_diff($softwareTypeIds, $typesOnPCIds)) == 0;
+        });
     }
 
-    public function validateEntity(array $array) : bool
+    public function validateEntity(array $array): bool
     {
-        return Validator::make($array,[
+        return Validator::make($array, [
             'name' => 'required',
             'inventory_id' => 'required',
-/*
-            'subsidiary_id' => 'required',*/
+            /*
+                        'subsidiary_id' => 'required',*/
 
             'responsible_id' => 'required',
 

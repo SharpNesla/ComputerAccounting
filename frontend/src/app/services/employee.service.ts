@@ -22,6 +22,8 @@ export class EmployeeService extends EntityServiceBase<Employee> {
   protected prepareEntity(entity: Employee): Employee {
     if (entity.Subsidiary != null){
       entity.SubsidiaryId = entity.Subsidiary.Id;
+    }else{
+      entity.SubsidiaryId = null;
     }
 
 

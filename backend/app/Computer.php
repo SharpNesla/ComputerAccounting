@@ -25,4 +25,9 @@ class Computer extends Model
     public function users(){
         return $this->belongsToMany(User::class, 'users', 'computer_id', 'employee_id');
     }
+
+    public function dependencyTypes(){
+        return $this->belongsToMany(SoftwareType::class, 'software',
+            'computer_id', 'software_type_id');
+    }
 }
