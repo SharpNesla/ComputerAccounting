@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\License;
-use App\Room;
-use App\Software;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 
 class LicenseController extends PackControllerBase
@@ -28,14 +25,18 @@ class LicenseController extends PackControllerBase
         return $builder->withCount('software');
     }
 
-    public function getAvailable(Request $request)
+    public function getApplicable(Request $request)
     {
         //TODO Refactor this to Eloquent calls
         $query = $this->queryMany($request, License::orderBy('id'))
+            ->where('apply_software_type_id', $request->for)
             ->whereRaw('(select count(*) from "software"
                              where "licenses"."id" = "software"."license_id"
-                             and "software"."deleted_at" is null) < max_apply_count');
-
+                             and "software"."deleted_at" is null) < max_apply_count')
+            ->whereRaw('case
+                                when licenses.is_ends_on_date then
+                                    licenses.expiration_date > now()
+                                else true end');
 
 
         $filter = json_decode($request->filter, true);

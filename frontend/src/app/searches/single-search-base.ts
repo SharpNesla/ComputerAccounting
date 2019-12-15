@@ -10,6 +10,7 @@ import {RoomService} from "../services/room.service";
 import {ControlValueAccessor} from "@angular/forms";
 
 export class SingleSearchBase<TEntity extends EntityBase> implements ControlValueAccessor {
+  @Input() required : boolean;
   set searchString(value: string) {
     this.searchBehaviourSubject.next(value);
   }

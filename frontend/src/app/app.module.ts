@@ -23,7 +23,6 @@ import {MaterialModule} from "./material-module";
 import {ErrorInterceptor} from "./login/error-interceptor.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtInterceptorService} from "./login/jwt-interceptor.service";
-import {LoginComponent} from "./login/login.component";
 import {CardsModule} from "./cards/cards.module";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {BadRequestDialogComponent} from "./bad-request-dialog.component";

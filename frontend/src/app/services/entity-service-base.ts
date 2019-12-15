@@ -122,6 +122,7 @@ export abstract class EntityServiceBase<T extends EntityBase> {
     entity.CreatedAt = undefined;
     entity.UpdatedAt = undefined;
     entity.DeletedAt = undefined;
+
     return entity;
   }
 }
@@ -133,7 +134,11 @@ export abstract class PackEntityService<T extends EntityBase> extends EntityServ
   }
 
   protected prepareEntityRange(entity: T): T {
-    return this.prepareEntity(entity);
+    entity.CreatedAt = undefined;
+    entity.UpdatedAt = undefined;
+    entity.DeletedAt = undefined;
+
+    return entity;
   }
 
   public addRange(entity: T, count: number) {

@@ -23,6 +23,10 @@ class CreateLicensesTable extends Migration
             $table->integer('max_apply_count')->nullable();
             $table->time('purchase_date')->nullable();
 
+            $table->bigInteger('apply_software_type_id')->unsigned()->nullable();
+            $table->foreign('apply_software_type_id')
+                ->references('id')->on('software_types')->onDelete('cascade');
+
             $table->text('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -18,9 +18,9 @@ import {MatDialog} from "@angular/material/dialog";
                   <h2 class="mat-title">Общая информация</h2>
                   <sg-software-type-search hint="Тип ПО" [(ngModel)]="Entity.SoftwareType">
                   </sg-software-type-search>
-                  <sg-computer-search hint="Компьютер" [(ngModel)]="Entity.Computer">
+                  <sg-computer-search *ngIf="!isPackAdd" hint="Компьютер" [(ngModel)]="Entity.Computer">
                   </sg-computer-search>
-                  <sg-license-search hint="Лицензия" [(ngModel)]="Entity.License">
+                  <sg-license-search *ngIf="!isPackAdd" hint="Лицензия" [(ngModel)]="Entity.License">
                   </sg-license-search>
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
                   <mat-form-field *ngIf="isPackAdd && isNew">

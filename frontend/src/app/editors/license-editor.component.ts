@@ -27,7 +27,7 @@ import {MatDialog} from "@angular/material/dialog";
                              placeholder="Количество возможных применений">
                   </mat-form-field>
                   
-                  <sg-software-type-search hint="Тип программного обеспечния"
+                  <sg-software-type-search hint="Тип программного обеспечния" [(ngModel)]="Entity.ApplySoftwareType"
                                            searchHint="Иипа ПО"></sg-software-type-search>
 
                   <mat-form-field>

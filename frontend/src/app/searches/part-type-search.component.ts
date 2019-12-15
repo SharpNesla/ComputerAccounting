@@ -10,7 +10,7 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
+          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity" required>
               <button mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>

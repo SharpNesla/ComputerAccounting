@@ -44,7 +44,9 @@ export class EditorBase<TEntity extends EntityBase,
       this.isNew = true;
     } else {
       this.route.params.subscribe(params => {
-        this.Repo.getById(+params['id']).subscribe(x => this.Entity = x)
+        this.Repo.getById(+params['id']).subscribe(x => this.Entity = x, err =>{
+          this.dialog.open(BadRequestDialogComponent)
+        })
       });
     }
   }

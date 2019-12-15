@@ -15,10 +15,22 @@ export class PartService extends PackEntityService<Part> implements CountableByS
   }
 
   protected prepareEntityRange(entity: Part): Part {
-    entity = super.prepareEntityRange(entity);
-    entity.ComputerId = null;
 
-    return entity;
+    entity.State = PartState.InStore;
+
+    if (entity.Subsidiary) {
+      entity.SubsidiaryId = entity.Subsidiary.Id;
+      entity.ComputerId = null;
+    }
+
+    entity.PartTypeId = entity.PartType.Id;
+
+    entity.ComputerId = undefined;
+    entity.Computer = undefined;
+    entity.PartType = undefined;
+    entity.Subsidiary = undefined;
+
+    return super.prepareEntityRange(entity);
   }
 
   protected prepareEntity(entity: Part): Part {

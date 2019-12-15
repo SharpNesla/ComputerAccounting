@@ -15,11 +15,15 @@ export class LicenseService extends PackEntityService<License> implements Charta
   }
 
   protected prepareEntity(entity: License): License {
+    entity.ApplySoftwareTypeId = entity.ApplySoftwareType.Id;
+
+    entity.ApplySoftwareType = undefined;
+
     return super.prepareEntity(entity);
   }
 
   protected prepareEntityRange(entity: License): License {
-    return super.prepareEntityRange(entity);
+    return super.prepareEntity(entity);
   }
 
   public getApplicable(searchString: string,

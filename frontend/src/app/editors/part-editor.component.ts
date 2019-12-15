@@ -17,10 +17,10 @@ import {MatDialog} from "@angular/material/dialog";
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <sg-part-type-search [(ngModel)]="Entity.PartType"
-                          hint="Тип комплектующего"></sg-part-type-search>
+                          hint="Тип комплектующего" required></sg-part-type-search>
 
-                  <mat-form-field>
-                      <mat-select [(ngModel)]="Entity.State" placeholder="Состояние">
+                  <mat-form-field *ngIf="!isPackAdd">
+                      <mat-select  [(ngModel)]="Entity.State" placeholder="Состояние">
                           <mat-option *ngFor="let elem of partStates" [value]="elem">
                               {{elem | partState}}
                           </mat-option>
@@ -28,9 +28,9 @@ import {MatDialog} from "@angular/material/dialog";
                   </mat-form-field>
 
                   <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
-                                        *ngIf="displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
-                  <sg-computer-search [(ngModel)]="Entity.Computer"
-                                      *ngIf="displayComputer" hint="Компьютер"></sg-computer-search>
+                                        *ngIf="isPackAdd || displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
+                  <sg-computer-search  [(ngModel)]="Entity.Computer"
+                                      *ngIf="!isPackAdd && displayComputer" hint="Компьютер"></sg-computer-search>
                   
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
                   <mat-form-field *ngIf="isPackAdd && isNew">

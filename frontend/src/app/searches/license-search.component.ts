@@ -9,10 +9,7 @@ import {License} from "../entities/license";
 import {LicenseService} from "../services/license.service";
 import {Observable} from "rxjs";
 
-export enum LicenseSearchMode {
-  Normal = "normal",
-  Applicable = "applicable"
-}
+export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
 
 @Component({
   selector: 'sg-license-search',
@@ -51,10 +48,11 @@ export class LicenseSearchComponent extends SingleSearchBase<License> {
 
   public dataSource(searchString, filterDefinition: object): Observable<License[]> {
     switch (this.mode) {
-      case LicenseSearchMode.Normal:
-        return super.dataSource(searchString, filterDefinition);
-      case LicenseSearchMode.Applicable:
+      case "applicable":
         return this.licenseService.getApplicable(searchString, 0,10, filterDefinition);
+      case "normal":
+      default:
+        return super.dataSource(searchString, filterDefinition);
     }
   }
 

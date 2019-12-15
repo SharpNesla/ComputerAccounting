@@ -13,9 +13,14 @@ export class SoftwareService extends PackEntityService<Software> {
   }
 
   protected prepareEntityRange(entity: Software): Software {
-    entity = this.prepareEntity(entity);
+    entity.SoftwareTypeId = entity.SoftwareType.Id;
 
-    entity.ComputerId = null;
+    entity.ComputerId = undefined;
+    entity.LicenseId = undefined;
+
+    entity.License = undefined;
+    entity.SoftwareType = undefined;
+    entity.Computer = undefined;
 
     return super.prepareEntityRange(entity);
   }
@@ -26,7 +31,6 @@ export class SoftwareService extends PackEntityService<Software> {
     if (entity.Computer != null){
       entity.ComputerId = entity.Computer.Id;
     }
-
 
     if (entity.License != null){
       entity.LicenseId = entity.License.Id;
