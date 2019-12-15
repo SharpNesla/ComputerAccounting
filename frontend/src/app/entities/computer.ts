@@ -19,8 +19,8 @@ export class Computer extends EntityBase{
 
   Type : ComputerType;
 
-  // Subsidiary : Room;
-  // SubsidiaryId : number | null;
+  Subsidiary : Room;
+  SubsidiaryId : number | null;
 
   Room : Room;
   RoomId : number | null;

@@ -64,8 +64,8 @@ import {MatDialog} from "@angular/material/dialog";
                                       <mat-icon>remove</mat-icon>
                                   </button>
                               </td>
-
                           </ng-container>
+
                           <ng-container matColumnDef="id">
                               <th mat-header-cell *matHeaderCellDef>№</th>
                               <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
@@ -145,11 +145,16 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
 
   addUser() {
     if (!this.addingUser) {
-      this.snackBar.open("Не выбран работник для привязки");
+      this.snackBar.open("Не выбран работник для привязки", '', {
+        duration: 2000,
+      });
       return;
     }
     if (this.Entity.Users.find(x => x.Id == this.addingUser.Id)) {
-      this.snackBar.open("Работник уже является пользователем");
+      this.snackBar.open("Работник уже является пользователем", '', {
+        duration: 2000,
+      });
+      return;
     } else {
       this.Entity.Users.push(this.addingUser);
       //Cause change detection to update table datasource

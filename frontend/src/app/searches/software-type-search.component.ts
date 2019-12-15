@@ -23,7 +23,7 @@ import {SoftwareService} from "../services/software.service";
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">
-                  {{entity.Id}} {{entity.Typename}} {{entity.Category}}
+                  {{entity.Id}} {{entity.Category | softwareCategory}} {{entity.Typename}} 
               </mat-option>
           </mat-select>
       </mat-form-field>`,
