@@ -9,7 +9,8 @@ class License extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['purchase_date', 'cost', 'eula', 'max_apply_count',
+    protected $fillable = [
+        'purchase_date', 'cost', 'eula', 'max_apply_count',
         'software_type_id',
         'expiration_date', 'is_ends_on_date', 'comment'];
 

@@ -5,6 +5,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {ChartableByDate, ChartResult, DateSlice} from "../analytics/countable-by-subsidiary";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {Software} from "../entities/software";
+import {SoftwareType} from "../entities/software-type";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +17,9 @@ export class LicenseService extends PackEntityService<License> implements Charta
   }
 
   protected prepareEntity(entity: License): License {
-    entity.ApplySoftwareTypeId = entity.ApplySoftwareType.Id;
+    entity.SoftwareTypeId = entity.SoftwareType.Id;
 
-    entity.ApplySoftwareType = undefined;
+    entity.SoftwareType = undefined;
 
     return super.prepareEntity(entity);
   }
@@ -28,12 +30,11 @@ export class LicenseService extends PackEntityService<License> implements Charta
 
   public getApplicable(searchString: string,
                        offset: number,
-                       limit: number,
-                       filterDefinition: object): Observable<License[]> {
+                       limit: number,  type: SoftwareType): Observable<License[]> {
     let params = new HttpParams()
       .set("offset", offset.toString())
       .set("limit", limit.toString())
-      .set("filter", JSON.stringify(keysToSnake(filterDefinition)));
+      .set('for', type.Id.toString());
 
     if (searchString) {
       params = params.set('search', searchString);

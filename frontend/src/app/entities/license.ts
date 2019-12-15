@@ -5,13 +5,13 @@ export class License extends EntityBase {
   Eula : string;
   Cost: number;
   MaxApplyCount: number;
-  IsEndsOnDate;
+  IsEndsOnDate : boolean;
 
-  PurchaseDate;
-  ExpirationDate;
+  PurchaseDate : Date;
+  ExpirationDate : Date;
 
-  ApplySoftwareTypeId : number;
-  ApplySoftwareType : SoftwareType;
+  SoftwareTypeId : number;
+  SoftwareType : SoftwareType;
 
   SoftwareCount : number;
 }

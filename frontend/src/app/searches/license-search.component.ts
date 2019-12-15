@@ -41,7 +41,7 @@ export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
 })
 export class LicenseSearchComponent extends SingleSearchBase<License> {
   @Input() mode : LicenseSearchMode;
-
+  @Input() applicableType : SoftwareType;
   constructor(private licenseService : LicenseService){
     super(licenseService)
   }
@@ -49,7 +49,10 @@ export class LicenseSearchComponent extends SingleSearchBase<License> {
   public dataSource(searchString, filterDefinition: object): Observable<License[]> {
     switch (this.mode) {
       case "applicable":
-        return this.licenseService.getApplicable(searchString, 0,10, filterDefinition);
+        if (this.applicableType){
+          return this.licenseService.getApplicable(searchString, 0,10, this.applicableType);
+        }
+        return new Observable(x=>x.next([]));
       case "normal":
       default:
         return super.dataSource(searchString, filterDefinition);

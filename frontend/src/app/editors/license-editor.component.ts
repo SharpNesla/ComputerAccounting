@@ -18,7 +18,7 @@ import {MatDialog} from "@angular/material/dialog";
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
-                      <input type="number" step=0.01 min="0.01"  matInput required
+                      <input type="number" step=0.01 min="0.01" matInput required
                              [(ngModel)]="Entity.Cost" placeholder="Цена">
                   </mat-form-field>
                   <mat-form-field>
@@ -26,8 +26,8 @@ import {MatDialog} from "@angular/material/dialog";
                              step=1 matInput required
                              placeholder="Количество возможных применений">
                   </mat-form-field>
-                  
-                  <sg-software-type-search hint="Тип программного обеспечния" [(ngModel)]="Entity.ApplySoftwareType"
+
+                  <sg-software-type-search hint="Тип программного обеспечния" [(ngModel)]="Entity.SoftwareType"
                                            searchHint="Иипа ПО"></sg-software-type-search>
 
                   <mat-form-field>
@@ -35,9 +35,9 @@ import {MatDialog} from "@angular/material/dialog";
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
-                  
+
                   <mat-checkbox [(ngModel)]="Entity.IsEndsOnDate">Срок по дате истечения</mat-checkbox>
-                  
+
                   <mat-form-field *ngIf="Entity.IsEndsOnDate">
                       <input matInput [matDatepicker]="picker2" [(ngModel)]="Entity.ExpirationDate"
                              placeholder="Дата истечения">

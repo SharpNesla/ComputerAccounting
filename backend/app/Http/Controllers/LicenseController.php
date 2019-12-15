@@ -29,7 +29,7 @@ class LicenseController extends PackControllerBase
     {
         //TODO Refactor this to Eloquent calls
         $query = $this->queryMany($request, License::orderBy('id'))
-            ->where('apply_software_type_id', $request->for)
+            ->where('software_type_id', $request->for)
             ->whereRaw('(select count(*) from "software"
                              where "licenses"."id" = "software"."license_id"
                              and "software"."deleted_at" is null) < max_apply_count')
