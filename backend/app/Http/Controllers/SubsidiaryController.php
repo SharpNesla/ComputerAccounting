@@ -61,7 +61,7 @@ class SubsidiaryController extends CrudControllerBase
 
     public function validateEntity(array $array) : bool
     {
-        return Validator::make($array,[
+        return !Validator::make($array,[
             'name' => 'required',
             'address' => 'required'
         ])->fails();

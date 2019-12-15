@@ -27,7 +27,7 @@ class RoomController extends CrudControllerBase
 
     public function validateEntity(array $array) : bool
     {
-        return Validator::make($array,[
+        return !Validator::make($array,[
             'number' => 'required',
         ])->fails();
     }

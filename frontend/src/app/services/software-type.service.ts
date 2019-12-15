@@ -18,7 +18,7 @@ export class SoftwareTypeService extends EntityServiceBase<SoftwareType> {
     if (entity.Dependencies){
       entity = Object.assign({DependenciesIds: entity.Dependencies.map(x => x.Id)}, entity);
     }
-
+    entity.Dependencies = undefined;
     return super.prepareEntity(entity);
   }
 }

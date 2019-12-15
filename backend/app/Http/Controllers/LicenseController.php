@@ -52,7 +52,7 @@ class LicenseController extends PackControllerBase
 
     /*public function validateEntity(array $array) : bool
     {
-        return Validator::make($array,[
+        return !Validator::make($array,[
             'cost' => 'required',
             'max_apply_count' => 'required',
             'is_end_on_date' => 'required',

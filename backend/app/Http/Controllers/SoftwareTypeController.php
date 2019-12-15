@@ -6,6 +6,7 @@ use App\SoftwareType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SoftwareTypeController extends CrudControllerBase
 {
@@ -27,7 +28,7 @@ class SoftwareTypeController extends CrudControllerBase
 
     protected function querySave(array $object, Model $model): Model
     {
-        if (array_key_exists('dependencies_ids' ,$object)){
+        if (array_key_exists('dependencies_ids', $object)) {
             $model->dependencies()->sync($object['dependencies_ids']);
         }
         return parent::querySave($object, $model);
@@ -52,4 +53,10 @@ class SoftwareTypeController extends CrudControllerBase
         return $builder;
     }
 
+    protected function validateEntity(array $array): bool
+    {
+        return !Validator::make($array, [
+            'dependencies_ids.*' => 'exists:software_types,id'
+        ])->fails();
+    }
 }

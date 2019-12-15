@@ -64,7 +64,7 @@ class CrudControllerBase extends Controller
     }
 
     protected function validateEntity(array $array) : bool {
-        return false;
+        return true;
     }
 
     protected function validateFilters(array $filterA) : bool {
@@ -76,6 +76,9 @@ class CrudControllerBase extends Controller
         $decodedAsArray = json_decode($request->getContent(), true);
         if ($decodedAsArray == null){
             return response("Corrupted request body", 400);
+        }
+        if (!$this->validateEntity($decodedAsArray)){
+            return response("Invalid entity", 400);
         }
         $model = $this->facade::find($decodedAsArray['id']);
         $model->fill($decodedAsArray);
@@ -90,7 +93,7 @@ class CrudControllerBase extends Controller
         if ($decodedAsArray == null){
             return response("Corrupted request body", 400);
         }
-        if ($this->validateEntity($decodedAsArray)){
+        if (!$this->validateEntity($decodedAsArray)){
             return response("Invalid entity", 400);
         }
 

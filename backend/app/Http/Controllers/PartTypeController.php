@@ -20,7 +20,7 @@ class PartTypeController extends CrudControllerBase
 
     public function validateEntity(array $array) : bool
     {
-        return Validator::make($array,[
+        return !Validator::make($array,[
             'model' => 'required',
             'cost' => 'required|numeric|min:0',
             'category' => 'required|numeric|min:0|max:11'

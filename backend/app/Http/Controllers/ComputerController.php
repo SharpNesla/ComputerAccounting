@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Computer;
 use App\SoftwareType;
+use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -84,9 +85,13 @@ class ComputerController extends CrudControllerBase
         });
     }
 
+    /**
+     * @param array $array
+     * @return bool Is valid entity
+     */
     public function validateEntity(array $array): bool
     {
-        return Validator::make($array, [
+        return !Validator::make($array, [
             'name' => 'required',
             'inventory_id' => 'required',
             /*
@@ -94,7 +99,9 @@ class ComputerController extends CrudControllerBase
 
             'responsible_id' => 'required',
 
-            'type' => 'required|numeric|min:0|max:11'
+            'type' => 'required|numeric|min:0|max:11',
+
+            'user_ids.*' => 'exists:employees,id'
         ])->fails();
     }
 }

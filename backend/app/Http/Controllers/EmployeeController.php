@@ -100,7 +100,7 @@ class EmployeeController extends CrudControllerBase
 
     public function validateEntity(array $array): bool
     {
-        return Validator::make($array, [
+        return !Validator::make($array, [
             'superior_id' => 'required',
             'subsidiary_id' => 'required',
 
