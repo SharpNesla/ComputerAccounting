@@ -4,7 +4,16 @@ import {Room} from "../entities/room";
 import {RoomService} from "../services/room.service";
 import {MatDialog} from "@angular/material/dialog";
 import {RoomCardComponent} from "../cards/room-card.component";
+import {Subsidiary} from "../entities/subsidiary";
 
+class RoomFilter {
+
+  ComputersCountLowBound: number;
+  ComputersCountHighBound: number;
+
+  Subsidiary: Subsidiary;
+  SubsidiaryId: number;
+}
 
 @Component({
   selector: 'sg-room-grid',
@@ -66,15 +75,27 @@ import {RoomCardComponent} from "../cards/room-card.component";
           </table>
           <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
               <div class="sg-search-drawer-ruleset">
-                  <mat-checkbox>По количеству ПО</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="filterApplies.ByComputersCount">По количеству компьютеров</mat-checkbox>
                   <mat-form-field>
-                      <input matInput placeholder="Нижняя граница">
+                      <input [(ngModel)]="filter.ComputersCountLowBound"
+                             [disabled]="!filterApplies.ByComputersCount" matInput placeholder="Нижняя граница">
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput placeholder="Верхняя граница">
+                      <input [(ngModel)]="filter.ComputersCountHighBound"
+                             [disabled]="!filterApplies.ByComputersCount" matInput placeholder="Верхняя граница">
                   </mat-form-field>
+
+
+              </div>
+              <div class="sg-search-drawer-ruleset">
+                  <mat-checkbox [(ngModel)]="filterApplies.BySubsidiary">По филиалу</mat-checkbox>
+                  <sg-subsidiary-search hint="Филиал" [(ngModel)]="filter.Subsidiary"
+                                        [disabled]="!filterApplies.BySubsidiary"></sg-subsidiary-search>
+
               </div>
           </div>
+
+
       </div>
       <div style="visibility: hidden; position: fixed"
            [style.left]="contextMenuPosition.x"
@@ -104,7 +125,26 @@ import {RoomCardComponent} from "../cards/room-card.component";
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
+  filterApplies = {
+    ByComputersCount: false,
+    BySubsidiary: false
+  };
+
+  filter: RoomFilter = new RoomFilter();
+
   constructor(private rooms: RoomService, dialog: MatDialog) {
     super(rooms, dialog, ['select', 'id', 'number', 'computers_count', 'info'], RoomCardComponent)
+  }
+
+  constructFilter(): object {
+    const filter = new RoomFilter();
+    if (this.filterApplies.ByComputersCount) {
+      filter.ComputersCountLowBound = this.filter.ComputersCountLowBound;
+      filter.ComputersCountHighBound = this.filter.ComputersCountHighBound;
+    }
+    if (this.filterApplies.BySubsidiary && this.filter.Subsidiary) {
+      filter.SubsidiaryId = this.filter.Subsidiary.Id;
+    }
+    return filter;
   }
 }

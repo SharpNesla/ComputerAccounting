@@ -11,7 +11,7 @@ import {NavigationService} from "../../navigation.service";
               </button>
               <ng-content select="header"></ng-content>
           </mat-toolbar>
-          <main>
+          <main class="mat-app-background">
               <ng-content></ng-content>
           </main>
       </div>

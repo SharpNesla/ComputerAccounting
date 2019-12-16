@@ -1,10 +1,8 @@
 import {EntityBase} from "../entities/entity-base";
 import {EntityServiceBase, PackEntityService} from "../services/entity-service-base";
 import {OnDestroy, OnInit} from "@angular/core";
-import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {DeleteDialogComponent} from "../delete-dialog.component";
 import {BadRequestDialogComponent} from "../bad-request-dialog.component";
 
 export class EditorBase<TEntity extends EntityBase,

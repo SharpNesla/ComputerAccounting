@@ -4,6 +4,7 @@ import {Employee, Roles} from "../entities/employee";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployeeCardComponent} from "../cards/employee-card.component";
+import {filterStackTrace} from "protractor/built/util";
 
 export class EmployeeFilter {
   UsingComputersCountLowBound: number;
@@ -11,6 +12,7 @@ export class EmployeeFilter {
 
   Role: Roles;
 
+  Superior : Employee;
   SuperiorId: number;
 }
 
@@ -106,9 +108,10 @@ export class EmployeeFilter {
               <div class="sg-search-drawer-ruleset">
                   <mat-checkbox [(ngModel)]="filterApplies.ByRole">По должности</mat-checkbox>
                   <mat-form-field>
-                      <mat-select [disabled]="!filterApplies.ByRole" [(ngModel)]="filter.Role" placeholder="Категория">
-                          <mat-option *ngFor="let elem of roles" [value]="elem">
-                              {{elem | role}}
+                      <mat-select [disabled]="!filterApplies.ByRole" placeholder="Должность"
+                                  [(ngModel)]="filter.Role">
+                          <mat-option *ngFor="let role of roles" [value]="role.value">
+                              {{role.value | role}}
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
@@ -116,7 +119,7 @@ export class EmployeeFilter {
               
               <div class="sg-search-drawer-ruleset">
                   <mat-checkbox [(ngModel)]="filterApplies.BySuperior">По руководителю</mat-checkbox>
-                  <sg-employee-search hint="Директор филиала" [(ngModel)]="filter.SuperiorId"
+                  <sg-employee-search hint="Директор филиала" [(ngModel)]="filter.Superior"
                                       [disabled]="!filterApplies.BySuperior"></sg-employee-search>
               </div>
           </div>
@@ -178,8 +181,8 @@ export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeServ
       filter.UsingComputersCountHighBound = this.filter.UsingComputersCountHighBound;
     }
 
-    if (this.filterApplies.BySuperior) {
-      filter.SuperiorId = this.filter.SuperiorId;
+    if (this.filterApplies.BySuperior && this.filter.Superior) {
+      filter.SuperiorId = this.filter.Superior.Id;
     }
 
     if (this.filterApplies.ByRole) {

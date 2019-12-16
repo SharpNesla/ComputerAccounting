@@ -9,18 +9,23 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   <!--      <button mat-button cdkFocusInitial>Ok</button>-->
   <!--  </div>-->
 
-  <sg-dialog-layout (Accept)="apply()" (Deny)="deny()">
+  <sg-dialog-layout (Accept)="apply()" acceptOnly="true" (Deny)="deny()">
       <header>
-          <mat-icon>delete</mat-icon>
+          <mat-icon>warning</mat-icon>
           Ошибка
       </header>
-      <mat-card>
+      <mat-card id="sg-bad-request-content-card">
           <p>
               В процессе передачи данных произошло повреждение данных<br>
               совершите новую попытку, либо отмените внесение данных.
           </p>
       </mat-card>
-  </sg-dialog-layout>`
+  </sg-dialog-layout>`,
+  styles: [`#sg-bad-request-content-card {
+      margin-top: 1.5em;
+      margin-right: 1.5em;
+      margin-left: 1.5em;
+  }`]
 })
 export class BadRequestDialogComponent implements OnInit {
 

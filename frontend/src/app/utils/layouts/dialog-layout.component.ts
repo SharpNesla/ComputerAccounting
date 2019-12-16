@@ -4,11 +4,12 @@ import {Location} from '@angular/common';
 @Component({
   selector: 'sg-dialog-layout',
   template: `
-      <main>
-          <mat-toolbar color="primary" class="mat-elevation-z2 sg-appbar">
-              <ng-content select="header"></ng-content>
-          </mat-toolbar>
+      <mat-toolbar color="primary" class="mat-elevation-z2 sg-appbar">
+          <ng-content select="header"></ng-content>
+      </mat-toolbar>
+      <main class="mat-app-background">
           <ng-content></ng-content>
+
           <div id="sg-button-container">
               <button mat-button color="primary"
                       (click)="Accept.emit()"
@@ -38,8 +39,9 @@ export class DialogLayoutComponent implements OnInit {
   @Input('end-link') EndLink: string;
   @Output() Accept = new EventEmitter();
   @Output() Deny = new EventEmitter();
-  @Input() acceptOnly : boolean;
-  @Input() acceptDisabled : boolean = true;
+  @Input() acceptOnly: boolean;
+  @Input() acceptDisabled: boolean = true;
+
   constructor(private location: Location) {
   }
 

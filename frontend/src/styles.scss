@@ -51,6 +51,8 @@ $sg-light-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-a
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 
+@import "ngx-charts-dark-theme";
+
 body {
   margin: 0;
   width: 100vw;

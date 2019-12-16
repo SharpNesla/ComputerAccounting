@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,6 +104,29 @@ class EmployeeController extends CrudControllerBase
         return User::with('superior')
             ->with('subsidiary')
             ->findOrFail($id);
+    }
+
+    protected function applyFilters(array $filter, Builder $builder): Builder
+    {
+        if (array_key_exists('using_computers_count_low_bound', $filter)) {
+            $builder = $builder
+                ->has('computers', '>=', $filter['using_computers_count_low_bound']);
+        }
+
+        if (array_key_exists('using_computers_count_high_bound', $filter)) {
+            $builder = $builder
+                ->has('computers', '<=', $filter['using_computers_count_high_bound']);
+        }
+
+        if (array_key_exists('role', $filter)) {
+            $builder = $builder->where('role', $filter['role']);
+        }
+
+        if (array_key_exists('superior_id', $filter)) {
+            $builder = $builder->where('superior_id', $filter['superior_id']);
+        }
+
+        return $builder;
     }
 
     public function validateEntity(array $array): bool

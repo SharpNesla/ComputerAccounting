@@ -24,7 +24,7 @@ export class Employee extends EntityBase {
   Username: string;
 
   Role: Roles;
-  Gender: Gender;
+  Gender: Gender = Gender.Unrecognized;
 
   PassportSerial: string;
   Address: string;
