@@ -114,7 +114,7 @@ import {LicenseCardComponent} from "../cards/license-card.component";
                (Search)="SearchString = $event"
                (toggleFilters)="filterState = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
-  styles: [`:host() {
+  styles: [`:host {
       flex-grow: 1;
       overflow: hidden;
   }`]

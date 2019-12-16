@@ -138,7 +138,7 @@ class ComputerFilter {
                (toggleFilters)="filterState = $event"
                (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="компьютеров"></sg-crud>`,
-  styles: [`:host() {
+  styles: [`:host {
       flex-grow: 1;
       overflow: hidden;
   }`]

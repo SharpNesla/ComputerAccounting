@@ -257,3 +257,10 @@ mat-divider {
 
 }
 
+#sg-about-container{
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 2em;
+  flex-grow: 1;
+background: url("assets/LoginBackground2.png") center;
+  background-size: cover;
+}

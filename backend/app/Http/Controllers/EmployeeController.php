@@ -81,6 +81,13 @@ class EmployeeController extends CrudControllerBase
         return response()->json($request->user());
     }
 
+    public function changeColorScheme(Request $request)
+    {
+        $user = $request->user();
+        $user->color_scheme = $request->scheme;
+        $user->save();
+    }
+
     public function querySave(array $object, Model $model): Model
     {
         if (array_key_exists('password', $object) &&

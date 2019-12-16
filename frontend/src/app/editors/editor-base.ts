@@ -14,7 +14,7 @@ export class EditorBase<TEntity extends EntityBase,
   protected Repo: TRepository;
 
   constructor(repository: TRepository, protected route: ActivatedRoute, protected dialog: MatDialog,
-              addEntity: TEntity) {
+              addEntity: TEntity, public readonly endLink = "") {
     this.Repo = repository;
     this.Entity = addEntity;
   }

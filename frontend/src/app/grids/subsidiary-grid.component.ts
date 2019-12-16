@@ -6,7 +6,6 @@ import {PartTypeService} from "../services/part-type.service";
 import {MatDialog} from "@angular/material/dialog";
 import {RoomCardComponent} from "../cards/room-card.component";
 import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
-import {retry} from "rxjs/operators";
 
 class SubsidiaryFilter {
   RoomsCountLowBound: number;
@@ -113,22 +112,24 @@ class SubsidiaryFilter {
               <div class="sg-search-drawer-ruleset">
                   <mat-checkbox [(ngModel)]="filterApplies.ByComputerCount">По количеству компьютеров</mat-checkbox>
                   <mat-form-field>
-                      <input
-                              [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Нижняя граница">
+                      <input [(ngModel)]="filter.ComputersCountLowBound"
+                      [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Нижняя граница">
                   </mat-form-field>
                   <mat-form-field>
-                      <input
-                              [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Верхняя граница">
+                      <input [(ngModel)]="filter.ComputersCountLowBound"
+                             [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Верхняя граница">
                   </mat-form-field>
               </div>
 
               <div class="sg-search-drawer-ruleset">
                   <mat-checkbox [(ngModel)]="filterApplies.ByEmployeeCount">По количеству работников</mat-checkbox>
                   <mat-form-field>
-                      <input [disabled]="!filterApplies.ByEmployeeCount" matInput placeholder="Нижняя граница">
+                      <input [(ngModel)]="filter.EmployeesCountLowBound"
+                             [disabled]="!filterApplies.ByEmployeeCount" matInput placeholder="Нижняя граница">
                   </mat-form-field>
                   <mat-form-field>
-                      <input [disabled]="!filterApplies.ByEmployeeCount" matInput placeholder="Верхняя граница">
+                      <input [(ngModel)]="filter.EmployeesCountLowBound"
+                             [disabled]="!filterApplies.ByEmployeeCount" matInput placeholder="Верхняя граница">
                   </mat-form-field>
               </div>
 

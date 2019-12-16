@@ -42,6 +42,7 @@ export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
 export class LicenseSearchComponent extends SingleSearchBase<License> {
   @Input() mode : LicenseSearchMode;
   @Input() applicableType : SoftwareType;
+
   constructor(private licenseService : LicenseService){
     super(licenseService)
   }

@@ -28,10 +28,12 @@ import {MatDialog} from "@angular/material/dialog";
                               <input matInput placeholder="Инвентарный номер"
                                      [(ngModel)]="this.Entity.InventoryId">
                           </mat-form-field>
-                          <sg-subsidiary-search hint="Филиал помещения"></sg-subsidiary-search>
-                          <sg-room-search [(ngModel)]="Entity.Room" hint="Помещение" required></sg-room-search>
-                          <sg-employee-search [(ngModel)]="Entity.Responsible" hint="Ответственное лицо">
-
+                          <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
+                                                hint="Филиал помещения"></sg-subsidiary-search>
+                          <sg-room-search [disabled]="!Entity.Subsidiary"
+                                          [(ngModel)]="Entity.Room" hint="Помещение" required></sg-room-search>
+                          <sg-employee-search [disabled]="!Entity.Subsidiary"
+                                              [(ngModel)]="Entity.Responsible" hint="Ответственное лицо">
                           </sg-employee-search>
 
                           <mat-form-field>
@@ -113,12 +115,12 @@ import {MatDialog} from "@angular/material/dialog";
                   </mat-card>
               </mat-tab>
 
-              <mat-tab label="Комплектующие">
+              <!--<mat-tab label="Комплектующие">
 
               </mat-tab>
               <mat-tab label="Программы и лицензии">
 
-              </mat-tab>
+              </mat-tab>-->
           </mat-tab-group>
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']

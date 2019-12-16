@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
       <sg-drawer-appbar-base>
 
           <header>О системе</header>
-          <div style="display: flex; flex-direction: column; align-items: center; margin-top: 2em">
+          <div id="sg-about-container">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24  24"
                    width="40em" fill="#000000">
                   <path style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;

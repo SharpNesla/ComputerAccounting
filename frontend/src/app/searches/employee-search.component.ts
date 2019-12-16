@@ -15,8 +15,9 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
               </button>
               <mat-form-field appearance="standard">
                   <input matInput [placeholder]="'Поиск ' + searchHint"
-                         (keydown)="$event.stopPropagation(); "
-                         type="search">
+                         (keydown)="$event.stopPropagation()"
+                         type="search"
+                         [(ngModel)]="searchString">
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">

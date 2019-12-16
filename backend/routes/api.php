@@ -25,6 +25,7 @@ Route::group([
     ], function() {
         Route::get('logout', 'EmployeeController@logout');
         Route::get('user', 'EmployeeController@user');
+        Route::get('change-color-scheme', 'EmployeeController@changeColorScheme');
     });
 });
 

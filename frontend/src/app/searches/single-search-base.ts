@@ -10,9 +10,9 @@ import {RoomService} from "../services/room.service";
 import {ControlValueAccessor} from "@angular/forms";
 
 
-
 export class SingleSearchBase<TEntity extends EntityBase> implements ControlValueAccessor {
-  @Input() required : boolean;
+  @Input() required: boolean;
+
   set searchString(value: string) {
     this.searchBehaviourSubject.next(value);
   }
@@ -22,6 +22,7 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   }
 
   searchBehaviourSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+
   get selectedEntity(): TEntity {
     return this._selectedEntity;
   }
@@ -36,10 +37,10 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
     this.entities = this.searchBehaviourSubject.asObservable()
       .pipe(
         debounce(val => interval(300)),
-        mergeMap(x=>this.dataSource(x, this.filterDefinition)),
+        mergeMap(x => this.disabled ? [] : this.dataSource(x, this.filterDefinition)),
         map(x => {
           if (this.selectedEntity != null) {
-            x = x.filter(y=> y.Id != this.selectedEntity.Id);
+            x = x.filter(y => y.Id != this.selectedEntity.Id);
             x.unshift(this.selectedEntity);
           }
           return x;
@@ -59,7 +60,7 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   }
 
   public dataSource(searchString, filterDefinition: object): Observable<TEntity[]> {
-    return this.service.get(searchString, 0,10, null, null, null)
+    return this.service.get(searchString, 0, 10, null, null, null)
   }
 
   onChange: any = () => {

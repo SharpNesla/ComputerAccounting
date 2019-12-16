@@ -14,10 +14,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
           <mat-icon>delete</mat-icon>
           Ошибка
       </header>
-      <p>
-          В процессе передачи данных произошло повреждение данных<br>
-          совершите новую попытку, либо отмените внесение данных.
-      </p>
+      <mat-card>
+          <p>
+              В процессе передачи данных произошло повреждение данных<br>
+              совершите новую попытку, либо отмените внесение данных.
+          </p>
+      </mat-card>
   </sg-dialog-layout>`
 })
 export class BadRequestDialogComponent implements OnInit {

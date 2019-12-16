@@ -1,9 +1,18 @@
 import {Component} from '@angular/core';
 import {EmployeeService} from "../services/employee.service";
-import {Employee} from "../entities/employee";
+import {Employee, Roles} from "../entities/employee";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployeeCardComponent} from "../cards/employee-card.component";
+
+export class EmployeeFilter {
+  UsingComputersCountLowBound: number;
+  UsingComputersCountHighBound: number;
+
+  Role: Roles;
+
+  SuperiorId: number;
+}
 
 @Component({
   selector: 'sg-employee-grid',
@@ -82,13 +91,33 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
           </table>
           <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
               <div class="sg-search-drawer-ruleset">
-                  <mat-checkbox>По количеству ПО</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="filterApplies.ByUsingComputersCount">По количеству работников
+                      </mat-checkbox>
+                      <mat-form-field>
+                          <input [disabled]="!filterApplies.ByUsingComputersCount" matInput
+                                 placeholder="Нижняя граница">
+                      </mat-form-field>
+                      <mat-form-field>
+                          <input [disabled]="!filterApplies.ByUsingComputersCount" matInput
+                                 placeholder="Верхняя граница">
+                      </mat-form-field>
+              </div>
+
+              <div class="sg-search-drawer-ruleset">
+                  <mat-checkbox [(ngModel)]="filterApplies.ByRole">По должности</mat-checkbox>
                   <mat-form-field>
-                      <input matInput placeholder="Нижняя граница">
+                      <mat-select [disabled]="!filterApplies.ByRole" [(ngModel)]="filter.Role" placeholder="Категория">
+                          <mat-option *ngFor="let elem of roles" [value]="elem">
+                              {{elem | role}}
+                          </mat-option>
+                      </mat-select>
                   </mat-form-field>
-                  <mat-form-field>
-                      <input matInput placeholder="Верхняя граница">
-                  </mat-form-field>
+              </div>
+              
+              <div class="sg-search-drawer-ruleset">
+                  <mat-checkbox [(ngModel)]="filterApplies.BySuperior">По руководителю</mat-checkbox>
+                  <sg-employee-search hint="Директор филиала" [(ngModel)]="filter.SuperiorId"
+                                      [disabled]="!filterApplies.BySuperior"></sg-employee-search>
               </div>
           </div>
       </div>
@@ -120,11 +149,43 @@ import {EmployeeCardComponent} from "../cards/employee-card.component";
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeService> {
+  roles = [
+    {value: Roles.Director},
+    {value: Roles.BranchDirector},
+    {value: Roles.LeadAdmin},
+    {value: Roles.BranchAdmin},
+    {value: Roles.Responsible},
+    {value: Roles.StoreKeeper},
+  ];
 
+  filterApplies = {
+    ByUsingComputersCount: false,
+    BySuperior: false,
+    ByRole: false
+  };
+
+  filter: EmployeeFilter = new EmployeeFilter();
 
   constructor(licenses: EmployeeService, private dialogref: MatDialog) {
     super(licenses, dialogref, ['select', 'id',
       'name', 'surname', 'patronymic', 'role', 'info'], EmployeeCardComponent)
   }
 
+  constructFilter(): object {
+    const filter = new EmployeeFilter();
+    if (this.filterApplies.ByUsingComputersCount) {
+      filter.UsingComputersCountLowBound = this.filter.UsingComputersCountLowBound;
+      filter.UsingComputersCountHighBound = this.filter.UsingComputersCountHighBound;
+    }
+
+    if (this.filterApplies.BySuperior) {
+      filter.SuperiorId = this.filter.SuperiorId;
+    }
+
+    if (this.filterApplies.ByRole) {
+      filter.Role = this.filter.Role;
+    }
+
+    return filter;
+  }
 }

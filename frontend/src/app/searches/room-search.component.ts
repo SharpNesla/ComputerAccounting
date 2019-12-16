@@ -7,6 +7,7 @@ import {BehaviorSubject, interval, Observable} from "rxjs";
 import {debounce, filter, map, mergeMap, throttle} from "rxjs/operators";
 import {newLineWithIndentation} from "tslint/lib/utils";
 import {Employee} from "../entities/employee";
+import {SoftwareType} from "../entities/software-type";
 
 @Component({
   selector: 'sg-room-search',
@@ -37,7 +38,15 @@ import {Employee} from "../entities/employee";
   styleUrls: ['./search-styles.scss']
 })
 export class RoomSearchComponent extends SingleSearchBase<Room> {
+
+  @Input() subsidiaryCriteria: SoftwareType;
+
   constructor(service: RoomService) {
     super(service)
+  }
+
+  public dataSource(searchString, filterDefinition: object): Observable<Room[]> {
+
+    return super.dataSource(searchString, filterDefinition);
   }
 }
