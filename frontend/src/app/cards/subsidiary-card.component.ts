@@ -46,4 +46,5 @@ export class SubsidiaryCardComponent extends CardBase<Subsidiary, SubsidiaryServ
   }
 
 
+
 }

@@ -21,8 +21,9 @@ class PartTypeFilter {
   template: `
 
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.entities"
-                 [class.sg-table-compact]="isCompact" class="sg-table">
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
+                 [class.sg-table-compact]="isCompact"
+                 (matSortChange)="changeSort($event.direction, $event.active)" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -39,30 +40,30 @@ class PartTypeFilter {
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Модель</th>
+              <ng-container matColumnDef="model">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Модель</th>
                   <td mat-cell *matCellDef="let element"> {{element.Model}} </td>
               </ng-container>
 
               <ng-container matColumnDef="cost">
-                  <th mat-header-cell *matHeaderCellDef>Стоимость</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Стоимость</th>
                   <td mat-cell *matCellDef="let element"> {{element.Cost}}₽
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="parts_count">
-                  <th mat-header-cell *matHeaderCellDef>Комплектущих</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Комплектущих</th>
                   <td mat-cell *matCellDef="let element"> {{element.PartsCount}}шт
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="category">
-                  <th mat-header-cell *matHeaderCellDef>Категория</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Категория</th>
                   <td mat-cell *matCellDef="let element"> {{element.Category | partCategory}}
                   </td>
               </ng-container>
@@ -112,14 +113,14 @@ class PartTypeFilter {
           </div>
       </div>
 
-      <sg-crud router-link="/part-types/add"
-               icon="memory"
-               [count]="this.count"
-               (Paginate)="this.paginate($event.offset, $event.limit)"
-               entity-name="типов комплектующих"
-               (search)="searchString = $event"
-               (toggleFilters)="filterState = $event"
-               [isCompact]="this.isCompact"></sg-crud>`
+      <sg-grid-bottom-bar router-link="/part-types/add"
+                          icon="memory"
+                          [count]="this.count"
+                          (Paginate)="this.paginate($event.offset, $event.limit)"
+                          entity-name="типов комплектующих"
+                          (search)="searchString = $event"
+                          (toggleFilters)="filterState = $event"
+                          [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
 export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeService> {
 
@@ -133,7 +134,7 @@ export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeServ
 
   constructor(service: PartTypeService, dialog: MatDialog) {
     super(service, dialog,
-      ['select', 'id', 'name', 'cost', 'parts_count', 'category', 'info'],
+      ['select', 'id', 'model', 'cost', 'parts_count', 'category', 'info'],
       PartTypeCardComponent);
   }
 

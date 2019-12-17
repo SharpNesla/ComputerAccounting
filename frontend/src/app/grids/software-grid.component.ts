@@ -15,7 +15,8 @@ export class SoftwareFilter {
   selector: 'sg-software-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.entities" class="sg-table">
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
+                 (matSortChange)="changeSort($event.direction, $event.active)" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -32,24 +33,24 @@ export class SoftwareFilter {
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Модель</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Модель</th>
                   <td mat-cell *matCellDef="let element"> {{element.Model}} </td>
               </ng-container>
 
               <ng-container matColumnDef="cost">
-                  <th mat-header-cell *matHeaderCellDef>Стоимость</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Стоимость</th>
                   <td mat-cell *matCellDef="let element"> {{element.Cost}} ₽
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="parts_count">
-                  <th mat-header-cell *matHeaderCellDef>Комплектущих</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Комплектущих</th>
                   <td mat-cell *matCellDef="let element"> {{element.PartsCount}} </td>
               </ng-container>
 
@@ -85,13 +86,13 @@ export class SoftwareFilter {
           </div>
       </div>
 
-      <sg-crud router-link="/software/add"
-               icon="developer_board"
-               [count]="this.count"
-               (Paginate)="this.paginate($event.offset, $event.limit)"
-               entity-name="ПО"
-               (toggleFilters)="filterState = $event"
-               [isCompact]="this.isCompact"></sg-crud>`,
+      <sg-grid-bottom-bar router-link="/software/add"
+                          icon="developer_board"
+                          [count]="this.count"
+                          (Paginate)="this.paginate($event.offset, $event.limit)"
+                          entity-name="ПО"
+                          (toggleFilters)="filterState = $event"
+                          [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
 export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareService> {
   filterApplies = {

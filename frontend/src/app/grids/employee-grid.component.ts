@@ -20,7 +20,7 @@ export class EmployeeFilter {
   selector: 'sg-employee-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table matSort matSortActive="№" [dataSource]="this.entities"
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
                  [class.sg-table-compact]="isCompact" (matSortChange)="changeSort($event.direction, $event.active)"
                  class="sg-table">
               <ng-container matColumnDef="select">
@@ -123,14 +123,14 @@ export class EmployeeFilter {
               </div>
           </div>
       </div>
-      <sg-crud router-link="/employees/add"
-               icon="account_circle"
-               [count]="this.count"
-               (Paginate)="this.paginate($event.offset, $event.limit)"
-               entity-name="работников"
-               (toggleFilters)="filterState = $event"
-               (search)="searchString = $event"
-               [isCompact]="this.isCompact"></sg-crud>`,
+      <sg-grid-bottom-bar router-link="/employees/add"
+                          icon="account_circle"
+                          [count]="this.count"
+                          (Paginate)="this.paginate($event.offset, $event.limit)"
+                          entity-name="работников"
+                          (toggleFilters)="filterState = $event"
+                          (search)="searchString = $event"
+                          [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
 export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeService> {
   roles = [

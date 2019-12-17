@@ -24,8 +24,9 @@ class SubsidiaryFilter {
   selector: 'sg-subsidiary-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.entities"
-                 [class.sg-table-compact]="isCompact" class="sg-table">
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
+                 [class.sg-table-compact]="isCompact" class="sg-table"
+                 (matSortChange)="changeSort($event.direction, $event.active)">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -42,32 +43,32 @@ class SubsidiaryFilter {
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Название</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Название</th>
                   <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
               </ng-container>
 
               <ng-container matColumnDef="address">
-                  <th mat-header-cell *matHeaderCellDef>Адрес</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Адрес</th>
                   <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
               </ng-container>
 
               <ng-container matColumnDef="rooms_count">
-                  <th mat-header-cell *matHeaderCellDef>Помещения</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Помещения</th>
                   <td mat-cell *matCellDef="let element"> {{element.RoomsCount}} </td>
               </ng-container>
 
               <ng-container matColumnDef="computers_count">
-                  <th mat-header-cell *matHeaderCellDef>Компьютеры</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Компьютеры</th>
                   <td mat-cell *matCellDef="let element"> {{element.ComputersCount}} </td>
               </ng-container>
 
               <ng-container matColumnDef="employees_count">
-                  <th mat-header-cell *matHeaderCellDef>Сотрудники</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Сотрудники</th>
                   <td mat-cell *matCellDef="let element"> {{element.EmployeesCount}} </td>
               </ng-container>
 
@@ -139,15 +140,15 @@ class SubsidiaryFilter {
           </div>
       </div>
 
-      <sg-crud router-link="/subsidiaries/add"
-               icon="storefront"
-               entity-name="филиалов"
-               [count]="this.count"
-               [isCompact]="this.isCompact"
-               (toggleFilters)="filterState = $event"
-               (search)="searchString = $event"
-               (Paginate)="this.paginate($event.offset, $event.limit)">
-      </sg-crud>`
+      <sg-grid-bottom-bar router-link="/subsidiaries/add"
+                          icon="storefront"
+                          entity-name="филиалов"
+                          [count]="this.count"
+                          [isCompact]="this.isCompact"
+                          (toggleFilters)="filterState = $event"
+                          (search)="searchString = $event"
+                          (Paginate)="this.paginate($event.offset, $event.limit)">
+      </sg-grid-bottom-bar>`
 })
 export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, SubsidiaryService> {
 

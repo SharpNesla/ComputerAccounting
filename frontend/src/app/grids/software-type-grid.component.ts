@@ -17,8 +17,9 @@ class SoftwareTypeFilter {
   template: `
 
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.entities"
-                 [class.sg-table-compact]="isCompact" class="sg-table">
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
+                 [class.sg-table-compact]="isCompact" class="sg-table"
+                 (matSortChange)="changeSort($event.direction, $event.active)">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -35,24 +36,24 @@ class SoftwareTypeFilter {
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="typename">
-                  <th mat-header-cell *matHeaderCellDef>Название</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Название</th>
                   <td mat-cell *matCellDef="let element"> {{element.Typename}} </td>
               </ng-container>
 
               <ng-container matColumnDef="category">
-                  <th mat-header-cell *matHeaderCellDef>Категория</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Категория</th>
                   <td mat-cell *matCellDef="let element"> {{element.Category | softwareCategory}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="software_count">
-                  <th mat-header-cell *matHeaderCellDef>ПО</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>ПО</th>
                   <td mat-cell *matCellDef="let element"> {{element.SoftwareCount}} </td>
               </ng-container>
 
@@ -106,14 +107,14 @@ class SoftwareTypeFilter {
           </div>
       </div>
 
-      <sg-crud router-link="/software-types/add"
-               icon="developer_board"
-               [count]="this.count"
-               (Paginate)="this.paginate($event.offset, $event.limit)"
-               entity-name="типов ПО"
-               (search)="searchString = $event"
-               (toggleFilters)="filterState = $event"
-               [isCompact]="this.isCompact"></sg-crud>`,
+      <sg-grid-bottom-bar router-link="/software-types/add"
+                          icon="developer_board"
+                          [count]="this.count"
+                          (Paginate)="this.paginate($event.offset, $event.limit)"
+                          entity-name="типов ПО"
+                          (search)="searchString = $event"
+                          (toggleFilters)="filterState = $event"
+                          [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
 export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, SoftwareTypeService> {
 

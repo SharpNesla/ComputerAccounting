@@ -1,16 +1,16 @@
-import {EntityBase} from "../entities/entity-base";
-import {EntityServiceBase} from "../services/entity-service-base";
-import {Input, OnInit, ViewChild} from "@angular/core";
-import {Observable} from "rxjs";
-import {Computer} from "../entities/computer";
-import {MatMenuTrigger} from "@angular/material/menu";
-import {MatDialog} from "@angular/material/dialog";
-import {DeleteDialogComponent} from "../delete-dialog.component";
-import {first, flatMap} from "rxjs/operators";
+import {EntityBase} from '../entities/entity-base';
+import {EntityServiceBase} from '../services/entity-service-base';
+import {Input, OnInit, ViewChild} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Computer} from '../entities/computer';
+import {MatMenuTrigger} from '@angular/material/menu';
+import {MatDialog} from '@angular/material/dialog';
+import {DeleteDialogComponent} from '../delete-dialog.component';
+import {first, flatMap} from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
-  TRepository extends EntityServiceBase<TEntity>> implements OnInit {
+  TService extends EntityServiceBase<TEntity>> implements OnInit {
 
   public entities: TEntity[];
   public count: number = 0;
@@ -25,26 +25,25 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   private _searchString: string;
 
   private sortActive: string;
-  private sortDirection: "asc" | "desc" | "";
+  private sortDirection: 'asc' | 'desc' | '' = '';
 
   private currentOffset: number;
   private currentLimit: number;
 
   set searchString(value: string) {
     this._searchString = value;
-    console.log(this._searchString);
     this.refresh();
   }
 
   public get DisplayedColumns(): string[] {
     if (this.isCompact) {
-      return this.displayedColumns.filter(x => x != "select");
+      return this.displayedColumns.filter(x => x != 'select');
     } else {
       return this.displayedColumns;
     }
   }
 
-  protected constructor(protected service: TRepository,
+  protected constructor(protected service: TService,
                         protected dialog: MatDialog,
                         private displayedColumns: string[],
                         protected card) {
@@ -57,7 +56,6 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
       this.constructFilter(), this.sortActive, this.sortDirection)
       .pipe(first())
       .subscribe(result => {
-        console.log(result);
         this.entities = result.entities;
         this.count = result.allCount;
         this.selection.clear();
@@ -103,9 +101,10 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     this.refresh();
   }
 
-  changeSort(direction: "asc" | "desc" | "", active: string) {
+  changeSort(direction: 'asc' | 'desc' | '', active: string) {
     this.sortActive = active;
     this.sortDirection = direction;
+    this.refresh();
   }
 
   isAllSelected() {

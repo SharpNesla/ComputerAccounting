@@ -13,6 +13,7 @@ class CrudControllerBase extends Controller
 {
     protected $facade;
     protected $fulltextBuilder;
+
     function __construct($f, $s = ['id'])
     {
         $this->facade = $f;
@@ -40,9 +41,29 @@ class CrudControllerBase extends Controller
         return $model;
     }
 
+    private function validateSortOrder($sortOrder)
+    {
+        return $sortOrder != null && ($sortOrder == 'asc' ||
+            $sortOrder == 'desc' ||
+            $sortOrder == "");
+    }
+
     public function get(Request $request)
     {
-        $query = $this->queryMany($request, $this->facade::orderBy('id'));
+        $sortOrder = $request->input('sort-order');
+        $sortDefinition = $request->input('sort-definition');
+
+        $sortQuery = null;
+        if ($sortDefinition != null &&
+            $this->validateSortOrder($sortOrder)) {
+
+            $sortQuery = $this->facade::orderBy($sortDefinition, $sortOrder);
+        } else {
+            $sortQuery = $this->facade::orderBy('id');
+        }
+
+        $query = $this->queryMany($request, $sortQuery);
+
 
         $filter = json_decode($request->filter, true);
 
@@ -56,10 +77,10 @@ class CrudControllerBase extends Controller
         }
 
         $queryResult = $query
-        ->skip($request->offset)
-        ->take($request->limit)->get();
+            ->skip($request->offset)
+            ->take($request->limit)->get();
 
-        if ($request->input('with-count')){
+        if ($request->input('with-count')) {
             return response()->json([
                 'entities' => $queryResult,
                 'all_count' => $this->getCount($request),
@@ -88,26 +109,28 @@ class CrudControllerBase extends Controller
         return $query->count();
     }
 
-    protected function validateEntity(array $array) : bool {
+    protected function validateEntity(array $array): bool
+    {
         return true;
     }
 
-    protected function validateFilters(array $filterA) : bool {
+    protected function validateFilters(array $filterA): bool
+    {
         return true;
     }
 
     public function update(Request $request)
     {
         $decodedAsArray = json_decode($request->getContent(), true);
-        if ($decodedAsArray == null){
+        if ($decodedAsArray == null) {
             return response("Corrupted request body", 400);
         }
-        if (!$this->validateEntity($decodedAsArray)){
+        if (!$this->validateEntity($decodedAsArray)) {
             return response("Invalid entity", 400);
         }
         $model = $this->facade::find($decodedAsArray['id']);
         $model->fill($decodedAsArray);
-        $model = $this->querySave($decodedAsArray ,$model);
+        $model = $this->querySave($decodedAsArray, $model);
         $model->save();
 
     }
@@ -115,10 +138,10 @@ class CrudControllerBase extends Controller
     public function add(Request $request)
     {
         $decodedAsArray = json_decode($request->getContent(), true);
-        if ($decodedAsArray == null){
+        if ($decodedAsArray == null) {
             return response("Corrupted request body", 400);
         }
-        if (!$this->validateEntity($decodedAsArray)){
+        if (!$this->validateEntity($decodedAsArray)) {
             return response("Invalid entity", 400);
         }
 

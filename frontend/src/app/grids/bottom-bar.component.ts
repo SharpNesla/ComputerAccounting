@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NavigationService} from "../../navigation.service";
+import {NavigationService} from "../navigation.service";
 import {element} from "protractor";
 
 @Component({
-  selector: 'sg-crud',
+  selector: 'sg-grid-bottom-bar',
   template: `
       <ng-template
               *ngIf="this.isCompact;then compactview; else fullview">
@@ -126,7 +126,7 @@ import {element} from "protractor";
     `
   ]
 })
-export class CrudComponent implements OnInit {
+export class BottomBarComponent implements OnInit {
   @Input('entity-name') EntityName: string;
   @Input() isCompact: boolean = false;
   @Input('router-link') link: string;

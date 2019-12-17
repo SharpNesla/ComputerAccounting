@@ -19,8 +19,9 @@ class RoomFilter {
   selector: 'sg-room-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.entities"
-                 [class.sg-table-compact]="isCompact" class="sg-table">
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
+                 [class.sg-table-compact]="isCompact"
+                 (matSortChange)="changeSort($event.direction, $event.active)" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -37,17 +38,17 @@ class RoomFilter {
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <ng-container matColumnDef="number">
-                  <th mat-header-cell *matHeaderCellDef>Номер</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Номер</th>
                   <td mat-cell *matCellDef="let element"> {{element.Number}} </td>
               </ng-container>
 
               <ng-container matColumnDef="computers_count">
-                  <th mat-header-cell *matHeaderCellDef>Компьютеры</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Компьютеры</th>
                   <td mat-cell *matCellDef="let element"> {{element.ComputersCount}} </td>
               </ng-container>
 
@@ -99,14 +100,14 @@ class RoomFilter {
 
       </div>
 
-      <sg-crud router-link="/rooms/add"
-               icon="storefront"
-               [count]="this.count"
-               (Paginate)="this.paginate($event.offset, $event.limit)"
-               entity-name="помещений"
-               (search)="searchString = $event"
-               (toggleFilters)="filterState = $event"
-               [isCompact]="this.isCompact"></sg-crud>`,
+      <sg-grid-bottom-bar router-link="/rooms/add"
+                          icon="storefront"
+                          [count]="this.count"
+                          (Paginate)="this.paginate($event.offset, $event.limit)"
+                          entity-name="помещений"
+                          (search)="searchString = $event"
+                          (toggleFilters)="filterState = $event"
+                          [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
 export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
   filterApplies = {

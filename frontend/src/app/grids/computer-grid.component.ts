@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ComputerService} from "../services/computer.service";
-import {Computer, ComputerType} from "../entities/computer";
-import {EntityGridBase} from "./entity-grid-base";
-import {MatDialog} from "@angular/material/dialog";
-import {ComputerCardComponent} from "../cards/computer-card.component";
+import {ComputerService} from '../services/computer.service';
+import {Computer, ComputerType} from '../entities/computer';
+import {EntityGridBase} from './entity-grid-base';
+import {MatDialog} from '@angular/material/dialog';
+import {ComputerCardComponent} from '../cards/computer-card.component';
 
 class ComputerFilter {
   UsersCountLowBound: number;
@@ -17,8 +17,10 @@ class ComputerFilter {
   template: `
 
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.entities"
-                 [class.sg-table-compact]="isCompact" class="sg-table">
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
+                 [class.sg-table-compact]="isCompact"
+                 (matSortChange)="changeSort($event.direction, $event.active)"
+                 class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -35,29 +37,29 @@ class ComputerFilter {
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Имя</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Имя</th>
                   <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
               </ng-container>
 
               <ng-container matColumnDef="inventory_id">
-                  <th mat-header-cell *matHeaderCellDef>Инвентарный номер</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Инвентарный номер</th>
                   <td mat-cell *matCellDef="let element"> {{element.InventoryId}} </td>
               </ng-container>
 
               <ng-container matColumnDef="type">
-                  <th mat-header-cell *matHeaderCellDef>Тип</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Тип</th>
                   <td mat-cell *matCellDef="let element"> {{element.Type | computerType}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="users_count">
-                  <th mat-header-cell *matHeaderCellDef>Пользователей</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Пользователей</th>
                   <td mat-cell *matCellDef="let element"> {{element.UsersCount}}
                   </td>
               </ng-container>
@@ -112,13 +114,13 @@ class ComputerFilter {
           </div>
       </div>
 
-      <sg-crud router-link="/computers/add"
-               icon="desktop_mac"
-               [count]="this.count"
-               (search)="searchString = $event"
-               (toggleFilters)="filterState = $event"
-               (Paginate)="this.paginate($event.offset, $event.limit)"
-               entity-name="компьютеров"></sg-crud>`,
+      <sg-grid-bottom-bar router-link="/computers/add"
+                          icon="desktop_mac"
+                          [count]="this.count"
+                          (search)="searchString = $event"
+                          (toggleFilters)="filterState = $event"
+                          (Paginate)="this.paginate($event.offset, $event.limit)"
+                          entity-name="компьютеров"></sg-grid-bottom-bar>`,
   styles: [`:host {
       flex-grow: 1;
       overflow: hidden;

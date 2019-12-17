@@ -70,9 +70,8 @@ export class PackEditorBase<TEntity extends EntityBase,
   public applyChanges() {
     if (this.isPackAdd && this.isNew) {
       this.repo.addRange(this.entity, this.packCount).pipe(first()).subscribe(
-        response => console.log(response),
+        response => this.router.navigateByUrl(this.endLink),
         error => {
-          console.log(error);
           this.dialog.open(BadRequestDialogComponent, {
             width: '300px',
             data: true

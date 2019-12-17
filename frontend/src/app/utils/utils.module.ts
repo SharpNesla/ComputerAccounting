@@ -7,7 +7,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
 import {DrawerAppbarBaseComponent} from './layouts/drawer-appbar-base.component';
-import {CrudComponent} from './grids/crud.component';
+import {BottomBarComponent} from '../grids/bottom-bar.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -25,14 +25,13 @@ import {NullDefaultValueDirective} from "./null-default-value.directive";
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
-    DrawerAppbarBaseComponent, CrudComponent, DialogLayoutComponent,
+    DrawerAppbarBaseComponent,  DialogLayoutComponent,
     NullDefaultValueDirective,
     RolePipe, PartCategoryPipe, ComputerTypePipe, SoftwareCategoryPipe,
     GenderPipe, PartStatePipe],
   exports: [
     AppbarBaseComponent,
     DrawerButtonComponent,
-    CrudComponent,
     DrawerAppbarBaseComponent,
     DialogLayoutComponent,
     RolePipe,

@@ -15,8 +15,9 @@ import {PartCardComponent} from "../cards/part-card.component";
   template: `
 
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.entities"
-                 [class.sg-table-compact]="isCompact" class="sg-table">
+          <table mat-table matSort matSortActive="id" [dataSource]="this.entities"
+                 [class.sg-table-compact]="isCompact"
+                 (matSortChange)="changeSort($event.direction, $event.active)" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -33,19 +34,8 @@ import {PartCardComponent} from "../cards/part-card.component";
               </ng-container>
 
               <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
-              </ng-container>
-
-              <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Имя</th>
-                  <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="inventory_id">
-                  <th mat-header-cell *matHeaderCellDef>Инвентарный номер</th>
-                  <td mat-cell *matCellDef="let element"> {{element.InventoryId}}</td>
               </ng-container>
 
               <ng-container matColumnDef="info" stickyEnd>
@@ -84,18 +74,18 @@ import {PartCardComponent} from "../cards/part-card.component";
           </div>
       </div>
 
-      <sg-crud router-link="/parts/add"
-               icon="memory"
-               [count]="this.count"
-               (Paginate)="this.paginate($event.offset, $event.limit)"
-               entity-name="комплектующих"
-               (search)="searchString = $event"
-               (toggleFilters)="filterState = $event"
-               [isCompact]="this.isCompact"></sg-crud>`
+      <sg-grid-bottom-bar router-link="/parts/add"
+                          icon="memory"
+                          [count]="this.count"
+                          (Paginate)="this.paginate($event.offset, $event.limit)"
+                          entity-name="комплектующих"
+                          (search)="searchString = $event"
+                          (toggleFilters)="filterState = $event"
+                          [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
 export class PartGridComponent extends EntityGridBase<Part, PartService> {
   constructor(service: PartService, dialog: MatDialog) {
-    super(service, dialog, ['select', 'id', 'name', 'inventory_id', 'info'],
+    super(service, dialog, ['select', 'id', 'info'],
       PartCardComponent);
   }
 }
