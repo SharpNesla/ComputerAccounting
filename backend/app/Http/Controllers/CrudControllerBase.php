@@ -52,7 +52,7 @@ class CrudControllerBase extends Controller
 
         if ($request->input('search-string') != null &&
             $request->input('search-string') != '') {
-            $query = $query->where($this->fulltextBuilder->search($request->search));
+            $query = $query->where($this->fulltextBuilder->search($request->input('search-string')));
         }
 
         $queryResult = $query
@@ -82,7 +82,7 @@ class CrudControllerBase extends Controller
         if ($request->input('search-string') != null &&
             $request->input('search-string') != '') {
 
-            $query = $query->where($this->fulltextBuilder->search($request->search));
+            $query = $query->where($this->fulltextBuilder->search($request->input('search-string')));
         }
 
         return $query->count();

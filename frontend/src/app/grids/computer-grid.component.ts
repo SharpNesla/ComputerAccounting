@@ -21,45 +21,44 @@ class ComputerFilter {
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
                       </mat-checkbox>
                   </th>
-                  <td mat-cell *matCellDef="let row" class="sg-table-checkbox">
-                      <mat-checkbox>
+                  <td mat-cell class="sg-table-checkbox" *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)">
                       </mat-checkbox>
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef>№</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Id}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef>Имя</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Name}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
               </ng-container>
 
               <ng-container matColumnDef="inventory_id">
                   <th mat-header-cell *matHeaderCellDef>Инвентарный номер</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.InventoryId}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.InventoryId}} </td>
               </ng-container>
 
               <ng-container matColumnDef="type">
                   <th mat-header-cell *matHeaderCellDef>Тип</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Type | computerType}}
+                  <td mat-cell *matCellDef="let element"> {{element.Type | computerType}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="users_count">
                   <th mat-header-cell *matHeaderCellDef>Пользователей</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.UsersCount}}
+                  <td mat-cell *matCellDef="let element"> {{element.UsersCount}}
                   </td>
               </ng-container>
 
@@ -116,7 +115,7 @@ class ComputerFilter {
       <sg-crud router-link="/computers/add"
                icon="desktop_mac"
                [count]="this.count"
-               (Search)="SearchString = $event"
+               (search)="searchString = $event"
                (toggleFilters)="filterState = $event"
                (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="компьютеров"></sg-crud>`,

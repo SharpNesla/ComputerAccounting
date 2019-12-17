@@ -7,6 +7,7 @@ import {MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog.component";
 import {first, flatMap} from "rxjs/operators";
+import {SelectionModel} from '@angular/cdk/collections';
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
   TRepository extends EntityServiceBase<TEntity>> implements OnInit {
@@ -19,7 +20,9 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   @Input() public IsSearchDrawerOpened: boolean;
   @Input() public isCompact: boolean;
 
-  private _SearchString: string;
+  selection = new SelectionModel<TEntity>(true, []);
+
+  private _searchString: string;
 
   private sortActive: string;
   private sortDirection: "asc" | "desc" | "";
@@ -27,8 +30,9 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   private currentOffset: number;
   private currentLimit: number;
 
-  set SearchString(value: string) {
-    this._SearchString = value;
+  set searchString(value: string) {
+    this._searchString = value;
+    console.log(this._searchString);
     this.refresh();
   }
 
@@ -48,7 +52,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   public refresh() {
     this.service.getWithAllCount(
-      this.SearchString ? this.SearchString : null,
+      this._searchString ? this._searchString : null,
       this.currentOffset, this.currentLimit,
       this.constructFilter(), this.sortActive, this.sortDirection)
       .pipe(first())
@@ -56,6 +60,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
         console.log(result);
         this.entities = result.entities;
         this.count = result.allCount;
+        this.selection.clear();
       });
   }
 
@@ -66,7 +71,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     });
   }
 
-  async remove(item: TEntity) {
+  remove(item: TEntity) {
     const dialog = this.dialog.open(DeleteDialogComponent, {
       width: '300px',
       data: true
@@ -101,5 +106,17 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   changeSort(direction: "asc" | "desc" | "", active: string) {
     this.sortActive = active;
     this.sortDirection = direction;
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.entities.length;
+    return numSelected == numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.entities.forEach(row => this.selection.select(row));
   }
 }

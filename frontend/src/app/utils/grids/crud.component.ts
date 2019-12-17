@@ -12,12 +12,12 @@ import {element} from "protractor";
           <mat-toolbar id="search-toolbar" color="primary" class="mat-elevation-z4">
               <mat-icon>{{this.icon}}</mat-icon>
               <mat-card id="search-input">
-                  <button mat-icon-button (click)="this.Search.emit(this.SearchString)">
+                  <button mat-icon-button (click)="this.search.emit(this.SearchString)">
                       <mat-icon>search</mat-icon>
                   </button>
                   <mat-form-field id="searchbar" class="searchbar-input" appearance="standard">
                       <input [(ngModel)]="SearchString" matInput placeholder="Поиск {{EntityName}}"
-                        (keydown.enter)="this.Search.emit(this.SearchString)">
+                             (keydown.enter)="this.search.emit(this.SearchString)">
                   </mat-form-field>
               </mat-card>
               <mat-card id="paginator">
@@ -138,7 +138,7 @@ export class CrudComponent implements OnInit {
 
   count: number;
   @Input() icon: string;
-  @Output() Search: EventEmitter<string> = new EventEmitter<string>();
+  @Output() search: EventEmitter<string> = new EventEmitter<string>();
   @Output() Paginate: EventEmitter<{ offset: number, limit: number }>
     = new EventEmitter<{ offset: number, limit: number }>();
   @Output() toggleFilters : EventEmitter<boolean> = new EventEmitter<boolean>();

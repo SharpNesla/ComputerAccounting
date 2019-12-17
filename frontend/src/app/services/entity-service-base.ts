@@ -87,8 +87,9 @@ export abstract class EntityServiceBase<T extends EntityBase> {
       .set("sort-order", sortOrder)
       .set("filter", JSON.stringify(keysToSnake(filterDefinition)))
       .set("with-count", 'true');
+
     if (searchString) {
-      params = params.set('search', searchString);
+      params = params.set('search-string', searchString);
     }
 
     return this.client.get<{ entities: T[], count: number }>(`api/${this.entityPrefix}/get`, {params})
@@ -110,7 +111,7 @@ export abstract class EntityServiceBase<T extends EntityBase> {
       .set("filter", JSON.stringify(keysToSnake(filterDefinition)));
 
     if (searchString) {
-      params = params.set('search', searchString);
+      params = params.set('search-string', searchString);
     }
 
     return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})

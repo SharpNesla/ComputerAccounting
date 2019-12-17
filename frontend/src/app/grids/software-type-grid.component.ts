@@ -21,39 +21,39 @@ class SoftwareTypeFilter {
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
                       </mat-checkbox>
                   </th>
-                  <td mat-cell *matCellDef="let row" class="sg-table-checkbox">
-                      <mat-checkbox>
+                  <td mat-cell class="sg-table-checkbox" *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)">
                       </mat-checkbox>
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef>№</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Id}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="typename">
                   <th mat-header-cell *matHeaderCellDef>Название</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Typename}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Typename}} </td>
               </ng-container>
 
               <ng-container matColumnDef="category">
                   <th mat-header-cell *matHeaderCellDef>Категория</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Category | softwareCategory}}
+                  <td mat-cell *matCellDef="let element"> {{element.Category | softwareCategory}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="software_count">
                   <th mat-header-cell *matHeaderCellDef>ПО</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.SoftwareCount}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.SoftwareCount}} </td>
               </ng-container>
 
               <ng-container matColumnDef="info" stickyEnd>
@@ -111,7 +111,7 @@ class SoftwareTypeFilter {
                [count]="this.count"
                (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="типов ПО"
-               (Search)="SearchString = $event"
+               (search)="searchString = $event"
                (toggleFilters)="filterState = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })

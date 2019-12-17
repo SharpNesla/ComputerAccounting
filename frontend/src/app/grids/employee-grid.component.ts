@@ -25,46 +25,45 @@ export class EmployeeFilter {
                  class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
                       </mat-checkbox>
                   </th>
-                  <td mat-cell *matCellDef="let row" class="sg-table-checkbox">
-                      <mat-checkbox>
+                  <td mat-cell class="sg-table-checkbox" *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)">
                       </mat-checkbox>
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="id">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Id}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="name">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Имя</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Name}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
               </ng-container>
 
               <ng-container matColumnDef="surname">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Фамилия</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Surname}}
+                  <td mat-cell *matCellDef="let element"> {{element.Surname}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="patronymic">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Отчество</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Patronymic}}
+                  <td mat-cell *matCellDef="let element"> {{element.Patronymic}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="role">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Должность</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Role | role}}
+                  <td mat-cell *matCellDef="let element"> {{element.Role | role}}
                   </td>
               </ng-container>
 
@@ -130,7 +129,7 @@ export class EmployeeFilter {
                (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="работников"
                (toggleFilters)="filterState = $event"
-               (Search)="SearchString = $event"
+               (search)="searchString = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
 export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeService> {

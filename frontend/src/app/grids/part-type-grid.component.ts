@@ -25,46 +25,45 @@ class PartTypeFilter {
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
                       </mat-checkbox>
                   </th>
-                  <td mat-cell *matCellDef="let row" class="sg-table-checkbox">
-                      <mat-checkbox>
+                  <td mat-cell class="sg-table-checkbox" *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)">
                       </mat-checkbox>
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef>№</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Id}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef>Модель</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Model}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Model}} </td>
               </ng-container>
 
               <ng-container matColumnDef="cost">
                   <th mat-header-cell *matHeaderCellDef>Стоимость</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Cost}}₽
+                  <td mat-cell *matCellDef="let element"> {{element.Cost}}₽
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="parts_count">
                   <th mat-header-cell *matHeaderCellDef>Комплектущих</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.PartsCount}}шт
+                  <td mat-cell *matCellDef="let element"> {{element.PartsCount}}шт
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="category">
                   <th mat-header-cell *matHeaderCellDef>Категория</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Category | partCategory}}
+                  <td mat-cell *matCellDef="let element"> {{element.Category | partCategory}}
                   </td>
               </ng-container>
 
@@ -118,7 +117,7 @@ class PartTypeFilter {
                [count]="this.count"
                (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="типов комплектующих"
-               (Search)="SearchString = $event"
+               (search)="searchString = $event"
                (toggleFilters)="filterState = $event"
                [isCompact]="this.isCompact"></sg-crud>`
 })

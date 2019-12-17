@@ -23,31 +23,32 @@ class RoomFilter {
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
                       </mat-checkbox>
                   </th>
-                  <td mat-cell *matCellDef="let row" class="sg-table-checkbox">
-                      <mat-checkbox>
+                  <td mat-cell class="sg-table-checkbox" *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)">
                       </mat-checkbox>
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef>№</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Id}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
               <ng-container matColumnDef="number">
                   <th mat-header-cell *matHeaderCellDef>Номер</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.Number}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.Number}} </td>
               </ng-container>
 
               <ng-container matColumnDef="computers_count">
                   <th mat-header-cell *matHeaderCellDef>Компьютеры</th>
-                  <td mat-cell *matCellDef="let element"
-                      (contextmenu)="onContextMenu($event, element)"> {{element.ComputersCount}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.ComputersCount}} </td>
               </ng-container>
 
               <ng-container matColumnDef="info" stickyEnd>
@@ -103,7 +104,7 @@ class RoomFilter {
                [count]="this.count"
                (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="помещений"
-               (Search)="SearchString = $event"
+               (search)="searchString = $event"
                (toggleFilters)="filterState = $event"
                [isCompact]="this.isCompact"></sg-crud>`,
 })
