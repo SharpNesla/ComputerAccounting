@@ -10,24 +10,24 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-part-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/part-types">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              типа комплектующего {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              типа комплектующего {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
                       <input matInput placeholder="Марка и модель"
-                             [(ngModel)]="this.Entity.Model">
+                             [(ngModel)]="this.entity.Model">
                   </mat-form-field>
                   <mat-form-field>
                       <input type="number" step=0.01 min="0.01" matInput required
-                             [(ngModel)]="Entity.Cost" placeholder="Цена">
+                             [(ngModel)]="entity.Cost" placeholder="Цена">
                   </mat-form-field>
                   <mat-form-field>
-                      <mat-select [(ngModel)]="Entity.Category" placeholder="Категория" required>
+                      <mat-select [(ngModel)]="entity.Category" placeholder="Категория" required>
                           <mat-option *ngFor="let elem of partCategories" [value]="elem">
                               {{elem | partCategory}}
                           </mat-option>
@@ -39,12 +39,12 @@ import {MatDialog} from "@angular/material/dialog";
                   <mat-form-field appearance="outline">
                       <mat-label>Характеристики</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Характеристики"
-                                [(ngModel)]="this.Entity.Characteristics"></textarea>
+                                [(ngModel)]="this.entity.Characteristics"></textarea>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
-                                [(ngModel)]="this.Entity.Comment"></textarea>
+                                [(ngModel)]="this.entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>

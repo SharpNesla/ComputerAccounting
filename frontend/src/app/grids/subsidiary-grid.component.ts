@@ -24,7 +24,7 @@ class SubsidiaryFilter {
   selector: 'sg-subsidiary-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.Entities"
+          <table mat-table [dataSource]="this.entities"
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
@@ -113,7 +113,7 @@ class SubsidiaryFilter {
                   <mat-checkbox [(ngModel)]="filterApplies.ByComputerCount">По количеству компьютеров</mat-checkbox>
                   <mat-form-field>
                       <input [(ngModel)]="filter.ComputersCountLowBound"
-                      [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Нижняя граница">
+                             [disabled]="!filterApplies.ByComputerCount" matInput placeholder="Нижняя граница">
                   </mat-form-field>
                   <mat-form-field>
                       <input [(ngModel)]="filter.ComputersCountLowBound"
@@ -140,32 +140,16 @@ class SubsidiaryFilter {
               </div>
           </div>
       </div>
-      <div style="visibility: hidden; position: fixed"
-           [style.left]="contextMenuPosition.x"
-           [style.top]="contextMenuPosition.y"
-           [matMenuTriggerFor]="contextMenu">
-      </div>
-      <mat-menu #contextMenu="matMenu">
-          <ng-template matMenuContent let-item="item">
-              <button mat-menu-item [routerLink]="'/subsidiaries/edit/' + item.Id">
-                  <mat-icon>edit</mat-icon>
-                  Изменить
-              </button>
-              <button mat-menu-item (click)="remove(item)">
 
-                  <mat-icon>remove_circle_outline</mat-icon>
-                  Удалить
-              </button>
-          </ng-template>
-      </mat-menu>
       <sg-crud router-link="/subsidiaries/add"
                icon="storefront"
-               [count]="this.Count"
-               (Paginate)="this.refresh($event.offset, $event.limit)"
                entity-name="филиалов"
+               [count]="this.count"
+               [isCompact]="this.isCompact"
                (toggleFilters)="filterState = $event"
                (Search)="SearchString = $event"
-               [isCompact]="this.isCompact"></sg-crud>`
+               (Paginate)="this.paginate($event.offset, $event.limit)">
+      </sg-crud>`
 })
 export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, SubsidiaryService> {
 

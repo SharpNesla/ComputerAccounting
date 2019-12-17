@@ -17,11 +17,10 @@ class CreateLicensesTable extends Migration
             $table->bigIncrements('id');
 
             $table->decimal('cost')->nullable();
-            $table->timestamp('expiration_date')->nullable();
             $table->text('eula')->nullable();
-            $table->boolean('is_ends_on_date')->nullable();
             $table->integer('max_apply_count')->nullable();
             $table->time('purchase_date')->nullable();
+            $table->time('expiration_date')->nullable();
 
             $table->bigInteger('software_type_id')->unsigned()->nullable();
             $table->foreign('software_type_id')

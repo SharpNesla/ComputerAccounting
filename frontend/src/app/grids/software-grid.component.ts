@@ -15,7 +15,7 @@ export class SoftwareFilter {
   selector: 'sg-software-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.Entities" class="sg-table">
+          <table mat-table [dataSource]="this.entities" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                       <mat-checkbox>
@@ -85,29 +85,10 @@ export class SoftwareFilter {
           </div>
       </div>
 
-      <div style="visibility: hidden; position: fixed"
-           [style.left]="contextMenuPosition.x"
-           [style.top]="contextMenuPosition.y"
-           [matMenuTriggerFor]="contextMenu">
-      </div>
-
-      <mat-menu #contextMenu="matMenu">
-          <ng-template matMenuContent let-item="item">
-              <button mat-menu-item [routerLink]="'/software/edit/' + item.Id">
-
-                  <mat-icon>edit</mat-icon>
-                  Изменить
-              </button>
-              <button mat-menu-item (click)="remove(item)">
-                  <mat-icon>remove_circle_outline</mat-icon>
-                  Удалить
-              </button>
-          </ng-template>
-      </mat-menu>
       <sg-crud router-link="/software/add"
                icon="developer_board"
-               [count]="this.Count"
-               (Paginate)="this.refresh($event.offset, $event.limit)"
+               [count]="this.count"
+               (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="ПО"
                (toggleFilters)="filterState = $event"
                [isCompact]="this.isCompact"></sg-crud>`,

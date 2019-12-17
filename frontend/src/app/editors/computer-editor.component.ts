@@ -10,11 +10,11 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-computer-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/computers">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              компьютера {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              компьютера {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
               <mat-tab label="Основная информация">
                   <div id="sg-editor-card-container">
@@ -22,22 +22,22 @@ import {MatDialog} from "@angular/material/dialog";
                           <h2 class="mat-title">Общая информация</h2>
                           <mat-form-field>
                               <input matInput placeholder="Имя компьютера"
-                                     [(ngModel)]="this.Entity.Name">
+                                     [(ngModel)]="this.entity.Name">
                           </mat-form-field>
                           <mat-form-field>
                               <input matInput placeholder="Инвентарный номер"
-                                     [(ngModel)]="this.Entity.InventoryId">
+                                     [(ngModel)]="this.entity.InventoryId">
                           </mat-form-field>
-                          <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
+                          <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
                                                 hint="Филиал помещения"></sg-subsidiary-search>
-                          <sg-room-search [disabled]="!Entity.Subsidiary"
-                                          [(ngModel)]="Entity.Room" hint="Помещение" required></sg-room-search>
-                          <sg-employee-search [disabled]="!Entity.Subsidiary"
-                                              [(ngModel)]="Entity.Responsible" hint="Ответственное лицо">
+                          <sg-room-search [disabled]="!entity.Subsidiary"
+                                          [(ngModel)]="entity.Room" hint="Помещение" required></sg-room-search>
+                          <sg-employee-search [disabled]="!entity.Subsidiary"
+                                              [(ngModel)]="entity.Responsible" hint="Ответственное лицо">
                           </sg-employee-search>
 
                           <mat-form-field>
-                              <mat-select [(ngModel)]="Entity.Type" placeholder="Категория">
+                              <mat-select [(ngModel)]="entity.Type" placeholder="Категория">
                                   <mat-option *ngFor="let elem of types" [value]="elem">
                                       {{elem | computerType}}
                                   </mat-option>
@@ -50,14 +50,14 @@ import {MatDialog} from "@angular/material/dialog";
                               <mat-label>Комментарий</mat-label>
                               <textarea matInput cdkTextareaAutosize="false"
                                         placeholder="Комментарий"
-                                        [(ngModel)]="this.Entity.Comment"></textarea>
+                                        [(ngModel)]="this.entity.Comment"></textarea>
                           </mat-form-field>
                       </mat-card>
                   </div>
               </mat-tab>
               <mat-tab label="Пользователи">
                   <mat-card id="sg-editor-card-container" class="sg-many-many-card">
-                      <table mat-table [dataSource]="this.Entity.Users"
+                      <table mat-table [dataSource]="this.entity.Users"
                              [class.sg-table-compact]="true" class="sg-table">
                           <ng-container matColumnDef="remove_button">
                               <th mat-header-cell *matHeaderCellDef></th>
@@ -153,22 +153,22 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
       });
       return;
     }
-    if (this.Entity.Users.find(x => x.Id == this.addingUser.Id)) {
+    if (this.entity.Users.find(x => x.Id == this.addingUser.Id)) {
       this.snackBar.open("Работник уже является пользователем", '', {
         duration: 2000,
       });
       return;
     } else {
-      this.Entity.Users.push(this.addingUser);
+      this.entity.Users.push(this.addingUser);
       //Cause change detection to update table datasource
-      this.Entity.Users = [...this.Entity.Users].sort(x => x.Id);
+      this.entity.Users = [...this.entity.Users].sort(x => x.Id);
     }
   }
 
   removeUser(user: Employee) {
-    const index = this.Entity.Users.findIndex(x => x.Id == user.Id);
-    this.Entity.Users.splice(index, 1);
-    this.Entity.Users = [...this.Entity.Users];
+    const index = this.entity.Users.findIndex(x => x.Id == user.Id);
+    this.entity.Users.splice(index, 1);
+    this.entity.Users = [...this.entity.Users];
   }
 
   showInfoCard(element: any) {

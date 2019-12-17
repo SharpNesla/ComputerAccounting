@@ -4,44 +4,50 @@ import {OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {BadRequestDialogComponent} from "../bad-request-dialog.component";
+import {Observable} from "rxjs";
+import {first, flatMap, mergeMap} from "rxjs/operators";
 
 export class EditorBase<TEntity extends EntityBase,
   TRepository extends EntityServiceBase<TEntity>> implements OnInit {
-  public Entity: TEntity;
+  public entity: TEntity;
   public isNew: boolean;
-  protected Repo: TRepository;
 
-  constructor(repository: TRepository, protected route: ActivatedRoute, protected dialog: MatDialog,
+  constructor(protected repo: TRepository, protected route: ActivatedRoute, protected dialog: MatDialog,
               addEntity: TEntity, protected router: Router, public readonly endLink = "") {
-    this.Repo = repository;
-    this.Entity = addEntity;
+    this.entity = addEntity;
   }
 
   public applyChanges() {
     let observable;
     if (this.isNew) {
-      observable = this.Repo.add(this.Entity)
+      observable = this.repo.add(this.entity)
     } else {
-      observable = this.Repo.update(this.Entity)
+      observable = this.repo.update(this.entity)
     }
-    observable.subscribe(
-      response => this.router.navigateByUrl(this.endLink),
-      error => this.dialog.open(BadRequestDialogComponent, {width: '300px'})
-    );
+    observable
+      .pipe(first())
+      .subscribe(
+        next => this.router.navigateByUrl(this.endLink),
+        error => this.dialog.open(BadRequestDialogComponent, {width: '300px'})
+      );
   }
 
   public discardChanges() {
+    this.router.navigateByUrl(this.endLink);
   }
 
   ngOnInit() {
     if (this.route.snapshot.url[1].path == 'add') {
       this.isNew = true;
     } else {
-      this.route.params.subscribe(params => {
-        this.Repo.getById(+params['id']).subscribe(x => this.Entity = x, err => {
-          this.dialog.open(BadRequestDialogComponent)
-        })
-      });
+      this.route.params
+        .pipe(
+          mergeMap(x => this.repo.getById(x['id'])),
+          first()
+        ).subscribe(
+        x => this.entity = x,
+        err => this.dialog.open(BadRequestDialogComponent)
+      );
     }
   }
 }
@@ -53,9 +59,9 @@ export class PackEditorBase<TEntity extends EntityBase,
 
   constructor(repository: TRepository,
               route: ActivatedRoute,
-              router : Router,
+              router: Router,
               dialog: MatDialog,
-              addEntity: TEntity, endLink : string = "") {
+              addEntity: TEntity, endLink: string = "") {
 
     super(repository, route, dialog, addEntity, router, endLink)
   }
@@ -63,7 +69,7 @@ export class PackEditorBase<TEntity extends EntityBase,
 
   public applyChanges() {
     if (this.isPackAdd && this.isNew) {
-      this.Repo.addRange(this.Entity, this.packCount).subscribe(
+      this.repo.addRange(this.entity, this.packCount).pipe(first()).subscribe(
         response => console.log(response),
         error => {
           console.log(error);

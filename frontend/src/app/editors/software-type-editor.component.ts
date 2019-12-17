@@ -10,11 +10,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 @Component({
   selector: 'sg-software-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/software">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">developer_board</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              типа ПО {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              типа ПО {{!isNew ? '№' + this.entity.Id : ''}}</header>
 
           <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
               <mat-tab label="Основная информация">
@@ -24,11 +24,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 
                           <mat-form-field>
                               <input matInput placeholder="Марка и модель"
-                                     [(ngModel)]="this.Entity.Typename">
+                                     [(ngModel)]="this.entity.Typename">
                           </mat-form-field>
 
                           <mat-form-field>
-                              <mat-select [(ngModel)]="Entity.Category" placeholder="Категория">
+                              <mat-select [(ngModel)]="entity.Category" placeholder="Категория">
                                   <mat-option *ngFor="let elem of softwareCategories" [value]="elem">
                                       {{elem | softwareCategory}}
                                   </mat-option>
@@ -41,14 +41,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
                           <mat-form-field appearance="outline" class="flex-spacer">
                               <mat-label>Комментарий</mat-label>
                               <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
-                                        [(ngModel)]="this.Entity.Comment"></textarea>
+                                        [(ngModel)]="this.entity.Comment"></textarea>
                           </mat-form-field>
                       </mat-card>
                   </div>
               </mat-tab>
               <mat-tab label="Зависимости">
                   <mat-card id="sg-editor-card-container" class="sg-many-many-card">
-                      <table mat-table [dataSource]="this.Entity.Dependencies"
+                      <table mat-table [dataSource]="this.entity.Dependencies"
                              [class.sg-table-compact]="true" class="sg-table">
                           <ng-container matColumnDef="remove_button">
                               <th mat-header-cell *matHeaderCellDef></th>
@@ -129,9 +129,9 @@ export class SoftwareTypeEditorComponent extends EditorBase<SoftwareType, Softwa
 
 
   removeDependency(element: SoftwareType) {
-    const index = this.Entity.Dependencies.findIndex(x => x.Id == element.Id);
-    this.Entity.Dependencies.splice(index, 1);
-    this.Entity.Dependencies = [...this.Entity.Dependencies];
+    const index = this.entity.Dependencies.findIndex(x => x.Id == element.Id);
+    this.entity.Dependencies.splice(index, 1);
+    this.entity.Dependencies = [...this.entity.Dependencies];
   }
 
   showInfoCard(element: any) {
@@ -145,20 +145,20 @@ export class SoftwareTypeEditorComponent extends EditorBase<SoftwareType, Softwa
       });
       return;
     }
-    if (this.addingDependency.Id == this.Entity.Id) {
+    if (this.addingDependency.Id == this.entity.Id) {
       this.snackBar.open("ПО не может быть зависимо от самого себя", '', {
         duration: 2000,
       });
       return;
     }
-    if (this.Entity.Dependencies.find(x => x.Id == this.addingDependency.Id)) {
+    if (this.entity.Dependencies.find(x => x.Id == this.addingDependency.Id)) {
       this.snackBar.open("ПО уже имеет данную зависимость", '', {
         duration: 2000,
       });
     } else {
-      this.Entity.Dependencies.push(this.addingDependency);
+      this.entity.Dependencies.push(this.addingDependency);
       //Cause change detection to update table datasource
-      this.Entity.Dependencies = [...this.Entity.Dependencies].sort(x => x.Id);
+      this.entity.Dependencies = [...this.entity.Dependencies].sort(x => x.Id);
     }
   }
 }

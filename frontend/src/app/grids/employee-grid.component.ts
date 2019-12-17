@@ -20,7 +20,7 @@ export class EmployeeFilter {
   selector: 'sg-employee-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table matSort matSortActive="№" [dataSource]="this.Entities"
+          <table mat-table matSort matSortActive="№" [dataSource]="this.entities"
                  [class.sg-table-compact]="isCompact" (matSortChange)="changeSort($event.direction, $event.active)"
                  class="sg-table">
               <ng-container matColumnDef="select">
@@ -93,16 +93,16 @@ export class EmployeeFilter {
           </table>
           <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
               <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox [(ngModel)]="filterApplies.ByUsingComputersCount">По количеству работников
-                      </mat-checkbox>
-                      <mat-form-field>
-                          <input [disabled]="!filterApplies.ByUsingComputersCount" matInput
-                                 placeholder="Нижняя граница">
-                      </mat-form-field>
-                      <mat-form-field>
-                          <input [disabled]="!filterApplies.ByUsingComputersCount" matInput
-                                 placeholder="Верхняя граница">
-                      </mat-form-field>
+                  <mat-checkbox [(ngModel)]="filterApplies.ByUsingComputersCount">По количеству работников
+                  </mat-checkbox>
+                  <mat-form-field>
+                      <input [disabled]="!filterApplies.ByUsingComputersCount" matInput
+                             placeholder="Нижняя граница">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input [disabled]="!filterApplies.ByUsingComputersCount" matInput
+                             placeholder="Верхняя граница">
+                  </mat-form-field>
               </div>
 
               <div class="sg-search-drawer-ruleset">
@@ -116,7 +116,7 @@ export class EmployeeFilter {
                       </mat-select>
                   </mat-form-field>
               </div>
-              
+
               <div class="sg-search-drawer-ruleset">
                   <mat-checkbox [(ngModel)]="filterApplies.BySuperior">По руководителю</mat-checkbox>
                   <sg-employee-search hint="Директор филиала" [(ngModel)]="filter.Superior"
@@ -124,28 +124,10 @@ export class EmployeeFilter {
               </div>
           </div>
       </div>
-      <div style="visibility: hidden; position: fixed"
-           [style.left]="contextMenuPosition.x"
-           [style.top]="contextMenuPosition.y"
-           [matMenuTriggerFor]="contextMenu">
-      </div>
-      <mat-menu #contextMenu="matMenu">
-          <ng-template matMenuContent let-item="item">
-              <button mat-menu-item [routerLink]="'/employees/edit/' + item.Id">
-
-                  <mat-icon>edit</mat-icon>
-                  Изменить
-              </button>
-              <button mat-menu-item (click)="remove(item)">
-                  <mat-icon>remove_circle_outline</mat-icon>
-                  Удалить
-              </button>
-          </ng-template>
-      </mat-menu>
       <sg-crud router-link="/employees/add"
                icon="account_circle"
-               [count]="this.Count"
-               (Paginate)="this.refresh($event.offset, $event.limit)"
+               [count]="this.count"
+               (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="работников"
                (toggleFilters)="filterState = $event"
                (Search)="SearchString = $event"

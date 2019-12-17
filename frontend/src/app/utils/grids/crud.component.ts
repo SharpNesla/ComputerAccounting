@@ -87,6 +87,7 @@ import {element} from "protractor";
       #search-toolbar {
           display: flex;
           font-size: 1em;
+          margin-bottom: 2px;
       }
 
       #search-input {

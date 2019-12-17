@@ -19,7 +19,7 @@ class RoomFilter {
   selector: 'sg-room-grid',
   template: `
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.Entities"
+          <table mat-table [dataSource]="this.entities"
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
@@ -97,28 +97,11 @@ class RoomFilter {
 
 
       </div>
-      <div style="visibility: hidden; position: fixed"
-           [style.left]="contextMenuPosition.x"
-           [style.top]="contextMenuPosition.y"
-           [matMenuTriggerFor]="contextMenu">
-      </div>
-      <mat-menu #contextMenu="matMenu">
-          <ng-template matMenuContent let-item="item">
-              <button mat-menu-item [routerLink]="'/rooms/edit/' + item.Id">
-                  <mat-icon>edit</mat-icon>
-                  Изменить
-              </button>
-              <button mat-menu-item (click)="remove(item)">
 
-                  <mat-icon>remove_circle_outline</mat-icon>
-                  Удалить
-              </button>
-          </ng-template>
-      </mat-menu>
       <sg-crud router-link="/rooms/add"
                icon="storefront"
-               [count]="this.Count"
-               (Paginate)="this.refresh($event.offset, $event.limit)"
+               [count]="this.count"
+               (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="помещений"
                (Search)="SearchString = $event"
                (toggleFilters)="filterState = $event"

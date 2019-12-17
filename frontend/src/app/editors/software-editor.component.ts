@@ -8,20 +8,20 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-software-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/software">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">developer_board</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              ПО {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              ПО {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-software-type-search hint="Тип ПО" [(ngModel)]="Entity.SoftwareType">
+                  <sg-software-type-search hint="Тип ПО" [(ngModel)]="entity.SoftwareType">
                   </sg-software-type-search>
-                  <sg-computer-search *ngIf="!isPackAdd" hint="Компьютер" [(ngModel)]="Entity.Computer">
+                  <sg-computer-search *ngIf="!isPackAdd" hint="Компьютер" [(ngModel)]="entity.Computer">
                   </sg-computer-search>
-                  <sg-license-search *ngIf="!isPackAdd" hint="Лицензия" [applicableType]="Entity.SoftwareType"
-                                     mode="applicable" [(ngModel)]="Entity.License">
+                  <sg-license-search *ngIf="!isPackAdd" hint="Лицензия" [applicableType]="entity.SoftwareType"
+                                     mode="applicable" [(ngModel)]="entity.License">
                   </sg-license-search>
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
                   <mat-form-field *ngIf="isPackAdd && isNew">
@@ -34,7 +34,7 @@ import {MatDialog} from "@angular/material/dialog";
                   <mat-form-field appearance="outline" class="flex-spacer">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
-                                [(ngModel)]="this.Entity.Comment"></textarea>
+                                [(ngModel)]="this.entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>

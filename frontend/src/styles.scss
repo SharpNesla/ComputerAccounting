@@ -50,7 +50,8 @@ $sg-light-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-a
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-
+@import '~material-icons/iconfont/material-icons.css';
+@import '~roboto-fontface/css/roboto/roboto-fontface.css';
 @import "ngx-charts-dark-theme";
 
 body {

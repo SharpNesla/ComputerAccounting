@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\FulltextBuilder;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -49,18 +50,42 @@ class CrudControllerBase extends Controller
             $query = $this->applyFilters($filter, $query);
         }
 
-        if ($request->search != null && $request->search != '') {
+        if ($request->input('search-string') != null &&
+            $request->input('search-string') != '') {
             $query = $query->where($this->fulltextBuilder->search($request->search));
         }
 
-        return $query
-            ->skip($request->offset)
-            ->take($request->limit)->get();
+        $queryResult = $query
+        ->skip($request->offset)
+        ->take($request->limit)->get();
+
+        if ($request->input('with-count')){
+            return response()->json([
+                'entities' => $queryResult,
+                'all_count' => $this->getCount($request),
+            ]);
+        }
+
+        return $queryResult;
     }
 
     public function getCount(Request $request)
     {
-        return $this->facade::count();
+        $query = $this->facade::orderBy('id');
+
+        $filter = json_decode($request->filter, true);
+
+        if ($filter != null && $this->validateFilters($filter)) {
+            $query = $this->applyFilters($filter, $query);
+        }
+
+        if ($request->input('search-string') != null &&
+            $request->input('search-string') != '') {
+
+            $query = $query->where($this->fulltextBuilder->search($request->search));
+        }
+
+        return $query->count();
     }
 
     protected function validateEntity(array $array) : bool {

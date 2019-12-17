@@ -16,8 +16,7 @@ import {Location} from '@angular/common';
                       [disabled]="!acceptDisabled">ПРИНЯТЬ
               </button>
               <button id="discard-button"
-                      *ngIf="!acceptOnly"
-                      [routerLink]="EndLink" (click)="deny.emit()"
+                      *ngIf="!acceptOnly" (click)="deny.emit()"
                       mat-button color="primary">ОТМЕНИТЬ
               </button>
           </div>

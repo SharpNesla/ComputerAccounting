@@ -8,37 +8,37 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-employee-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/employees">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">account_circle</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              работника {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              работника {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
 
                   <sg-employee-search hint="Непосредственный руководитель"
-                                      [(ngModel)]="Entity.Superior"></sg-employee-search>
+                                      [(ngModel)]="entity.Superior"></sg-employee-search>
                   <sg-subsidiary-search hint="Филиал"
-                                        [(ngModel)]="Entity.Subsidiary"></sg-subsidiary-search>
+                                        [(ngModel)]="entity.Subsidiary"></sg-subsidiary-search>
 
                   <mat-form-field>
                       <input matInput placeholder="Имя"
-                             [(ngModel)]="this.Entity.Name">
+                             [(ngModel)]="this.entity.Name">
                   </mat-form-field>
                   <mat-form-field>
                       <input matInput placeholder="Фамилия"
-                             [(ngModel)]="this.Entity.Surname">
+                             [(ngModel)]="this.entity.Surname">
                   </mat-form-field>
                   <mat-form-field>
                       <input matInput placeholder="Отчество"
-                             [(ngModel)]="this.Entity.Patronymic">
+                             [(ngModel)]="this.entity.Patronymic">
                   </mat-form-field>
 
                   <label>Пол:</label>
                   <mat-radio-group
                           class="sg-vertical-radio-group"
-                          aria-label="Выберите пол" [(ngModel)]="this.Entity.Gender">
+                          aria-label="Выберите пол" [(ngModel)]="this.entity.Gender">
                       <mat-radio-button
                               class="sg-vertical-radio-button"
                               *ngFor="let gender of genders" [value]="gender">
@@ -48,12 +48,12 @@ import {MatDialog} from "@angular/material/dialog";
 
                   <mat-form-field>
                       <input matInput placeholder="Серия и номер паспорта"
-                             [(ngModel)]="this.Entity.PassportSerial">
+                             [(ngModel)]="this.entity.PassportSerial">
                   </mat-form-field>
 
                   <mat-form-field>
                       <input matInput placeholder="Адрес"
-                             [(ngModel)]="this.Entity.Address">
+                             [(ngModel)]="this.entity.Address">
                   </mat-form-field>
               </mat-card>
 
@@ -61,7 +61,7 @@ import {MatDialog} from "@angular/material/dialog";
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field>
                       <mat-select placeholder="Должность"
-                                  [(ngModel)]="Entity.Role">
+                                  [(ngModel)]="entity.Role">
                           <mat-option *ngFor="let role of roles" [value]="role.value">
                               {{role.value | role}}
                           </mat-option>
@@ -70,7 +70,7 @@ import {MatDialog} from "@angular/material/dialog";
 
                   <mat-form-field>
                       <input matInput placeholder="Имя пользователя"
-                             [(ngModel)]="this.Entity.Username">
+                             [(ngModel)]="this.entity.Username">
                   </mat-form-field>
 
                   <mat-checkbox *ngIf="!isNew" [(ngModel)]="this.isPasswordChange">Сменить пароль</mat-checkbox>
@@ -88,7 +88,7 @@ import {MatDialog} from "@angular/material/dialog";
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
-                                [(ngModel)]="this.Entity.Comment"></textarea>
+                                [(ngModel)]="this.entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>
@@ -122,8 +122,8 @@ export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeServic
 
   public applyChanges() {
     if ((this.isPasswordChange || this.isNew) && this.password == this.passwordRepeat) {
-      this.Entity['Password'] = this.password;
-      this.Entity['PasswordRepeat'] = this.passwordRepeat;
+      this.entity['Password'] = this.password;
+      this.entity['PasswordRepeat'] = this.passwordRepeat;
     }
     super.applyChanges();
   }

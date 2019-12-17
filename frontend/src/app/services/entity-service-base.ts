@@ -1,7 +1,7 @@
 import {EntityBase} from "../entities/entity-base";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {filter, map} from "rxjs/operators";
+import {count, filter, map} from "rxjs/operators";
 
 export const toCamel = (s) => {
   var str = s.replace(/([-_][a-z])/ig, ($1) => {
@@ -63,7 +63,7 @@ export abstract class EntityServiceBase<T extends EntityBase> {
 
   }
 
-  public getCount(filterDefinition: T[]): Observable<number> {
+  public getCount(filterDefinition): Observable<number> {
     return this.client.get<number>(`api/${this.entityPrefix}/count`);
   }
 
@@ -78,6 +78,27 @@ export abstract class EntityServiceBase<T extends EntityBase> {
       ));
   }
 
+  public getWithAllCount(searchString: string, offset: number, limit: number, filterDefinition: object,
+                         sortDefinition: string, sortOrder: string): Observable<{ entities: T[], allCount: number }> {
+    let params = new HttpParams()
+      .set("offset", offset.toString())
+      .set("limit", limit.toString())
+      .set("sort-definition", sortDefinition == null ? "id" : sortDefinition)
+      .set("sort-order", sortOrder)
+      .set("filter", JSON.stringify(keysToSnake(filterDefinition)))
+      .set("with-count", 'true');
+    if (searchString) {
+      params = params.set('search', searchString);
+    }
+
+    return this.client.get<{ entities: T[], count: number }>(`api/${this.entityPrefix}/get`, {params})
+      .pipe(map(x =>
+        ({
+          entities: x.entities.map(y => keysToCamel(y)),
+          allCount: x['all_count']
+        })
+      ));
+  }
 
   public get(searchString: string, offset: number, limit: number, filterDefinition: object,
              sortDefinition: string, sortOrder: string): Observable<T[]> {
@@ -93,14 +114,7 @@ export abstract class EntityServiceBase<T extends EntityBase> {
     }
 
     return this.client.get<T[]>(`api/${this.entityPrefix}/get`, {params})
-      .pipe(map(x => {
-          return x.map(
-            y => {
-              const d = keysToCamel(y);
-              return d;
-            })
-        }
-      ))
+      .pipe(map(x => x.map(entity => keysToCamel(entity))))
   }
 
   public add(entity: T) {

@@ -6,26 +6,31 @@ import {Computer} from "../entities/computer";
 import {MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog.component";
+import {first, flatMap} from "rxjs/operators";
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
   TRepository extends EntityServiceBase<TEntity>> implements OnInit {
 
-  set SearchString(value: string) {
-    this._SearchString = value;
-    this.refreshPrevious();
-  }
-
-  public Entities: Observable<TEntity[]>;
-  public Count: number = 0;
-
-  protected Repo: TRepository;
+  public entities: TEntity[];
+  public count: number = 0;
+  public filterState: boolean;
 
   @Input() public IsDisplaySubtotals: boolean;
   @Input() public IsSearchDrawerOpened: boolean;
   @Input() public isCompact: boolean;
-  @Input() public customDataSource: TEntity[];
 
   private _SearchString: string;
+
+  private sortActive: string;
+  private sortDirection: "asc" | "desc" | "";
+
+  private currentOffset: number;
+  private currentLimit: number;
+
+  set SearchString(value: string) {
+    this._SearchString = value;
+    this.refresh();
+  }
 
   public get DisplayedColumns(): string[] {
     if (this.isCompact) {
@@ -35,53 +40,27 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
     }
   }
 
-
-  protected constructor(repository: TRepository, protected dialog: MatDialog,
-                        private displayedColumns: string[], protected card = null) {
-    this.Repo = repository;
+  protected constructor(protected service: TRepository,
+                        protected dialog: MatDialog,
+                        private displayedColumns: string[],
+                        protected card) {
   }
 
-  private offset: number;
-  private limit: number;
-  public filterState: boolean;
-
-
-  public refreshPrevious() {
-    this.refresh(this.offset, this.limit)
-  }
-
-  public refresh(offset: number, limit: number) {
-    this.offset = offset;
-    this.limit = limit;
-
-
-    this.Repo.getCount(null).subscribe(x => {
-      this.Count = x;
-    });
-
-    if (this._SearchString) {
-      this.Entities = this.Repo.get(this._SearchString, offset, limit,
-        this.constructFilter(), this.sortActive, this.sortDirection);
-    } else {
-      this.Entities = this.Repo.get(null ,offset, limit,
-        this.constructFilter(), this.sortActive, this.sortDirection)
-    }
-  }
-
-  @ViewChild(MatMenuTrigger, {static: false}) contextMenu: MatMenuTrigger;
-
-  contextMenuPosition = {x: '0px', y: '0px'};
-
-  onContextMenu(event: MouseEvent, item: Computer) {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + 'px';
-    this.contextMenuPosition.y = event.clientY + 'px';
-    this.contextMenu.menuData = {'item': item};
-    this.contextMenu.openMenu();
+  public refresh() {
+    this.service.getWithAllCount(
+      this.SearchString ? this.SearchString : null,
+      this.currentOffset, this.currentLimit,
+      this.constructFilter(), this.sortActive, this.sortDirection)
+      .pipe(first())
+      .subscribe(result => {
+        console.log(result);
+        this.entities = result.entities;
+        this.count = result.allCount;
+      });
   }
 
   showInfoCard(element: Computer) {
-    const dialogRef = this.dialog.open(this.card, {
+    this.dialog.open(this.card, {
       data: element.Id,
       minWidth: '900px'
     });
@@ -92,14 +71,14 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
       width: '300px',
       data: true
     });
-    dialog.afterClosed().subscribe(x => {
-      console.log(x);
-      if (x) {
-        this.Repo.remove(item).subscribe(x => {
-          this.refreshPrevious()
-        });
-        this.Repo.getCount(null).subscribe(x => this.Count = x);
-      }
+
+    dialog.afterClosed()
+      .pipe(
+        flatMap(x => x ? this.service.remove(item) : null),
+        flatMap(x => this.service.getCount(this.constructFilter())),
+        first()
+      ).subscribe(() => {
+      this.refresh();
     });
   }
 
@@ -108,12 +87,16 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   }
 
   ngOnInit(): void {
-    this.refresh(0, 10);
-    this.Repo.getCount(null).subscribe(x => this.Count = x);
+    this.currentOffset = 0;
+    this.currentLimit = 10;
+    this.refresh();
   }
 
-  private sortActive: string;
-  private sortDirection: "asc" | "desc" | "";
+  paginate(offset: number, limit: number) {
+    this.currentOffset = offset;
+    this.currentLimit = limit;
+    this.refresh();
+  }
 
   changeSort(direction: "asc" | "desc" | "", active: string) {
     this.sortActive = active;

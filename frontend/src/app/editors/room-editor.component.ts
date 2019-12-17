@@ -8,20 +8,20 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-room-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/rooms">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">storefront</mat-icon>
               {{isNew ?
                   'Добавление' : 'Изменение'}}
-              помещения {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              помещения {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
                       <input matInput placeholder="Номер помещения"
-                             [(ngModel)]="this.Entity.Number">
+                             [(ngModel)]="this.entity.Number">
                   </mat-form-field>
-                  <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
+                  <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
                                         hint="Филиал"></sg-subsidiary-search>
               </mat-card>
               <mat-card id="right-section">

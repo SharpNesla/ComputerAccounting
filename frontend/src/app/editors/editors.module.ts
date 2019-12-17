@@ -16,8 +16,6 @@ import {UtilsModule} from "../utils/utils.module";
 import {GridsModule} from "../grids/grids.module";
 
 
-
-
 @NgModule({
   declarations: [
     ComputerEditorComponent,

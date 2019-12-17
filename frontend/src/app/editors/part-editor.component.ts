@@ -8,28 +8,28 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-part-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/parts">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              комплектующего {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              комплектующего {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-part-type-search [(ngModel)]="Entity.PartType"
+                  <sg-part-type-search [(ngModel)]="entity.PartType"
                                        hint="Тип комплектующего" required></sg-part-type-search>
 
                   <mat-form-field *ngIf="!isPackAdd">
-                      <mat-select [(ngModel)]="Entity.State" placeholder="Состояние">
+                      <mat-select [(ngModel)]="entity.State" placeholder="Состояние">
                           <mat-option *ngFor="let elem of partStates" [value]="elem">
                               {{elem | partState}}
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
 
-                  <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
+                  <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
                                         *ngIf="isPackAdd || displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
-                  <sg-computer-search [(ngModel)]="Entity.Computer"
+                  <sg-computer-search [(ngModel)]="entity.Computer"
                                       *ngIf="!isPackAdd && displayComputer" hint="Компьютер"></sg-computer-search>
 
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
@@ -43,7 +43,7 @@ import {MatDialog} from "@angular/material/dialog";
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
-                                [(ngModel)]="this.Entity.Comment"></textarea>
+                                [(ngModel)]="this.entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>
@@ -58,11 +58,11 @@ export class PartEditorComponent extends PackEditorBase<Part, PartService> {
   ];
 
   get displaySubsidiary() {
-    return this.Entity.State == PartState.InStore || this.Entity.State == PartState.Broken;
+    return this.entity.State == PartState.InStore || this.entity.State == PartState.Broken;
   }
 
   get displayComputer() {
-    return this.Entity.State == PartState.InComputer;
+    return this.entity.State == PartState.InComputer;
   }
 
   constructor(private service: PartService, route: ActivatedRoute,

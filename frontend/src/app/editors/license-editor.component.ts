@@ -9,37 +9,35 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-computer-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/licenses">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">shop</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
-              лицензии {{!isNew ? '№' + this.Entity.Id : ''}}</header>
+              лицензии {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
                       <input type="number" step=0.01 min="0.01" matInput required
-                             [(ngModel)]="Entity.Cost" placeholder="Цена">
+                             [(ngModel)]="entity.Cost" placeholder="Цена">
                   </mat-form-field>
                   <mat-form-field>
-                      <input [(ngModel)]="Entity.MaxApplyCount" type="number"
+                      <input [(ngModel)]="entity.MaxApplyCount" type="number"
                              step=1 matInput required
                              placeholder="Количество возможных применений">
                   </mat-form-field>
 
-                  <sg-software-type-search hint="Тип программного обеспечния" [(ngModel)]="Entity.SoftwareType"
+                  <sg-software-type-search hint="Тип программного обеспечния" [(ngModel)]="entity.SoftwareType"
                                            searchHint="Иипа ПО"></sg-software-type-search>
 
                   <mat-form-field>
-                      <input matInput [matDatepicker]="picker" [(ngModel)]="Entity.PurchaseDate" placeholder="Дата приобретения">
+                      <input matInput [matDatepicker]="picker" [(ngModel)]="entity.PurchaseDate"
+                             placeholder="Дата приобретения">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
-
-                  <mat-checkbox [(ngModel)]="Entity.IsEndsOnDate">Срок по дате истечения</mat-checkbox>
-
-                  <mat-form-field *ngIf="Entity.IsEndsOnDate">
-                      <input matInput [matDatepicker]="picker2" [(ngModel)]="Entity.ExpirationDate"
+                  <mat-form-field>
+                      <input matInput [matDatepicker]="picker2" [(ngModel)]="entity.ExpirationDate"
                              placeholder="Дата истечения">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
@@ -56,12 +54,12 @@ import {MatDialog} from "@angular/material/dialog";
                   <mat-form-field appearance="outline">
                       <mat-label>Текст лицензии</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Текст лицензии"
-                                [(ngModel)]="this.Entity.Comment"></textarea>
+                                [(ngModel)]="this.entity.Comment"></textarea>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="flex-spacer">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
-                                [(ngModel)]="this.Entity.Comment"></textarea>
+                                [(ngModel)]="this.entity.Comment"></textarea>
                   </mat-form-field>
               </mat-card>
           </div>

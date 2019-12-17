@@ -17,7 +17,7 @@ class SoftwareTypeFilter {
   template: `
 
       <div class="sg-table-container">
-          <table mat-table [dataSource]="this.Entities"
+          <table mat-table [dataSource]="this.entities"
                  [class.sg-table-compact]="isCompact" class="sg-table">
               <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
@@ -105,32 +105,11 @@ class SoftwareTypeFilter {
               </div>
           </div>
       </div>
-      <div style="visibility: hidden; position: fixed"
-           [style.left]="contextMenuPosition.x"
-           [style.top]="contextMenuPosition.y"
-           [matMenuTriggerFor]="contextMenu">
-      </div>
-
-      <mat-menu #contextMenu="matMenu">
-          <ng-template matMenuContent let-item="item">
-              <button mat-menu-item [routerLink]="'/software-types/edit/' + item.Id">
-
-                  <mat-icon>edit</mat-icon>
-                  Изменить
-              </button>
-              <button mat-menu-item (click)="remove(item)">
-                  <mat-icon>remove_circle_outline</mat-icon>
-                  Удалить
-              </button>
-          </ng-template>
-      </mat-menu>
-
-      
 
       <sg-crud router-link="/software-types/add"
                icon="developer_board"
-               [count]="this.Count"
-               (Paginate)="this.refresh($event.offset, $event.limit)"
+               [count]="this.count"
+               (Paginate)="this.paginate($event.offset, $event.limit)"
                entity-name="типов ПО"
                (Search)="SearchString = $event"
                (toggleFilters)="filterState = $event"
