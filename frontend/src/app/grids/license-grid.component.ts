@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {LicenseService} from "../services/license.service";
-import {License} from "../entities/license";
-import {EntityGridBase} from "./entity-grid-base";
-import {MatDialog} from "@angular/material/dialog";
-import {LicenseCardComponent} from "../cards/license-card.component";
+import {LicenseService} from '../services/license.service';
+import {License} from '../entities/license';
+import {EntityGridBase} from './entity-grid-base';
+import {MatDialog} from '@angular/material/dialog';
+import {LicenseCardComponent} from '../cards/license-card.component';
+import {CardService} from '../cards/card.service';
 
 
 @Component({
@@ -104,9 +105,10 @@ import {LicenseCardComponent} from "../cards/license-card.component";
   }`]
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
-  constructor(licenses: LicenseService, private dialogref: MatDialog) {
+  constructor(licenses: LicenseService, private dialogref: MatDialog, cardService: CardService) {
     super(licenses, dialogref,
       ['select', 'id', 'cost', 'max_applies', 'apply_status', 'info'],
-      LicenseCardComponent)
+      cardService,
+      LicenseCardComponent);
   }
 }

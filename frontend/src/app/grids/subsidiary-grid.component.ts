@@ -6,6 +6,7 @@ import {PartTypeService} from "../services/part-type.service";
 import {MatDialog} from "@angular/material/dialog";
 import {RoomCardComponent} from "../cards/room-card.component";
 import {SubsidiaryCardComponent} from "../cards/subsidiary-card.component";
+import {CardService} from '../cards/card.service';
 
 class SubsidiaryFilter {
   RoomsCountLowBound: number;
@@ -161,9 +162,10 @@ export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, Subsidia
 
   filter: SubsidiaryFilter = new SubsidiaryFilter();
 
-  constructor(private computers: SubsidiaryService, dialog: MatDialog) {
+  constructor(private computers: SubsidiaryService, dialog: MatDialog, cardService : CardService) {
     super(computers, dialog,
       ['select', 'id', 'name', 'address', 'rooms_count', 'computers_count', 'employees_count', 'info'],
+      cardService,
       SubsidiaryCardComponent)
   }
 

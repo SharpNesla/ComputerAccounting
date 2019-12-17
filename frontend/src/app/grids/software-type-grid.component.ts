@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SoftwareCategory, SoftwareType} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
+import {CardService} from '../cards/card.service';
 
 class SoftwareTypeFilter {
   SoftwareCountLowBound: number;
@@ -132,9 +133,10 @@ export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, Soft
 
   filter: SoftwareTypeFilter = new SoftwareTypeFilter();
 
-  constructor(software: SoftwareTypeService, private dialogref: MatDialog) {
+  constructor(software: SoftwareTypeService, private dialogref: MatDialog, cardService : CardService) {
     super(software, dialogref, ['select', 'id', 'typename',
         'category', 'software_count', 'info'],
+      cardService,
       SoftwareTypeCardComponent)
   }
 

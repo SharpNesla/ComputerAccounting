@@ -4,6 +4,7 @@ import {EntityGridBase} from "./entity-grid-base";
 import {PartType} from "../entities/part-type";
 import {MatDialog} from "@angular/material/dialog";
 import {PartTypeCardComponent} from "../cards/part-type-card.component";
+import {CardService} from '../cards/card.service';
 
 
 class PartTypeFilter {
@@ -132,9 +133,10 @@ export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeServ
 
   filter: PartTypeFilter = new PartTypeFilter();
 
-  constructor(service: PartTypeService, dialog: MatDialog) {
+  constructor(service: PartTypeService, dialog: MatDialog, cardService : CardService) {
     super(service, dialog,
       ['select', 'id', 'model', 'cost', 'parts_count', 'category', 'info'],
+      cardService,
       PartTypeCardComponent);
   }
 

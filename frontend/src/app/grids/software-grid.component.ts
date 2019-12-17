@@ -1,14 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SoftwareService} from "../services/software.service";
-import {Software} from "../entities/software";
-import {EntityGridBase} from "./entity-grid-base";
-import {MatDialog} from "@angular/material/dialog";
-import {SoftwareCardComponent} from "../cards/software-card.component";
-import {SoftwareType} from "../entities/software-type";
+import {SoftwareService} from '../services/software.service';
+import {Software} from '../entities/software';
+import {EntityGridBase} from './entity-grid-base';
+import {MatDialog} from '@angular/material/dialog';
+import {SoftwareCardComponent} from '../cards/software-card.component';
+import {SoftwareType} from '../entities/software-type';
+import {CardService} from '../cards/card.service';
 
 export class SoftwareFilter {
-  SoftwareTypeId : number;
-  SoftwareType: SoftwareType
+  SoftwareTypeId: number;
+  SoftwareType: SoftwareType;
 }
 
 @Component({
@@ -99,11 +100,12 @@ export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareServ
     BySoftwareType: false,
   };
 
-  filter : SoftwareFilter = new SoftwareFilter();
+  filter: SoftwareFilter = new SoftwareFilter();
 
-  constructor(software: SoftwareService, private dialogref: MatDialog) {
+  constructor(software: SoftwareService, private dialogref: MatDialog, cardService: CardService) {
     super(software, dialogref, ['select', 'id', 'info'],
-      SoftwareCardComponent)
+      cardService,
+      SoftwareCardComponent);
   }
 
   constructFilter(): object {

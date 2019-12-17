@@ -8,6 +8,7 @@ import {PartService} from "../services/part.service";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {PartCardComponent} from "../cards/part-card.component";
+import {CardService} from '../cards/card.service';
 
 
 @Component({
@@ -84,8 +85,9 @@ import {PartCardComponent} from "../cards/part-card.component";
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
 export class PartGridComponent extends EntityGridBase<Part, PartService> {
-  constructor(service: PartService, dialog: MatDialog) {
+  constructor(service: PartService, dialog: MatDialog, cardService : CardService) {
     super(service, dialog, ['select', 'id', 'info'],
+      cardService,
       PartCardComponent);
   }
 }

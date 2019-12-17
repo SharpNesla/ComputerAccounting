@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "../utils/card-base";
+import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Subsidiary} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
@@ -10,21 +10,21 @@ import {SubsidiaryService} from "../services/subsidiary.service";
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Филиал №{{(Entity | async)?.Id}}
+              Филиал №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <p class="mat-body">Название: {{(Entity | async)?.Name}}</p>
-                  <p class="mat-body">Адрес: {{(Entity | async)?.Address}}</p>
+                  <p class="mat-body">Название: {{entity?.Name}}</p>
+                  <p class="mat-body">Адрес: {{entity?.Address}}</p>
 
                   <p class="mat-body">Директор филиала:
-                      {{(Entity | async)?.Director.Id}}
-                      {{(Entity | async)?.Director.Name}}
-                      {{(Entity | async)?.Director.Surname}}
+                      {{entity?.Director.Id}}
+                      {{entity?.Director.Name}}
+                      {{entity?.Director.Surname}}
                   </p>
 
-                  <p class="mat-body">Комментарий:<br> {{(Entity | async)?.Comment}}</p>
+                  <p class="mat-body">Комментарий:<br> {{entity?.Comment}}</p>
 
               </mat-card>
               <mat-card id="right-section">
@@ -41,7 +41,7 @@ export class SubsidiaryCardComponent extends CardBase<Subsidiary, SubsidiaryServ
   constructor(
     public dialogRef: MatDialogRef<SubsidiaryCardComponent>,
     service: SubsidiaryService,
-    @Inject(MAT_DIALOG_DATA) public data: number) {
+    @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
 

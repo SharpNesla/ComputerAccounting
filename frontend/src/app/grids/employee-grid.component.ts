@@ -5,6 +5,7 @@ import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployeeCardComponent} from "../cards/employee-card.component";
 import {filterStackTrace} from "protractor/built/util";
+import {CardService} from '../cards/card.service';
 
 export class EmployeeFilter {
   UsingComputersCountLowBound: number;
@@ -150,9 +151,9 @@ export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeServ
 
   filter: EmployeeFilter = new EmployeeFilter();
 
-  constructor(licenses: EmployeeService, private dialogref: MatDialog) {
+  constructor(licenses: EmployeeService, private dialogref: MatDialog, cardService : CardService) {
     super(licenses, dialogref, ['select', 'id',
-      'name', 'surname', 'patronymic', 'role', 'info'], EmployeeCardComponent)
+      'name', 'surname', 'patronymic', 'role', 'info'], cardService, EmployeeCardComponent)
   }
 
   constructFilter(): object {

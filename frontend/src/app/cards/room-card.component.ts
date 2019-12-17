@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "../utils/card-base";
+import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Room} from "../entities/room";
 import {RoomService} from "../services/room.service";
@@ -10,16 +10,16 @@ import {RoomService} from "../services/room.service";
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Помещение №{{(Entity | async)?.Id}}
+              Помещение №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <p class="mat-body">Номер: {{(Entity | async)?.Number}}</p>
+                  <p class="mat-body">Номер: {{entity?.Number}}</p>
                   <p class="mat-body">Филиал:
-                      №{{(Entity | async)?.Subsidiary.Id}}
-                      "{{(Entity | async)?.Subsidiary.Name}}"
-                      {{(Entity | async)?.Subsidiary.Address}}
+                      №{{entity?.Subsidiary.Id}}
+                      "{{entity?.Subsidiary.Name}}"
+                      {{entity?.Subsidiary.Address}}
                   </p>
               </mat-card>
               <mat-card id="right-section">
@@ -35,7 +35,7 @@ export class RoomCardComponent extends CardBase<Room, RoomService> {
   constructor(
     public dialogRef: MatDialogRef<RoomCardComponent>,
     service: RoomService,
-    @Inject(MAT_DIALOG_DATA) public data: number) {
+    @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
 

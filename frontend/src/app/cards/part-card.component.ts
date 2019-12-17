@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "../utils/card-base";
+import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Part} from "../entities/part";
 import {PartService} from "../services/part.service";
@@ -10,7 +10,7 @@ import {PartService} from "../services/part.service";
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Комплектующее №{{(Entity | async)?.Id}}
+              Комплектующее №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
@@ -29,7 +29,7 @@ export class PartCardComponent extends CardBase<Part, PartService> {
 
   constructor(
     public dialogRef: MatDialogRef<PartCardComponent>, service: PartService,
-    @Inject(MAT_DIALOG_DATA) public data: number) {
+    @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
 

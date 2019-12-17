@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DeleteDialogComponent} from '../delete-dialog.component';
 import {first, flatMap} from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
+import {CardService} from '../cards/card.service';
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
   TService extends EntityServiceBase<TEntity>> implements OnInit {
@@ -46,6 +47,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   protected constructor(protected service: TService,
                         protected dialog: MatDialog,
                         private displayedColumns: string[],
+                        protected cardService : CardService,
                         protected card) {
   }
 
@@ -62,11 +64,8 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
       });
   }
 
-  showInfoCard(element: Computer) {
-    this.dialog.open(this.card, {
-      data: element.Id,
-      minWidth: '900px'
-    });
+  showInfoCard(element: TEntity) {
+    this.cardService.showInfoCard(element, this.card);
   }
 
   remove(item: TEntity) {

@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "../utils/card-base";
+import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {License} from "../entities/license";
 import {LicenseService} from "../services/license.service";
@@ -10,14 +10,14 @@ import {LicenseService} from "../services/license.service";
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Лицензии №{{(Entity | async)?.Id}}
+              Лицензии №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
 
-                  <p>Стоимость: {{(Entity | async)?.Cost}}₽</p>
-                  <p>Максимальное число применений: {{(Entity | async)?.MaxApplyCount}}</p>
+                  <p>Стоимость: {{entity?.Cost}}₽</p>
+                  <p>Максимальное число применений: {{entity?.MaxApplyCount}}</p>
 
               </mat-card>
               <mat-card id="right-section">
@@ -33,7 +33,7 @@ export class LicenseCardComponent extends CardBase<License, LicenseService> {
   constructor(
     public dialogRef: MatDialogRef<LicenseCardComponent>,
     service: LicenseService,
-    @Inject(MAT_DIALOG_DATA) public data: number) {
+    @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
 

@@ -4,6 +4,7 @@ import {Computer, ComputerType} from '../entities/computer';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {ComputerCardComponent} from '../cards/computer-card.component';
+import {CardService} from '../cards/card.service';
 
 class ComputerFilter {
   UsersCountLowBound: number;
@@ -146,9 +147,10 @@ export class ComputerGridComponent extends EntityGridBase<Computer, ComputerServ
 
   filter: ComputerFilter = new ComputerFilter();
 
-  constructor(computers: ComputerService, private dialogref: MatDialog) {
+  constructor(computers: ComputerService, private dialogref: MatDialog, cardService : CardService) {
     super(computers, dialogref,
       ['select', 'id', 'name', 'inventory_id', 'type', 'users_count', 'info'],
+      cardService,
       ComputerCardComponent);
   }
 

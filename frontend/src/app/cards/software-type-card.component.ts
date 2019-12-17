@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "../utils/card-base";
+import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Software} from "../entities/software";
 import {SoftwareService} from "../services/software.service";
@@ -12,13 +12,13 @@ import {SoftwareTypeService} from "../services/software-type.service";
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Тип ПО №{{(Entity | async)?.Id}}
+              Тип ПО №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <p class="mat-body">Название: {{(Entity | async)?.Typename}}</p>
-                  <p class="mat-body">Категория: {{(Entity | async)?.Category | softwareCategory}}</p>
+                  <p class="mat-body">Название: {{entity?.Typename}}</p>
+                  <p class="mat-body">Категория: {{entity?.Category | softwareCategory}}</p>
 
               </mat-card>
               <mat-card id="right-section">
@@ -35,7 +35,7 @@ export class SoftwareTypeCardComponent extends CardBase<SoftwareType, SoftwareTy
   constructor(
     public dialogRef: MatDialogRef<SoftwareTypeCardComponent>,
     service: SoftwareTypeService,
-    @Inject(MAT_DIALOG_DATA) public data: number) {
+    @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
 

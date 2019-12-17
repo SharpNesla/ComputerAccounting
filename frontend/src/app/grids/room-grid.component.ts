@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {EntityGridBase} from "./entity-grid-base";
-import {Room} from "../entities/room";
-import {RoomService} from "../services/room.service";
-import {MatDialog} from "@angular/material/dialog";
-import {RoomCardComponent} from "../cards/room-card.component";
-import {Subsidiary} from "../entities/subsidiary";
+import {EntityGridBase} from './entity-grid-base';
+import {Room} from '../entities/room';
+import {RoomService} from '../services/room.service';
+import {MatDialog} from '@angular/material/dialog';
+import {RoomCardComponent} from '../cards/room-card.component';
+import {Subsidiary} from '../entities/subsidiary';
+import {CardService} from '../cards/card.service';
 
 class RoomFilter {
 
@@ -117,8 +118,9 @@ export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
 
   filter: RoomFilter = new RoomFilter();
 
-  constructor(private rooms: RoomService, dialog: MatDialog) {
-    super(rooms, dialog, ['select', 'id', 'number', 'computers_count', 'info'], RoomCardComponent)
+  constructor(private rooms: RoomService, dialog: MatDialog, cardService: CardService) {
+    super(rooms, dialog, ['select', 'id', 'number', 'computers_count', 'info'],
+      cardService, RoomCardComponent);
   }
 
   constructFilter(): object {

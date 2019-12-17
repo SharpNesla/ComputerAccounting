@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "../utils/card-base";
+import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Employee} from "../entities/employee";
 import {EmployeeService} from "../services/employee.service";
@@ -10,17 +10,17 @@ import {EmployeeService} from "../services/employee.service";
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              Работник №{{(Entity | async)?.Id}}
+              Работник №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <p class="mat-body">Имя: {{(Entity | async)?.Name}}</p>
-                  <p class="mat-body">Фамилия: {{(Entity | async)?.Surname}}</p>
-                  <p class="mat-body">Отчество: {{(Entity | async)?.Patronymic}}</p>
+                  <p class="mat-body">Имя: {{entity?.Name}}</p>
+                  <p class="mat-body">Фамилия: {{entity?.Surname}}</p>
+                  <p class="mat-body">Отчество: {{entity?.Patronymic}}</p>
 
 
-                  <p class="mat-body">Должность: {{(Entity | async)?.Role | role}}</p>
+                  <p class="mat-body">Должность: {{entity?.Role | role}}</p>
 
               </mat-card>
               <mat-card id="right-section">
@@ -37,7 +37,7 @@ export class EmployeeCardComponent extends CardBase<Employee, EmployeeService> {
   constructor(
     public dialogRef: MatDialogRef<EmployeeCardComponent>,
     service: EmployeeService,
-    @Inject(MAT_DIALOG_DATA) public data: number) {
+    @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
 
