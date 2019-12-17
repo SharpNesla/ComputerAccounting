@@ -9,7 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   <!--      <button mat-button cdkFocusInitial>Ok</button>-->
   <!--  </div>-->
 
-  <sg-dialog-layout (Accept)="apply()" acceptOnly="true" (Deny)="deny()">
+  <sg-dialog-layout (accept)="apply()" acceptOnly="true" (deny)="deny()">
       <header>
           <mat-icon>warning</mat-icon>
           Ошибка

@@ -53,7 +53,7 @@ export var multi = [
           <header>Аналитика</header>
           <mat-tab-group animationDuration="0s" color="accent" backgroundColor="primary">
               <mat-tab label="Данные">
-                  
+                  <sg-part-type-grid></sg-part-type-grid>
               </mat-tab>
               <mat-tab label="Графики" class="ngx-charts-dark-theme">
                   <ngx-charts-bar-vertical-2d
@@ -74,7 +74,11 @@ export var multi = [
                           (deactivate)="onDeactivate($event)"></ngx-charts-bar-vertical-2d>
               </mat-tab>
           </mat-tab-group>
-          <mat-toolbar color="primary"></mat-toolbar>
+          <mat-toolbar color="primary">
+              <mat-card>
+                  
+              </mat-card>
+          </mat-toolbar>
       </sg-drawer-appbar-base>`,
 })
 export class AnalyticsComponent implements OnInit {

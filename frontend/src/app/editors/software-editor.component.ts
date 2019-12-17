@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {SoftwareService} from "../services/software.service";
 import {Software} from "../entities/software";
 import {EditorBase, PackEditorBase} from "./editor-base";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-software-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/software">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/software">
           <header>
               <mat-icon id="sg-editor-icon">developer_board</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
@@ -42,7 +42,8 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['../utils/editors-styles.scss']
 })
 export class SoftwareEditorComponent extends PackEditorBase<Software, SoftwareService> {
-  constructor(private service: SoftwareService, route: ActivatedRoute, dialog: MatDialog) {
-    super(service, route, dialog, new Software());
+  constructor(private service: SoftwareService, route: ActivatedRoute,
+              router: Router, dialog: MatDialog) {
+    super(service, route, router, dialog, new Software(), "/software");
   }
 }

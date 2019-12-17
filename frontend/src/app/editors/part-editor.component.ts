@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {EditorBase, PackEditorBase} from "./editor-base";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Part, PartState} from "../entities/part";
 import {PartService} from "../services/part.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -8,7 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-part-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/parts">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/parts">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
@@ -17,10 +17,10 @@ import {MatDialog} from "@angular/material/dialog";
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <sg-part-type-search [(ngModel)]="Entity.PartType"
-                          hint="Тип комплектующего" required></sg-part-type-search>
+                                       hint="Тип комплектующего" required></sg-part-type-search>
 
                   <mat-form-field *ngIf="!isPackAdd">
-                      <mat-select  [(ngModel)]="Entity.State" placeholder="Состояние">
+                      <mat-select [(ngModel)]="Entity.State" placeholder="Состояние">
                           <mat-option *ngFor="let elem of partStates" [value]="elem">
                               {{elem | partState}}
                           </mat-option>
@@ -29,9 +29,9 @@ import {MatDialog} from "@angular/material/dialog";
 
                   <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
                                         *ngIf="isPackAdd || displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
-                  <sg-computer-search  [(ngModel)]="Entity.Computer"
+                  <sg-computer-search [(ngModel)]="Entity.Computer"
                                       *ngIf="!isPackAdd && displayComputer" hint="Компьютер"></sg-computer-search>
-                  
+
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
                   <mat-form-field *ngIf="isPackAdd && isNew">
                       <input type="number" step="1" min="1" matInput required
@@ -65,8 +65,9 @@ export class PartEditorComponent extends PackEditorBase<Part, PartService> {
     return this.Entity.State == PartState.InComputer;
   }
 
-  constructor(private service: PartService, route: ActivatedRoute, dialog: MatDialog) {
-    super(service, route, dialog, new Part());
+  constructor(private service: PartService, route: ActivatedRoute,
+              router: Router, dialog: MatDialog) {
+    super(service, route, router, dialog, new Part(), "parts");
   }
 
 }

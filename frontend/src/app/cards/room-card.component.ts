@@ -7,7 +7,7 @@ import {RoomService} from "../services/room.service";
 @Component({
   selector: 'sg-room-card',
   template: `
-      <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
+      <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               Помещение №{{(Entity | async)?.Id}}

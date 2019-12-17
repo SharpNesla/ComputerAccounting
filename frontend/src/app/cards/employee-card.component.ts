@@ -7,27 +7,27 @@ import {EmployeeService} from "../services/employee.service";
 @Component({
   selector: 'sg-computer-card',
   template: `
-      <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
+      <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               Работник №{{(Entity | async)?.Id}}
           </header>
-              <div id="sg-editor-card-container">
-                  <mat-card id="left-section">
-                      <h2 class="mat-title">Общая информация</h2>
-                      <p class="mat-body">Имя: {{(Entity | async)?.Name}}</p>
-                      <p class="mat-body">Фамилия: {{(Entity | async)?.Surname}}</p>
-                      <p class="mat-body">Отчество: {{(Entity | async)?.Patronymic}}</p>
+          <div id="sg-editor-card-container">
+              <mat-card id="left-section">
+                  <h2 class="mat-title">Общая информация</h2>
+                  <p class="mat-body">Имя: {{(Entity | async)?.Name}}</p>
+                  <p class="mat-body">Фамилия: {{(Entity | async)?.Surname}}</p>
+                  <p class="mat-body">Отчество: {{(Entity | async)?.Patronymic}}</p>
 
 
-                      <p class="mat-body">Должность: {{(Entity | async)?.Role | role}}</p>
-                      
-                  </mat-card>
-                  <mat-card id="right-section">
-                      <h2 class="mat-title">Комментарий</h2>
+                  <p class="mat-body">Должность: {{(Entity | async)?.Role | role}}</p>
 
-                  </mat-card>
-              </div>
+              </mat-card>
+              <mat-card id="right-section">
+                  <h2 class="mat-title">Комментарий</h2>
+
+              </mat-card>
+          </div>
       </sg-dialog-layout>`,
 
   styleUrls: ['../utils/editors-styles.scss']

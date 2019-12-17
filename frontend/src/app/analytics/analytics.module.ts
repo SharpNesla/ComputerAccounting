@@ -5,6 +5,7 @@ import {UtilsModule} from "../utils/utils.module";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MaterialModule} from "../material-module";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {GridsModule} from "../grids/grids.module";
 
 
 
@@ -15,7 +16,8 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     UtilsModule,
     MatTabsModule,
     MaterialModule,
-    NgxChartsModule
+    NgxChartsModule,
+    GridsModule
   ]
 })
 export class AnalyticsModule { }

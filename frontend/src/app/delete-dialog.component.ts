@@ -9,7 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   <!--      <button mat-button cdkFocusInitial>Ok</button>-->
   <!--  </div>-->
 
-  <sg-dialog-layout (Accept)="apply()" (Deny)="deny()">
+  <sg-dialog-layout (accept)="apply()" (deny)="deny()">
       <header>
           <mat-icon>delete</mat-icon>
           Удалить сущность?

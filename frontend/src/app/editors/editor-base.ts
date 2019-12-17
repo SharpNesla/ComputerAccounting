@@ -1,7 +1,7 @@
 import {EntityBase} from "../entities/entity-base";
 import {EntityServiceBase, PackEntityService} from "../services/entity-service-base";
 import {OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {BadRequestDialogComponent} from "../bad-request-dialog.component";
 
@@ -12,26 +12,22 @@ export class EditorBase<TEntity extends EntityBase,
   protected Repo: TRepository;
 
   constructor(repository: TRepository, protected route: ActivatedRoute, protected dialog: MatDialog,
-              addEntity: TEntity, public readonly endLink = "") {
+              addEntity: TEntity, protected router: Router, public readonly endLink = "") {
     this.Repo = repository;
     this.Entity = addEntity;
   }
 
   public applyChanges() {
+    let observable;
     if (this.isNew) {
-      this.Repo.add(this.Entity).subscribe(
-        response => console.log(response),
-        error => {
-          console.log(error);
-          this.dialog.open(BadRequestDialogComponent, {
-            width: '300px',
-            data: true
-          })
-        }
-      );
+      observable = this.Repo.add(this.Entity)
     } else {
-      this.Repo.update(this.Entity);
+      observable = this.Repo.update(this.Entity)
     }
+    observable.subscribe(
+      response => this.router.navigateByUrl(this.endLink),
+      error => this.dialog.open(BadRequestDialogComponent, {width: '300px'})
+    );
   }
 
   public discardChanges() {
@@ -42,7 +38,7 @@ export class EditorBase<TEntity extends EntityBase,
       this.isNew = true;
     } else {
       this.route.params.subscribe(params => {
-        this.Repo.getById(+params['id']).subscribe(x => this.Entity = x, err =>{
+        this.Repo.getById(+params['id']).subscribe(x => this.Entity = x, err => {
           this.dialog.open(BadRequestDialogComponent)
         })
       });
@@ -57,10 +53,11 @@ export class PackEditorBase<TEntity extends EntityBase,
 
   constructor(repository: TRepository,
               route: ActivatedRoute,
+              router : Router,
               dialog: MatDialog,
-              addEntity: TEntity) {
+              addEntity: TEntity, endLink : string = "") {
 
-    super(repository, route, dialog, addEntity)
+    super(repository, route, dialog, addEntity, router, endLink)
   }
 
 

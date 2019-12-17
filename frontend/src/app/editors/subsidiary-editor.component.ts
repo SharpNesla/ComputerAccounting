@@ -3,15 +3,17 @@ import {EditorBase} from "./editor-base";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {Subsidiary} from "../entities/subsidiary";
 import {MatDialog} from "@angular/material/dialog";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'sg-subsidiary-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()"
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()"
                         end-link="/subsidiaries"
                         [acceptDisabled]="name.checkValidity() || address.checkValidity()">
-          <header><mat-icon id="sg-editor-icon">storefront</mat-icon> {{isNew ? 'Добавление' : 'Изменение'}}
+          <header>
+              <mat-icon id="sg-editor-icon">storefront</mat-icon>
+              {{isNew ? 'Добавление' : 'Изменение'}}
               филиала {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
@@ -25,7 +27,7 @@ import {ActivatedRoute} from "@angular/router";
                              [(ngModel)]="this.Entity.Address" required>
                   </mat-form-field>
                   <sg-employee-search hint="Директор филиала" #director
-                          [(ngModel)]="Entity.Director"></sg-employee-search>
+                                      [(ngModel)]="Entity.Director"></sg-employee-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -40,7 +42,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SubsidiaryEditorComponent extends EditorBase<Subsidiary, SubsidiaryService> {
 
-  constructor(private service: SubsidiaryService, route: ActivatedRoute, dialog : MatDialog) {
-    super(service, route, dialog, new Subsidiary());
+  constructor(private service: SubsidiaryService, route: ActivatedRoute,
+              dialog : MatDialog, router : Router,) {
+    super(service, route, dialog, new Subsidiary(), router, "subsidiaries");
   }
 }

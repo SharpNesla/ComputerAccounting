@@ -7,7 +7,7 @@ import {PartTypeService} from "../services/part-type.service";
 @Component({
   selector: 'sg-part-type-card',
   template: `
-      <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
+      <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               Тип комплектующего №{{(Entity | async)?.Id}}

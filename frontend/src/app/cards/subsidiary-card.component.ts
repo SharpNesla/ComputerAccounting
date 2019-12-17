@@ -7,7 +7,7 @@ import {SubsidiaryService} from "../services/subsidiary.service";
 @Component({
   selector: 'sg-part-type-card',
   template: `
-      <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
+      <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               Филиал №{{(Entity | async)?.Id}}
@@ -23,7 +23,7 @@ import {SubsidiaryService} from "../services/subsidiary.service";
                       {{(Entity | async)?.Director.Name}}
                       {{(Entity | async)?.Director.Surname}}
                   </p>
-                  
+
                   <p class="mat-body">Комментарий:<br> {{(Entity | async)?.Comment}}</p>
 
               </mat-card>

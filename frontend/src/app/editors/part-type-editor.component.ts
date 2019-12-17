@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EditorBase} from "./editor-base";
 import {Part} from "../entities/part";
 import {PartService} from "../services/part.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PartCategory, PartType} from "../entities/part-type";
 import {PartTypeService} from "../services/part-type.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -10,7 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-part-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/part-types">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/part-types">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
@@ -67,8 +67,10 @@ export class PartTypeEditorComponent extends EditorBase<PartType, PartTypeServic
     PartCategory.Monitor,
     PartCategory.Other
   ];
-  constructor(private service: PartTypeService, route: ActivatedRoute, dialog : MatDialog) {
-    super(service, route, dialog, new PartType());
+
+  constructor(private service: PartTypeService, route: ActivatedRoute,
+              router: Router, dialog: MatDialog) {
+    super(service, route, dialog, new PartType(), router, "part-types");
   }
 
 }

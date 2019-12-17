@@ -2,14 +2,16 @@ import {Component} from "@angular/core";
 import {EditorBase} from "./editor-base";
 import {RoomService} from "../services/room.service";
 import {Room} from "../entities/room";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-room-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/rooms">
-          <header><mat-icon id="sg-editor-icon">storefront</mat-icon> {{isNew ?
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/rooms">
+          <header>
+              <mat-icon id="sg-editor-icon">storefront</mat-icon>
+              {{isNew ?
                   'Добавление' : 'Изменение'}}
               помещения {{!isNew ? '№' + this.Entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
@@ -20,7 +22,7 @@ import {MatDialog} from "@angular/material/dialog";
                              [(ngModel)]="this.Entity.Number">
                   </mat-form-field>
                   <sg-subsidiary-search [(ngModel)]="Entity.Subsidiary"
-                  hint="Филиал"></sg-subsidiary-search>
+                                        hint="Филиал"></sg-subsidiary-search>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
@@ -36,7 +38,8 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class RoomEditorComponent extends EditorBase<Room, RoomService> {
 
-  constructor(private service: RoomService, route : ActivatedRoute, dialog : MatDialog) {
-    super(service, route, dialog, new Room());
+  constructor(private service: RoomService, route: ActivatedRoute,
+              router: Router, dialog: MatDialog) {
+    super(service, route, dialog, new Room(), router, "rooms");
   }
 }

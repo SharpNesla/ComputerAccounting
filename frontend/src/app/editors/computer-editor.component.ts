@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ComputerService} from "../services/computer.service";
 import {Computer, ComputerType} from "../entities/computer";
 import {EditorBase} from "./editor-base";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Employee} from "../entities/employee";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
@@ -10,7 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'sg-computer-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/computers">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/computers">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
@@ -141,8 +141,9 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
     'name', 'surname', 'role', 'info'];
   addingUser: Employee;
 
-  constructor(private service: ComputerService, route: ActivatedRoute, private snackBar: MatSnackBar, dialog: MatDialog) {
-    super(service, route, dialog, new Computer());
+  constructor(private service: ComputerService, route: ActivatedRoute,
+              router: Router, private snackBar: MatSnackBar, dialog: MatDialog) {
+    super(service, route, dialog, new Computer(), router, "computers");
   }
 
   addUser() {

@@ -3,13 +3,13 @@ import {LicenseService} from "../services/license.service";
 import {License} from "../entities/license";
 import {EditorBase, PackEditorBase} from "./editor-base";
 import {Location} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-computer-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/licenses">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/licenses">
           <header>
               <mat-icon id="sg-editor-icon">shop</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
@@ -31,7 +31,7 @@ import {MatDialog} from "@angular/material/dialog";
                                            searchHint="Иипа ПО"></sg-software-type-search>
 
                   <mat-form-field>
-                      <input matInput [matDatepicker]="picker" placeholder="Дата приобретения">
+                      <input matInput [matDatepicker]="picker" [(ngModel)]="Entity.PurchaseDate" placeholder="Дата приобретения">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -69,7 +69,8 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['../utils/editors-styles.scss']
 })
 export class LicenseEditorComponent extends PackEditorBase<License, LicenseService> {
-  constructor(private service: LicenseService, route: ActivatedRoute, dialog : MatDialog) {
-    super(service, route, dialog, new License());
+  constructor(private service: LicenseService, route: ActivatedRoute,
+              router: Router, dialog: MatDialog) {
+    super(service, route, router, dialog, new License(), "licenses");
   }
 }

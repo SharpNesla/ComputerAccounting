@@ -42,27 +42,27 @@ export class EmployeeFilter {
 
               <!-- Name Column -->
               <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Имя</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Имя</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.Name}} </td>
               </ng-container>
 
               <ng-container matColumnDef="surname">
-                  <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Фамилия</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.Surname}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="patronymic">
-                  <th mat-header-cell *matHeaderCellDef>Отчество</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Отчество</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.Patronymic}}
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="role">
-                  <th mat-header-cell *matHeaderCellDef>Должность</th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Должность</th>
                   <td mat-cell *matCellDef="let element"
                       (contextmenu)="onContextMenu($event, element)"> {{element.Role | role}}
                   </td>

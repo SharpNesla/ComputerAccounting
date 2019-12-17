@@ -12,12 +12,12 @@ import {Location} from '@angular/common';
 
           <div id="sg-button-container">
               <button mat-button color="primary"
-                      (click)="Accept.emit()"
+                      (click)="accept.emit()"
                       [disabled]="!acceptDisabled">ПРИНЯТЬ
               </button>
               <button id="discard-button"
                       *ngIf="!acceptOnly"
-                      [routerLink]="EndLink" (click)="Deny.emit()"
+                      [routerLink]="EndLink" (click)="deny.emit()"
                       mat-button color="primary">ОТМЕНИТЬ
               </button>
           </div>
@@ -37,8 +37,8 @@ import {Location} from '@angular/common';
 })
 export class DialogLayoutComponent implements OnInit {
   @Input('end-link') EndLink: string;
-  @Output() Accept = new EventEmitter();
-  @Output() Deny = new EventEmitter();
+  @Output() accept = new EventEmitter();
+  @Output() deny = new EventEmitter();
   @Input() acceptOnly: boolean;
   @Input() acceptDisabled: boolean = true;
 
@@ -51,7 +51,7 @@ export class DialogLayoutComponent implements OnInit {
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event:
                                                                           KeyboardEvent) {
-    this.Deny.emit();
+    this.deny.emit();
   }
 
   ngOnInit() {

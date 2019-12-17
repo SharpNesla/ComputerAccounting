@@ -110,12 +110,7 @@ export abstract class EntityServiceBase<T extends EntityBase> {
 
   public update(entity: T) {
     const preparedEntity = this.prepareEntity({...entity});
-    const result = this.client.post(`api/${this.entityPrefix}/edit/${entity.Id}`, keysToSnake(preparedEntity))
-      .subscribe(
-        response => console.log(response),
-        error => console.log(error)
-      )
-    ;
+    return this.client.post(`api/${this.entityPrefix}/edit/${entity.Id}`, keysToSnake(preparedEntity));
   }
 
   protected prepareEntity(entity: T): T {

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {CardBase} from "../utils/card-base";
 import {Computer} from "../entities/computer";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -7,7 +7,7 @@ import {ComputerService} from "../services/computer.service";
 @Component({
   selector: 'sg-computer-card',
   template: `
-      <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
+      <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               Компьютер №{{(Entity | async)?.Id}}

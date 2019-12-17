@@ -7,7 +7,7 @@ import {SoftwareService} from "../services/software.service";
 @Component({
   selector: 'sg-part-type-card',
   template: `
-      <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
+      <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               Компьютер №{{(Entity | async)?.Id}}

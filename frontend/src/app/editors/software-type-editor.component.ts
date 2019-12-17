@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EditorBase} from "./editor-base";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SoftwareCategory, SoftwareType} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 import {Software} from "../entities/software";
@@ -10,7 +10,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 @Component({
   selector: 'sg-software-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/software">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/software">
           <header>
               <mat-icon id="sg-editor-icon">developer_board</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
@@ -122,9 +122,9 @@ export class SoftwareTypeEditorComponent extends EditorBase<SoftwareType, Softwa
     'category', 'software_count', 'info'];
   addingDependency: any;
 
-  constructor(private service: SoftwareTypeService, route: ActivatedRoute,
+  constructor(private service: SoftwareTypeService, route: ActivatedRoute, router : Router,
               private snackBar: MatSnackBar, dialog: MatDialog) {
-    super(service, route, dialog, new SoftwareType());
+    super(service, route, dialog, new SoftwareType(), router, "software");
   }
 
 

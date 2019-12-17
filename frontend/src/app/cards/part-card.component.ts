@@ -7,7 +7,7 @@ import {PartService} from "../services/part.service";
 @Component({
   selector: 'sg-license-card',
   template: `
-      <sg-dialog-layout (Accept)="onClick()" acceptOnly="true">
+      <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
               <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
               Комплектующее №{{(Entity | async)?.Id}}

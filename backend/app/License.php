@@ -11,8 +11,8 @@ class License extends Model
 
     protected $fillable = [
         'purchase_date', 'cost', 'eula', 'max_apply_count',
-        'software_type_id',
-        'expiration_date', 'is_ends_on_date', 'comment'];
+        'software_type_id', 'purchase_date',
+        'expiration_date', 'comment'];
 
     public function softwareType()
     {

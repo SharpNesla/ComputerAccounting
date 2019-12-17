@@ -2,13 +2,13 @@ import {Component} from '@angular/core';
 import {EmployeeService} from "../services/employee.service";
 import {Employee, Gender, Roles} from "../entities/employee";
 import {EditorBase} from "./editor-base";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'sg-employee-editor',
   template: `
-      <sg-dialog-layout (Accept)="applyChanges()" (Deny)="discardChanges()" end-link="/employees">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" end-link="/employees">
           <header>
               <mat-icon id="sg-editor-icon">account_circle</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
@@ -115,8 +115,9 @@ export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeServic
   password: string;
   passwordRepeat: string;
 
-  constructor(private service: EmployeeService, route: ActivatedRoute, dialog: MatDialog) {
-    super(service, route, dialog, new Employee());
+  constructor(private service: EmployeeService, route: ActivatedRoute,
+              router: Router, dialog: MatDialog) {
+    super(service, route, dialog, new Employee(), router, "employees");
   }
 
   public applyChanges() {

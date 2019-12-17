@@ -1,7 +1,7 @@
 import {EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {BehaviorSubject, interval, Observable} from "rxjs";
 import {Subsidiary} from "../entities/subsidiary";
-import {debounce, map, mergeMap, throttle} from "rxjs/operators";
+import {debounce, exhaustMap, map, mergeMap, throttle} from "rxjs/operators";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {EntityBase} from "../entities/entity-base";
 import {EntityServiceBase} from "../services/entity-service-base";
@@ -37,7 +37,7 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
     this.entities = this.searchBehaviourSubject.asObservable()
       .pipe(
         debounce(val => interval(300)),
-        mergeMap(x => this.disabled ? [] : this.dataSource(x, this.filterDefinition)),
+        exhaustMap(x => this.disabled ? [] : this.dataSource(x, this.filterDefinition)),
         map(x => {
           if (this.selectedEntity != null) {
             x = x.filter(y => y.Id != this.selectedEntity.Id);

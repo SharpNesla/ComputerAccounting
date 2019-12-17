@@ -7,8 +7,8 @@ export class License extends EntityBase {
   MaxApplyCount: number;
   IsEndsOnDate : boolean;
 
-  PurchaseDate : Date;
-  ExpirationDate : Date;
+  PurchaseDate;
+  ExpirationDate;
 
   SoftwareTypeId : number;
   SoftwareType : SoftwareType;

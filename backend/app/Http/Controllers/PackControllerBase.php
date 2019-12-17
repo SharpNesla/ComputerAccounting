@@ -19,7 +19,7 @@ class PackControllerBase extends CrudControllerBase
         if ($decodedAsArray == null){
             return response("Corrupted request body", 400);
         }
-        if ($this->validateEntity($decodedAsArray)){
+        if (!$this->validateEntity($decodedAsArray)){
             return response("Invalid entity", 400);
         }
         for ($i = 0; $i < $decodedAsArray['count']; $i++) {
