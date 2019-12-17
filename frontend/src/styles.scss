@@ -190,9 +190,9 @@ mat-divider {
 }
 
 .sg-search-drawer {
+  @extend .mat-card;
   display: none;
   flex-wrap: wrap;
-  background: map-get($mat-dark-theme-background, card);
   position: absolute;
   bottom: 0;
   z-index: 1;

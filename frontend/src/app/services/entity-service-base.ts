@@ -70,7 +70,7 @@ export abstract class EntityServiceBase<TEntity extends EntityBase> {
   public getById(id: number): Observable<TEntity> {
     return this.client.get<TEntity>(`api/${this.entityPrefix}/${id}`)
       .pipe(map(
-        y => keysToCamel(y)
+        y => this.prepareEntityGet(y)
       ));
   }
 
@@ -91,7 +91,7 @@ export abstract class EntityServiceBase<TEntity extends EntityBase> {
     return this.client.get<{ entities: TEntity[], count: number }>(`api/${this.entityPrefix}/get`, {params})
       .pipe(map(x =>
         ({
-          entities: x.entities.map(y => keysToCamel(y)),
+          entities: x.entities.map(y => this.prepareEntityGet(y)),
           allCount: x['all_count']
         })
       ));
@@ -111,16 +111,16 @@ export abstract class EntityServiceBase<TEntity extends EntityBase> {
     }
 
     return this.client.get<TEntity[]>(`api/${this.entityPrefix}/get`, {params})
-      .pipe(map(x => x.map(entity => keysToCamel(entity))));
+      .pipe(map(x => x.map(entity => this.prepareEntityGet(entity))));
   }
 
   public add(entity: TEntity) {
-    const preparedEntity = this.prepareEntity({...entity});
+    const preparedEntity = this.prepareEntitySave({...entity});
     return this.client.post(`api/${this.entityPrefix}/add`, keysToSnake(preparedEntity));
   }
 
   public update(entity: TEntity) {
-    const preparedEntity = this.prepareEntity({...entity});
+    const preparedEntity = this.prepareEntitySave({...entity});
     return this.client.post(`api/${this.entityPrefix}/edit/${entity.Id}`, keysToSnake(preparedEntity));
   }
 
@@ -129,15 +129,23 @@ export abstract class EntityServiceBase<TEntity extends EntityBase> {
   }
 
   public removeMany(entities: TEntity[]) {
-    return this.client.post(`api/${this.entityPrefix}/remove-many/`, entities.map(x=>x.Id));
+    return this.client.post(`api/${this.entityPrefix}/remove-many/`, entities.map(x => x.Id));
   }
 
-  protected prepareEntity(entity: TEntity): TEntity {
+  protected prepareEntitySave(entity: TEntity): TEntity {
     entity.CreatedAt = undefined;
     entity.UpdatedAt = undefined;
     entity.DeletedAt = undefined;
 
     return entity;
+  }
+
+  protected prepareEntityGet(entity: TEntity): TEntity {
+    entity.CreatedAt = Date.parse(entity.CreatedAt);
+    entity.UpdatedAt = Date.parse(entity.UpdatedAt);
+    entity.DeletedAt = Date.parse(entity.DeletedAt);
+
+    return keysToCamel(entity);
   }
 }
 
@@ -147,7 +155,7 @@ export abstract class PackEntityService<T extends EntityBase> extends EntityServ
     super(client, entityPrefix);
   }
 
-  protected prepareEntityRange(entity: T): T {
+  protected prepareEntityAddPack(entity: T): T {
     entity.CreatedAt = undefined;
     entity.UpdatedAt = undefined;
     entity.DeletedAt = undefined;
@@ -155,8 +163,8 @@ export abstract class PackEntityService<T extends EntityBase> extends EntityServ
     return entity;
   }
 
-  public addRange(entity: T, count: number) {
-    const preparedEntity = this.prepareEntityRange({...entity});
+  public addPack(entity: T, count: number) {
+    const preparedEntity = this.prepareEntityAddPack({...entity});
     preparedEntity['Count'] = count;
     return this.client.post(`api/${this.entityPrefix}/add-pack`, keysToSnake(preparedEntity));
   }

@@ -23,8 +23,7 @@ class PackControllerBase extends CrudControllerBase
             return response("Invalid entity", 400);
         }
         for ($i = 0; $i < $decodedAsArray['count']; $i++) {
-            $model = $this->facade::create($decodedAsArray);
-            $model->save();
+            $this->add($request);
         }
 
     }

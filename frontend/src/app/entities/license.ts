@@ -12,8 +12,8 @@ export class License extends EntityBase {
   Cost: number;
   MaxApplyCount: number;
 
-  PurchaseDate;
-  ExpirationDate;
+  PurchaseDate : Date | string = new Date();
+  ExpirationDate: Date | string = new Date();
 
   LicenseStatus;
 

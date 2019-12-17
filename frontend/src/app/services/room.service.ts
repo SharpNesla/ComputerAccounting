@@ -11,11 +11,11 @@ export class RoomService extends EntityServiceBase<Room> {
     super(httpClient, "room");
   }
 
-  protected prepareEntity(entity: Room): Room {
+  protected prepareEntitySave(entity: Room): Room {
     entity.ComputersCount = undefined;
 
     entity.SubsidiaryId = entity.Subsidiary.Id;
     entity.Subsidiary = undefined;
-    return super.prepareEntity(entity);
+    return super.prepareEntitySave(entity);
   }
 }

@@ -11,12 +11,12 @@ export class SubsidiaryService extends EntityServiceBase<Subsidiary> {
     super(httpClient, "subsidiary");
   }
 
-  protected prepareEntity(entity: Subsidiary): Subsidiary {
+  protected prepareEntitySave(entity: Subsidiary): Subsidiary {
     entity.DirectorId = entity.Director.Id;
 
     entity.Director = undefined;
     entity.RoomsCount = undefined;
 
-    return super.prepareEntity(entity);
+    return super.prepareEntitySave(entity);
   }
 }

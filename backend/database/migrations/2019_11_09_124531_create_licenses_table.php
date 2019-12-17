@@ -19,8 +19,8 @@ class CreateLicensesTable extends Migration
             $table->decimal('cost')->nullable();
             $table->text('eula')->nullable();
             $table->integer('max_apply_count')->nullable();
-            $table->time('purchase_date')->nullable();
-            $table->time('expiration_date')->nullable();
+            $table->dateTime('purchase_date')->nullable();
+            $table->dateTime('expiration_date')->nullable();
 
             $table->bigInteger('software_type_id')->unsigned()->nullable();
             $table->foreign('software_type_id')

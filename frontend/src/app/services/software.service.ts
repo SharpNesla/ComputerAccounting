@@ -12,7 +12,7 @@ export class SoftwareService extends PackEntityService<Software> {
     super(httpClient, "software");
   }
 
-  protected prepareEntityRange(entity: Software): Software {
+  protected prepareEntityAddPack(entity: Software): Software {
     entity.SoftwareTypeId = entity.SoftwareType.Id;
 
     entity.ComputerId = undefined;
@@ -22,10 +22,10 @@ export class SoftwareService extends PackEntityService<Software> {
     entity.SoftwareType = undefined;
     entity.Computer = undefined;
 
-    return super.prepareEntityRange(entity);
+    return super.prepareEntityAddPack(entity);
   }
 
-  protected prepareEntity(entity: Software): Software {
+  protected prepareEntitySave(entity: Software): Software {
     entity.SoftwareTypeId = entity.SoftwareType.Id;
 
     if (entity.Computer){
@@ -44,6 +44,6 @@ export class SoftwareService extends PackEntityService<Software> {
     entity.SoftwareType = undefined;
     entity.Computer = undefined;
 
-    return super.prepareEntity(entity);
+    return super.prepareEntitySave(entity);
   }
 }

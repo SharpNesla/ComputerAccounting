@@ -13,7 +13,7 @@ export class ComputerService extends EntityServiceBase<Computer> implements Coun
     super(httpClient, "computer");
   }
 
-  protected prepareEntity(entity: Computer): Computer {
+  protected prepareEntitySave(entity: Computer): Computer {
     if (entity.Room.Id != null){
       entity.RoomId = entity.Room.Id;
     }
@@ -31,7 +31,7 @@ export class ComputerService extends EntityServiceBase<Computer> implements Coun
 
     entity.UsersCount = undefined;
 
-    return super.prepareEntity(entity);
+    return super.prepareEntitySave(entity);
   }
 
   getCountBySubsidiaries(filterDefinition: object): CountBySubsidiaryResult[] {

@@ -68,7 +68,7 @@ class SoftwareTypeFilter {
                           <mat-icon>delete</mat-icon>
                       </button>
                       <button mat-icon-button *ngIf="!isCompact"
-                              [routerLink]="'/computers/edit/' + element.Id">
+                              [routerLink]="'/software-types/edit/' + element.Id">
                           <mat-icon>edit</mat-icon>
                       </button>
                       <button mat-icon-button

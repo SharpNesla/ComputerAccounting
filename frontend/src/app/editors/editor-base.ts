@@ -1,11 +1,10 @@
 import {EntityBase} from "../entities/entity-base";
 import {EntityServiceBase, PackEntityService} from "../services/entity-service-base";
-import {OnDestroy, OnInit} from "@angular/core";
+import {OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {BadRequestDialogComponent} from "../bad-request-dialog.component";
-import {Observable} from "rxjs";
-import {first, flatMap, mergeMap} from "rxjs/operators";
+import {first, mergeMap} from "rxjs/operators";
 
 export class EditorBase<TEntity extends EntityBase,
   TRepository extends EntityServiceBase<TEntity>> implements OnInit {
@@ -47,6 +46,7 @@ export class EditorBase<TEntity extends EntityBase,
         ).subscribe(
         x => this.entity = x,
         err => this.dialog.open(BadRequestDialogComponent)
+          .afterClosed().pipe(first()).subscribe(()=>this.router.navigateByUrl(this.endLink))
       );
     }
   }
@@ -69,7 +69,7 @@ export class PackEditorBase<TEntity extends EntityBase,
 
   public applyChanges() {
     if (this.isPackAdd && this.isNew) {
-      this.repo.addRange(this.entity, this.packCount).pipe(first()).subscribe(
+      this.repo.addPack(this.entity, this.packCount).pipe(first()).subscribe(
         response => this.router.navigateByUrl(this.endLink),
         error => {
           this.dialog.open(BadRequestDialogComponent, {

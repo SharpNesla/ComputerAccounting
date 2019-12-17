@@ -14,7 +14,7 @@ export class PartService extends PackEntityService<Part> implements CountableByS
     super(httpClient, "part")
   }
 
-  protected prepareEntityRange(entity: Part): Part {
+  protected prepareEntityAddPack(entity: Part): Part {
 
     entity.State = PartState.InStore;
 
@@ -30,10 +30,10 @@ export class PartService extends PackEntityService<Part> implements CountableByS
     entity.PartType = undefined;
     entity.Subsidiary = undefined;
 
-    return super.prepareEntityRange(entity);
+    return super.prepareEntityAddPack(entity);
   }
 
-  protected prepareEntity(entity: Part): Part {
+  protected prepareEntitySave(entity: Part): Part {
     if (entity.State == PartState.InComputer) {
       entity.ComputerId = entity.Computer.Id;
       entity.SubsidiaryId = null;
@@ -50,7 +50,7 @@ export class PartService extends PackEntityService<Part> implements CountableByS
     entity.PartType = undefined;
     entity.Subsidiary = undefined;
 
-    return super.prepareEntity(entity);
+    return super.prepareEntitySave(entity);
   }
 
   getCountBySubsidiaries(filterDefinition: object): CountBySubsidiaryResult[] {

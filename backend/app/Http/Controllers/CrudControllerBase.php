@@ -132,7 +132,6 @@ class CrudControllerBase extends Controller
         $model->fill($decodedAsArray);
         $model = $this->querySave($decodedAsArray, $model);
         $model->save();
-
     }
 
     public function add(Request $request)
@@ -146,6 +145,7 @@ class CrudControllerBase extends Controller
         }
 
         $model = $this->facade::create($decodedAsArray);
+        $model = $this->querySave($decodedAsArray, $model);
         $model->save();
     }
 

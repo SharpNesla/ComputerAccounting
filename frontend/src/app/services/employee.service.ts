@@ -19,7 +19,7 @@ export class EmployeeService extends EntityServiceBase<Employee> {
       .pipe(map(x => keysToCamel(x)));
   }
 
-  protected prepareEntity(entity: Employee): Employee {
+  protected prepareEntitySave(entity: Employee): Employee {
     if (entity.Subsidiary != null){
       entity.SubsidiaryId = entity.Subsidiary.Id;
     }else{
@@ -34,6 +34,6 @@ export class EmployeeService extends EntityServiceBase<Employee> {
     entity.Subsidiary = undefined;
     entity.Superior = undefined;
 
-    return super.prepareEntity(entity);
+    return super.prepareEntitySave(entity);
   }
 }
