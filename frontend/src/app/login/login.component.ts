@@ -8,7 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   selector: 'sg-login',
   template: `
       <main>
-          <mat-card id="login-panel" class="mat-elevation-z8">
+          <mat-card id="login-panel" class="mat-elevation-z4">
               <mat-toolbar id="login-header" color="primary">
                   Окна и фурнитура «Сибирские врата»
               </mat-toolbar>
@@ -37,7 +37,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
       main {
           width: 100vw;
           height: 100vh;
-          background: url("../../assets/LoginBackground2.png") center;
+          background: url("../../assets/LoginBackgroundLight.png") center;
           background-size: cover;
           display: flex;
       }

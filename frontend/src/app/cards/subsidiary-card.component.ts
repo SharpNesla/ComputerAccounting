@@ -29,7 +29,8 @@ import {SubsidiaryService} from "../services/subsidiary.service";
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Помещения</h2>
-                  <sg-room-grid isCompact="true"></sg-room-grid>
+                  <sg-room-grid [customDataSource]="rooms"
+                                isCompact="true"></sg-room-grid>
               </mat-card>
           </div>
       </sg-dialog-layout>`,
@@ -45,6 +46,13 @@ export class SubsidiaryCardComponent extends CardBase<Subsidiary, SubsidiaryServ
     super(dialogRef, service, data);
   }
 
+
+  get rooms(){
+    if (this.entity && this.entity.Rooms){
+        return this.entity.Rooms;
+    }
+    return [];
+  }
 
 
 }

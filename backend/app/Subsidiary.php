@@ -28,6 +28,8 @@ class Subsidiary extends Model
         return $this->hasMany(User::class);
     }
 
+
+
     public function director()
     {
         return $this->belongsTo(User::class, 'director_id');

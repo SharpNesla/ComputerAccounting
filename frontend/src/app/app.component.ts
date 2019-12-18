@@ -119,13 +119,15 @@ export class AppComponent implements OnInit {
               public auth: AuthService,
               private dialog: MatDialog,
               public visibilities: VisibilitiesService) {
-    this.CurrentEmployeeObservable = auth.CurrentEmployee;
   }
 
   logout() {
     this.auth.logout();
   }
 
+
+
   ngOnInit(): void {
+    this.CurrentEmployeeObservable = this.auth.CurrentEmployee;
   }
 }

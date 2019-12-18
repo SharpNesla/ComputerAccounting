@@ -9,9 +9,18 @@ import {DeleteDialogComponent} from '../delete-dialog.component';
 import {first, flatMap} from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
 import {CardService} from '../cards/card.service';
+import {element} from 'protractor';
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
   TService extends EntityServiceBase<TEntity>> implements OnInit {
+  get customDataSource(): TEntity[] {
+    return this._customDataSource;
+  }
+
+  @Input() set customDataSource(value: TEntity[]) {
+    this._customDataSource = value;
+    this.refresh();
+  }
 
   public entities: TEntity[];
   public count: number = 0;
@@ -20,6 +29,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   @Input() public IsDisplaySubtotals: boolean;
   @Input() public IsSearchDrawerOpened: boolean;
   @Input() public isCompact: boolean;
+  private _customDataSource: TEntity[];
 
   selection = new SelectionModel<TEntity>(true, []);
 
@@ -47,21 +57,28 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
   protected constructor(protected service: TService,
                         protected dialog: MatDialog,
                         private displayedColumns: string[],
-                        protected cardService : CardService,
+                        protected cardService: CardService,
                         protected card) {
   }
 
   public refresh() {
-    this.service.getWithAllCount(
-      this._searchString ? this._searchString : null,
-      this.currentOffset, this.currentLimit,
-      this.constructFilter(), this.sortActive, this.sortDirection)
-      .pipe(first())
-      .subscribe(result => {
-        this.entities = result.entities;
-        this.count = result.allCount;
-        this.selection.clear();
-      });
+    if (this._customDataSource) {
+      this.entities =
+        this._customDataSource
+          .slice(this.currentOffset, this.currentOffset + this.currentLimit);
+      this.count = this._customDataSource.length;
+    } else {
+      this.service.getWithAllCount(
+        this._searchString ? this._searchString : null,
+        this.currentOffset, this.currentLimit,
+        this.constructFilter(), this.sortActive, this.sortDirection)
+        .pipe(first())
+        .subscribe(result => {
+          this.entities = result.entities;
+          this.count = result.allCount;
+          this.selection.clear();
+        });
+    }
   }
 
   showInfoCard(element: TEntity) {

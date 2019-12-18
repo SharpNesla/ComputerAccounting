@@ -10,7 +10,7 @@ import {RoomService} from "../services/room.service";
 import {ControlValueAccessor} from "@angular/forms";
 
 
-export class SingleSearchBase<TEntity extends EntityBase> implements ControlValueAccessor {
+export class SingleSearchBase<TEntity extends EntityBase> implements ControlValueAccessor, OnInit {
   @Input() required: boolean;
 
   set searchString(value: string) {
@@ -34,18 +34,7 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   }
 
   constructor(protected service: EntityServiceBase<TEntity>) {
-    this.entities = this.searchBehaviourSubject.asObservable()
-      .pipe(
-        debounce(val => interval(300)),
-        exhaustMap(x => this.disabled ? [] : this.dataSource(x, this.filterDefinition)),
-        map(x => {
-          if (this.selectedEntity != null) {
-            x = x.filter(y => y.Id != this.selectedEntity.Id);
-            x.unshift(this.selectedEntity);
-          }
-          return x;
-        })
-      );
+
   }
 
   entities: Observable<TEntity[]>;
@@ -55,9 +44,6 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   @Input() hint: string;
   @Input() searchHint: string;
   @Input() filterDefinition;
-
-  search() {
-  }
 
   public dataSource(searchString, filterDefinition: object): Observable<TEntity[]> {
     return this.service.get(searchString, 0, 10, null, null, null)
@@ -79,5 +65,20 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   writeValue(obj: any): void {
     this._selectedEntity = obj;
     this.onChange(obj);
+  }
+
+  ngOnInit(): void {
+    this.entities = this.searchBehaviourSubject.asObservable()
+      .pipe(
+        debounce(val => interval(300)),
+        exhaustMap(x => this.disabled ? [] : this.dataSource(x, this.filterDefinition)),
+        map(x => {
+          if (this.selectedEntity != null) {
+            x = x.filter(y => y.Id != this.selectedEntity.Id);
+            x.unshift(this.selectedEntity);
+          }
+          return x;
+        })
+      );
   }
 }

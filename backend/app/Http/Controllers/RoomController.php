@@ -22,7 +22,7 @@ class RoomController extends CrudControllerBase
 
     public function getById($id)
     {
-        return Room::with('subsidiary')->findOrFail($id);
+        return Room::with('subsidiary')->with('computers')->findOrFail($id);
     }
 
     protected function applyFilters(array $filter, Builder $builder): Builder

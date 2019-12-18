@@ -25,36 +25,36 @@ class SubsidiaryController extends CrudControllerBase
 
     protected function applyFilters(array $filter, Builder $builder): Builder
     {
-        if(array_key_exists('rooms_count_low_bound', $filter)){
+        if (array_key_exists('rooms_count_low_bound', $filter)) {
             $builder = $builder
                 ->has('rooms', '>=', $filter['rooms_count_low_bound']);
         }
 
-        if(array_key_exists('rooms_count_high_bound', $filter)){
+        if (array_key_exists('rooms_count_high_bound', $filter)) {
             $builder = $builder
                 ->has('rooms', '<=', $filter['rooms_count_high_bound']);
         }
 
-        if(array_key_exists('computers_count_low_bound', $filter)){
+        if (array_key_exists('computers_count_low_bound', $filter)) {
             $builder = $builder
                 ->has('computers', '>=', $filter['computers_count_low_bound']);
         }
 
-        if(array_key_exists('computers_count_high_bound', $filter)){
+        if (array_key_exists('computers_count_high_bound', $filter)) {
             $builder = $builder
                 ->has('computers', '<=', $filter['computers_count_high_bound']);
         }
 
-        if(array_key_exists('employees_count_low_bound', $filter)){
+        if (array_key_exists('employees_count_low_bound', $filter)) {
             $builder = $builder
                 ->has('employees', '>=', $filter['employees_count_low_bound']);
         }
 
-        if(array_key_exists('employees_count_high_bound', $filter)){
+        if (array_key_exists('employees_count_high_bound', $filter)) {
             $builder = $builder
                 ->has('employees', '<=', $filter['employees_count_high_bound']);
         }
-        if(array_key_exists('director_id', $filter)){
+        if (array_key_exists('director_id', $filter)) {
             $builder = $builder->where('director_id', $filter['director_id']);
         }
 
@@ -63,12 +63,15 @@ class SubsidiaryController extends CrudControllerBase
 
     public function getById($id)
     {
-        return Subsidiary::with('director')->findOrFail($id);
+        return Subsidiary::with('director')
+            ->with(['rooms' => function($q){
+                $q->withCount('computers');
+            }])->findOrFail($id);
     }
 
-    public function validateEntity(array $array) : bool
+    public function validateEntity(array $array): bool
     {
-        return !Validator::make($array,[
+        return !Validator::make($array, [
             'name' => 'required',
             'address' => 'required'
         ])->fails();

@@ -22,8 +22,6 @@ import {FormsModule} from "@angular/forms";
 import {GenderPipe} from './gender.pipe';
 import {PartStatePipe} from './part-state.pipe';
 import {NullDefaultValueDirective} from "./null-default-value.directive";
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {ApiInterceptor} from './api-interceptor.service';
 
 @NgModule({
   declarations: [AppbarBaseComponent, DrawerButtonComponent,
