@@ -3,6 +3,11 @@ import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {License} from "../entities/license";
 import {LicenseService} from "../services/license.service";
+import {Subsidiary} from '../entities/subsidiary';
+import {SubsidiaryCardComponent} from './subsidiary-card.component';
+import {SoftwareType} from '../entities/software-type';
+import {CardService} from './card.service';
+import {SoftwareTypeCardComponent} from './software-type-card.component';
 
 @Component({
   selector: 'sg-license-card',
@@ -18,7 +23,19 @@ import {LicenseService} from "../services/license.service";
 
                   <p>Стоимость: {{entity?.Cost}}₽</p>
                   <p>Максимальное число применений: {{entity?.MaxApplyCount}}</p>
-
+                  
+                  <p>Применена: {{entity?.SoftwareCount}} / {{entity?.MaxApplyCount}}</p>
+                  
+                  <p class="mat-body" *ngIf="entity?.SoftwareType">
+                      <a (click)="showSoftwareTypeCard(entity?.SoftwareType)">Тип ПО:
+                          <br>
+                          №{{entity?.SoftwareType.Id}}
+                          {{entity?.SoftwareType.Typename}}
+                          {{entity?.SoftwareType.Category | softwareCategory}}
+                      </a>
+                  </p>
+                                    
+                  <p>Дата приобретения: {{entity?.PurchaseDate | date: 'yyyy.MM.DD'}}</p>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарии</h2>
@@ -33,9 +50,12 @@ export class LicenseCardComponent extends CardBase<License, LicenseService> {
   constructor(
     public dialogRef: MatDialogRef<LicenseCardComponent>,
     service: LicenseService,
+    private cardService: CardService,
     @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
-
+  showSoftwareTypeCard(softwareType: SoftwareType) {
+    this.cardService.showInfoCard(softwareType, SoftwareTypeCardComponent);
+  }
 
 }

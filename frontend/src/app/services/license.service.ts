@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {EntityServiceBase, keysToSnake, keysToCamel, PackEntityService} from './entity-service-base';
 import {License} from '../entities/license';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ChartableByDate, ChartResult, DateSlice} from '../analytics/countable-by-subsidiary';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Software} from '../entities/software';
 import {SoftwareType} from '../entities/software-type';
+import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
 
 @Injectable({
   providedIn: 'root'

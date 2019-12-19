@@ -61,6 +61,12 @@ body {
   height: 100vh;
 }
 
+a{
+  text-decoration: underline mat-color($candy-app-accent);
+  color: mat-color($candy-app-accent);
+  cursor: pointer;
+}
+
 @include angular-material-theme($sg-light-theme);
 
 .dark-theme {

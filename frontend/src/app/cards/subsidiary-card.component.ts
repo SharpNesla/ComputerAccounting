@@ -3,6 +3,9 @@ import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Subsidiary} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
+import {Employee} from '../entities/employee';
+import {CardService} from './card.service';
+import {EmployeeCardComponent} from './employee-card.component';
 
 @Component({
   selector: 'sg-part-type-card',
@@ -18,12 +21,19 @@ import {SubsidiaryService} from "../services/subsidiary.service";
                   <p class="mat-body">Название: {{entity?.Name}}</p>
                   <p class="mat-body">Адрес: {{entity?.Address}}</p>
 
-                  <p class="mat-body">Директор филиала:
-                      {{entity?.Director.Id}}
-                      {{entity?.Director.Name}}
-                      {{entity?.Director.Surname}}
+                  <p class="mat-body" *ngIf="entity?.Director">
+                      <a (click)="showEmployeeCard(entity?.Director)">Непосредственный руководитель:
+                          <br>
+                          №{{entity?.Director.Id}}
+                          {{entity?.Director.Name}}
+                          {{entity?.Director.Surname}}
+                      </a>
                   </p>
 
+                  <p class="mat-body">Количество помещений: {{entity?.EmployeesCount}}</p>
+<!--                  <p class="mat-body">Количество компьютеров: {{entity?.ComputersCount}}</p>-->
+                  <p class="mat-body">Количество сотрудников: {{entity?.EmployeesCount}}</p>
+                  
                   <p class="mat-body">Комментарий:<br> {{entity?.Comment}}</p>
 
               </mat-card>
@@ -42,6 +52,7 @@ export class SubsidiaryCardComponent extends CardBase<Subsidiary, SubsidiaryServ
   constructor(
     public dialogRef: MatDialogRef<SubsidiaryCardComponent>,
     service: SubsidiaryService,
+    private cardService: CardService,
     @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
@@ -54,5 +65,8 @@ export class SubsidiaryCardComponent extends CardBase<Subsidiary, SubsidiaryServ
     return [];
   }
 
+  showEmployeeCard(employee: Employee) {
+    this.cardService.showInfoCard(employee, EmployeeCardComponent);
+  }
 
 }

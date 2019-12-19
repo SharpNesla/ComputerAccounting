@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {PackEntityService} from "./entity-service-base";
 import {HttpClient} from "@angular/common/http";
 import {Part, PartState} from "../entities/part";
-import {CountableBySubsidiaries, CountBySubsidiaryResult} from "../analytics/chartable-by-date";
-import {ChartableByDate, ChartResult, DateSlice} from "../analytics/countable-by-subsidiary";
+import {CountableBySubsidiaries, CountBySubsidiaryResult} from '../analytics/countable-by-subsidiary';
+import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
 
 
 @Injectable({

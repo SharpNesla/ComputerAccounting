@@ -48,7 +48,7 @@ import {CardService} from '../cards/card.service';
                   </td>
               </ng-container>
 
-              <ng-container matColumnDef="apply_status">
+              <ng-container matColumnDef="software_count">
                   <th mat-header-cell *matHeaderCellDef>Применена</th>
                   <td mat-cell *matCellDef="let element"> {{element.SoftwareCount}} /
                       {{element.MaxApplyCount}}
@@ -107,7 +107,7 @@ import {CardService} from '../cards/card.service';
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
   constructor(licenses: LicenseService, private dialogref: MatDialog, cardService: CardService) {
     super(licenses, dialogref,
-      ['select', 'id', 'cost', 'max_applies', 'apply_status', 'info'],
+      ['select', 'id', 'cost', 'max_applies', 'software_count', 'info'],
       cardService,
       LicenseCardComponent);
   }

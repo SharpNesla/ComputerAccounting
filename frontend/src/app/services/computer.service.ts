@@ -3,7 +3,7 @@ import {Computer} from "../entities/computer";
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Subsidiary} from "../entities/subsidiary";
-import {CountableBySubsidiaries, CountBySubsidiaryResult} from "../analytics/chartable-by-date";
+import {CountableBySubsidiaries, CountBySubsidiaryResult} from '../analytics/countable-by-subsidiary';
 
 @Injectable({
   providedIn: 'root'
