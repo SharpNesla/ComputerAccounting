@@ -26,6 +26,7 @@ import {JwtInterceptorService} from "./login/jwt-interceptor.service";
 import {CardsModule} from "./cards/cards.module";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {BadRequestDialogComponent} from "./bad-request-dialog.component";
+import {EntityNotFoundDialogComponent} from './entity-not-found-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {BadRequestDialogComponent} from "./bad-request-dialog.component";
     AboutComponent,
     SettingsComponent,
     BadRequestDialogComponent,
+    EntityNotFoundDialogComponent,
     DeleteDialogComponent
   ],
   imports: [
@@ -62,7 +64,7 @@ import {BadRequestDialogComponent} from "./bad-request-dialog.component";
     {provide: MAT_DATE_LOCALE, useValue: 'ru-ru'}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteDialogComponent, BadRequestDialogComponent]
+  entryComponents: [DeleteDialogComponent, BadRequestDialogComponent, EntityNotFoundDialogComponent]
 })
 export class AppModule {
 }

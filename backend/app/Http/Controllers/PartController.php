@@ -22,8 +22,44 @@ class PartController extends PackControllerBase
             ->findOrFail($id);
     }
 
-    public function getCountBySubsidiaries(Request $request){
-        return Part::query()->selectRaw('count(*) as count, parts.state')
-            ->groupBy('state')->get();
+    public function getCountByDates(Request $request){
+        $array = Part::query()
+            ->selectRaw("count(*) as count, state, date_trunc('day', updated_at) AS date")
+            ->groupBy('state', 'date')->get()->toArray();
+
+        $tmp_arr = [];
+
+        foreach ($array as $key => $item) {
+            $date = $item['date'];
+            $tmp_arr[$date][$key] = $item;
+            $tmp_arr[$date] = array_values($tmp_arr[$date]);
+        }
+        foreach ($tmp_arr as $key => $item){
+            foreach ($item as $slice_key => $slice_item){
+                unset($tmp_arr[$key][$slice_key]['date']);
+            }
+        }
+        return $tmp_arr;
+    }
+
+    public function getCountByType(Request $request){
+        $array = Part::query()
+            ->with('partType')
+            ->selectRaw("count(*) as count, state, date_trunc('day', updated_at) AS date")
+            ->groupBy('state', 'date')->get()->toArray();
+
+        $tmp_arr = [];
+
+        foreach ($array as $key => $item) {
+            $date = $item['date'];
+            $tmp_arr[$date][$key] = $item;
+            $tmp_arr[$date] = array_values($tmp_arr[$date]);
+        }
+        foreach ($tmp_arr as $key => $item){
+            foreach ($item as $slice_key => $slice_item){
+                unset($tmp_arr[$key][$slice_key]['date']);
+            }
+        }
+        return $tmp_arr;
     }
 }

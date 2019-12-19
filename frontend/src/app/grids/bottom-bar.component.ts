@@ -130,7 +130,7 @@ export class BottomBarComponent implements OnInit {
   @Input('entity-name') EntityName: string;
   @Input() isCompact: boolean = false;
   @Input('router-link') link: string;
-
+  @Input('add-visibility') addVisibility: boolean = true;
   @Input('count') set Count(value) {
     this.count = value;
     this.CheckButtons();
@@ -145,7 +145,7 @@ export class BottomBarComponent implements OnInit {
 
   public filterState : boolean = false;
 
-  public values = [5, 10, 20, 100];
+  @Input() public values = [5, 10, 20, 100];
 
   public get EntityNameCapitalized() {
 

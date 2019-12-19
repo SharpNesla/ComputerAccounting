@@ -1,8 +1,16 @@
-import {Subsidiary} from "../entities/subsidiary";
-export class CountBySubsidiaryResult{
-  Count: number;
-  Subsidiary: Subsidiary;
+export class ChartResult{
+  Cost: number;
+  Count : number;
+  Date: string;
 }
-export interface CountableBySubsidiaries {
-  getCountBySubsidiaries( filterDefinition : object) : CountBySubsidiaryResult[];
+
+export enum DateSlice {
+  Day,
+  Week,
+  Month,
+  Year
+}
+
+export interface ChartableByDate {
+  getChartResultByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object) : ChartResult;
 }

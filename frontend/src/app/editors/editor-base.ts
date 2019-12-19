@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {BadRequestDialogComponent} from "../bad-request-dialog.component";
 import {first, mergeMap} from "rxjs/operators";
+import {EntityNotFoundDialogComponent} from '../entity-not-found-dialog.component';
 
 export class EditorBase<TEntity extends EntityBase,
   TRepository extends EntityServiceBase<TEntity>> implements OnInit {
@@ -45,8 +46,11 @@ export class EditorBase<TEntity extends EntityBase,
           first()
         ).subscribe(
         x => this.entity = x,
-        err => this.dialog.open(BadRequestDialogComponent)
-          .afterClosed().pipe(first()).subscribe(()=>this.router.navigateByUrl(this.endLink))
+        err => {
+          this.isNew = true;
+          this.dialog.open(EntityNotFoundDialogComponent)
+            .afterClosed().pipe(first()).subscribe(() => this.router.navigateByUrl(this.endLink))
+        }
       );
     }
   }
