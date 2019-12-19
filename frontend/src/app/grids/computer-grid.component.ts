@@ -117,7 +117,7 @@ class ComputerFilter {
 
       <sg-grid-bottom-bar router-link="/computers/add"
                           icon="desktop_mac"
-                          isCompact="isCompact"
+                          [isCompact]="isCompact"
                           [count]="this.count"
                           (search)="searchString = $event"
                           (toggleFilters)="filterState = $event"

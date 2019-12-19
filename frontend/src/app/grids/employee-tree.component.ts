@@ -1,16 +1,16 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {EmployeeService} from "../services/employee.service";
-import {Employee} from "../entities/employee";
-import {EntityGridBase} from "./entity-grid-base";
-import {MatDialog} from "@angular/material/dialog";
-import {EmployeeCardComponent} from "../cards/employee-card.component";
-import {AngularTreeGridComponent} from "angular-tree-grid";
-import {Observable} from "rxjs";
-import {RolePipe} from "../utils/role.pipe";
+import {EmployeeService} from '../services/employee.service';
+import {Employee} from '../entities/employee';
+import {EntityGridBase} from './entity-grid-base';
+import {MatDialog} from '@angular/material/dialog';
+import {EmployeeCardComponent} from '../cards/employee-card.component';
+import {AngularTreeGridComponent} from 'angular-tree-grid';
+import {Observable} from 'rxjs';
+import {RolePipe} from '../utils/role.pipe';
 import {DefaultEditor} from 'angular-tree-grid';
-import {Computer} from "../entities/computer";
-import {DeleteDialogComponent} from "../delete-dialog.component";
-import {ComputerService} from "../services/computer.service";
+import {Computer} from '../entities/computer';
+import {DeleteDialogComponent} from '../delete-dialog.component';
+import {ComputerService} from '../services/computer.service';
 
 @Component({
   selector: 'app-custom-editor',
@@ -22,7 +22,7 @@ import {ComputerService} from "../services/computer.service";
               (click)="showInfoCard()">
           <mat-icon class="sg-table-info-button">error_outline</mat-icon>
       </button>
-  `,
+  `
 })
 export class EmployeeEditCellComponent {
   @Input()
@@ -80,8 +80,9 @@ export class EmployeeTreeComponent implements OnInit {
     parent_id_field: 'SuperiorId',
     parent_display_field: 'Name',
     css: { // Optional
-      expand_class: 'fa fa-caret-right',
-      collapse_class: 'fa fa-caret-down',
+      expand_class: 'fa-caret-right',
+      collapse_class: 'fa-caret-down',
+      row_selection_class: "sg-treetable-selection"
     },
     columns: [
       {
@@ -116,45 +117,6 @@ export class EmployeeTreeComponent implements OnInit {
         header: '',
         type: 'custom',
         component: EmployeeEditCellComponent
-      }
-    ]
-  };
-  configs: any = {
-    id_field: 'id',
-    parent_id_field: 'parent',
-    parent_display_field: 'name',
-    css: { // Optional
-      expand_class: 'fa fa-caret-right',
-      collapse_class: 'fa fa-caret-down',
-    },
-    columns: [
-      {
-        name: 'name',
-        header: 'Name',
-        width: 'auto'
-      },
-      {
-        name: 'age',
-        header: 'Age',
-        renderer: function (value) {
-          return value + ' years';
-        }
-      },
-      {
-        name: 'weight',
-        header: 'Weight'
-      },
-      {
-        name: 'gender',
-        header: 'Gender',
-        renderer: function (value) {
-          return value ? 'Male' : 'Female';
-        }
-      },
-      {
-        name: 'phone',
-        header: 'Phone',
-        width: '150px'
       }
     ]
   };

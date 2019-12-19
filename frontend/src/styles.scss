@@ -227,33 +227,55 @@ mat-divider {
   align-items: stretch;
 }
 
+.sg-treetable-selection{
+  background: transparent;
+}
+
+.dark-theme th .db-tree-view {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+th .mat-header-cell .db-tree-view {
+  color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.fa-caret-down:after {
+  property: "#";
+}
 .db-tree-view {
   margin: 2em;
   width: calc(100% - 4em) !important;
   color: inherit !important;
-  table{
-    border: none !important;
-  }
+
+  border: none !important;
   thead{
     tr{
       background: transparent;
       th{
+        border-top-style: none !important;
+        border-right-style: none !important;
+        border-left-style: none !important;
         @extend .mat-header-cell;
-        color: inherit !important;
+        padding: inherit !important;
+        text-align: left;
+        font-weight: 500 !important;
+        font-size: 12px !important;
+        height: 48px;
+        border-bottom-width: 2px !important;
       }
     }
   }
   tbody{
-    tr.selected{
-      background: transparent;
-    }
     tr{
+      border: none;
       td{
         @extend .mat-cell;
-        border-top: none !important;
-        border-bottom: none !important;
-        border-right: none !important;
-        border-bottom: 2px !important;
+        height: 48px;
+        padding: inherit !important;
+        border-top-style: none !important;
+        border-right-style: none !important;
+        border-left-style: none !important;
+        border-bottom-width: 2px !important;
       }
     }
   }

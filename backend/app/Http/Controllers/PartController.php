@@ -22,7 +22,8 @@ class PartController extends PackControllerBase
             ->findOrFail($id);
     }
 
-    public function getCountsByDateSlices(Request $request){
-
+    public function getCountBySubsidiaries(Request $request){
+        return Part::query()->selectRaw('count(*) as count, parts.state')
+            ->groupBy('state')->get();
     }
 }

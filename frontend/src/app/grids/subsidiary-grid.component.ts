@@ -83,7 +83,7 @@ class SubsidiaryFilter {
                           <mat-icon>delete</mat-icon>
                       </button>
                       <button mat-icon-button *ngIf="!isCompact"
-                              [routerLink]="'/computers/edit/' + element.Id">
+                              [routerLink]="'/subsidiaries/edit/' + element.Id">
                           <mat-icon>edit</mat-icon>
                       </button>
                       <button mat-icon-button
