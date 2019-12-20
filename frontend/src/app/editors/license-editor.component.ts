@@ -31,13 +31,13 @@ import {MatDialog} from "@angular/material/dialog";
                                            searchHint="Иипа ПО"></sg-software-type-search>
 
                   <mat-form-field>
-                      <input matInput [matDatepicker]="picker" [(ngModel)]="entity.PurchaseDate"
+                      <input matInput [matDatepicker]="picker" [(ngModel)]="entity.PurchasedAt"
                              placeholder="Дата приобретения">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput [matDatepicker]="picker2" [(ngModel)]="entity.ExpirationDate"
+                      <input matInput [matDatepicker]="picker2" [(ngModel)]="entity.ExpiredAt"
                              placeholder="Дата истечения">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
@@ -54,7 +54,7 @@ import {MatDialog} from "@angular/material/dialog";
                   <mat-form-field appearance="outline">
                       <mat-label>Текст лицензии</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Текст лицензии"
-                                [(ngModel)]="this.entity.Comment"></textarea>
+                                [(ngModel)]="this.entity.Eula"></textarea>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="flex-spacer">
                       <mat-label>Комментарий</mat-label>

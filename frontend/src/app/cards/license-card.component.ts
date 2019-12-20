@@ -23,9 +23,9 @@ import {SoftwareTypeCardComponent} from './software-type-card.component';
 
                   <p>Стоимость: {{entity?.Cost}}₽</p>
                   <p>Максимальное число применений: {{entity?.MaxApplyCount}}</p>
-                  
+
                   <p>Применена: {{entity?.SoftwareCount}} / {{entity?.MaxApplyCount}}</p>
-                  
+
                   <p class="mat-body" *ngIf="entity?.SoftwareType">
                       <a (click)="showSoftwareTypeCard(entity?.SoftwareType)">Тип ПО:
                           <br>
@@ -34,8 +34,8 @@ import {SoftwareTypeCardComponent} from './software-type-card.component';
                           {{entity?.SoftwareType.Category | softwareCategory}}
                       </a>
                   </p>
-                                    
-                  <p>Дата приобретения: {{entity?.PurchaseDate | date: 'yyyy.MM.DD'}}</p>
+
+                  <p>Дата приобретения: {{entity?.PurchasedAt | date: 'yyyy.MM.DD'}}</p>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарии</h2>

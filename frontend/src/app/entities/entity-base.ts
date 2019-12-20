@@ -1,8 +1,8 @@
 export abstract class EntityBase {
-  Id : number;
-  Comment : string;
+  Id: number;
+  Comment: string;
 
-  CreatedAt;
-  UpdatedAt;
-  DeletedAt;
+  CreatedAt: Date | string;
+  UpdatedAt: Date | string;
+  DeletedAt: Date | string;
 }

@@ -2,48 +2,47 @@ import {Component, OnInit} from '@angular/core';
 
 export var multi = [
   {
-    "name": "Germany",
-    "series": [
+    'name': 'Germany',
+    'series': [
       {
-        "name": "2010",
-        "value": 7300000
+        'name': '2010',
+        'value': 7300000
       },
       {
-        "name": "2011",
-        "value": 8940000
+        'name': '2011',
+        'value': 8940000
       }
     ]
   },
 
   {
-    "name": "USA",
-    "series": [
+    'name': 'USA',
+    'series': [
       {
-        "name": "2010",
-        "value": 7870000
+        'name': '2010',
+        'value': 7870000
       },
       {
-        "name": "2011",
-        "value": 8270000
+        'name': '2011',
+        'value': 8270000
       }
     ]
   },
 
   {
-    "name": "France",
-    "series": [
+    'name': 'France',
+    'series': [
       {
-        "name": "2010",
-        "value": 5000002
+        'name': '2010',
+        'value': 5000002
       },
       {
-        "name": "2011",
-        "value": 5800000
+        'name': '2011',
+        'value': 5800000
       }
     ]
   }
 ];
-
 
 
 @Component({
@@ -75,8 +74,22 @@ export var multi = [
               </mat-tab>
           </mat-tab-group>
           <mat-toolbar color="primary">
-              <mat-card>
-                  
+              <mat-card style="font-size: 1rem">
+                  <mat-form-field>
+                      <mat-select [(ngModel)]="entityKind">
+                          <mat-option *ngFor="let elem of kinds" [value]="elem.value">
+                              {{elem.label}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <mat-select [(ngModel)]="entityKind" placeholder="">
+                          <mat-option *ngFor="let elem of kinds" [value]="elem.value">
+                              {{elem.label}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
               </mat-card>
           </mat-toolbar>
       </sg-drawer-appbar-base>`,
@@ -103,6 +116,14 @@ export class AnalyticsComponent implements OnInit {
   colorScheme = {
     domain: ['#5AA454', '#C7B42C', '#AAAAAA']
   };
+
+  kinds = [
+    {label: 'Лицензии', value: 0},
+    {label: 'Комплектующие', value: 1},
+    {label: 'Компьютеры', value: 2}
+  ];
+
+  entityKind: number;
 
   constructor() {
 

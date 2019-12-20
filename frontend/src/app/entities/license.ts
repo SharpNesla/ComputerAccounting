@@ -12,10 +12,10 @@ export class License extends EntityBase {
   Cost: number;
   MaxApplyCount: number;
 
-  PurchaseDate : Date | string = new Date();
-  ExpirationDate: Date | string = new Date();
+  PurchasedAt : Date | string = new Date();
+  ExpiredAt: Date | string = new Date();
 
-  LicenseStatus;
+  Expired : boolean;
 
   SoftwareTypeId : number;
   SoftwareType : SoftwareType;

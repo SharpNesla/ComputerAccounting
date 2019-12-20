@@ -15,7 +15,7 @@ import {AboutComponent} from './about.component';
 import {SettingsComponent} from './settings.component';
 import {DeleteDialogComponent} from "./delete-dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
-import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {MatCardModule} from "@angular/material/card";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -51,7 +51,6 @@ import {EntityNotFoundDialogComponent} from './entity-not-found-dialog.component
     MatIconModule,
     UtilsModule,
     MatDialogModule,
-    MatNativeDateModule,
     MatCardModule,
     MatSlideToggleModule,
     MatFormFieldModule,

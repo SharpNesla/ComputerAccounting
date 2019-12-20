@@ -2,6 +2,7 @@ import {EntityBase} from '../entities/entity-base';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {count, filter, map} from 'rxjs/operators';
+import * as moment from 'moment';
 
 export const toCamel = (s) => {
   var str = s.replace(/([-_][a-z])/ig, ($1) => {
@@ -141,9 +142,9 @@ export abstract class EntityServiceBase<TEntity extends EntityBase> {
   }
 
   protected prepareEntityGet(entity: TEntity): TEntity {
-    entity.CreatedAt = Date.parse(entity.CreatedAt);
-    entity.UpdatedAt = Date.parse(entity.UpdatedAt);
-    entity.DeletedAt = Date.parse(entity.DeletedAt);
+    entity.CreatedAt = moment((entity.CreatedAt as string)).toDate();
+    entity.UpdatedAt = moment((entity.UpdatedAt as string)).toDate();
+    entity.DeletedAt = moment((entity.DeletedAt as string)).toDate();
 
     return keysToCamel(entity);
   }

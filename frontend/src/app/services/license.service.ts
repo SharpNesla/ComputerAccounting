@@ -6,6 +6,8 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {SoftwareType} from '../entities/software-type';
 import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
+import * as moment from 'moment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,10 @@ export class LicenseService extends PackEntityService<License> implements Charta
 
   protected prepareEntitySave(entity: License): License {
     entity.SoftwareTypeId = entity.SoftwareType.Id;
-
     entity.SoftwareType = undefined;
+
+    entity.PurchasedAt = moment(entity.PurchasedAt).format('YYYY-MM-DD hh:mm:ss').toString();
+    entity.ExpiredAt =  moment(entity.ExpiredAt).format('YYYY-MM-DD hh:mm:ss').toString();
 
     return super.prepareEntitySave(entity);
   }
@@ -44,8 +48,10 @@ export class LicenseService extends PackEntityService<License> implements Charta
   }
 
   protected prepareEntityGet(entity: License): License {
-    entity.PurchaseDate = new Date(entity.PurchaseDate);
-    return super.prepareEntityGet(entity);
+    entity = super.prepareEntityGet(entity);
+    entity.PurchasedAt = moment((entity.PurchasedAt as string)).toDate();
+    entity.ExpiredAt = moment((entity.ExpiredAt as string)).toDate();
+    return entity;
   }
 
   getChartResultByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): ChartResult {

@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {EmployeeService} from "../services/employee.service";
-import {Employee, Gender, Roles} from "../entities/employee";
-import {EditorBase} from "./editor-base";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
+import {EmployeeService} from '../services/employee.service';
+import {Employee, Gender, Roles} from '../entities/employee';
+import {EditorBase} from './editor-base';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'sg-employee-editor',
@@ -17,7 +17,8 @@ import {MatDialog} from "@angular/material/dialog";
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
 
-                  <sg-employee-search hint="Непосредственный руководитель"
+                  <sg-employee-search *ngIf="!isFirst()"
+                                      hint="Непосредственный руководитель"
                                       [(ngModel)]="entity.Superior"></sg-employee-search>
                   <sg-subsidiary-search hint="Филиал"
                                         [(ngModel)]="entity.Subsidiary"></sg-subsidiary-search>
@@ -60,7 +61,8 @@ import {MatDialog} from "@angular/material/dialog";
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field>
-                      <mat-select placeholder="Должность"
+                      <mat-select [disabled]="isFirst()"
+                                  placeholder="Должность"
                                   [(ngModel)]="entity.Role">
                           <mat-option *ngFor="let role of roles" [value]="role.value">
                               {{role.value | role}}
@@ -117,7 +119,7 @@ export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeServic
 
   constructor(private service: EmployeeService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, dialog, new Employee(), router, "employees");
+    super(service, route, dialog, new Employee(), router, 'employees');
   }
 
   public applyChanges() {
@@ -126,5 +128,9 @@ export class EmployeeEditorComponent extends EditorBase<Employee, EmployeeServic
       this.entity['PasswordRepeat'] = this.passwordRepeat;
     }
     super.applyChanges();
+  }
+
+  public isFirst() {
+    return this.entity.Id == 1;
   }
 }

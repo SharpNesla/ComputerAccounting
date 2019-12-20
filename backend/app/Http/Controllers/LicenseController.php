@@ -28,14 +28,6 @@ class LicenseController extends PackControllerBase
         return $builder->withCount('software');
     }
 
-    protected function querySave(array $object, Model $model): Model
-    {
-        $model->expiration_date = Carbon::parse($object['expiration_date']);
-
-        $model->purchase_date = Carbon::parse($object['purchase_date']);
-        return $model;
-    }
-
     public function getApplicable(Request $request)
     {
     //TODO Refactor this to Eloquent calls
@@ -44,7 +36,7 @@ class LicenseController extends PackControllerBase
         ->whereRaw('(select count(*) from "software"
                              where "licenses"."id" = "software"."license_id"
                              and "software"."deleted_at" is null) < max_apply_count')
-        ->where('expiration_date ', '>', Carbon::now());
+        ->where('expired_at', '>', Carbon::now());
 
 
     $filter = json_decode($request->filter, true);
@@ -63,8 +55,7 @@ class LicenseController extends PackControllerBase
         return !Validator::make($array,[
             'cost' => 'required',
             'max_apply_count' => 'required',
-
-            'expiration_date' => 'required'
+            'expired_at' => 'required'
         ])->fails();
     }
 }

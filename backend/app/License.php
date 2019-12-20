@@ -10,10 +10,10 @@ class License extends Model
 {
     use SoftDeletes;
 
-    protected $appends = ['status'];
-
     protected $fillable = [
         'cost', 'eula', 'max_apply_count',
+        'purchased_at',
+        'expired_at',
         'software_type_id', 'comment'];
 
     public function softwareType()
@@ -25,10 +25,4 @@ class License extends Model
     {
         return $this->hasMany(Software::class);
     }
-
-    public function getStatusAttribute()
-    {
-        return Carbon::now() >= $this->expiration_date ? 1 : 0;
-    }
-
 }
