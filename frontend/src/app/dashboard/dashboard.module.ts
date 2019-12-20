@@ -9,6 +9,8 @@ import {StorekeeperDashboardComponent} from "./storekeeper-dashboard.component";
 import {ResponsibleDashboardComponent} from "./responsible-dashboard.component";
 import {AdminDashboardComponent} from "./admin-dashboard.component";
 import {BarChartModule, NgxChartsModule} from "@swimlane/ngx-charts";
+import {MatTabsModule} from '@angular/material/typings/tabs';
+import {GridsModule} from '../grids/grids.module';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import {BarChartModule, NgxChartsModule} from "@swimlane/ngx-charts";
     CommonModule,
     UtilsModule,
     BarChartModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatTabsModule,
+    GridsModule
   ]
 })
 export class DashboardModule { }

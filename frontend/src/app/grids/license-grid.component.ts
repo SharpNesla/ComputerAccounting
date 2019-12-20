@@ -35,6 +35,17 @@ import {CardService} from '../cards/card.service';
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
               </ng-container>
 
+              <ng-container matColumnDef="purchased_at">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Приобретена</th>
+                  <td mat-cell *matCellDef="let element"> {{element.PurchasedAt | date:'yyyy.MM.dd'}}
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="expired_at">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Истекает</th>
+                  <td mat-cell *matCellDef="let element"> {{element.ExpiredAt | date:'yyyy.MM.dd'}}
+                  </td>
+              </ng-container>
 
               <ng-container matColumnDef="cost">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Стоимость</th>
@@ -47,7 +58,6 @@ import {CardService} from '../cards/card.service';
                   <td mat-cell *matCellDef="let element"> {{element.MaxApplyCount}}
                   </td>
               </ng-container>
-
 
               <ng-container matColumnDef="software_count">
                   <th mat-header-cell *matHeaderCellDef>Применена</th>
@@ -115,7 +125,8 @@ import {CardService} from '../cards/card.service';
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
   constructor(licenses: LicenseService, private dialogref: MatDialog, cardService: CardService) {
     super(licenses, dialogref,
-      ['select', 'id', 'cost', 'max_applies', 'software_count', 'expired', 'info'],
+      ['select', 'id', 'cost', 'purchased_at', 'expired_at', 'max_applies', 'software_count',
+        'expired', 'info'],
       cardService,
       LicenseCardComponent);
   }

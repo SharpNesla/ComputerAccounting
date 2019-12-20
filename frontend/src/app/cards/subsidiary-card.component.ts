@@ -30,7 +30,7 @@ import {EmployeeCardComponent} from './employee-card.component';
                       </a>
                   </p>
 
-                  <p class="mat-body">Количество помещений: {{entity?.EmployeesCount}}</p>
+                  <p class="mat-body">Количество помещений: {{entity?.RoomsCount}}</p>
 <!--                  <p class="mat-body">Количество компьютеров: {{entity?.ComputersCount}}</p>-->
                   <p class="mat-body">Количество сотрудников: {{entity?.EmployeesCount}}</p>
                   

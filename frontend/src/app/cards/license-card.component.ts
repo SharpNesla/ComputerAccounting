@@ -21,7 +21,7 @@ import {SoftwareTypeCardComponent} from './software-type-card.component';
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
 
-                  <p>Стоимость: {{entity?.Cost}}₽</p>
+                  <p>Стоимость: {{entity?.Cost}} ₽</p>
                   <p>Максимальное число применений: {{entity?.MaxApplyCount}}</p>
 
                   <p>Применена: {{entity?.SoftwareCount}} / {{entity?.MaxApplyCount}}</p>
@@ -35,7 +35,8 @@ import {SoftwareTypeCardComponent} from './software-type-card.component';
                       </a>
                   </p>
 
-                  <p>Дата приобретения: {{entity?.PurchasedAt | date: 'yyyy.MM.DD'}}</p>
+                  <p>Дата приобретения: {{entity?.PurchasedAt | date: 'yyyy.MM.dd'}}</p>
+                  <p>Дата истечения: {{entity?.ExpiredAt | date: 'yyyy.MM.dd'}}</p>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарии</h2>

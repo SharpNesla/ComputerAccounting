@@ -40,16 +40,16 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
                       </a>
                   </p>
 
-                  <p class="mat-body">
+                  <p class="mat-body" *ngIf="entity?.Subsidiary">
                       <a (click)="showSubsidiaryCard(entity?.Subsidiary)">Филиал:
                           <br>
-                          Филиал:
                           №{{entity?.Subsidiary.Id}}
-                          "{{entity?.Subsidiary.Name}}"
+                          "{{entity.Subsidiary.Name}}"
                           {{entity?.Subsidiary.Address}}
                       </a>
                   </p>
-
+                  
+                  <p class="mat-body" *ngIf="!entity?.Subsidiary">Филиал: не задан</p>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>

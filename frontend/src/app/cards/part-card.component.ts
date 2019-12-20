@@ -9,7 +9,7 @@ import {PartService} from "../services/part.service";
   template: `
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
-              <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
+              <mat-icon id="sg-editor-icon">memory</mat-icon>
               Комплектующее №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">

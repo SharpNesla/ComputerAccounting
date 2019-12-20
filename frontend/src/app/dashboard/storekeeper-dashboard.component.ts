@@ -4,7 +4,15 @@ import {Component, OnInit} from '@angular/core';
   selector: 'sg-storekeeper-dashboard',
   template: `
       <sg-drawer-appbar-base>
-          <header>Обзор</header>
+          <header>Обзор: кладовщик</header>
+          <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
+              <mat-tab label="Комплектующие, находящиеся на складе">
+                  <sg-part-type-grid></sg-part-type-grid>
+              </mat-tab>
+              <mat-tab label="Комплектующие, вышедшие из строя">
+                  <sg-part-type-grid></sg-part-type-grid>
+              </mat-tab>
+          </mat-tab-group>
       </sg-drawer-appbar-base>`,
 })
 export class StorekeeperDashboardComponent implements OnInit {

@@ -3,9 +3,8 @@ import {EmployeeService} from "../services/employee.service";
 import {Employee, Roles} from "../entities/employee";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
-import {EmployeeCardComponent} from "../cards/employee-card.component";
-import {filterStackTrace} from "protractor/built/util";
 import {CardService} from '../cards/card.service';
+import {EmployeeCardComponent} from '../cards/employee-card.component';
 
 export class EmployeeFilter {
   UsingComputersCountLowBound: number;
@@ -73,11 +72,11 @@ export class EmployeeFilter {
                   <td mat-cell *matCellDef="let element"
                       [class.sg-table-action-button-container-compact]="isCompact"
                       class="sg-table-action-button-container">
-                      <button mat-icon-button
+                      <button mat-icon-button [disabled]="element.Id == 1"
                               *ngIf="!isCompact" (click)="remove(element)">
                           <mat-icon>delete</mat-icon>
                       </button>
-                      <button mat-icon-button *ngIf="!isCompact"
+                      <button mat-icon-button *ngIf="!isCompact" 
                               [routerLink]="'/employees/edit/' + element.Id">
                           <mat-icon>edit</mat-icon>
                       </button>

@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {PartTypeService} from "../services/part-type.service";
-import {Observable} from "rxjs";
-import {Computer} from "../entities/computer";
-import {EditorBase} from "../editors/editor-base";
-import {Part} from "../entities/part";
-import {PartService} from "../services/part.service";
-import {EntityGridBase} from "./entity-grid-base";
-import {MatDialog} from "@angular/material/dialog";
-import {PartCardComponent} from "../cards/part-card.component";
+import {PartTypeService} from '../services/part-type.service';
+import {Observable} from 'rxjs';
+import {Computer} from '../entities/computer';
+import {EditorBase} from '../editors/editor-base';
+import {Part} from '../entities/part';
+import {PartService} from '../services/part.service';
+import {EntityGridBase} from './entity-grid-base';
+import {MatDialog} from '@angular/material/dialog';
+import {PartCardComponent} from '../cards/part-card.component';
 import {CardService} from '../cards/card.service';
 
 
@@ -37,6 +37,11 @@ import {CardService} from '../cards/card.service';
               <ng-container matColumnDef="id">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>№</th>
                   <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="state">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Состояние</th>
+                  <td mat-cell *matCellDef="let element"> {{element.State | partState}} </td>
               </ng-container>
 
               <ng-container matColumnDef="info" stickyEnd>
@@ -85,8 +90,8 @@ import {CardService} from '../cards/card.service';
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
 export class PartGridComponent extends EntityGridBase<Part, PartService> {
-  constructor(service: PartService, dialog: MatDialog, cardService : CardService) {
-    super(service, dialog, ['select', 'id', 'info'],
+  constructor(service: PartService, dialog: MatDialog, cardService: CardService) {
+    super(service, dialog, ['select', 'id', 'state', 'info'],
       cardService,
       PartCardComponent);
   }

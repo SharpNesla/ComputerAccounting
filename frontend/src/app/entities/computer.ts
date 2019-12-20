@@ -1,6 +1,7 @@
 import {EntityBase} from "./entity-base";
 import {Room} from "./room";
 import {Employee} from "./employee";
+import {Subsidiary} from './subsidiary';
 
 export enum ComputerType {
   PC,
@@ -19,7 +20,7 @@ export class Computer extends EntityBase{
 
   Type : ComputerType;
 
-  Subsidiary : Room;
+  Subsidiary : Subsidiary;
   SubsidiaryId : number | null;
 
   Room : Room;
