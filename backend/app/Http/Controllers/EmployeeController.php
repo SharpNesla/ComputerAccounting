@@ -20,12 +20,8 @@ class EmployeeController extends CrudControllerBase
     /**
      * Login user and create token
      *
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [boolean] remember_me
-     * @return [string] access_token
-     * @return [string] token_type
-     * @return [string] expires_at
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse [string] access_token
      */
     public function login(Request $request)
     {
@@ -62,7 +58,8 @@ class EmployeeController extends CrudControllerBase
     /**
      * Logout user (Revoke the token)
      *
-     * @return [string] message
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse [string] message
      */
     public function logout(Request $request)
     {
@@ -75,7 +72,8 @@ class EmployeeController extends CrudControllerBase
     /**
      * Get the authenticated User
      *
-     * @return [json] user object
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse [json] user object
      */
     public function user(Request $request)
     {
@@ -129,26 +127,6 @@ class EmployeeController extends CrudControllerBase
         return $builder;
     }
 
-    public function validateEntity(array $array): bool
-    {
-        return !Validator::make($array, [
-            'superior_id' => 'required',
-            'subsidiary_id' => 'required',
-
-            'name' => 'required',
-            'surname' => 'required',
-            'patronymic' => 'required',
-
-            'gender' => 'required|numeric|min:0|max:2',
-            'role' => 'required|numeric|min:0|max:5',
-
-            'passport_serial' => 'required',
-            'address' => 'required',
-
-            'username' => 'required'
-        ])->fails();
-    }
-
     public function getTree(Request $request)
     {
         $employees = $this
@@ -181,4 +159,23 @@ class EmployeeController extends CrudControllerBase
         });
     }
 
+    public function validateEntity(array $array): bool
+    {
+        return !Validator::make($array, [
+            'superior_id' => 'required',
+            'subsidiary_id' => 'required',
+
+            'name' => 'required',
+            'surname' => 'required',
+            'patronymic' => 'required',
+
+            'gender' => 'required|numeric|min:0|max:2',
+            'role' => 'required|numeric|min:0|max:5',
+
+            'passport_serial' => 'required',
+            'address' => 'required',
+
+            'username' => 'required'
+        ])->fails();
+    }
 }
