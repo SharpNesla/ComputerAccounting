@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ComputerService} from "../services/computer.service";
-import {Computer, ComputerType} from "../entities/computer";
-import {EditorBase} from "./editor-base";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Employee} from "../entities/employee";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatDialog} from "@angular/material/dialog";
+import {Component} from '@angular/core';
+import {ComputerService} from '../services/computer.service';
+import {Computer, ComputerType} from '../entities/computer';
+import {EditorBase} from './editor-base';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Employee, Roles} from '../entities/employee';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
 import {VisibilitiesService} from '../login/visibilities.service';
 import {first} from 'rxjs/operators';
+import {AuthService} from '../login/auth.service';
 
 @Component({
   selector: 'sg-computer-editor',
@@ -31,7 +32,8 @@ import {first} from 'rxjs/operators';
                                      [(ngModel)]="this.entity.InventoryId">
                           </mat-form-field>
                           <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
-                                                hint="Филиал помещения"></sg-subsidiary-search>
+                                                [disabled]="!(this.visibilities.AllDirectorsAndAdmins | async)"
+                                                hint="Филиал"></sg-subsidiary-search>
                           <sg-room-search [disabled]="!entity.Subsidiary"
                                           [(ngModel)]="entity.Room" hint="Помещение" required></sg-room-search>
                           <sg-employee-search [disabled]="!entity.Subsidiary"
@@ -144,29 +146,31 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
   addingUser: Employee;
 
   constructor(private service: ComputerService, route: ActivatedRoute,
-              private visibilities : VisibilitiesService,
+              private visibilities: VisibilitiesService,
+              private auth: AuthService,
               router: Router, private snackBar: MatSnackBar, dialog: MatDialog) {
-    super(service, route, dialog, new Computer(), router, "computers");
+    super(service, route, dialog, new Computer(), router, 'computers');
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.visibilities.LeadDirectorsAndAdmins.pipe(first()).subscribe(x=>{
-      if (!x){
-        //TODO add computer subsidiary from non-leads
+    this.auth.CurrentEmployee.subscribe(x=>{
+      console.log(x);
+      if (!!x && (x.Role == Roles.BranchAdmin || x.Role == Roles.BranchDirector)){
+        this.entity.Subsidiary = x.Subsidiary;
       }
-    })
+    });
   }
 
   addUser() {
     if (!this.addingUser) {
-      this.snackBar.open("Не выбран работник для привязки", '', {
+      this.snackBar.open('Не выбран работник для привязки', '', {
         duration: 2000,
       });
       return;
     }
     if (this.entity.Users.find(x => x.Id == this.addingUser.Id)) {
-      this.snackBar.open("Работник уже является пользователем", '', {
+      this.snackBar.open('Работник уже является пользователем', '', {
         duration: 2000,
       });
       return;

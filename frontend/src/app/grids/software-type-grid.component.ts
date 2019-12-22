@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {EntityGridBase} from "./entity-grid-base";
-import {MatDialog} from "@angular/material/dialog";
-import {SoftwareCategory, SoftwareType} from "../entities/software-type";
-import {SoftwareTypeService} from "../services/software-type.service";
-import {SoftwareTypeCardComponent} from "../cards/software-type-card.component";
+import {EntityGridBase} from './entity-grid-base';
+import {MatDialog} from '@angular/material/dialog';
+import {SoftwareCategory, SoftwareType} from '../entities/software-type';
+import {SoftwareTypeService} from '../services/software-type.service';
+import {SoftwareTypeCardComponent} from '../cards/software-type-card.component';
 import {CardService} from '../cards/card.service';
+import {VisibilitiesService} from '../login/visibilities.service';
 
 class SoftwareTypeFilter {
   SoftwareCountLowBound: number;
@@ -64,10 +65,12 @@ class SoftwareTypeFilter {
                       [class.sg-table-action-button-container-compact]="isCompact"
                       class="sg-table-action-button-container">
                       <button mat-icon-button
-                              *ngIf="!isCompact" (click)="remove(element)">
+                              *ngIf="!isCompact && (visibilities.LeadDirectorsAndAdmins | async)"
+                              (click)="remove(element)">
                           <mat-icon>delete</mat-icon>
                       </button>
-                      <button mat-icon-button *ngIf="!isCompact"
+                      <button mat-icon-button 
+                              *ngIf="!isCompact && (visibilities.LeadDirectorsAndAdmins | async)"
                               [routerLink]="'/software-types/edit/' + element.Id">
                           <mat-icon>edit</mat-icon>
                       </button>
@@ -133,11 +136,14 @@ export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, Soft
 
   filter: SoftwareTypeFilter = new SoftwareTypeFilter();
 
-  constructor(software: SoftwareTypeService, private dialogref: MatDialog, cardService : CardService) {
+  constructor(software: SoftwareTypeService,
+              public visibilities: VisibilitiesService,
+              private dialogref: MatDialog,
+              cardService: CardService) {
     super(software, dialogref, ['select', 'id', 'typename',
         'category', 'software_count', 'info'],
       cardService,
-      SoftwareTypeCardComponent)
+      SoftwareTypeCardComponent);
   }
 
   constructFilter(): object {
