@@ -125,12 +125,12 @@ export var multi = [
           </div>
       </ng-template>
 
-      <ng-container *ngIf="!_isAnalyticsDisplayed">
+      <ng-container *ngIf="!isAnalyticsDisplayed">
           <ng-container *ngTemplateOutlet="table">
           </ng-container>
       </ng-container>
 
-      <mat-tab-group *ngIf="_isAnalyticsDisplayed" animationDuration="0s" color="accent" backgroundColor="primary">
+      <mat-tab-group *ngIf="isAnalyticsDisplayed" animationDuration="0s" color="accent" backgroundColor="primary">
           <mat-tab label="Данные">
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
