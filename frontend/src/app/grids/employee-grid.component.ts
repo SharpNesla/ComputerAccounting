@@ -123,6 +123,7 @@ export class EmployeeFilter {
               </div>
           </div>
       </div>
+      
       <sg-grid-bottom-bar router-link="/employees/add"
                           icon="account_circle"
                           [count]="this.count"

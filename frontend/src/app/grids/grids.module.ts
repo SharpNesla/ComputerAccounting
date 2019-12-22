@@ -17,6 +17,7 @@ import {SearchesModule} from '../searches/searches.module';
 import {EmployeeEditCellComponent, EmployeeTreeComponent} from './employee-tree.component';
 import {AngularTreeGridModule} from 'angular-tree-grid';
 import {BottomBarComponent} from './bottom-bar.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import {BottomBarComponent} from './bottom-bar.component';
     RouterModule,
     FormsModule,
     SearchesModule,
-    AngularTreeGridModule
+    AngularTreeGridModule,
+    NgxChartsModule
   ],
   entryComponents: [EmployeeEditCellComponent]
 })

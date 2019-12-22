@@ -11,22 +11,26 @@ class Role
     private $dict = [
         'director' => 0,
         'branchDirector' => 1,
-        'leadAdmin' => 2,
+        'admin' => 2,
         'branchAdmin' => 4,
         'responsible' => 5,
-        'storeKeeper' => 6];
+        'storeKeeper' => 6
+    ];
 
     /**
      * Handle an incoming request.
      *
      * @param Request $request
      * @param Closure $next
-     * @param string $role
+     * @param array $roles
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if ($request->user()->role != $this->dict[$role]) {
+        $convertedRoles = array_map(function ($role) {
+            return $this->dict[$role];
+        }, $roles);
+        if (!in_array($request->user()->role, $convertedRoles)) {
             return response('Forbidden', 403);
         }
         return $next($request);

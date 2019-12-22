@@ -5,9 +5,9 @@ import {element} from "protractor";
 @Component({
   selector: 'sg-grid-bottom-bar',
   template: `
-      <ng-template
-              *ngIf="this.isCompact;then compactview; else fullview">
+      <ng-template *ngIf="this.isCompact;then compactview; else fullview">
       </ng-template>
+      
       <ng-template #fullview>
           <mat-toolbar id="search-toolbar" color="primary" class="mat-elevation-z4">
               <mat-icon>{{this.icon}}</mat-icon>
@@ -135,6 +135,8 @@ export class BottomBarComponent implements OnInit {
     this.count = value;
     this.CheckButtons();
   }
+  @Input('action-button-icon') fabIcon;
+  @Output('action-button-click') fabClick = new EventEmitter();
 
   count: number;
   @Input() icon: string;

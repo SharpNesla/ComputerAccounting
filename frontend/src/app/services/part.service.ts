@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Part, PartState} from "../entities/part";
 import {CountableBySubsidiaries, CountBySubsidiaryResult} from '../analytics/countable-by-subsidiary';
 import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
+import {map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -57,8 +58,17 @@ export class PartService extends PackEntityService<Part> implements CountableByS
     return undefined;
   }
 
-  getChartResultByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): ChartResult {
-    return undefined;
+  getChartResultsByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): ChartResult {
+    return undefined
+  }
+
+  getChartRes(dateSlice: DateSlice, chartDateField: string, filterDefinition: object){
+    return this.client.get<any[]>(`/api/${this.entityPrefix}/get-count-by-type`)
+      .pipe(map(x=>{
+        console.log(x);
+        x = x.map(x=>new ChartResult());
+        return x;
+      }));
   }
 }
 

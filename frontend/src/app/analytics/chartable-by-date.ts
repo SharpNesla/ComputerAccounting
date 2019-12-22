@@ -12,5 +12,5 @@ export enum DateSlice {
 }
 
 export interface ChartableByDate {
-  getChartResultByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object) : ChartResult;
+  getChartResultsByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object) : ChartResult;
 }

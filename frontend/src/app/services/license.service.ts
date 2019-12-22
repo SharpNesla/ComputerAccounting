@@ -54,7 +54,7 @@ export class LicenseService extends PackEntityService<License> implements Charta
     return entity;
   }
 
-  getChartResultByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): ChartResult {
+  getChartResultsByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): ChartResult {
     return undefined;
   }
 }

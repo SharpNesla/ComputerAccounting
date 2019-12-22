@@ -30,7 +30,7 @@ Route::group([
 });
 
 Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function (){
-    Route::get('get', 'EmployeeController@get');
+    Route::get('get', 'EmployeeController@get')->middleware('role:branchAdmin,leadAdmin');
     Route::get('get-tree', 'EmployeeController@getTree');
     Route::get('count', 'EmployeeController@getCount');
     Route::post('add', 'EmployeeController@add');
@@ -99,7 +99,7 @@ Route::group(['prefix' => 'software-type', 'middleware' => 'auth:api'], function
 
 Route::group(['prefix' => 'part', 'middleware' => 'auth:api'], function (){
     Route::get('get', 'PartController@get');
-    Route::get('get-count-by-subsidiaries', 'PartController@getCountBySubsidiaries');
+    Route::get('get-count-by-type', 'PartController@getCountByType');
     Route::get('count', 'PartController@getCount');
     Route::post('add', 'PartController@add');
     Route::post('add-pack', 'PartController@addPack');

@@ -6,6 +6,7 @@ use App\License;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class LicenseController extends PackControllerBase
@@ -24,7 +25,10 @@ class LicenseController extends PackControllerBase
 
     protected function queryMany(Request $request, Builder $builder): Builder
     {
-        return $builder->withCount('software');
+        return $builder
+            ->select()
+            ->addSelect(DB::raw('(expired_at < now()) as expired '))
+            ->withCount('software');
     }
 
     public function getApplicable(Request $request)
