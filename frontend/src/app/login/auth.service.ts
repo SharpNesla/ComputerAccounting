@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {map, mergeMap} from "rxjs/operators";
+import {map, mergeMap, publishLast, refCount} from 'rxjs/operators';
 import {Employee} from "../entities/employee";
 import {EmployeeService} from "../services/employee.service";
 import {Router} from "@angular/router";
@@ -10,9 +10,9 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  private current: BehaviorSubject<Employee> = new BehaviorSubject<Employee>(null);
+  private current;
 
-  public get CurrentEmployee() {
+  public get CurrentEmployee() : Observable<Employee> {
     return this.current;
   }
 
@@ -20,10 +20,7 @@ export class AuthService {
               private router: Router,
               private employeeService: EmployeeService) {
     if (this.isLogin()) {
-      this.employeeService.getCurrentUser().subscribe(x => {
-          this.CurrentEmployee.next(x);
-        }
-      );
+      this.current = this.employeeService.getCurrentUser().pipe(publishLast(), refCount())
     }
   }
 
@@ -35,15 +32,9 @@ export class AuthService {
     return this.http.post<any>(`api/auth/login`, {username, password})
       .pipe(map(response => {
         localStorage.setItem('access_token', response['access_token']);
-        this.employeeService.getCurrentUser().subscribe(x => {
-          this.CurrentEmployee.next(x);
-        });
+        this.current = this.employeeService.getCurrentUser().pipe(publishLast(), refCount());
         return response;
       }));
-  }
-
-  logoutLocal(){
-
   }
 
   logout() {
