@@ -44,6 +44,6 @@ import {MatDialog} from "@angular/material/dialog";
 export class SoftwareEditorComponent extends PackEditorBase<Software, SoftwareService> {
   constructor(private service: SoftwareService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, router, dialog, new Software(), "/software");
+    super(service, route, router, dialog, new Software(), "software");
   }
 }

@@ -124,7 +124,7 @@ export class SoftwareTypeEditorComponent extends EditorBase<SoftwareType, Softwa
 
   constructor(private service: SoftwareTypeService, route: ActivatedRoute, router : Router,
               private snackBar: MatSnackBar, dialog: MatDialog) {
-    super(service, route, dialog, new SoftwareType(), router, "software");
+    super(service, route, dialog, new SoftwareType(), router, "software-types");
   }
 
 

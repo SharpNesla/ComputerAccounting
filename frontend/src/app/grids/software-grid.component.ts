@@ -6,10 +6,18 @@ import {MatDialog} from '@angular/material/dialog';
 import {SoftwareCardComponent} from '../cards/software-card.component';
 import {SoftwareType} from '../entities/software-type';
 import {CardService} from '../cards/card.service';
+import {Computer} from '../entities/computer';
+import {License} from '../entities/license';
 
 export class SoftwareFilter {
   SoftwareTypeId: number;
   SoftwareType: SoftwareType;
+
+  ComputerId: number;
+  Computer: Computer;
+
+  LicenseId: number;
+  License: License;
 }
 
 @Component({
@@ -84,6 +92,18 @@ export class SoftwareFilter {
                   <sg-software-type-search hint="Тип ПО" [disabled]="!filterApplies.BySoftwareType"
                                            [(ngModel)]="filter.SoftwareType"></sg-software-type-search>
               </div>
+
+              <div class="sg-search-drawer-ruleset">
+                  <mat-checkbox [(ngModel)]="filterApplies.ByComputer">По компьютеру</mat-checkbox>
+                  <sg-computer-search hint="Компьютер" [disabled]="!filterApplies.ByComputer"
+                                           [(ngModel)]="filter.Computer"></sg-computer-search>
+              </div>
+
+              <div class="sg-search-drawer-ruleset">
+                  <mat-checkbox [(ngModel)]="filterApplies.ByLicense">По лицензии</mat-checkbox>
+                  <sg-software-type-search hint="Лицензия" [disabled]="!filterApplies.ByLicense"
+                                           [(ngModel)]="filter.License"></sg-software-type-search>
+              </div>
           </div>
       </div>
 
@@ -98,6 +118,8 @@ export class SoftwareFilter {
 export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareService> {
   filterApplies = {
     BySoftwareType: false,
+    ByComputer: false,
+    ByLicense: false
   };
 
   filter: SoftwareFilter = new SoftwareFilter();
@@ -113,6 +135,14 @@ export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareServ
 
     if (this.filterApplies.BySoftwareType && this.filter.SoftwareType) {
       filter.SoftwareTypeId = this.filter.SoftwareType.Id;
+    }
+
+    if (this.filterApplies.ByComputer && this.filter.Computer) {
+      filter.SoftwareTypeId = this.filter.Computer.Id;
+    }
+
+    if (this.filterApplies.ByLicense && this.filter.License) {
+      filter.SoftwareTypeId = this.filter.License.Id;
     }
 
     return filter;

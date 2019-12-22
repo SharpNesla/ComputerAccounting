@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Employee} from "../entities/employee";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
+import {VisibilitiesService} from '../login/visibilities.service';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'sg-computer-editor',
@@ -142,8 +144,18 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
   addingUser: Employee;
 
   constructor(private service: ComputerService, route: ActivatedRoute,
+              private visibilities : VisibilitiesService,
               router: Router, private snackBar: MatSnackBar, dialog: MatDialog) {
     super(service, route, dialog, new Computer(), router, "computers");
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.visibilities.LeadDirectorsAndAdmins.pipe(first()).subscribe(x=>{
+      if (!x){
+        //TODO add computer subsidiary from non-leads
+      }
+    })
   }
 
   addUser() {

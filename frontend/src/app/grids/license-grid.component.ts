@@ -93,7 +93,7 @@ import {CardService} from '../cards/card.service';
               </table>
               <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
                   <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox>По количеству ПО</mat-checkbox>
+                      <mat-checkbox>По стоимости</mat-checkbox>
                       <mat-form-field>
                           <input matInput placeholder="Нижняя граница">
                       </mat-form-field>
@@ -101,6 +101,41 @@ import {CardService} from '../cards/card.service';
                           <input matInput placeholder="Верхняя граница">
                       </mat-form-field>
                   </div>
+                  
+                  <div class="sg-search-drawer-ruleset">
+                      <mat-checkbox>По дате приобретения</mat-checkbox>
+                      <mat-form-field>
+                          <input matInput placeholder="Нижняя граница">
+                      </mat-form-field>
+                      <mat-form-field>
+                          <input matInput placeholder="Верхняя граница">
+                      </mat-form-field>
+                  </div>
+
+                  <div class="sg-search-drawer-ruleset">
+                      <mat-checkbox>По дате истечения</mat-checkbox>
+                      <mat-form-field>
+                          <input matInput placeholder="Нижняя граница">
+                      </mat-form-field>
+                      <mat-form-field>
+                          <input matInput placeholder="Верхняя граница">
+                      </mat-form-field>
+                  </div>
+
+                  <div class="sg-search-drawer-ruleset">
+                      <mat-checkbox>По количеству применений</mat-checkbox>
+                      <mat-form-field>
+                          <input matInput placeholder="Нижняя граница">
+                      </mat-form-field>
+                      <mat-form-field>
+                          <input matInput placeholder="Верхняя граница">
+                      </mat-form-field>
+                  </div>
+                  
+                  <div class="sg-search-drawer-ruleset">
+                      <mat-checkbox>По типу ПО</mat-checkbox>
+                  </div>
+                  
               </div>
           </div>
       </ng-template>

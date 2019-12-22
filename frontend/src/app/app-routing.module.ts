@@ -33,13 +33,15 @@ const routes: Routes = [
   {path: 'computers', component: ComputersComponent},
   {path: 'computers/add', component: ComputerEditorComponent},
   {path: 'computers/edit/:id', component: ComputerEditorComponent},
-  
+
 
   {path: 'software', component: SoftwareListComponent},
   {path: 'software/add', component: SoftwareEditorComponent},
   {path: 'software/edit/:id', component: SoftwareEditorComponent},
   {path: 'software/:id', component: ComputersComponent},
 
+
+  {path: 'software-types', component: SoftwareListComponent},
   {path: 'software-types/add', component: SoftwareTypeEditorComponent},
   {path: 'software-types/edit/:id', component: SoftwareTypeEditorComponent},
   {path: 'software-types/:id', component: ComputersComponent},

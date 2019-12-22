@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'sg-computer-directory',
   template: `
       <sg-drawer-appbar-base>
           <header>Комплектующие</header>
-          <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
+          <mat-tab-group [selectedIndex]="position"
+                         animationDuration="0ms" color="accent" backgroundColor="primary">
               <mat-tab label="Справочник комплектующих">
                   <sg-part-grid></sg-part-grid>
               </mat-tab>
@@ -18,11 +20,18 @@ import {Component, OnInit} from '@angular/core';
 })
 export class PartsComponent implements OnInit {
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
 
   }
 
+  position: number;
+
   ngOnInit() {
+    if (this.route.snapshot.url[0].path == 'part-types') {
+      this.position = 1;
+    } else {
+      this.position = 0;
+    }
   }
 
 }
