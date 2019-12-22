@@ -19,6 +19,10 @@ class CreateComputersTable extends Migration
 
             $table->tinyInteger('type')->unsigned()->nullable();
 
+            $table->bigInteger('subsidiary_id')->unsigned()->nullable();
+            $table->foreign('subsidiary_id')
+                ->references('id')->on('subsidiaries')->onDelete('cascade');
+
             $table->bigInteger('room_id')->unsigned()->nullable();
             $table->foreign('room_id')
                 ->references('id')->on('rooms')->onDelete('cascade');
