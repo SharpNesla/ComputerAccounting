@@ -1,59 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PartTypeService} from '../services/part-type.service';
-import {Observable} from 'rxjs';
-import {Computer} from '../entities/computer';
-import {EditorBase} from '../editors/editor-base';
 import {Part} from '../entities/part';
 import {PartService} from '../services/part.service';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {PartCardComponent} from '../cards/part-card.component';
 import {CardService} from '../cards/card.service';
-
-
-export var multi = [
-  {
-    'name': 'Germany',
-    'series': [
-      {
-        'name': '2010',
-        'value': 7300000
-      },
-      {
-        'name': '2011',
-        'value': 8940000
-      }
-    ]
-  },
-
-  {
-    'name': 'USA',
-    'series': [
-      {
-        'name': '2010',
-        'value': 7870000
-      },
-      {
-        'name': '2011',
-        'value': 8270000
-      }
-    ]
-  },
-
-  {
-    'name': 'France',
-    'series': [
-      {
-        'name': '2010',
-        'value': 5000002
-      },
-      {
-        'name': '2011',
-        'value': 5800000
-      }
-    ]
-  }
-];
+import {map} from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Component({
   selector: 'sg-part-grid',
@@ -137,17 +90,15 @@ export var multi = [
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
               <ngx-charts-bar-vertical-2d
                       [scheme]="colorScheme"
-                      [results]="multi"
-                      [xAxis]="showXAxis"
-                      [yAxis]="showYAxis"
-                      [xAxisLabel]="xAxisLabel"
-                      [yAxisLabel]="yAxisLabel"
-                      [legendTitle]="legendTitle"
-
+                      [results]="results"
+                      [xAxis]="true"
+                      [yAxis]="true"
+                      [xAxisLabel]="true"
+                      [yAxisLabel]="true"
+                      legendTitle="Статус комплектующего"
                       [animations]="false"></ngx-charts-bar-vertical-2d>
           </mat-tab>
       </mat-tab-group>
-
 
       <sg-grid-bottom-bar router-link="/parts/add"
                           icon="memory"
@@ -175,17 +126,24 @@ export class PartGridComponent extends EntityGridBase<Part, PartService> {
       PartCardComponent);
   }
 
+  ngOnInit(): void {
 
-  multi: any[] = multi;
+    this.service.getChartRes(0, null, null)
+      .pipe(map(x => {
+        return x.map(y => ({
+          name: moment(y.date).format('YYYY.MM.DD').toString(),
+          series: y.value.map(z => ({name: z.state.toString(), value: z.count}))
+        }));
+      }))
+      .subscribe(x => {
+        console.log(x);
+        this.results = x;
+      });
 
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  showLegend: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Country';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Population';
-  legendTitle: string = 'Years';
+    super.ngOnInit();
+  }
+
+  results = [];
 
   colorScheme = {
     domain: ['#0060b7', '#d50061', '#AAAAAA']

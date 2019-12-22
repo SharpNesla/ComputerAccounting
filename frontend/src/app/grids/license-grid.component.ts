@@ -5,7 +5,24 @@ import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {LicenseCardComponent} from '../cards/license-card.component';
 import {CardService} from '../cards/card.service';
+import {SoftwareType} from '../entities/software-type';
 
+class LicenseFilter {
+  CostLowBound: number;
+  CostHighBound: number;
+
+  PurchasedAtLowBound: Date;
+  PurchasedAtHighBound: Date;
+
+  ExpiredAtLowBound: Date;
+  ExpiredAtHighBound: Date;
+
+  SoftwareCountLowBound: number;
+  SoftwareCountHighBound: number;
+
+  SoftwareType: SoftwareType;
+  SoftwareTypeId: number;
+}
 
 @Component({
   selector: 'sg-license-grid',
@@ -93,53 +110,86 @@ import {CardService} from '../cards/card.service';
               </table>
               <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
                   <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox>По стоимости</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="filterApplies.ByCost">По стоимости</mat-checkbox>
                       <mat-form-field>
-                          <input matInput placeholder="Нижняя граница">
+                          <input [disabled]="!filterApplies.ByCost"
+                                 type="number" step=0.01 min="0.01" matInput
+                                 [(ngModel)]="filter.CostLowBound" placeholder="Нижняя граница">
                       </mat-form-field>
                       <mat-form-field>
-                          <input matInput placeholder="Верхняя граница">
-                      </mat-form-field>
-                  </div>
-                  
-                  <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox>По дате приобретения</mat-checkbox>
-                      <mat-form-field>
-                          <input matInput placeholder="Нижняя граница">
-                      </mat-form-field>
-                      <mat-form-field>
-                          <input matInput placeholder="Верхняя граница">
+                          <input [disabled]="!filterApplies.ByCost"
+                                 type="number" step=0.01 min="0.01" matInput
+                                 [(ngModel)]="filter.CostHighBound" placeholder="Верхняя граница">
                       </mat-form-field>
                   </div>
 
                   <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox>По дате истечения</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="filterApplies.ByPurchasedAt">
+                          По дате приобретения
+                      </mat-checkbox>
                       <mat-form-field>
-                          <input matInput placeholder="Нижняя граница">
+                          <input matInput [matDatepicker]="purchasedAtLowPicker"
+                                 [(ngModel)]="filter.PurchasedAtLowBound"
+                                 [disabled]="!filterApplies.ByPurchasedAt"
+                                 placeholder="Нижняя граница">
+                          <mat-datepicker-toggle matSuffix [for]="purchasedAtLowPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #purchasedAtLowPicker></mat-datepicker>
                       </mat-form-field>
                       <mat-form-field>
-                          <input matInput placeholder="Верхняя граница">
+                          <input
+                                  [matDatepicker]="purchasedAtHighPicker"
+                                  [(ngModel)]="filter.PurchasedAtHighBound"
+                                  [disabled]="!filterApplies.ByPurchasedAt"
+                                  matInput placeholder="Верхняя граница">
+                          <mat-datepicker-toggle matSuffix [for]="purchasedAtHighPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #purchasedAtHighPicker></mat-datepicker>
                       </mat-form-field>
                   </div>
 
                   <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox>По количеству применений</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="filterApplies.ByExpiredAt">
+                          По дате истечения
+                      </mat-checkbox>
                       <mat-form-field>
-                          <input matInput placeholder="Нижняя граница">
+                          <input [matDatepicker]="expiredAtLowPicker"
+                                 [(ngModel)]="filter.ExpiredAtLowBound"
+                                 [disabled]="!filterApplies.ByPurchasedAt" matInput placeholder="Нижняя граница">
+                          <mat-datepicker-toggle matSuffix [for]="expiredAtLowPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #expiredAtLowPicker></mat-datepicker>
                       </mat-form-field>
                       <mat-form-field>
-                          <input matInput placeholder="Верхняя граница">
+                          <input [matDatepicker]="expiredAtHighPicker"
+                                 [(ngModel)]="filter.ExpiredAtHighBound"
+                                  [disabled]="!filterApplies.ByExpiredAt" matInput placeholder="Верхняя граница">
+                          <mat-datepicker-toggle matSuffix [for]="expiredAtHighPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #expiredAtHighPicker></mat-datepicker>
                       </mat-form-field>
                   </div>
-                  
+
                   <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox>По типу ПО</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="filterApplies.BySoftwareCount">
+                          По кол-ву применений
+                      </mat-checkbox>
+                      <mat-form-field>
+                          <input type="number" min="0" step="1"
+                                  [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Нижняя граница">
+                      </mat-form-field>
+                      <mat-form-field>
+                          <input type="number" min="1" step="1"
+                                  [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Верхняя граница">
+                      </mat-form-field>
                   </div>
-                  
+
+                  <div class="sg-search-drawer-ruleset">
+                      <mat-checkbox [(ngModel)]="filterApplies.BySoftwareType">По типу ПО</mat-checkbox>
+                      <sg-software-type-search hint="Тип ПО"
+                              [disabled]="!filterApplies.BySoftwareType"></sg-software-type-search>
+                  </div>
+
               </div>
           </div>
       </ng-template>
-      
+
       <ng-container *ngIf="!isAnalyticsDisplayed">
           <ng-container *ngTemplateOutlet="table">
           </ng-container>
@@ -150,22 +200,22 @@ import {CardService} from '../cards/card.service';
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
-<!--              <ngx-charts-bar-vertical-2d-->
-<!--                      [view]="view"-->
-<!--                      [scheme]="colorScheme"-->
-<!--                      [results]="multi"-->
-<!--                      [gradient]="gradient"-->
-<!--                      [xAxis]="showXAxis"-->
-<!--                      [yAxis]="showYAxis"-->
-<!--                      [legend]="showLegend"-->
-<!--                      [showXAxisLabel]="showXAxisLabel"-->
-<!--                      [showYAxisLabel]="showYAxisLabel"-->
-<!--                      [xAxisLabel]="xAxisLabel"-->
-<!--                      [yAxisLabel]="yAxisLabel"-->
-<!--                      [legendTitle]="legendTitle"-->
-<!--                      (select)="onSelect($event)"-->
-<!--                      (activate)="onActivate($event)"-->
-<!--                      (deactivate)="onDeactivate($event)"></ngx-charts-bar-vertical-2d>-->
+              <!--              <ngx-charts-bar-vertical-2d-->
+              <!--                      [view]="view"-->
+              <!--                      [scheme]="colorScheme"-->
+              <!--                      [results]="multi"-->
+              <!--                      [gradient]="gradient"-->
+              <!--                      [xAxis]="showXAxis"-->
+              <!--                      [yAxis]="showYAxis"-->
+              <!--                      [legend]="showLegend"-->
+              <!--                      [showXAxisLabel]="showXAxisLabel"-->
+              <!--                      [showYAxisLabel]="showYAxisLabel"-->
+              <!--                      [xAxisLabel]="xAxisLabel"-->
+              <!--                      [yAxisLabel]="yAxisLabel"-->
+              <!--                      [legendTitle]="legendTitle"-->
+              <!--                      (select)="onSelect($event)"-->
+              <!--                      (activate)="onActivate($event)"-->
+              <!--                      (deactivate)="onDeactivate($event)"></ngx-charts-bar-vertical-2d>-->
           </mat-tab>
       </mat-tab-group>
       <sg-grid-bottom-bar router-link="/licenses/add"
@@ -184,11 +234,47 @@ import {CardService} from '../cards/card.service';
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
   @Input('display-analytics') isAnalyticsDisplayed: boolean;
 
+  filterApplies = {
+    ByCost: false,
+    ByPurchasedAt: false,
+    ByExpiredAt: false,
+    BySoftwareCount: false,
+    BySoftwareType: false
+  };
+
+  filter: LicenseFilter = new LicenseFilter();
+
   constructor(licenses: LicenseService, private dialogref: MatDialog, cardService: CardService) {
     super(licenses, dialogref,
       ['select', 'id', 'cost', 'purchased_at', 'expired_at', 'software_count',
         'expired', 'info'],
       cardService,
       LicenseCardComponent);
+  }
+
+  constructFilter(): object {
+    const filter = new LicenseFilter();
+
+    if (this.filterApplies.ByCost) {
+      filter.CostLowBound = this.filter.CostLowBound;
+      filter.CostHighBound = this.filter.CostHighBound;
+    }
+    if (this.filterApplies.ByPurchasedAt) {
+      filter.PurchasedAtLowBound = this.filter.PurchasedAtLowBound;
+      filter.PurchasedAtHighBound = this.filter.PurchasedAtHighBound;
+    }
+    if (this.filterApplies.ByExpiredAt) {
+      filter.ExpiredAtLowBound = this.filter.ExpiredAtLowBound;
+      filter.ExpiredAtHighBound = this.filter.ExpiredAtHighBound;
+    }
+    if (this.filterApplies.BySoftwareCount) {
+      filter.SoftwareCountLowBound = this.filter.SoftwareCountLowBound;
+      filter.SoftwareCountHighBound = this.filter.SoftwareCountHighBound;
+    }
+    if (this.filterApplies.BySoftwareType && this.filter.SoftwareType) {
+      filter.SoftwareTypeId = this.filter.SoftwareType.Id;
+    }
+
+    return filter;
   }
 }

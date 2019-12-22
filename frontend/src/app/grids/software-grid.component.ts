@@ -112,6 +112,7 @@ export class SoftwareFilter {
                           [count]="this.count"
                           (Paginate)="this.paginate($event.offset, $event.limit)"
                           entity-name="ПО"
+                          (search)="searchString = $event"
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
@@ -144,6 +145,10 @@ export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareServ
     if (this.filterApplies.ByLicense && this.filter.License) {
       filter.SoftwareTypeId = this.filter.License.Id;
     }
+
+    filter.SoftwareType = undefined;
+    filter.Computer = undefined;
+    filter.License = undefined;
 
     return filter;
   }

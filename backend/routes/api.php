@@ -22,15 +22,15 @@ Route::group([
 
     Route::group([
         'middleware' => 'auth:api'
-    ], function() {
+    ], function () {
         Route::get('logout', 'EmployeeController@logout');
         Route::get('user', 'EmployeeController@user');
         Route::get('change-color-scheme', 'EmployeeController@changeColorScheme');
     });
 });
 
-Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function (){
-    Route::get('get', 'EmployeeController@get')->middleware('role:branchAdmin,leadAdmin');
+Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function () {
+    Route::get('get', 'EmployeeController@get')->middleware('role:director,branchDirector');
     Route::get('get-tree', 'EmployeeController@getTree');
     Route::get('count', 'EmployeeController@getCount');
     Route::post('add', 'EmployeeController@add');
@@ -39,17 +39,21 @@ Route::group(['prefix' => 'employee', 'middleware' => 'auth:api'], function (){
     Route::get('{id}', 'EmployeeController@getById');
 });
 
-Route::group(['prefix' => 'computer', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'computer', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'ComputerController@get');
     Route::get('get-dependency-satisfying', 'ComputerController@getDependencySatisfying');
     Route::get('count', 'ComputerController@getCount');
+
+    Route::get('get-count-by-subsidiary', 'ComputerController@getCountBySubsidiary')
+        ->middleware('role:director');
+
     Route::post('add', 'ComputerController@add');
     Route::post('edit/{id}', 'ComputerController@update');
     Route::delete('remove/{id}', 'ComputerController@remove');
     Route::get('{id}', 'ComputerController@getById');
 });
 
-Route::group(['prefix' => 'room', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'room', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'RoomController@get');
     Route::get('count', 'RoomController@getCount');
     Route::post('add', 'RoomController@add');
@@ -58,7 +62,7 @@ Route::group(['prefix' => 'room', 'middleware' => 'auth:api'], function (){
     Route::get('{id}', 'RoomController@getById');
 });
 
-Route::group(['prefix' => 'subsidiary', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'subsidiary', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'SubsidiaryController@get');
     Route::get('count', 'SubsidiaryController@getCount');
     Route::post('add', 'SubsidiaryController@add');
@@ -67,10 +71,13 @@ Route::group(['prefix' => 'subsidiary', 'middleware' => 'auth:api'], function ()
     Route::get('{id}', 'SubsidiaryController@getById');
 });
 
-Route::group(['prefix' => 'license', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'license', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'LicenseController@get');
     Route::get('get-applicable', 'LicenseController@getApplicable');
     Route::get('count', 'LicenseController@getCount');
+
+    Route::get('get-count-by-date', 'PartController@getCountByDate');
+
     Route::post('add', 'LicenseController@add');
     Route::post('add-pack', 'LicenseController@addPack');
     Route::post('edit/{id}', 'LicenseController@update');
@@ -78,7 +85,7 @@ Route::group(['prefix' => 'license', 'middleware' => 'auth:api'], function (){
     Route::get('{id}', 'LicenseController@getById');
 });
 
-Route::group(['prefix' => 'software', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'software', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'SoftwareController@get');
     Route::get('count', 'SoftwareController@getCount');
     Route::post('add', 'SoftwareController@add');
@@ -88,7 +95,7 @@ Route::group(['prefix' => 'software', 'middleware' => 'auth:api'], function (){
     Route::get('{id}', 'SoftwareController@getById');
 });
 
-Route::group(['prefix' => 'software-type', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'software-type', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'SoftwareTypeController@get');
     Route::get('count', 'SoftwareTypeController@getCount');
     Route::post('add', 'SoftwareTypeController@add');
@@ -97,9 +104,16 @@ Route::group(['prefix' => 'software-type', 'middleware' => 'auth:api'], function
     Route::get('{id}', 'SoftwareTypeController@getById');
 });
 
-Route::group(['prefix' => 'part', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'part', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'PartController@get');
+
+
+    Route::get('get-count-by-date', 'PartController@getCountByDate');
     Route::get('get-count-by-type', 'PartController@getCountByType');
+
+    Route::get('get-count-by-subsidiary', 'ComputerController@getCountBySubsidiary')
+        ->middleware('role:director');
+
     Route::get('count', 'PartController@getCount');
     Route::post('add', 'PartController@add');
     Route::post('add-pack', 'PartController@addPack');
@@ -108,7 +122,7 @@ Route::group(['prefix' => 'part', 'middleware' => 'auth:api'], function (){
     Route::get('{id}', 'PartController@getById');
 });
 
-Route::group(['prefix' => 'part-type', 'middleware' => 'auth:api'], function (){
+Route::group(['prefix' => 'part-type', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'PartTypeController@get');
     Route::get('count', 'PartTypeController@getCount');
     Route::post('add', 'PartTypeController@add');

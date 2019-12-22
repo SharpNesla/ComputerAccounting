@@ -1,18 +1,24 @@
 import {Injectable} from '@angular/core';
-import {PackEntityService} from "./entity-service-base";
-import {HttpClient} from "@angular/common/http";
-import {Part, PartState} from "../entities/part";
+import {PackEntityService} from './entity-service-base';
+import {HttpClient} from '@angular/common/http';
+import {Part, PartState} from '../entities/part';
 import {CountableBySubsidiaries, CountBySubsidiaryResult} from '../analytics/countable-by-subsidiary';
 import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
 import {map} from 'rxjs/operators';
+import * as moment from 'moment';
+import {Observable} from 'rxjs';
 
+export class PartChartResult {
+  date: Date;
+  value: { state: PartState, count: number }[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class PartService extends PackEntityService<Part> implements CountableBySubsidiaries, ChartableByDate {
   constructor(httpClient: HttpClient) {
-    super(httpClient, "part")
+    super(httpClient, 'part');
   }
 
   protected prepareEntityAddPack(entity: Part): Part {
@@ -59,15 +65,20 @@ export class PartService extends PackEntityService<Part> implements CountableByS
   }
 
   getChartResultsByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): ChartResult {
-    return undefined
+    return undefined;
   }
 
-  getChartRes(dateSlice: DateSlice, chartDateField: string, filterDefinition: object){
+  getChartRes(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): Observable<PartChartResult[]> {
     return this.client.get<any[]>(`/api/${this.entityPrefix}/get-count-by-type`)
-      .pipe(map(x=>{
-        console.log(x);
-        x = x.map(x=>new ChartResult());
-        return x;
+      .pipe(map(x => {
+        const date = Object.keys(x);
+
+        return date.map(object => {
+          return {
+            date: moment(object).toDate(),
+            value: x[object]
+          };
+        });
       }));
   }
 }

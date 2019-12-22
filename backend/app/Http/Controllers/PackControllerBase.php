@@ -25,6 +25,5 @@ class PackControllerBase extends CrudControllerBase
         for ($i = 0; $i < $decodedAsArray['count']; $i++) {
             $this->add($request);
         }
-
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Computer;
+use App\PartType;
 use App\SoftwareType;
+use App\Subsidiary;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -65,7 +67,7 @@ class ComputerController extends CrudControllerBase
 
         $softwareTypeIds = SoftwareType::findOrFail($request->for)
             ->dependencies()
-            ->get()->map(function ($q){
+            ->get()->map(function ($q) {
                 return $q->id;
             })->toArray();
 
@@ -77,8 +79,8 @@ class ComputerController extends CrudControllerBase
             ->skip($request->offset)
             ->take($request->limit)->get();
 
-        return $query->filter(function ($computer) use ($softwareTypeIds){
-            $typesOnPCIds = $computer->dependencyTypes()->get()->map(function ($q){
+        return $query->filter(function ($computer) use ($softwareTypeIds) {
+            $typesOnPCIds = $computer->dependencyTypes()->get()->map(function ($q) {
                 return $q->id;
             })->toArray();
             return count(array_diff($softwareTypeIds, $typesOnPCIds)) == 0;
@@ -94,8 +96,8 @@ class ComputerController extends CrudControllerBase
         return !Validator::make($array, [
             'name' => 'required',
             'inventory_id' => 'required',
-            /*
-                        'subsidiary_id' => 'required',*/
+
+            'subsidiary_id' => 'required',
 
             'responsible_id' => 'required',
 
@@ -103,5 +105,12 @@ class ComputerController extends CrudControllerBase
 
             'user_ids.*' => 'exists:employees,id'
         ])->fails();
+    }
+
+    public function getCountBySubsidiary(Request $request)
+    {
+        return Subsidiary::query()->withCount(['parts' => function ($q) {
+            $q->where('state', 2);
+        }]);
     }
 }

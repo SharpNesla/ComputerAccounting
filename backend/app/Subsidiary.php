@@ -23,12 +23,16 @@ class Subsidiary extends Model
         return $this->hasMany(Computer::class);
     }
 
+    public function parts()
+    {
+        return $this->hasMany(Part::class);
+    }
+
+
     public function employees()
     {
         return $this->hasMany(User::class);
     }
-
-
 
     public function director()
     {

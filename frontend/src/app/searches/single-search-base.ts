@@ -11,6 +11,18 @@ import {ControlValueAccessor} from "@angular/forms";
 
 
 export class SingleSearchBase<TEntity extends EntityBase> implements ControlValueAccessor, OnInit {
+  get searchHint(): string {
+
+    if (this._searchHint) {
+      return this._searchHint
+    }else {
+      return "сущность";
+    }
+  }
+
+  @Input() set searchHint(value: string) {
+    this._searchHint = value;
+  }
   @Input() required: boolean;
 
   set searchString(value: string) {
@@ -42,7 +54,7 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
 
   @Input() disabled: boolean;
   @Input() hint: string;
-  @Input() searchHint: string;
+  private _searchHint: string;
   @Input() filterDefinition;
 
   public dataSource(searchString, filterDefinition: object): Observable<TEntity[]> {
