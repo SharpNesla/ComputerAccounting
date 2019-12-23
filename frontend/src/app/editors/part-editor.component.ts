@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {EditorBase, PackEditorBase} from "./editor-base";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Part, PartState} from "../entities/part";
+import {PartExtension, PartState} from "../entities/part";
 import {PartService} from "../services/part.service";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -50,7 +50,7 @@ import {MatDialog} from "@angular/material/dialog";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class PartEditorComponent extends PackEditorBase<Part, PartService> {
+export class PartEditorComponent extends PackEditorBase<PartExtension, PartService> {
   partStates = [
     PartState.InComputer,
     PartState.InStore,
@@ -67,7 +67,7 @@ export class PartEditorComponent extends PackEditorBase<Part, PartService> {
 
   constructor(private service: PartService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, router, dialog, new Part(), "parts");
+    super(service, route, router, dialog, new PartExtension(), "parts");
   }
 
 }

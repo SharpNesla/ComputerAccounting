@@ -1,13 +1,13 @@
 import {Component, Inject} from '@angular/core';
 import {CardBase} from './card-base';
-import {Computer} from '../entities/computer';
+import {ComputerExtension} from '../entities/computer';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ComputerService} from '../services/computer.service';
-import {Employee} from '../entities/employee';
+import {EmployeeExtension} from '../entities/employee';
 import {CardService} from './card.service';
 import {EmployeeCardComponent} from './employee-card.component';
-import {Room} from '../entities/room';
-import {Subsidiary} from '../entities/subsidiary';
+import {RoomExtension} from '../entities/room';
+import {SubsidiaryExtension} from '../entities/subsidiary';
 import {RoomCardComponent} from './room-card.component';
 import {SubsidiaryCardComponent} from './subsidiary-card.component';
 
@@ -77,7 +77,7 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class ComputerCardComponent extends CardBase<Computer, ComputerService> {
+export class ComputerCardComponent extends CardBase<ComputerExtension, ComputerService> {
 
   constructor(
     public dialogRef: MatDialogRef<ComputerCardComponent>,
@@ -88,15 +88,15 @@ export class ComputerCardComponent extends CardBase<Computer, ComputerService> {
   }
 
 
-  showEmployeeCard(employee: Employee) {
+  showEmployeeCard(employee: EmployeeExtension) {
     this.cardService.showInfoCard(employee, EmployeeCardComponent);
   }
 
-  showRoomCard(room: Room) {
+  showRoomCard(room: RoomExtension) {
     this.cardService.showInfoCard(room, RoomCardComponent);
   }
 
-  showSubsidiaryCard(subsidiary: Subsidiary) {
+  showSubsidiaryCard(subsidiary: SubsidiaryExtension) {
 
     this.cardService.showInfoCard(subsidiary, SubsidiaryCardComponent);
   }

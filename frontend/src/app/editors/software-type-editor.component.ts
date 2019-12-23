@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EditorBase} from "./editor-base";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SoftwareCategory, SoftwareType} from "../entities/software-type";
+import {SoftwareCategory, SoftwareTypeExtension} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
-import {Software} from "../entities/software";
+import {SoftwareExtension} from "../entities/software";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -110,7 +110,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class SoftwareTypeEditorComponent extends EditorBase<SoftwareType, SoftwareTypeService> {
+export class SoftwareTypeEditorComponent extends EditorBase<SoftwareTypeExtension, SoftwareTypeService> {
   softwareCategories = [
     SoftwareCategory.Program,
     SoftwareCategory.Driver,
@@ -124,11 +124,11 @@ export class SoftwareTypeEditorComponent extends EditorBase<SoftwareType, Softwa
 
   constructor(private service: SoftwareTypeService, route: ActivatedRoute, router : Router,
               private snackBar: MatSnackBar, dialog: MatDialog) {
-    super(service, route, dialog, new SoftwareType(), router, "software-types");
+    super(service, route, dialog, new SoftwareTypeExtension(), router, "software-types");
   }
 
 
-  removeDependency(element: SoftwareType) {
+  removeDependency(element: SoftwareTypeExtension) {
     const index = this.entity.Dependencies.findIndex(x => x.Id == element.Id);
     this.entity.Dependencies.splice(index, 1);
     this.entity.Dependencies = [...this.entity.Dependencies];

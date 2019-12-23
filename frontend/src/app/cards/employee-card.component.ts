@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from './card-base';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Employee} from '../entities/employee';
+import {EmployeeExtension} from '../entities/employee';
 import {EmployeeService} from '../services/employee.service';
 import {CardService} from './card.service';
-import {Subsidiary} from '../entities/subsidiary';
+import {SubsidiaryExtension} from '../entities/subsidiary';
 import {SubsidiaryCardComponent} from './subsidiary-card.component';
 
 @Component({
@@ -60,7 +60,7 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class EmployeeCardComponent extends CardBase<Employee, EmployeeService> {
+export class EmployeeCardComponent extends CardBase<EmployeeExtension, EmployeeService> {
 
   constructor(
     public dialogRef: MatDialogRef<EmployeeCardComponent>,
@@ -70,10 +70,10 @@ export class EmployeeCardComponent extends CardBase<Employee, EmployeeService> {
     super(dialogRef, service, data);
   }
 
-  showEmployeeCard(employee: Employee) {
+  showEmployeeCard(employee: EmployeeExtension) {
     this.cardService.showInfoCard(employee, EmployeeCardComponent);
   }
-  showSubsidiaryCard(subsidiary: Subsidiary) {
+  showSubsidiaryCard(subsidiary: SubsidiaryExtension) {
     this.cardService.showInfoCard(subsidiary, SubsidiaryCardComponent);
   }
 }

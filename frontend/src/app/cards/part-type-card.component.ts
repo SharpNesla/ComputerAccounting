@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {PartType} from "../entities/part-type";
+import {PartTypeExtension} from "../entities/part-type";
 import {PartTypeService} from "../services/part-type.service";
 
 @Component({
@@ -30,7 +30,7 @@ import {PartTypeService} from "../services/part-type.service";
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class PartTypeCardComponent extends CardBase<PartType, PartTypeService> {
+export class PartTypeCardComponent extends CardBase<PartTypeExtension, PartTypeService> {
 
   constructor(
     public dialogRef: MatDialogRef<PartTypeCardComponent>,

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from './card-base';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Room} from '../entities/room';
+import {RoomExtension} from '../entities/room';
 import {RoomService} from '../services/room.service';
 
 @Component({
@@ -43,7 +43,7 @@ import {RoomService} from '../services/room.service';
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class RoomCardComponent extends CardBase<Room, RoomService> {
+export class RoomCardComponent extends CardBase<RoomExtension, RoomService> {
 
   constructor(
     public dialogRef: MatDialogRef<RoomCardComponent>,

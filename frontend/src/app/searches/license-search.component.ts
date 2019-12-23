@@ -1,11 +1,11 @@
 import {Component, forwardRef, Input} from '@angular/core';
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {SingleSearchBase} from "./single-search-base";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {SoftwareType} from "../entities/software-type";
+import {SoftwareTypeExtension} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
-import {License} from "../entities/license";
+import {LicenseExtension} from "../entities/license";
 import {LicenseService} from "../services/license.service";
 import {Observable} from "rxjs";
 
@@ -39,15 +39,15 @@ export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
   }],
   styleUrls: ['./search-styles.scss']
 })
-export class LicenseSearchComponent extends SingleSearchBase<License> {
+export class LicenseSearchComponent extends SingleSearchBase<LicenseExtension> {
   @Input() mode : LicenseSearchMode;
-  @Input() applicableType : SoftwareType;
+  @Input() applicableType : SoftwareTypeExtension;
 
   constructor(private licenseService : LicenseService){
     super(licenseService)
   }
 
-  public dataSource(searchString, filterDefinition: object): Observable<License[]> {
+  public dataSource(searchString, filterDefinition: object): Observable<LicenseExtension[]> {
     switch (this.mode) {
       case "applicable":
         if (this.applicableType){

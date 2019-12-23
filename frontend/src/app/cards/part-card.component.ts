@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Part} from "../entities/part";
+import {PartExtension} from "../entities/part";
 import {PartService} from "../services/part.service";
 
 @Component({
@@ -26,7 +26,7 @@ import {PartService} from "../services/part.service";
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class PartCardComponent extends CardBase<Part, PartService> {
+export class PartCardComponent extends CardBase<PartExtension, PartService> {
 
   constructor(
     public dialogRef: MatDialogRef<PartCardComponent>, service: PartService,

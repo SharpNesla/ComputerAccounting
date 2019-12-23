@@ -9,15 +9,15 @@ export enum PartState {
   Broken
 }
 
-export class Part extends EntityBase {
+export class Part extends EntityBase{
   Computer: Computer;
-  ComputerId: number;
-
   Subsidiary: Subsidiary;
-  SubsidiaryId: number | null;
-
   PartType: PartType;
-  PartTypeId: number;
+}
 
+export class PartExtension extends Part {
+  ComputerId: number;
+  SubsidiaryId: number | null;
+  PartTypeId: number;
   State : PartState = PartState.InStore;
 }

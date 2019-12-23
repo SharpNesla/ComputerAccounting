@@ -1,11 +1,11 @@
 import {EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {BehaviorSubject, interval, Observable} from "rxjs";
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 import {debounce, exhaustMap, map, mergeMap, throttle} from "rxjs/operators";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {EntityBase} from "../entities/entity-base";
 import {EntityServiceBase} from "../services/entity-service-base";
-import {Room} from "../entities/room";
+import {RoomExtension} from "../entities/room";
 import {RoomService} from "../services/room.service";
 import {ControlValueAccessor} from "@angular/forms";
 

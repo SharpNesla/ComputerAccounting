@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {EditorBase} from "./editor-base";
 import {SubsidiaryService} from "../services/subsidiary.service";
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -39,10 +39,10 @@ import {ActivatedRoute, Router} from "@angular/router";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class SubsidiaryEditorComponent extends EditorBase<Subsidiary, SubsidiaryService> {
+export class SubsidiaryEditorComponent extends EditorBase<SubsidiaryExtension, SubsidiaryService> {
 
   constructor(private service: SubsidiaryService, route: ActivatedRoute,
               dialog : MatDialog, router : Router,) {
-    super(service, route, dialog, new Subsidiary(), router, "subsidiaries");
+    super(service, route, dialog, new SubsidiaryExtension(), router, "subsidiaries");
   }
 }

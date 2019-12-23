@@ -1,6 +1,6 @@
 import {Component, forwardRef} from '@angular/core';
 import {SingleSearchBase} from "./single-search-base";
-import {PartType} from "../entities/part-type";
+import {PartTypeExtension} from "../entities/part-type";
 import {PartTypeService} from "../services/part-type.service";
 import {RoomService} from "../services/room.service";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
@@ -33,7 +33,7 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
   }],
   styleUrls: ['./search-styles.scss']
 })
-export class PartTypeSearchComponent extends SingleSearchBase<PartType> {
+export class PartTypeSearchComponent extends SingleSearchBase<PartTypeExtension> {
   constructor(service : PartTypeService){
     super(service)
   }

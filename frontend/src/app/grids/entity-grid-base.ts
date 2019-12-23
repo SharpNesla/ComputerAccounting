@@ -2,7 +2,7 @@ import {EntityBase} from '../entities/entity-base';
 import {EntityServiceBase} from '../services/entity-service-base';
 import {Input, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Computer} from '../entities/computer';
+import {ComputerExtension} from '../entities/computer';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteDialogComponent} from '../delete-dialog.component';

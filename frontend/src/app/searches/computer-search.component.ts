@@ -1,9 +1,9 @@
 import {Component, forwardRef} from '@angular/core';
 import {SingleSearchBase} from "./single-search-base";
-import {Computer} from "../entities/computer";
+import {ComputerExtension} from "../entities/computer";
 import {ComputerService} from "../services/computer.service";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Employee} from "../entities/employee";
+import {EmployeeExtension} from "../entities/employee";
 import {EmployeeService} from "../services/employee.service";
 
 @Component({
@@ -34,7 +34,7 @@ import {EmployeeService} from "../services/employee.service";
   }],
   styleUrls: ['./search-styles.scss']
 })
-export class ComputerSearchComponent extends SingleSearchBase<Computer> {
+export class ComputerSearchComponent extends SingleSearchBase<ComputerExtension> {
   constructor(service : ComputerService){
     super(service)
   }

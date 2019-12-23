@@ -1,12 +1,17 @@
-import {EntityBase} from "./entity-base";
-import {Subsidiary} from "./subsidiary";
-import {Computer} from './computer';
+import {EntityBase} from './entity-base';
+import {SubsidiaryExtension} from './subsidiary';
+import {ComputerExtension} from './computer';
 
 export class Room extends EntityBase {
-  Number : string;
-  SubsidiaryId : number;
-  Subsidiary : Subsidiary;
+  Number: string;
+  Subsidiary: SubsidiaryExtension;
+}
 
-  Computers : Computer[];
-  ComputersCount : number;
+export class RoomExtension extends Room {
+  SubsidiaryId: number;
+
+  Name: string;
+
+  Computers: ComputerExtension[];
+  ComputersCount: number;
 }

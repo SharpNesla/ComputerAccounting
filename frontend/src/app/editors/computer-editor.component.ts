@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {ComputerService} from '../services/computer.service';
-import {Computer, ComputerType} from '../entities/computer';
+import {ComputerExtension, ComputerType} from '../entities/computer';
 import {EditorBase} from './editor-base';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Employee, Roles} from '../entities/employee';
+import {EmployeeExtension, Roles} from '../entities/employee';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {VisibilitiesService} from '../login/visibilities.service';
@@ -131,7 +131,7 @@ import {EmployeeCardComponent} from '../cards/employee-card.component';
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class ComputerEditorComponent extends EditorBase<Computer, ComputerService> {
+export class ComputerEditorComponent extends EditorBase<ComputerExtension, ComputerService> {
   types = [
     ComputerType.PC,
     ComputerType.Server,
@@ -145,13 +145,13 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
 
   UserDisplayedColumns = ['remove_button', 'id',
     'name', 'surname', 'role', 'info'];
-  addingUser: Employee;
+  addingUser: EmployeeExtension;
 
   constructor(private service: ComputerService, route: ActivatedRoute,
               private auth: AuthService, private cardService : CardService,
               public visibilities : VisibilitiesService,
               router: Router, private snackBar: MatSnackBar, dialog: MatDialog) {
-    super(service, route, dialog, new Computer(), router, 'computers');
+    super(service, route, dialog, new ComputerExtension(), router, 'computers');
   }
 
   ngOnInit() {
@@ -183,13 +183,13 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
     }
   }
 
-  removeUser(user: Employee) {
+  removeUser(user: EmployeeExtension) {
     const index = this.entity.Users.findIndex(x => x.Id == user.Id);
     this.entity.Users.splice(index, 1);
     this.entity.Users = [...this.entity.Users];
   }
 
-  showInfoCard(element: Employee) {
+  showInfoCard(element: EmployeeExtension) {
     this.cardService.showInfoCard(element, EmployeeCardComponent);
   }
 }

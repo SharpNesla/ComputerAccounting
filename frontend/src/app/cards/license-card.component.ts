@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {License} from "../entities/license";
+import {LicenseExtension} from "../entities/license";
 import {LicenseService} from "../services/license.service";
-import {Subsidiary} from '../entities/subsidiary';
+import {SubsidiaryExtension} from '../entities/subsidiary';
 import {SubsidiaryCardComponent} from './subsidiary-card.component';
-import {SoftwareType} from '../entities/software-type';
+import {SoftwareTypeExtension} from '../entities/software-type';
 import {CardService} from './card.service';
 import {SoftwareTypeCardComponent} from './software-type-card.component';
 
@@ -46,7 +46,7 @@ import {SoftwareTypeCardComponent} from './software-type-card.component';
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class LicenseCardComponent extends CardBase<License, LicenseService> {
+export class LicenseCardComponent extends CardBase<LicenseExtension, LicenseService> {
 
   constructor(
     public dialogRef: MatDialogRef<LicenseCardComponent>,
@@ -55,7 +55,7 @@ export class LicenseCardComponent extends CardBase<License, LicenseService> {
     @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
-  showSoftwareTypeCard(softwareType: SoftwareType) {
+  showSoftwareTypeCard(softwareType: SoftwareTypeExtension) {
     this.cardService.showInfoCard(softwareType, SoftwareTypeCardComponent);
   }
 

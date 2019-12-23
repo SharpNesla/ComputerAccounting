@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ComputerService} from '../services/computer.service';
-import {Computer, ComputerType} from '../entities/computer';
+import {ComputerExtension, ComputerType} from '../entities/computer';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {ComputerCardComponent} from '../cards/computer-card.component';
@@ -158,7 +158,7 @@ class ComputerFilter {
       overflow: hidden;
   }`]
 })
-export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
+export class ComputerGridComponent extends EntityGridBase<ComputerExtension, ComputerService> {
   get isAnalyticsDisplayed(): boolean {
     return this._isAnalyticsDisplayed;
   }

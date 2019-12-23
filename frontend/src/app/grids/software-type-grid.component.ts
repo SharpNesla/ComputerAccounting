@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
-import {SoftwareCategory, SoftwareType} from '../entities/software-type';
+import {SoftwareCategory, SoftwareTypeExtension} from '../entities/software-type';
 import {SoftwareTypeService} from '../services/software-type.service';
 import {SoftwareTypeCardComponent} from '../cards/software-type-card.component';
 import {CardService} from '../cards/card.service';
@@ -121,7 +121,7 @@ class SoftwareTypeFilter {
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
-export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareType, SoftwareTypeService> {
+export class SoftwareTypeGridComponent extends EntityGridBase<SoftwareTypeExtension, SoftwareTypeService> {
 
   softwareCategories = [
     SoftwareCategory.Program,

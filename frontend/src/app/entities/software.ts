@@ -1,15 +1,16 @@
-import {EntityBase} from "./entity-base";
-import {SoftwareType} from "./software-type";
-import {Computer} from "./computer";
-import {License} from "./license";
+import {EntityBase} from './entity-base';
+import {SoftwareTypeExtension} from './software-type';
+import {ComputerExtension} from './computer';
+import {LicenseExtension} from './license';
 
-export class Software extends EntityBase{
-  Computer: Computer;
+export class Software extends EntityBase {
+  Computer: ComputerExtension;
+  License: LicenseExtension;
+  SoftwareType: SoftwareTypeExtension;
+}
+
+export class SoftwareExtension extends Software {
   ComputerId: number;
-
-  License: License;
   LicenseId: number;
-
-  SoftwareType: SoftwareType;
   SoftwareTypeId: number;
 }

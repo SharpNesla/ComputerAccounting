@@ -1,14 +1,14 @@
 import {Component, Inject} from '@angular/core';
 import {CardBase} from './card-base';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Software} from '../entities/software';
+import {SoftwareExtension} from '../entities/software';
 import {SoftwareService} from '../services/software.service';
-import {SoftwareType} from '../entities/software-type';
+import {SoftwareTypeExtension} from '../entities/software-type';
 import {SoftwareTypeCardComponent} from './software-type-card.component';
 import {CardService} from './card.service';
-import {License} from '../entities/license';
+import {LicenseExtension} from '../entities/license';
 import {LicenseCardComponent} from './license-card.component';
-import {Computer} from '../entities/computer';
+import {ComputerExtension} from '../entities/computer';
 import {ComputerCardComponent} from './computer-card.component';
 
 @Component({
@@ -58,7 +58,7 @@ import {ComputerCardComponent} from './computer-card.component';
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class SoftwareCardComponent extends CardBase<Software, SoftwareService> {
+export class SoftwareCardComponent extends CardBase<SoftwareExtension, SoftwareService> {
 
   constructor(
     public dialogRef: MatDialogRef<SoftwareCardComponent>,
@@ -68,15 +68,15 @@ export class SoftwareCardComponent extends CardBase<Software, SoftwareService> {
     super(dialogRef, service, data);
   }
 
-  showSoftwareTypeCard(softwareType: SoftwareType) {
+  showSoftwareTypeCard(softwareType: SoftwareTypeExtension) {
     this.cardService.showInfoCard(softwareType, SoftwareTypeCardComponent);
   }
 
-  showLicenseCard(license: License) {
+  showLicenseCard(license: LicenseExtension) {
     this.cardService.showInfoCard(license, LicenseCardComponent);
   }
 
-  showComputerCard(computer: Computer) {
+  showComputerCard(computer: ComputerExtension) {
     this.cardService.showInfoCard(computer, ComputerCardComponent);
   }
 }

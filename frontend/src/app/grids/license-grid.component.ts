@@ -1,11 +1,11 @@
 import {Component, Input} from '@angular/core';
 import {LicenseService} from '../services/license.service';
-import {License} from '../entities/license';
+import {LicenseExtension} from '../entities/license';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {LicenseCardComponent} from '../cards/license-card.component';
 import {CardService} from '../cards/card.service';
-import {SoftwareType} from '../entities/software-type';
+import {SoftwareTypeExtension} from '../entities/software-type';
 import {DateSlice} from '../analytics/chartable-by-date';
 import {colorScheme} from '../analytics/color-scheme';
 import {map} from 'rxjs/operators';
@@ -24,7 +24,7 @@ class LicenseFilter {
   SoftwareCountLowBound: number;
   SoftwareCountHighBound: number;
 
-  SoftwareType: SoftwareType;
+  SoftwareType: SoftwareTypeExtension;
   SoftwareTypeId: number;
 
   Expired: boolean;
@@ -232,7 +232,7 @@ class LicenseFilter {
       overflow: hidden;
   }`]
 })
-export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
+export class LicenseGridComponent extends EntityGridBase<LicenseExtension, LicenseService> {
   get isAnalyticsDisplayed(): boolean {
     return this._isAnalyticsDisplayed;
   }

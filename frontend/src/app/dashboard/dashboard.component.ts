@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../login/auth.service";
-import {Employee} from "../entities/employee";
+import {EmployeeExtension} from "../entities/employee";
 import {Observable} from "rxjs";
 
 @Component({
@@ -16,7 +16,7 @@ import {Observable} from "rxjs";
       </div>`,
 })
 export class DashboardComponent implements OnInit {
-  Current : Observable<Employee>;
+  Current : Observable<EmployeeExtension>;
   constructor(auth : AuthService) {
     this.Current = auth.CurrentEmployee;
   }

@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import {EntityServiceBase, PackEntityService} from "./entity-service-base";
-import {Software} from "../entities/software";
+import {SoftwareExtension} from "../entities/software";
 import {HttpClient} from "@angular/common/http";
-import {Part} from "../entities/part";
+import {PartExtension} from "../entities/part";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SoftwareService extends PackEntityService<Software> {
+export class SoftwareService extends PackEntityService<SoftwareExtension> {
   constructor(httpClient : HttpClient){
     super(httpClient, "software");
   }
 
-  protected prepareEntityAddPack(entity: Software): Software {
+  protected prepareEntityAddPack(entity: SoftwareExtension): SoftwareExtension {
     entity.SoftwareTypeId = entity.SoftwareType.Id;
 
     entity.ComputerId = undefined;
@@ -25,7 +25,7 @@ export class SoftwareService extends PackEntityService<Software> {
     return super.prepareEntityAddPack(entity);
   }
 
-  protected prepareEntitySave(entity: Software): Software {
+  protected prepareEntitySave(entity: SoftwareExtension): SoftwareExtension {
     entity.SoftwareTypeId = entity.SoftwareType.Id;
 
     if (entity.Computer){

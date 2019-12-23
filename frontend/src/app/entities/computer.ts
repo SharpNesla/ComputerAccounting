@@ -1,7 +1,7 @@
-import {EntityBase} from "./entity-base";
-import {Room} from "./room";
-import {Employee} from "./employee";
-import {Subsidiary} from './subsidiary';
+import {EntityBase} from './entity-base';
+import {RoomExtension} from './room';
+import {Employee, EmployeeExtension} from './employee';
+import {SubsidiaryExtension} from './subsidiary';
 
 export enum ComputerType {
   PC,
@@ -14,21 +14,23 @@ export enum ComputerType {
   Other
 }
 
-export class Computer extends EntityBase{
-  InventoryId : string;
-  Name : string;
+export class Computer extends EntityBase {
+  InventoryId: string;
+  Name: string;
 
-  Type : ComputerType;
+  Type: ComputerType;
+  Responsible: Employee;
+}
 
-  Subsidiary : Subsidiary;
-  SubsidiaryId : number | null;
+export class ComputerExtension extends Computer {
+  Subsidiary: SubsidiaryExtension;
+  SubsidiaryId: number | null;
 
-  Room : Room;
-  RoomId : number | null;
+  Room: RoomExtension;
+  RoomId: number | null;
 
-  Responsible : Employee;
-  ResponsibleId : number;
+  ResponsibleId: number;
 
-  Users : Employee[] = [];
+  Users: EmployeeExtension[] = [];
   UsersCount: number;
 }

@@ -1,23 +1,23 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SoftwareService} from '../services/software.service';
-import {Software} from '../entities/software';
+import {SoftwareExtension} from '../entities/software';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {SoftwareCardComponent} from '../cards/software-card.component';
-import {SoftwareType} from '../entities/software-type';
+import {SoftwareTypeExtension} from '../entities/software-type';
 import {CardService} from '../cards/card.service';
-import {Computer} from '../entities/computer';
-import {License} from '../entities/license';
+import {ComputerExtension} from '../entities/computer';
+import {LicenseExtension} from '../entities/license';
 
 export class SoftwareFilter {
   SoftwareTypeId: number;
-  SoftwareType: SoftwareType;
+  SoftwareType: SoftwareTypeExtension;
 
   ComputerId: number;
-  Computer: Computer;
+  Computer: ComputerExtension;
 
   LicenseId: number;
-  License: License;
+  License: LicenseExtension;
 }
 
 @Component({
@@ -116,7 +116,7 @@ export class SoftwareFilter {
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
-export class SoftwareGridComponent extends EntityGridBase<Software, SoftwareService> {
+export class SoftwareGridComponent extends EntityGridBase<SoftwareExtension, SoftwareService> {
   filterApplies = {
     BySoftwareType: false,
     ByComputer: false,

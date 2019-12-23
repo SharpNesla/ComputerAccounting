@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map, mergeMap, publishLast, refCount} from 'rxjs/operators';
-import {Employee} from "../entities/employee";
+import {EmployeeExtension} from "../entities/employee";
 import {EmployeeService} from "../services/employee.service";
 import {Router} from "@angular/router";
 
@@ -10,9 +10,9 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  private current : Observable<Employee>;
+  private current : Observable<EmployeeExtension>;
 
-  public get CurrentEmployee() : Observable<Employee> {
+  public get CurrentEmployee() : Observable<EmployeeExtension> {
     return this.current;
   }
 

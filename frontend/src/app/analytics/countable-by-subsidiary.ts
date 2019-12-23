@@ -1,7 +1,7 @@
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 export class CountBySubsidiaryResult{
   Count: number;
-  Subsidiary: Subsidiary;
+  Subsidiary: SubsidiaryExtension;
 }
 export interface CountableBySubsidiaries {
   getCountBySubsidiaries( filterDefinition : object) : CountBySubsidiaryResult[];

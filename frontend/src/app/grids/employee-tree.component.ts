@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {EmployeeService} from '../services/employee.service';
-import {Employee} from '../entities/employee';
+import {EmployeeExtension} from '../entities/employee';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {EmployeeCardComponent} from '../cards/employee-card.component';
@@ -8,7 +8,7 @@ import {AngularTreeGridComponent} from 'angular-tree-grid';
 import {Observable} from 'rxjs';
 import {RolePipe} from '../utils/role.pipe';
 import {DefaultEditor} from 'angular-tree-grid';
-import {Computer} from '../entities/computer';
+import {ComputerExtension} from '../entities/computer';
 import {DeleteDialogComponent} from '../delete-dialog.component';
 import {ComputerService} from '../services/computer.service';
 
@@ -58,7 +58,7 @@ export class EmployeeEditCellComponent {
   `]
 })
 export class EmployeeTreeComponent implements OnInit {
-  data2: Employee[];
+  data2: EmployeeExtension[];
   private rolePipe: RolePipe = new RolePipe();
 
   constructor(private service: EmployeeService) {

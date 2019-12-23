@@ -1,5 +1,5 @@
-import {EntityBase} from "./entity-base";
-import {Subsidiary} from "./subsidiary";
+import {EntityBase, EntityWithAddress} from './entity-base';
+import {SubsidiaryExtension} from "./subsidiary";
 
 export enum Roles {
   Director,
@@ -16,7 +16,7 @@ export enum Gender {
   Unrecognized
 }
 
-export class Employee extends EntityBase {
+export class Employee extends EntityWithAddress{
   Name: string;
   Surname: string;
   Patronymic: string;
@@ -29,9 +29,11 @@ export class Employee extends EntityBase {
   PassportSerial: string;
   Address: string;
 
-  SubsidiaryId: number;
-  Subsidiary: Subsidiary;
-
-  SuperiorId: number;
+  Subsidiary: SubsidiaryExtension;
   Superior: Employee;
+}
+
+export class EmployeeExtension extends Employee {
+  SubsidiaryId: number;
+  SuperiorId: number;
 }

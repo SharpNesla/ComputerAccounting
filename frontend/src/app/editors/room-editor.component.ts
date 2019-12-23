@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {EditorBase} from "./editor-base";
 import {RoomService} from "../services/room.service";
-import {Room} from "../entities/room";
+import {RoomExtension} from "../entities/room";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -36,10 +36,10 @@ import {MatDialog} from "@angular/material/dialog";
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class RoomEditorComponent extends EditorBase<Room, RoomService> {
+export class RoomEditorComponent extends EditorBase<RoomExtension, RoomService> {
 
   constructor(private service: RoomService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, dialog, new Room(), router, "rooms");
+    super(service, route, dialog, new RoomExtension(), router, "rooms");
   }
 }

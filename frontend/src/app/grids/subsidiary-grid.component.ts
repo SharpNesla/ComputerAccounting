@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EntityGridBase} from "./entity-grid-base";
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {PartTypeService} from "../services/part-type.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -151,7 +151,7 @@ class SubsidiaryFilter {
                           (Paginate)="this.paginate($event.offset, $event.limit)">
       </sg-grid-bottom-bar>`
 })
-export class SubsidiaryGridComponent extends EntityGridBase<Subsidiary, SubsidiaryService> {
+export class SubsidiaryGridComponent extends EntityGridBase<SubsidiaryExtension, SubsidiaryService> {
 
   filterApplies = {
     ByRoomCount: false,

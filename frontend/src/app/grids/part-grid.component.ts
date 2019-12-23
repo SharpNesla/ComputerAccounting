@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Part, PartState} from '../entities/part';
+import {PartExtension, PartState} from '../entities/part';
 import {PartService} from '../services/part.service';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
@@ -7,22 +7,22 @@ import {PartCardComponent} from '../cards/part-card.component';
 import {CardService} from '../cards/card.service';
 import {map} from 'rxjs/operators';
 import * as moment from 'moment';
-import {PartType} from '../entities/part-type';
+import {PartTypeExtension} from '../entities/part-type';
 import {VisibilitiesService} from '../login/visibilities.service';
-import {Computer} from '../entities/computer';
-import {Subsidiary} from '../entities/subsidiary';
+import {ComputerExtension} from '../entities/computer';
+import {SubsidiaryExtension} from '../entities/subsidiary';
 import {DateSlice} from '../analytics/chartable-by-date';
 
 class PartFilter {
   State: PartState;
 
-  Computer: Computer;
+  Computer: ComputerExtension;
   ComputerId: number;
 
-  Subsidiary: Subsidiary;
+  Subsidiary: SubsidiaryExtension;
   SubsidiaryId: number;
 
-  PartType: PartType;
+  PartType: PartTypeExtension;
   PartTypeId: number;
 }
 
@@ -149,7 +149,7 @@ class PartFilter {
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
-export class PartGridComponent extends EntityGridBase<Part, PartService> {
+export class PartGridComponent extends EntityGridBase<PartExtension, PartService> {
   get isAnalyticsDisplayed(): boolean {
     return this._isAnalyticsDisplayed;
   }

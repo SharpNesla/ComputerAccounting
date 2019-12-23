@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SoftwareService} from "../services/software.service";
-import {Software} from "../entities/software";
+import {SoftwareExtension} from "../entities/software";
 import {EditorBase, PackEditorBase} from "./editor-base";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
@@ -41,9 +41,9 @@ import {MatDialog} from "@angular/material/dialog";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class SoftwareEditorComponent extends PackEditorBase<Software, SoftwareService> {
+export class SoftwareEditorComponent extends PackEditorBase<SoftwareExtension, SoftwareService> {
   constructor(private service: SoftwareService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, router, dialog, new Software(), "software");
+    super(service, route, router, dialog, new SoftwareExtension(), "software");
   }
 }

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EditorBase} from "./editor-base";
-import {Part} from "../entities/part";
+import {PartExtension} from "../entities/part";
 import {PartService} from "../services/part.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PartCategory, PartType} from "../entities/part-type";
+import {PartCategory, PartTypeExtension} from "../entities/part-type";
 import {PartTypeService} from "../services/part-type.service";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -51,7 +51,7 @@ import {MatDialog} from "@angular/material/dialog";
       </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class PartTypeEditorComponent extends EditorBase<PartType, PartTypeService> {
+export class PartTypeEditorComponent extends EditorBase<PartTypeExtension, PartTypeService> {
 
   partCategories = [
     PartCategory.CPU,
@@ -70,7 +70,7 @@ export class PartTypeEditorComponent extends EditorBase<PartType, PartTypeServic
 
   constructor(private service: PartTypeService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, dialog, new PartType(), router, "part-types");
+    super(service, route, dialog, new PartTypeExtension(), router, "part-types");
   }
 
 }

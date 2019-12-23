@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {EmployeeService} from "../services/employee.service";
-import {Employee, Roles} from "../entities/employee";
+import {EmployeeExtension, Roles} from "../entities/employee";
 import {EntityGridBase} from "./entity-grid-base";
 import {MatDialog} from "@angular/material/dialog";
 import {CardService} from '../cards/card.service';
@@ -12,7 +12,7 @@ export class EmployeeFilter {
 
   Role: Roles;
 
-  Superior : Employee;
+  Superior : EmployeeExtension;
   SuperiorId: number;
 }
 
@@ -133,7 +133,7 @@ export class EmployeeFilter {
                           (search)="searchString = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
-export class EmployeeGridComponent extends EntityGridBase<Employee, EmployeeService> {
+export class EmployeeGridComponent extends EntityGridBase<EmployeeExtension, EmployeeService> {
   roles = [
     {value: Roles.Director},
     {value: Roles.BranchDirector},

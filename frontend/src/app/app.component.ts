@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NavigationService} from './navigation.service';
 import {AuthService} from './login/auth.service';
-import {Employee} from './entities/employee';
+import {EmployeeExtension} from './entities/employee';
 import {Observable} from 'rxjs';
-import {Computer} from './entities/computer';
+import {ComputerExtension} from './entities/computer';
 import {EmployeeCardComponent} from './cards/employee-card.component';
 import {MatDialog} from '@angular/material/dialog';
 import {VisibilitiesService} from './login/visibilities.service';
@@ -109,7 +109,7 @@ import {VisibilitiesService} from './login/visibilities.service';
   `]
 })
 export class AppComponent implements OnInit {
-  get CurrentEmployeeObservable(): Observable<Employee> {
+  get CurrentEmployeeObservable(): Observable<EmployeeExtension> {
     return this.auth.CurrentEmployee;
   }
 

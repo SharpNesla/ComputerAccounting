@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PartTypeService} from "../services/part-type.service";
 import {EntityGridBase} from "./entity-grid-base";
-import {PartType} from "../entities/part-type";
+import {PartTypeExtension} from "../entities/part-type";
 import {MatDialog} from "@angular/material/dialog";
 import {PartTypeCardComponent} from "../cards/part-type-card.component";
 import {CardService} from '../cards/card.service';
@@ -127,7 +127,7 @@ class PartTypeFilter {
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
-export class PartTypeGridComponent extends EntityGridBase<PartType, PartTypeService> {
+export class PartTypeGridComponent extends EntityGridBase<PartTypeExtension, PartTypeService> {
 
   filterApplies = {
     ByCost: false,

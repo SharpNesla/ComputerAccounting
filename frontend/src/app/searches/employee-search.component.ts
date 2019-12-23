@@ -1,6 +1,6 @@
 import {Component, forwardRef} from '@angular/core';
 import {SingleSearchBase} from "./single-search-base";
-import {Employee} from "../entities/employee";
+import {EmployeeExtension} from "../entities/employee";
 import {EmployeeService} from "../services/employee.service";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 
@@ -32,7 +32,7 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
   }],
   styleUrls: ['./search-styles.scss']
 })
-export class EmployeeSearchComponent extends SingleSearchBase<Employee> {
+export class EmployeeSearchComponent extends SingleSearchBase<EmployeeExtension> {
   constructor(service : EmployeeService){
     super(service)
   }

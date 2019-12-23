@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Software} from "../entities/software";
+import {SoftwareExtension} from "../entities/software";
 import {SoftwareService} from "../services/software.service";
-import {SoftwareType} from "../entities/software-type";
+import {SoftwareTypeExtension} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 
 @Component({
@@ -30,7 +30,7 @@ import {SoftwareTypeService} from "../services/software-type.service";
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class SoftwareTypeCardComponent extends CardBase<SoftwareType, SoftwareTypeService> {
+export class SoftwareTypeCardComponent extends CardBase<SoftwareTypeExtension, SoftwareTypeService> {
 
   constructor(
     public dialogRef: MatDialogRef<SoftwareTypeCardComponent>,

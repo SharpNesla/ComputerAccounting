@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {PackEntityService} from './entity-service-base';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Part, PartState} from '../entities/part';
+import {PartExtension, PartState} from '../entities/part';
 import {CountableBySubsidiaries, CountBySubsidiaryResult} from '../analytics/countable-by-subsidiary';
 import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
 import {map} from 'rxjs/operators';
@@ -16,12 +16,12 @@ export class PartChartResult {
 @Injectable({
   providedIn: 'root'
 })
-export class PartService extends PackEntityService<Part> implements CountableBySubsidiaries, ChartableByDate {
+export class PartService extends PackEntityService<PartExtension> implements CountableBySubsidiaries, ChartableByDate {
   constructor(httpClient: HttpClient) {
     super(httpClient, 'part');
   }
 
-  protected prepareEntityAddPack(entity: Part): Part {
+  protected prepareEntityAddPack(entity: PartExtension): PartExtension {
 
     entity.State = PartState.InStore;
 
@@ -40,7 +40,7 @@ export class PartService extends PackEntityService<Part> implements CountableByS
     return super.prepareEntityAddPack(entity);
   }
 
-  protected prepareEntitySave(entity: Part): Part {
+  protected prepareEntitySave(entity: PartExtension): PartExtension {
     if (entity.State == PartState.InComputer) {
       entity.ComputerId = entity.Computer.Id;
       entity.SubsidiaryId = null;

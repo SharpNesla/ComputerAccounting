@@ -1,8 +1,8 @@
 import {EntityServiceBase} from "./entity-service-base";
-import {Computer} from "../entities/computer";
+import {ComputerExtension} from "../entities/computer";
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 import {CountableBySubsidiaries, CountBySubsidiaryResult} from '../analytics/countable-by-subsidiary';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -10,12 +10,12 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ComputerService extends EntityServiceBase<Computer> implements CountableBySubsidiaries{
+export class ComputerService extends EntityServiceBase<ComputerExtension> implements CountableBySubsidiaries{
   constructor(httpClient : HttpClient){
     super(httpClient, "computer");
   }
 
-  protected prepareEntitySave(entity: Computer): Computer {
+  protected prepareEntitySave(entity: ComputerExtension): ComputerExtension {
     if (entity.Room){
       entity.RoomId = entity.Room.Id;
     }
@@ -45,8 +45,8 @@ export class ComputerService extends EntityServiceBase<Computer> implements Coun
     return [];
   }
 
-  getCountBySubs(): Observable<Subsidiary[]> {
-    return this.client.get<Subsidiary[]>(`api/${this.entityPrefix}/get-count-by-subsidiary`);
+  getCountBySubs(): Observable<SubsidiaryExtension[]> {
+    return this.client.get<SubsidiaryExtension[]>(`api/${this.entityPrefix}/get-count-by-subsidiary`);
   }
 
 }

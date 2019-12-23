@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {EntityServiceBase, keysToSnake, keysToCamel, PackEntityService} from './entity-service-base';
-import {License} from '../entities/license';
+import {LicenseExtension} from '../entities/license';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {SoftwareType} from '../entities/software-type';
+import {SoftwareTypeExtension} from '../entities/software-type';
 import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
 import * as moment from 'moment';
 
@@ -16,12 +16,12 @@ export class LicenseChartResult {
 @Injectable({
   providedIn: 'root'
 })
-export class LicenseService extends PackEntityService<License> implements ChartableByDate {
+export class LicenseService extends PackEntityService<LicenseExtension> implements ChartableByDate {
   constructor(httpClient: HttpClient) {
     super(httpClient, 'license');
   }
 
-  protected prepareEntitySave(entity: License): License {
+  protected prepareEntitySave(entity: LicenseExtension): LicenseExtension {
     entity.SoftwareTypeId = entity.SoftwareType.Id;
     entity.SoftwareType = undefined;
 
@@ -31,13 +31,13 @@ export class LicenseService extends PackEntityService<License> implements Charta
     return super.prepareEntitySave(entity);
   }
 
-  protected prepareEntityAddPack(entity: License): License {
+  protected prepareEntityAddPack(entity: LicenseExtension): LicenseExtension {
     return super.prepareEntitySave(entity);
   }
 
   public getApplicable(searchString: string,
                        offset: number,
-                       limit: number, type: SoftwareType): Observable<License[]> {
+                       limit: number, type: SoftwareTypeExtension): Observable<LicenseExtension[]> {
     let params = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())
@@ -47,11 +47,11 @@ export class LicenseService extends PackEntityService<License> implements Charta
       params = params.set('search', searchString);
     }
 
-    return this.client.get<License[]>(`api/${this.entityPrefix}/get`, {params})
+    return this.client.get<LicenseExtension[]>(`api/${this.entityPrefix}/get`, {params})
       .pipe(map(x => x.map(y => this.prepareEntityGet(y))));
   }
 
-  protected prepareEntityGet(entity: License): License {
+  protected prepareEntityGet(entity: LicenseExtension): LicenseExtension {
     entity = super.prepareEntityGet(entity);
     entity.PurchasedAt = moment((entity.PurchasedAt as string)).toDate();
     entity.ExpiredAt = moment((entity.ExpiredAt as string)).toDate();

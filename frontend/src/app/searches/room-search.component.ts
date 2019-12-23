@@ -1,13 +1,13 @@
 import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
 import {SingleSearchBase} from "./single-search-base";
-import {Room} from "../entities/room";
+import {RoomExtension} from "../entities/room";
 import {RoomService} from "../services/room.service";
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 import {BehaviorSubject, interval, Observable} from "rxjs";
 import {debounce, filter, map, mergeMap, throttle} from "rxjs/operators";
 import {newLineWithIndentation} from "tslint/lib/utils";
-import {Employee} from "../entities/employee";
-import {SoftwareType} from "../entities/software-type";
+import {EmployeeExtension} from "../entities/employee";
+import {SoftwareTypeExtension} from "../entities/software-type";
 
 @Component({
   selector: 'sg-room-search',
@@ -37,15 +37,15 @@ import {SoftwareType} from "../entities/software-type";
   }],
   styleUrls: ['./search-styles.scss']
 })
-export class RoomSearchComponent extends SingleSearchBase<Room> {
+export class RoomSearchComponent extends SingleSearchBase<RoomExtension> {
 
-  @Input() subsidiaryCriteria: SoftwareType;
+  @Input() subsidiaryCriteria: SoftwareTypeExtension;
 
   constructor(service: RoomService) {
     super(service)
   }
 
-  public dataSource(searchString, filterDefinition: object): Observable<Room[]> {
+  public dataSource(searchString, filterDefinition: object): Observable<RoomExtension[]> {
 
     return super.dataSource(searchString, filterDefinition);
   }

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {EntityGridBase} from './entity-grid-base';
-import {Room} from '../entities/room';
+import {RoomExtension} from '../entities/room';
 import {RoomService} from '../services/room.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RoomCardComponent} from '../cards/room-card.component';
-import {Subsidiary} from '../entities/subsidiary';
+import {SubsidiaryExtension} from '../entities/subsidiary';
 import {CardService} from '../cards/card.service';
 
 class RoomFilter {
@@ -12,7 +12,7 @@ class RoomFilter {
   ComputersCountLowBound: number;
   ComputersCountHighBound: number;
 
-  Subsidiary: Subsidiary;
+  Subsidiary: SubsidiaryExtension;
   SubsidiaryId: number;
 }
 
@@ -110,7 +110,7 @@ class RoomFilter {
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })
-export class RoomGridComponent extends EntityGridBase<Room, RoomService> {
+export class RoomGridComponent extends EntityGridBase<RoomExtension, RoomService> {
   filterApplies = {
     ByComputersCount: false,
     BySubsidiary: false

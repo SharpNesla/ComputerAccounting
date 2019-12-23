@@ -7,10 +7,12 @@ export enum SoftwareCategory {
   Other
 }
 
-export class SoftwareType extends EntityBase {
+export class SoftwareType extends EntityBase{
   Typename: string;
   Category: SoftwareCategory;
-  SoftwareCount: number;
+}
 
-  Dependencies : SoftwareType[] = [];
+export class SoftwareTypeExtension extends SoftwareType {
+  SoftwareCount: number;
+  Dependencies : SoftwareTypeExtension[] = [];
 }

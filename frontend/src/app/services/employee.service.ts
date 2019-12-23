@@ -1,25 +1,25 @@
 import {Injectable} from '@angular/core';
 import {EntityServiceBase, keysToCamel} from './entity-service-base';
-import {Employee} from '../entities/employee';
+import {EmployeeExtension} from '../entities/employee';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Software} from '../entities/software';
+import {SoftwareExtension} from '../entities/software';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService extends EntityServiceBase<Employee> {
+export class EmployeeService extends EntityServiceBase<EmployeeExtension> {
   constructor(private httpClient: HttpClient) {
     super(httpClient, 'employee');
   }
 
-  getCurrentUser(): Observable<Employee> {
-    return this.httpClient.get<Employee>('api/auth/user')
+  getCurrentUser(): Observable<EmployeeExtension> {
+    return this.httpClient.get<EmployeeExtension>('api/auth/user')
       .pipe(map(x => keysToCamel(x)));
   }
 
-  protected prepareEntitySave(entity: Employee): Employee {
+  protected prepareEntitySave(entity: EmployeeExtension): EmployeeExtension {
     if (entity.Subsidiary != null) {
       entity.SubsidiaryId = entity.Subsidiary.Id;
     } else {

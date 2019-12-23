@@ -1,9 +1,9 @@
 import {Component, forwardRef} from '@angular/core';
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
 import {SingleSearchBase} from "./single-search-base";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {SoftwareType} from "../entities/software-type";
+import {SoftwareTypeExtension} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 
 @Component({
@@ -34,7 +34,7 @@ import {SoftwareTypeService} from "../services/software-type.service";
   }],
   styleUrls: ['./search-styles.scss']
 })
-export class SubsidiarySearchComponent extends SingleSearchBase<Subsidiary> {
+export class SubsidiarySearchComponent extends SingleSearchBase<SubsidiaryExtension> {
   constructor(service : SubsidiaryService){
     super(service)
   }

@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Subsidiary} from "../entities/subsidiary";
+import {SubsidiaryExtension} from "../entities/subsidiary";
 import {SubsidiaryService} from "../services/subsidiary.service";
-import {Employee} from '../entities/employee';
+import {EmployeeExtension} from '../entities/employee';
 import {CardService} from './card.service';
 import {EmployeeCardComponent} from './employee-card.component';
 
@@ -47,7 +47,7 @@ import {EmployeeCardComponent} from './employee-card.component';
 
   styleUrls: ['../utils/editors-styles.scss']
 })
-export class SubsidiaryCardComponent extends CardBase<Subsidiary, SubsidiaryService> {
+export class SubsidiaryCardComponent extends CardBase<SubsidiaryExtension, SubsidiaryService> {
 
   constructor(
     public dialogRef: MatDialogRef<SubsidiaryCardComponent>,
@@ -65,7 +65,7 @@ export class SubsidiaryCardComponent extends CardBase<Subsidiary, SubsidiaryServ
     return [];
   }
 
-  showEmployeeCard(employee: Employee) {
+  showEmployeeCard(employee: EmployeeExtension) {
     this.cardService.showInfoCard(employee, EmployeeCardComponent);
   }
 

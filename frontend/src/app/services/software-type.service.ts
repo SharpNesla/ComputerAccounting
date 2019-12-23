@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {EntityServiceBase} from "./entity-service-base";
-import {Software} from "../entities/software";
+import {SoftwareExtension} from "../entities/software";
 import {HttpClient} from "@angular/common/http";
-import {SoftwareType} from "../entities/software-type";
+import {SoftwareTypeExtension} from "../entities/software-type";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SoftwareTypeService extends EntityServiceBase<SoftwareType> {
+export class SoftwareTypeService extends EntityServiceBase<SoftwareTypeExtension> {
   constructor(httpClient: HttpClient) {
     super(httpClient, "software-type");
   }
 
-  protected prepareEntitySave(entity: SoftwareType): SoftwareType {
+  protected prepareEntitySave(entity: SoftwareTypeExtension): SoftwareTypeExtension {
     entity.SoftwareCount = undefined;
 
     if (entity.Dependencies){
