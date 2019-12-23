@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Subsidiary} from "../entities/subsidiary";
 import {CountableBySubsidiaries, CountBySubsidiaryResult} from '../analytics/countable-by-subsidiary';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,12 @@ export class ComputerService extends EntityServiceBase<Computer> implements Coun
   }
 
   protected prepareEntitySave(entity: Computer): Computer {
-    if (entity.Room.Id != null){
+    if (entity.Room){
       entity.RoomId = entity.Room.Id;
+    }
+
+    if (entity.Subsidiary){
+      entity.SubsidiaryId = entity.Subsidiary.Id;
     }
 
     entity.ResponsibleId = entity.Responsible.Id;
@@ -26,6 +32,7 @@ export class ComputerService extends EntityServiceBase<Computer> implements Coun
     }
 
     entity.Room = undefined;
+    entity.Subsidiary = undefined;
     entity.Responsible = undefined;
     entity.Users = undefined;
 
@@ -36,6 +43,10 @@ export class ComputerService extends EntityServiceBase<Computer> implements Coun
 
   getCountBySubsidiaries(filterDefinition: object): CountBySubsidiaryResult[] {
     return [];
+  }
+
+  getCountBySubs(): Observable<Subsidiary[]> {
+    return this.client.get<Subsidiary[]>(`api/${this.entityPrefix}/get-count-by-subsidiary`);
   }
 
 }

@@ -9,8 +9,14 @@ class Computer extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'room_id', 'responsible_id', 'type',
+    protected $fillable = ['name', 'subsidiary_id',
+        'room_id', 'responsible_id', 'type',
         'inventory_id', 'comment'];
+
+    public function subsidiary()
+    {
+        return $this->belongsTo(Subsidiary::class);
+    }
 
     public function room()
     {
@@ -22,11 +28,13 @@ class Computer extends Model
         return $this->belongsTo(User::class, 'responsible_id');
     }
 
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany(User::class, 'users', 'computer_id', 'employee_id');
     }
 
-    public function dependencyTypes(){
+    public function dependencyTypes()
+    {
         return $this->belongsToMany(SoftwareType::class, 'software',
             'computer_id', 'software_type_id');
     }

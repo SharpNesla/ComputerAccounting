@@ -7,6 +7,9 @@ import {LicenseCardComponent} from '../cards/license-card.component';
 import {CardService} from '../cards/card.service';
 import {SoftwareType} from '../entities/software-type';
 import {DateSlice} from '../analytics/chartable-by-date';
+import {colorScheme} from '../analytics/color-scheme';
+import {map} from 'rxjs/operators';
+import * as moment from 'moment';
 
 class LicenseFilter {
   CostLowBound: number;
@@ -203,22 +206,16 @@ class LicenseFilter {
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
-              <!--              <ngx-charts-bar-vertical-2d-->
-              <!--                      [view]="view"-->
-              <!--                      [scheme]="colorScheme"-->
-              <!--                      [results]="multi"-->
-              <!--                      [gradient]="gradient"-->
-              <!--                      [xAxis]="showXAxis"-->
-              <!--                      [yAxis]="showYAxis"-->
-              <!--                      [legend]="showLegend"-->
-              <!--                      [showXAxisLabel]="showXAxisLabel"-->
-              <!--                      [showYAxisLabel]="showYAxisLabel"-->
-              <!--                      [xAxisLabel]="xAxisLabel"-->
-              <!--                      [yAxisLabel]="yAxisLabel"-->
-              <!--                      [legendTitle]="legendTitle"-->
-              <!--                      (select)="onSelect($event)"-->
-              <!--                      (activate)="onActivate($event)"-->
-              <!--                      (deactivate)="onDeactivate($event)"></ngx-charts-bar-vertical-2d>-->
+              <ngx-charts-bar-vertical-2d
+                      [scheme]="colorScheme"
+                      [results]="results"
+                      [xAxis]="true"
+                      [yAxis]="true"
+                      [roundDomains]="false"
+                      [xAxisLabel]="true"
+                      [yAxisLabel]="true"
+                      legendTitle="Статус комплектующего"
+                      [animations]="false"></ngx-charts-bar-vertical-2d>
           </mat-tab>
       </mat-tab-group>
       <sg-grid-bottom-bar router-link="/licenses/add"
@@ -236,8 +233,29 @@ class LicenseFilter {
   }`]
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
-  @Input('display-analytics') isAnalyticsDisplayed: boolean;
+  get isAnalyticsDisplayed(): boolean {
+    return this._isAnalyticsDisplayed;
+  }
+
+  @Input('display-analytics') set isAnalyticsDisplayed(value: boolean) {
+    this._isAnalyticsDisplayed = value;
+
+    this.service.getChartRes(0, null, null)
+      .pipe(map(x => {
+        return x.map(y => ({
+          name: moment(y.date).format('YYYY.MM.DD').toString(),
+          series: y.value.map(z => ({name: `${z['sum_cost']} ₽`, value: z.count}))
+        }));
+      }))
+      .subscribe(x => {
+        console.log(x);
+        this.results = x;
+      });
+  }
   @Input('date-slice') dateSlice : DateSlice;
+  @Input('analytics-criteria') analyticsCriteria;
+
+  private _isAnalyticsDisplayed: boolean;
 
   @Input() onlyExpired: boolean;
   @Input() onlyActive: boolean;
@@ -249,6 +267,9 @@ export class LicenseGridComponent extends EntityGridBase<License, LicenseService
     BySoftwareCount: false,
     BySoftwareType: false
   };
+
+  colorScheme = colorScheme;
+  results = [];
 
   filter: LicenseFilter = new LicenseFilter();
 
@@ -285,7 +306,7 @@ export class LicenseGridComponent extends EntityGridBase<License, LicenseService
     if (this.onlyExpired) {
       filter.Expired = true;
     }
-    if (this.onlyActive){
+    if (this.onlyActive) {
       filter.Expired = false;
     }
     return filter;

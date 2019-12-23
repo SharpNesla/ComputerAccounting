@@ -9,6 +9,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {VisibilitiesService} from '../login/visibilities.service';
 import {first} from 'rxjs/operators';
 import {AuthService} from '../login/auth.service';
+import {CardService} from '../cards/card.service';
+import {EmployeeCardComponent} from '../cards/employee-card.component';
 
 @Component({
   selector: 'sg-computer-editor',
@@ -146,7 +148,7 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
   addingUser: Employee;
 
   constructor(private service: ComputerService, route: ActivatedRoute,
-              private auth: AuthService,
+              private auth: AuthService, private cardService : CardService,
               public visibilities : VisibilitiesService,
               router: Router, private snackBar: MatSnackBar, dialog: MatDialog) {
     super(service, route, dialog, new Computer(), router, 'computers');
@@ -187,7 +189,7 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
     this.entity.Users = [...this.entity.Users];
   }
 
-  showInfoCard(element: any) {
-
+  showInfoCard(element: Employee) {
+    this.cardService.showInfoCard(element, EmployeeCardComponent);
   }
 }

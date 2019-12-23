@@ -156,20 +156,6 @@ export class PartGridComponent extends EntityGridBase<Part, PartService> {
 
   @Input('display-analytics') set isAnalyticsDisplayed(value: boolean) {
     this._isAnalyticsDisplayed = value;
-  }
-  @Input('date-slice') dateSlice : DateSlice;
-  @Input('analytics-criteria') analyticsCriteria;
-
-  private _isAnalyticsDisplayed: boolean;
-
-  constructor(public visibilities: VisibilitiesService,
-              service: PartService, dialog: MatDialog, cardService: CardService) {
-    super(service, dialog, ['select', 'id', 'state', 'info'],
-      cardService,
-      PartCardComponent);
-  }
-
-  ngOnInit(): void {
 
     this.service.getChartRes(0, null, null)
       .pipe(map(x => {
@@ -182,8 +168,17 @@ export class PartGridComponent extends EntityGridBase<Part, PartService> {
         console.log(x);
         this.results = x;
       });
+  }
+  @Input('date-slice') dateSlice : DateSlice;
+  @Input('analytics-criteria') analyticsCriteria;
 
-    super.ngOnInit();
+  private _isAnalyticsDisplayed: boolean;
+
+  constructor(public visibilities: VisibilitiesService,
+              service: PartService, dialog: MatDialog, cardService: CardService) {
+    super(service, dialog, ['select', 'id', 'state', 'info'],
+      cardService,
+      PartCardComponent);
   }
 
   results = [];

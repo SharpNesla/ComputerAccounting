@@ -6,6 +6,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {ComputerCardComponent} from '../cards/computer-card.component';
 import {CardService} from '../cards/card.service';
 import {VisibilitiesService} from '../login/visibilities.service';
+import {colorScheme} from '../analytics/color-scheme';
+import {map} from 'rxjs/operators';
 
 class ComputerFilter {
   UsersCountLowBound: number;
@@ -129,23 +131,17 @@ class ComputerFilter {
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
-              <!--              <ngx-charts-bar-vertical-2d-->
-              <!--                      [view]="view"-->
-              <!--                      [scheme]="colorScheme"-->
-              <!--                      [results]="multi"-->
-              <!--                      [gradient]="gradient"-->
-              <!--                      [xAxis]="showXAxis"-->
-              <!--                      [yAxis]="showYAxis"-->
-              <!--                      [legend]="showLegend"-->
-              <!--                      [showXAxisLabel]="showXAxisLabel"-->
-              <!--                      [showYAxisLabel]="showYAxisLabel"-->
-              <!--                      [xAxisLabel]="xAxisLabel"-->
-              <!--                      [yAxisLabel]="yAxisLabel"-->
-              <!--                      [legendTitle]="legendTitle"-->
-              <!--                      (select)="onSelect($event)"-->
-              <!--                      (activate)="onActivate($event)"-->
-              <!--                      (deactivate)="onDeactivate($event)"></ngx-charts-bar-vertical-2d>-->
-          </mat-tab>
+                  <ngx-charts-bar-vertical-2d
+                          [scheme]="colorScheme"
+                          [results]="results"
+                          [xAxis]="true"
+                          [yAxis]="true"
+                          [roundDomains]="false"
+                          [xAxisLabel]="true"
+                          [yAxisLabel]="true"
+                          legendTitle="Статус комплектующего"
+                          [animations]="false"></ngx-charts-bar-vertical-2d>
+              </mat-tab>
       </mat-tab-group>
 
       <sg-grid-bottom-bar router-link="/computers/add"
@@ -163,7 +159,25 @@ class ComputerFilter {
   }`]
 })
 export class ComputerGridComponent extends EntityGridBase<Computer, ComputerService> {
-  @Input('display-analytics') isAnalyticsDisplayed: boolean;
+  get isAnalyticsDisplayed(): boolean {
+    return this._isAnalyticsDisplayed;
+  }
+
+  @Input('display-analytics') set isAnalyticsDisplayed(value: boolean) {
+    this._isAnalyticsDisplayed = value;
+    if (value) {
+      this.service.getCountBySubs()
+        .pipe(map(x=>x.map(sub=> ({
+          name: `${sub.Id} ${sub.Name} ${sub.Address}`,
+          series: sub.ComputersCount
+        }))))
+    }
+  }
+
+  private _isAnalyticsDisplayed: boolean;
+
+  colorScheme = colorScheme;
+  results = [];
 
   filterApplies = {
     ByUsersCount: false,

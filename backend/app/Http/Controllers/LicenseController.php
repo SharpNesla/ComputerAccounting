@@ -125,29 +125,28 @@ class LicenseController extends PackControllerBase
 
     public function getCountByDate(Request $request)
     {
-        $query = Part::query()
-            ->with('partType');
+        $query = License::query();
         $dateSlice = $request->input('date_slice');
 
         switch ($dateSlice) {
             case 0:
                 $query = $query
-                    ->selectRaw("select count(*) as count, SUM(cost) as sum_cost,
+                    ->selectRaw("count(*) as count, SUM(cost) as sum_cost,
                      date_trunc('day', purchased_at) AS date");
                 break;
             case 1:
                 $query = $query
-                    ->selectRaw("select count(*) as count, SUM(cost) as sum_cost,
+                    ->selectRaw("count(*) as count, SUM(cost) as sum_cost,
                      date_trunc('week', purchased_at) AS date");
                 break;
             case 2:
                 $query = $query
-                    ->selectRaw("select count(*) as count, SUM(cost) as sum_cost, 
+                    ->selectRaw("count(*) as count, SUM(cost) as sum_cost, 
                     date_trunc('month', purchased_at) AS date");
                 break;
             case 3:
                 $query = $query
-                    ->selectRaw("select count(*) as count, SUM(cost) as sum_cost,
+                    ->selectRaw("count(*) as count, SUM(cost) as sum_cost,
                      date_trunc('year', purchased_at) AS date");
                 break;
         }

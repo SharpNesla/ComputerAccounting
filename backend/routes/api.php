@@ -77,7 +77,7 @@ Route::group(['prefix' => 'license', 'middleware' => 'auth:api'], function () {
     Route::get('get-applicable', 'LicenseController@getApplicable');
     Route::get('count', 'LicenseController@getCount');
 
-    Route::get('get-count-by-date', 'PartController@getCountByDate');
+    Route::get('get-count-by-date', 'LicenseController@getCountByDate');
 
     Route::post('add', 'LicenseController@add');
     Route::post('add-pack', 'LicenseController@addPack');

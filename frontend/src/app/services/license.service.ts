@@ -8,6 +8,10 @@ import {SoftwareType} from '../entities/software-type';
 import {ChartableByDate, ChartResult, DateSlice} from '../analytics/chartable-by-date';
 import * as moment from 'moment';
 
+export class LicenseChartResult {
+  date: Date;
+  value: { cost: number, count: number }[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +26,7 @@ export class LicenseService extends PackEntityService<License> implements Charta
     entity.SoftwareType = undefined;
 
     entity.PurchasedAt = moment(entity.PurchasedAt).format('YYYY-MM-DD hh:mm:ss').toString();
-    entity.ExpiredAt =  moment(entity.ExpiredAt).format('YYYY-MM-DD hh:mm:ss').toString();
+    entity.ExpiredAt = moment(entity.ExpiredAt).format('YYYY-MM-DD hh:mm:ss').toString();
 
     return super.prepareEntitySave(entity);
   }
@@ -56,5 +60,22 @@ export class LicenseService extends PackEntityService<License> implements Charta
 
   getChartResultsByDate(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): ChartResult {
     return undefined;
+  }
+
+  getChartRes(dateSlice: DateSlice, chartDateField: string, filterDefinition: object):
+    Observable<LicenseChartResult[]> {
+    const params = new HttpParams().set('date-slice', DateSlice.Month.toString());
+
+    return this.client.get<any[]>(`/api/${this.entityPrefix}/get-count-by-date`, {params})
+      .pipe(map(x => {
+        const date = Object.keys(x);
+
+        return date.map(object => {
+          return {
+            date: moment(object).toDate(),
+            value: x[object]
+          };
+        });
+      }));
   }
 }

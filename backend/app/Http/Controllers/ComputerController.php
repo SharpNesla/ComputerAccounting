@@ -23,6 +23,7 @@ class ComputerController extends CrudControllerBase
     public function getById($id)
     {
         return Computer::with('room')
+            ->with('subsidiary')
             ->with('responsible')
             ->with('users')
             ->findOrFail($id);
@@ -30,6 +31,10 @@ class ComputerController extends CrudControllerBase
 
     protected function queryMany(Request $request, Builder $builder): Builder
     {
+        if($request->user()->role == 4){
+            error_log(json_encode($request->user()));
+            $builder = $builder->where('responsible_id', $request->user()->id);
+        }
         return $builder->withCount('users');
     }
 
@@ -48,7 +53,6 @@ class ComputerController extends CrudControllerBase
         if (array_key_exists('type', $filter)) {
             $builder = $builder->where('type', $filter['type']);
         }
-
         return $builder;
     }
 
@@ -98,7 +102,7 @@ class ComputerController extends CrudControllerBase
             'inventory_id' => 'required',
 
             'subsidiary_id' => 'required',
-
+            'room_id' => 'required',
             'responsible_id' => 'required',
 
             'type' => 'required|numeric|min:0|max:11',
@@ -109,8 +113,6 @@ class ComputerController extends CrudControllerBase
 
     public function getCountBySubsidiary(Request $request)
     {
-        return Subsidiary::query()->withCount(['parts' => function ($q) {
-            $q->where('state', 2);
-        }]);
+        return Subsidiary::query()->withCount('computers')->get();
     }
 }
