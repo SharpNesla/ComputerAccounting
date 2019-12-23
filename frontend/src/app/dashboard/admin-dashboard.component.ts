@@ -4,7 +4,7 @@ import {Component, OnInit} from '@angular/core';
   selector: 'sg-admin-dashboard',
   template: `
       <sg-drawer-appbar-base>
-          <header>Обзор: администратор филиала</header>
+          <header>Обзор: главный администратор</header>
 
           <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
               <mat-tab label="Истёкшие лицензии">

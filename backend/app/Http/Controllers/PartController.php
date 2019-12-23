@@ -24,6 +24,17 @@ class PartController extends PackControllerBase
             ->findOrFail($id);
     }
 
+    protected function queryMany(Request $request, Builder $builder): Builder
+    {
+        $currentRole = $request->user()->role;
+
+        if($currentRole == 1 || $currentRole == 3){
+            $builder = $builder->where('subsidiary_id', $request->user()->subsidiary_id);
+        }
+
+        return $builder;
+    }
+
     protected function applyFilters(array $filter, Builder $builder): Builder
     {
         if (array_key_exists('subsidiary_id', $filter)) {

@@ -26,15 +26,23 @@ class ComputerController extends CrudControllerBase
             ->with('subsidiary')
             ->with('responsible')
             ->with('users')
+            ->with('parts')
+            ->with('licenses')
             ->findOrFail($id);
     }
 
     protected function queryMany(Request $request, Builder $builder): Builder
     {
-        if($request->user()->role == 4){
-            error_log(json_encode($request->user()));
+        $currentRole = $request->user()->role;
+
+        if($currentRole == 4){
             $builder = $builder->where('responsible_id', $request->user()->id);
         }
+
+        if($currentRole == 1 || $currentRole == 3){
+            $builder = $builder->where('subsidiary_id', $request->user()->subsidiary_id);
+        }
+
         return $builder->withCount('users');
     }
 

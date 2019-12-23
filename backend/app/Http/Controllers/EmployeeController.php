@@ -165,7 +165,6 @@ class EmployeeController extends CrudControllerBase
     public function validateEntity(array $array): bool
     {
         return !Validator::make($array, [
-            'superior_id' => 'required',
             'subsidiary_id' => 'required',
 
             'name' => 'required',
@@ -189,6 +188,9 @@ class EmployeeController extends CrudControllerBase
             'licenses-count' => License::query()->count(),
 
             'employees-count' => User::query()->count(),
+            'responsible-count' => User::query()->where('role', 0)->count(),
+            'storekeeper-count' => User::query()->where('role', 0)->count(),
+            'admin-count' => User::query()->where('role', 0)->count(),
         ];
     }
 }

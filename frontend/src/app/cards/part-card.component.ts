@@ -15,9 +15,10 @@ import {PartService} from "../services/part.service";
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
+                  
               </mat-card>
               <mat-card id="right-section">
-                  <h2 class="mat-title">Комплектующие данного типа</h2>
+                  <h2 class="mat-title">Комментарий</h2>
 
               </mat-card>
           </div>
