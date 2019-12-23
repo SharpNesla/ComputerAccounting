@@ -31,6 +31,8 @@ export class VisibilitiesService {
       }));
   }
 
+
+
   get NotResponsible(): Observable<boolean> {
     return this.auth.CurrentEmployee.pipe(
       map(x => {
@@ -48,6 +50,19 @@ export class VisibilitiesService {
         if (x){
           return x.Role == Roles.Director || x.Role == Roles.BranchDirector
             ||x.Role == Roles.LeadAdmin || x.Role == Roles.BranchAdmin;
+        }else {
+          return false;
+        }
+      }));
+  }
+
+  get AllExceptStoreKeeper(): Observable<boolean> {
+    return this.auth.CurrentEmployee.pipe(
+      map(x => {
+        if (x){
+          return x.Role == Roles.Director || x.Role == Roles.BranchDirector
+            ||x.Role == Roles.LeadAdmin || x.Role == Roles.BranchAdmin
+            ||x.Role == Roles.Responsible;
         }else {
           return false;
         }

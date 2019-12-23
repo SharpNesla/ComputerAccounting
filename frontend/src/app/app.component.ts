@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NavigationService} from "./navigation.service";
-import {AuthService} from "./login/auth.service";
-import {Employee} from "./entities/employee";
-import {Observable} from "rxjs";
-import {Computer} from "./entities/computer";
-import {EmployeeCardComponent} from "./cards/employee-card.component";
-import {MatDialog} from "@angular/material/dialog";
-import {VisibilitiesService} from "./login/visibilities.service";
+import {NavigationService} from './navigation.service';
+import {AuthService} from './login/auth.service';
+import {Employee} from './entities/employee';
+import {Observable} from 'rxjs';
+import {Computer} from './entities/computer';
+import {EmployeeCardComponent} from './cards/employee-card.component';
+import {MatDialog} from '@angular/material/dialog';
+import {VisibilitiesService} from './login/visibilities.service';
 
 @Component({
   selector: 'app-root',
@@ -44,16 +44,24 @@ import {VisibilitiesService} from "./login/visibilities.service";
                   <sg-drawer-button link="subsidiaries" icon="storefront"
                                     *ngIf="visibilities.LeadDirectorsAndAdmins | async">Филиалы
                   </sg-drawer-button>
-                  <sg-drawer-button link="parts" icon="memory">Комплектующие</sg-drawer-button>
-                  <mat-divider></mat-divider>
-                  <sg-drawer-button link="computers" icon="desktop_mac">Компьютеры</sg-drawer-button>
+                  <sg-drawer-button
+
+                          *ngIf="visibilities.NotResponsible | async"
+                          link="parts" icon="memory">Комплектующие
+                  </sg-drawer-button>
+                  <mat-divider
+                          *ngIf="visibilities.NotResponsible | async"></mat-divider>
+                  <sg-drawer-button link="computers"
+                                    *ngIf="visibilities.AllExceptStoreKeeper | async"
+                                    icon="desktop_mac">Компьютеры
+                  </sg-drawer-button>
                   <sg-drawer-button link="software" icon="developer_board"
                                     *ngIf="visibilities.AllDirectorsAndAdmins | async">Программы
                   </sg-drawer-button>
                   <sg-drawer-button link="licenses" icon="shop"
                                     *ngIf="visibilities.AllDirectorsAndAdmins | async">Лицензии
                   </sg-drawer-button>
-                  <mat-divider></mat-divider>
+                  <mat-divider *ngIf="visibilities.AllExceptStoreKeeper | async"></mat-divider>
                   <sg-drawer-button link="settings" icon="settings">Настройки</sg-drawer-button>
                   <sg-drawer-button link="about" icon="info">О системе</sg-drawer-button>
                   <mat-divider></mat-divider>
@@ -101,7 +109,9 @@ import {VisibilitiesService} from "./login/visibilities.service";
   `]
 })
 export class AppComponent implements OnInit {
-  CurrentEmployeeObservable: Observable<Employee>;
+  get CurrentEmployeeObservable(): Observable<Employee> {
+    return this.auth.CurrentEmployee;
+  }
 
   get IsDrawerOpened(): boolean {
     return this.navService.IsDrawerOpened;
@@ -126,8 +136,6 @@ export class AppComponent implements OnInit {
   }
 
 
-
   ngOnInit(): void {
-    this.CurrentEmployeeObservable = this.auth.CurrentEmployee;
   }
 }

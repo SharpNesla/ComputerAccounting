@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Computer;
+use App\License;
+use App\Software;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -177,5 +180,15 @@ class EmployeeController extends CrudControllerBase
 
             'username' => 'required'
         ])->fails();
+    }
+
+    public function getDirectorDashboardInfo(){
+        return [
+            'computers-count' => Computer::query()->count(),
+            'software-count' => Software::query()->count(),
+            'licenses-count' => License::query()->count(),
+
+            'employees-count' => User::query()->count(),
+        ];
     }
 }

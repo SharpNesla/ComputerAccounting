@@ -7,10 +7,10 @@ import {Component, OnInit} from '@angular/core';
           <header>Обзор: кладовщик</header>
           <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
               <mat-tab label="Комплектующие, находящиеся на складе">
-                  <sg-part-type-grid></sg-part-type-grid>
+                  <sg-part-grid [onlyStored]="true"></sg-part-grid>
               </mat-tab>
               <mat-tab label="Комплектующие, вышедшие из строя">
-                  <sg-part-type-grid></sg-part-type-grid>
+                  <sg-part-grid [onlyBroken]="true"></sg-part-grid>
               </mat-tab>
           </mat-tab-group>
       </sg-drawer-appbar-base>`,

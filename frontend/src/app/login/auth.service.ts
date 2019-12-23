@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  private current;
+  private current : Observable<Employee>;
 
   public get CurrentEmployee() : Observable<Employee> {
     return this.current;

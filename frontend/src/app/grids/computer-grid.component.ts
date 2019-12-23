@@ -5,6 +5,7 @@ import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {ComputerCardComponent} from '../cards/computer-card.component';
 import {CardService} from '../cards/card.service';
+import {VisibilitiesService} from '../login/visibilities.service';
 
 class ComputerFilter {
   UsersCountLowBound: number;
@@ -71,10 +72,12 @@ class ComputerFilter {
                           [class.sg-table-action-button-container-compact]="isCompact"
                           class="sg-table-action-button-container">
                           <button mat-icon-button
+                                  [disabled]="!((visibilities)?.AllDirectorsAndAdmins | async)"
                                   *ngIf="!isCompact" (click)="remove(element)">
                               <mat-icon>delete</mat-icon>
                           </button>
                           <button mat-icon-button *ngIf="!isCompact"
+                                  [disabled]="!((visibilities)?.AllDirectorsAndAdmins | async)"
                                   [routerLink]="'/computers/edit/' + element.Id">
                               <mat-icon>edit</mat-icon>
                           </button>
@@ -151,6 +154,7 @@ class ComputerFilter {
                           [count]="this.count"
                           (search)="searchString = $event"
                           (toggleFilters)="filterState = $event"
+                          [add-visibility]="visibilities?.AllDirectorsAndAdmins | async"
                           (Paginate)="this.paginate($event.offset, $event.limit)"
                           entity-name="компьютеров"></sg-grid-bottom-bar>`,
   styles: [`:host {
@@ -179,7 +183,8 @@ export class ComputerGridComponent extends EntityGridBase<Computer, ComputerServ
 
   filter: ComputerFilter = new ComputerFilter();
 
-  constructor(computers: ComputerService, private dialogref: MatDialog, cardService: CardService) {
+  constructor(computers: ComputerService, private dialogref: MatDialog, cardService: CardService,
+              public visibilities: VisibilitiesService) {
     super(computers, dialogref,
       ['select', 'id', 'name', 'inventory_id', 'type', 'users_count', 'info'],
       cardService,

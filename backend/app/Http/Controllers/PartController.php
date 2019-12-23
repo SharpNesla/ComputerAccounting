@@ -24,6 +24,24 @@ class PartController extends PackControllerBase
             ->findOrFail($id);
     }
 
+    protected function applyFilters(array $filter, Builder $builder): Builder
+    {
+        if (array_key_exists('subsidiary_id', $filter)) {
+            $builder = $builder->where('subsidiary_id', $filter['subsidiary_id']);
+        }
+        if (array_key_exists('computer_id', $filter)) {
+            $builder = $builder->where('computer_id', $filter['computer_id']);
+        }
+        if (array_key_exists('part_type_id', $filter)) {
+            $builder = $builder->where('part_type_id', $filter['part_type_id']);
+        }
+        if (array_key_exists('state', $filter)) {
+            $builder = $builder->where('state', $filter['state']);
+        }
+
+        return $builder;
+    }
+
     public function getCountByDate(Request $request)
     {
         $query = Part::query()
@@ -72,13 +90,13 @@ class PartController extends PackControllerBase
     {
         return PartType::query()->withCount(['parts' => function ($q) {
             $q->where('state', 2);
-        }]);
+        }])->get();
     }
 
     public function getCountBySubsidiary(Request $request)
     {
         return Subsidiary::query()->withCount(['parts' => function ($q) {
             $q->where('state', 1);
-        }]);
+        }])->get();
     }
 }

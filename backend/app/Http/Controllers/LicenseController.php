@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class LicenseController extends PackControllerBase
 {
@@ -29,7 +30,7 @@ class LicenseController extends PackControllerBase
     {
         return $builder
             ->select()
-            ->addSelect(DB::raw('(expired_at < now()) as expired '))
+            ->addSelect(DB::raw('(expired_at < now()) as expired'))
             ->withCount('software');
     }
 
@@ -106,6 +107,18 @@ class LicenseController extends PackControllerBase
         if (array_key_exists('software_type_id', $filter)) {
             $builder = $builder->where('software_type_id', $filter['software_type_id']);
         }
+
+        if (array_key_exists('expired', $filter)) {
+            if ($filter['expired']){
+                $builder = $builder
+                    ->where('expired_at', '<=', Carbon::now());
+
+            }else{
+                $builder = $builder
+                    ->where('expired_at', '>', Carbon::now());
+            }
+        }
+
 
         return $builder;
     }

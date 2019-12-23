@@ -27,7 +27,7 @@ import {Roles} from './entities/employee';
 const allDirectors = [Roles.Director, Roles.BranchDirector];
 
 const allDirectorsAndAdmins = [...allDirectors, Roles.LeadAdmin, Roles.BranchAdmin];
-
+const allExceptStoreKeeper = [...allDirectorsAndAdmins, Roles.Responsible];
 const allExceptResponsible = [...allDirectorsAndAdmins, Roles.StoreKeeper];
 
 const allRoles = [...allDirectorsAndAdmins, Roles.StoreKeeper, Roles.Responsible];
@@ -44,7 +44,7 @@ const routes: Routes = [
 
   {
     path: 'computers', component: ComputersComponent,
-    canActivate: [RoleGuard], data: {roles: allDirectorsAndAdmins}
+    canActivate: [RoleGuard], data: {roles: allExceptStoreKeeper}
   },
   {
     path: 'computers/add', component: ComputerEditorComponent,

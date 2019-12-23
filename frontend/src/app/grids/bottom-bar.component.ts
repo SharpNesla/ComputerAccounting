@@ -44,7 +44,7 @@ import {element} from "protractor";
               <button mat-icon-button (click)="toggleFiltersMethod()">
                   <mat-icon>{{this.filterState ? "arrow_downward" : "filter_list"}}</mat-icon>
               </button>
-              <button id="button-add" routerLink="{{this.link}}" mat-fab>
+              <button id="button-add" *ngIf="addVisibility" routerLink="{{this.link}}" mat-fab>
                   <mat-icon>add</mat-icon>
               </button>
           </mat-toolbar>

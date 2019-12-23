@@ -146,8 +146,8 @@ export class ComputerEditorComponent extends EditorBase<Computer, ComputerServic
   addingUser: Employee;
 
   constructor(private service: ComputerService, route: ActivatedRoute,
-              private visibilities: VisibilitiesService,
               private auth: AuthService,
+              public visibilities : VisibilitiesService,
               router: Router, private snackBar: MatSnackBar, dialog: MatDialog) {
     super(service, route, dialog, new Computer(), router, 'computers');
   }

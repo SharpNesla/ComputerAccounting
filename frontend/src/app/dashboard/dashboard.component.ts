@@ -8,9 +8,9 @@ import {Observable} from "rxjs";
   template: `
       <div [ngSwitch]="(Current | async)?.Role">
           <sg-director-dashboard *ngSwitchCase="0"></sg-director-dashboard>
-          <sg-admin-dashboard *ngSwitchCase="1"></sg-admin-dashboard>
-          <sg-branch-admin-dashboard *ngSwitchCase="2"></sg-branch-admin-dashboard>
-          <sg-branch-director-dashboard *ngSwitchCase="3"></sg-branch-director-dashboard>
+          <sg-branch-director-dashboard *ngSwitchCase="1"></sg-branch-director-dashboard>
+          <sg-admin-dashboard *ngSwitchCase="2"></sg-admin-dashboard>
+          <sg-branch-admin-dashboard *ngSwitchCase="3" ></sg-branch-admin-dashboard>
           <sg-responsible-dashboard *ngSwitchCase="4"></sg-responsible-dashboard>
           <sg-storekeeper-dashboard *ngSwitchCase="5"></sg-storekeeper-dashboard>
       </div>`,

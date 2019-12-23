@@ -117,6 +117,7 @@ class SoftwareTypeFilter {
                           (Paginate)="this.paginate($event.offset, $event.limit)"
                           entity-name="типов ПО"
                           (search)="searchString = $event"
+                          [add-visibility]="(visibilities.LeadDirectorsAndAdmins | async)"
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
 })

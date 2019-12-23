@@ -11,6 +11,7 @@ import {AdminDashboardComponent} from "./admin-dashboard.component";
 import {BarChartModule, NgxChartsModule} from "@swimlane/ngx-charts";
 import {MatTabsModule} from '@angular/material/typings/tabs';
 import {GridsModule} from '../grids/grids.module';
+import {MatCardModule} from '@angular/material/typings/esm5/card';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {GridsModule} from '../grids/grids.module';
     BarChartModule,
     NgxChartsModule,
     MatTabsModule,
-    GridsModule
+    GridsModule,
+    MatCardModule
   ]
 })
 export class DashboardModule { }

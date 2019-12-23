@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {LicenseCardComponent} from '../cards/license-card.component';
 import {CardService} from '../cards/card.service';
 import {SoftwareType} from '../entities/software-type';
+import {DateSlice} from '../analytics/chartable-by-date';
 
 class LicenseFilter {
   CostLowBound: number;
@@ -22,6 +23,8 @@ class LicenseFilter {
 
   SoftwareType: SoftwareType;
   SoftwareTypeId: number;
+
+  Expired: boolean;
 }
 
 @Component({
@@ -81,7 +84,7 @@ class LicenseFilter {
                   <ng-container matColumnDef="expired">
                       <th mat-header-cell *matHeaderCellDef>Применена</th>
                       <td mat-cell *matCellDef="let element">
-                          {{element.Expired ? 'Просрочена' : 'Активна'}}
+                          {{element.Expired ? 'Истекла' : 'Активна'}}
                       </td>
                   </ng-container>
 
@@ -160,7 +163,7 @@ class LicenseFilter {
                       <mat-form-field>
                           <input [matDatepicker]="expiredAtHighPicker"
                                  [(ngModel)]="filter.ExpiredAtHighBound"
-                                  [disabled]="!filterApplies.ByExpiredAt" matInput placeholder="Верхняя граница">
+                                 [disabled]="!filterApplies.ByExpiredAt" matInput placeholder="Верхняя граница">
                           <mat-datepicker-toggle matSuffix [for]="expiredAtHighPicker"></mat-datepicker-toggle>
                           <mat-datepicker #expiredAtHighPicker></mat-datepicker>
                       </mat-form-field>
@@ -172,18 +175,18 @@ class LicenseFilter {
                       </mat-checkbox>
                       <mat-form-field>
                           <input type="number" min="0" step="1"
-                                  [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Нижняя граница">
+                                 [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Нижняя граница">
                       </mat-form-field>
                       <mat-form-field>
                           <input type="number" min="1" step="1"
-                                  [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Верхняя граница">
+                                 [disabled]="!filterApplies.BySoftwareCount" matInput placeholder="Верхняя граница">
                       </mat-form-field>
                   </div>
 
                   <div class="sg-search-drawer-ruleset">
                       <mat-checkbox [(ngModel)]="filterApplies.BySoftwareType">По типу ПО</mat-checkbox>
                       <sg-software-type-search hint="Тип ПО"
-                              [disabled]="!filterApplies.BySoftwareType"></sg-software-type-search>
+                                               [disabled]="!filterApplies.BySoftwareType"></sg-software-type-search>
                   </div>
 
               </div>
@@ -224,6 +227,7 @@ class LicenseFilter {
                           (Paginate)="this.paginate($event.offset, $event.limit)"
                           entity-name="Лицензий"
                           (search)="searchString = $event"
+                          [add-visibility]="!onlyExpired && !onlyActive"
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
   styles: [`:host {
@@ -233,6 +237,10 @@ class LicenseFilter {
 })
 export class LicenseGridComponent extends EntityGridBase<License, LicenseService> {
   @Input('display-analytics') isAnalyticsDisplayed: boolean;
+  @Input('date-slice') dateSlice : DateSlice;
+
+  @Input() onlyExpired: boolean;
+  @Input() onlyActive: boolean;
 
   filterApplies = {
     ByCost: false,
@@ -274,7 +282,12 @@ export class LicenseGridComponent extends EntityGridBase<License, LicenseService
     if (this.filterApplies.BySoftwareType && this.filter.SoftwareType) {
       filter.SoftwareTypeId = this.filter.SoftwareType.Id;
     }
-
+    if (this.onlyExpired) {
+      filter.Expired = true;
+    }
+    if (this.onlyActive){
+      filter.Expired = false;
+    }
     return filter;
   }
 }
