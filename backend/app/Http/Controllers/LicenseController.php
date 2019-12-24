@@ -31,6 +31,7 @@ class LicenseController extends PackControllerBase
         return $builder
             ->select()
             ->addSelect(DB::raw('(expired_at < now()) as expired'))
+            ->with('softwareType')
             ->withCount('software');
     }
 

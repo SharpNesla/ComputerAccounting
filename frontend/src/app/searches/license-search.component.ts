@@ -29,7 +29,8 @@ export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities" [value]="entity">
-                  {{entity?.Id}} {{entity?.SoftwareType?.Typename}}
+                  {{entity?.Id}} на №{{entity?.SoftwareType?.Id}} {{entity?.SoftwareType?.Typename}} 
+                  {{entity?.SoftwareType?.Typename | softwareCategory}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,

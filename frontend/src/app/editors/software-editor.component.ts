@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {SoftwareService} from "../services/software.service";
-import {SoftwareExtension} from "../entities/software";
-import {EditorBase, PackEditorBase} from "./editor-base";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
+import {SoftwareService} from '../services/software.service';
+import {SoftwareExtension} from '../entities/software';
+import {EditorBase, PackEditorBase} from './editor-base';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'sg-software-editor',
@@ -18,13 +18,14 @@ import {MatDialog} from "@angular/material/dialog";
                   <h2 class="mat-title">Общая информация</h2>
                   <sg-software-type-search hint="Тип ПО" [(ngModel)]="entity.SoftwareType">
                   </sg-software-type-search>
-                  <sg-computer-search *ngIf="!isPackAdd" hint="Компьютер" [dependentType]="entity.SoftwareType"
+                  <sg-computer-search [disabled]="!entity.SoftwareType"
+                                      *ngIf="!isPackAdd" hint="Компьютер" [dependentType]="entity.SoftwareType"
                                       mode="satisfying" [(ngModel)]="entity.Computer">
                   </sg-computer-search>
                   <sg-license-search
                           [disabled]="!entity.SoftwareType"
                           *ngIf="!isPackAdd" hint="Лицензия" [applicableType]="entity.SoftwareType"
-                                      mode="applicable" [(ngModel)]="entity.License">
+                          mode="applicable" [(ngModel)]="entity.License">
                   </sg-license-search>
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
                   <mat-form-field *ngIf="isPackAdd && isNew">
@@ -47,6 +48,6 @@ import {MatDialog} from "@angular/material/dialog";
 export class SoftwareEditorComponent extends PackEditorBase<SoftwareExtension, SoftwareService> {
   constructor(private service: SoftwareService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, router, dialog, new SoftwareExtension(), "software");
+    super(service, route, router, dialog, new SoftwareExtension(), 'software');
   }
 }
