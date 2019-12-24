@@ -300,3 +300,16 @@ background: url("assets/LoginBackgroundDark.png") center;
   max-height: 120px;
   overflow: auto;
 }
+.sg-grid-subtotals-container{
+  padding: 1em;
+}
+
+.sg-grid-chart-subtotals-container{
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 15.6em);
+}
+
+.sg-grid-chart-container{
+  overflow: auto;
+}

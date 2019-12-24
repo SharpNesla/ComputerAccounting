@@ -5,7 +5,7 @@ import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {PartCardComponent} from '../cards/part-card.component';
 import {CardService} from '../cards/card.service';
-import {map} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import * as moment from 'moment';
 import {PartTypeExtension} from '../entities/part-type';
 import {VisibilitiesService} from '../login/visibilities.service';
@@ -58,7 +58,7 @@ class PartFilter {
                   <ng-container matColumnDef="state">
                       <th mat-header-cell *matHeaderCellDef>Состояние</th>
                       <td mat-cell *matCellDef="let element">
-                          
+
 
                           <ng-container *ngIf="element.IsValid && !element.ComputerId">
                               На складе
@@ -67,7 +67,7 @@ class PartFilter {
                           <ng-container *ngIf="!!element.ComputerId">
                               Установлено
                           </ng-container>
-                          
+
                           <ng-container *ngIf="!element.IsValid && !element.ComputerId">
                               Вышло из строя
                           </ng-container>
@@ -134,16 +134,26 @@ class PartFilter {
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
-              <ngx-charts-bar-vertical-2d
-                      [scheme]="colorScheme"
-                      [results]="results"
-                      [xAxis]="true"
-                      [yAxis]="true"
-                      [roundDomains]="false"
-                      [xAxisLabel]="true"
-                      [yAxisLabel]="true"
-                      legendTitle="Статус комплектующего"
-                      [animations]="false"></ngx-charts-bar-vertical-2d>
+              <div class="sg-grid-chart-subtotals-container">
+                  <div class="sg-grid-chart-container">
+                      <ngx-charts-bar-vertical
+                              [scheme]="colorScheme"
+                              [results]="results"
+                              [xAxis]="true"
+                              [yAxis]="true"
+                              [roundDomains]="false"
+                              [xAxisLabel]="true"
+                              [yAxisLabel]="true"
+                              legendTitle="Статус комплектующего"
+                              [animations]="false"></ngx-charts-bar-vertical>
+
+                  </div>
+                  <div class="sg-grid-subtotals-container">
+                      <h2 class="mat-headline">ИТОГО</h2>
+                      <mat-divider></mat-divider>
+                      <p class="mat-body">Всего комплектующих: {{subtotals?.Count}}</p>
+                  </div>
+              </div>
           </mat-tab>
       </mat-tab-group>
       <sg-grid-bottom-bar router-link="/parts/add"
@@ -157,7 +167,7 @@ class PartFilter {
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
 export class PartGridComponent extends EntityGridBase<PartExtension, PartService> {
-   get dateSlice(): DateSlice {
+  get dateSlice(): DateSlice {
     return this._dateSlice;
   }
 
@@ -166,6 +176,7 @@ export class PartGridComponent extends EntityGridBase<PartExtension, PartService
     console.log(value);
     this.refreshResults();
   }
+
   get isAnalyticsDisplayed(): boolean {
     return this._isAnalyticsDisplayed;
   }
@@ -188,16 +199,23 @@ export class PartGridComponent extends EntityGridBase<PartExtension, PartService
       PartCardComponent);
   }
 
-  refreshResults(){
+  subtotals;
+
+  refreshResults() {
+    this.service.getCount(this.constructFilter()).pipe(first()).subscribe(x => {
+      this.subtotals = {Count: x};
+    });
+
     this.service.getChartRes(this.dateSlice, null, null)
       .pipe(map(x => {
+
         return x.map(y => ({
           name: moment(y.date).format('YYYY.MM.DD').toString(),
-          series: y.value.map(z => ({name: z.state.toString(), value: z.count}))
+          value: y.value[0]['count']
         }));
       }))
       .subscribe(x => {
-        console.log();
+        console.log(x);
         this.results = x;
       });
   }

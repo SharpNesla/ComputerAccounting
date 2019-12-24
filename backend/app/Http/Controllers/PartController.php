@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\License;
 use App\Part;
 use App\PartType;
 use App\Room;
@@ -50,33 +51,46 @@ class PartController extends PackControllerBase
         return $builder;
     }
 
+    public function getSubtotals(Request $request)
+    {
+        $query = Part::query();
+        $filter = json_decode($request->filter, true);
+        if ($filter != null && $this->validateFilters($filter)) {
+            $query = $this->applyFilters($filter, $query);
+        }
+        return [
+            'count' => $query->count(),
+            'cost' => $query->with('partType')
+                ->selectRaw('SUM(cost) as sum_cost')->get()[0]['sum_cost'],
+        ];
+    }
+
     public function getCountByDate(Request $request)
     {
-        $query = Part::query()
-            ->with('partType');
+        $query = Part::query();
 
         $dateSlice = $request->input('date_slice');
         error_log($dateSlice);
         switch ($dateSlice) {
             case 0:
                 $query = $query
-                    ->selectRaw("count(*) as count, state, date_trunc('day', updated_at) AS date");
+                    ->selectRaw("count(*) as count, date_trunc('day', updated_at) AS date");
                 break;
             case 1:
                 $query = $query
-                    ->selectRaw("count(*) as count, state, date_trunc('week', updated_at) AS date");
+                    ->selectRaw("count(*) as count,  date_trunc('week', updated_at) AS date");
                 break;
             case 2:
                 $query = $query
-                    ->selectRaw("count(*) as count, state, date_trunc('month', updated_at) AS date");
+                    ->selectRaw("count(*) as count, date_trunc('month', updated_at) AS date");
                 break;
             case 3:
                 $query = $query
-                    ->selectRaw("count(*) as count, state, date_trunc('year', updated_at) AS date");
+                    ->selectRaw("count(*) as count, date_trunc('year', updated_at) AS date");
                 break;
         }
 
-        $array = $query->groupBy('state', 'date')
+        $array = $query->groupBy('date')
             ->get()
             ->toArray();
 

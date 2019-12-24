@@ -62,6 +62,15 @@ export class LicenseService extends PackEntityService<LicenseExtension> implemen
     return undefined;
   }
 
+  getSubtotals(filterDefinition){
+    const params = new HttpParams().set('filter', keysToSnake(filterDefinition));
+
+    return this.client.get<any[]>(`/api/${this.entityPrefix}/get-subtotals`, {params})
+      .pipe(map(x => {
+        return keysToCamel(x)
+      }));
+  }
+
   getChartRes(dateSlice: DateSlice, chartDateField: string, filterDefinition: object):
     Observable<LicenseChartResult[]> {
     const params = new HttpParams().set('date-slice', DateSlice.Month.toString());

@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
 
 export class PartChartResult {
   date: Date;
-  value: { state: PartState, count: number }[];
+  value: number
 }
 
 @Injectable({

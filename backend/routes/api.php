@@ -46,6 +46,8 @@ Route::group(['prefix' => 'computer', 'middleware' => 'auth:api'], function () {
     Route::get('get-dependency-satisfying', 'ComputerController@getDependencySatisfying');
     Route::get('count', 'ComputerController@getCount');
 
+    Route::get('get-subtotals', 'ComputerController@getSubTotals');
+
     Route::get('get-count-by-subsidiary', 'ComputerController@getCountBySubsidiary')
         ->middleware('role:director');
 
@@ -79,6 +81,7 @@ Route::group(['prefix' => 'license', 'middleware' => 'auth:api'], function () {
     Route::get('count', 'LicenseController@getCount');
 
     Route::get('get-count-by-date', 'LicenseController@getCountByDate');
+    Route::get('get-subtotals', 'LicenseController@getSubTotals');
 
     Route::post('add', 'LicenseController@add');
     Route::post('add-pack', 'LicenseController@addPack');
@@ -109,6 +112,7 @@ Route::group(['prefix' => 'software-type', 'middleware' => 'auth:api'], function
 Route::group(['prefix' => 'part', 'middleware' => 'auth:api'], function () {
     Route::get('get', 'PartController@get');
 
+    Route::get('get-subtotals', 'PartController@getSubTotals');
 
     Route::get('get-count-by-date', 'PartController@getCountByDate');
     Route::get('get-count-by-type', 'PartController@getCountByType');

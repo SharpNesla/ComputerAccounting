@@ -7,7 +7,7 @@ import {ComputerCardComponent} from '../cards/computer-card.component';
 import {CardService} from '../cards/card.service';
 import {VisibilitiesService} from '../login/visibilities.service';
 import {colorScheme} from '../analytics/color-scheme';
-import {map} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import * as moment from 'moment';
 
 class ComputerFilter {
@@ -15,7 +15,6 @@ class ComputerFilter {
   UsersCountHighBound: number;
   Type: ComputerType;
 }
-
 
 @Component({
   selector: 'sg-computer-grid',
@@ -132,16 +131,25 @@ class ComputerFilter {
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
-              <ngx-charts-bar-vertical
-                      [scheme]="colorScheme"
-                      [results]="results"
-                      [xAxis]="true"
-                      [yAxis]="true"
-                      [roundDomains]="false"
-                      [xAxisLabel]="true"
-                      [yAxisLabel]="true"
-                      legendTitle="Статус комплектующего"
-                      [animations]="false"></ngx-charts-bar-vertical>
+              <div class="sg-grid-chart-subtotals-container">
+                  <div class="sg-grid-chart-container">
+                      <ngx-charts-bar-vertical
+                              [scheme]="colorScheme"
+                              [results]="results"
+                              [xAxis]="true"
+                              [yAxis]="true"
+                              [roundDomains]="false"
+                              [xAxisLabel]="true"
+                              [yAxisLabel]="true"
+                              legendTitle="Статус комплектующего"
+                              [animations]="false"></ngx-charts-bar-vertical>
+                  </div>
+                  <div class="sg-grid-subtotals-container">
+                      <h2 class="mat-headline">ИТОГО</h2>
+                      <mat-divider></mat-divider>
+                      <p class="mat-body">Всего компьютеров: {{subtotals?.Count}}</p>
+                  </div>
+              </div>
           </mat-tab>
       </mat-tab-group>
 
@@ -172,6 +180,9 @@ export class ComputerGridComponent extends EntityGridBase<ComputerExtension, Com
   }
 
   refreshResults() {
+    this.service.getCount(this.constructFilter()).pipe(first()).subscribe(x=>{
+      this.subtotals = {Count: x};
+    });
     this.service.getCountBySubs()
       .pipe(map(x => {
         const mapped = x.map(sub => ({
@@ -192,6 +203,8 @@ export class ComputerGridComponent extends EntityGridBase<ComputerExtension, Com
 
   colorScheme = colorScheme;
   results = [];
+
+  subtotals;
 
   filterApplies = {
     ByUsersCount: false,

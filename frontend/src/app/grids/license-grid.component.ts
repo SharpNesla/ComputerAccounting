@@ -8,7 +8,7 @@ import {CardService} from '../cards/card.service';
 import {SoftwareTypeExtension} from '../entities/software-type';
 import {DateSlice} from '../analytics/chartable-by-date';
 import {colorScheme} from '../analytics/color-scheme';
-import {map} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import * as moment from 'moment';
 
 class LicenseFilter {
@@ -194,6 +194,7 @@ class LicenseFilter {
 
               </div>
           </div>
+
       </ng-template>
 
       <ng-container *ngIf="!isAnalyticsDisplayed">
@@ -206,16 +207,26 @@ class LicenseFilter {
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
-              <ngx-charts-bar-vertical-2d
-                      [scheme]="colorScheme"
-                      [results]="results"
-                      [xAxis]="true"
-                      [yAxis]="true"
-                      [roundDomains]="false"
-                      [xAxisLabel]="true"
-                      [yAxisLabel]="true"
-                      legendTitle="Статус комплектующего"
-                      [animations]="false"></ngx-charts-bar-vertical-2d>
+              <div class="sg-grid-chart-subtotals-container">
+                  <div class="sg-grid-chart-container">
+                      <ngx-charts-bar-vertical-2d
+                              [scheme]="colorScheme"
+                              [results]="chartResults"
+                              [xAxis]="true"
+                              [yAxis]="true"
+                              [roundDomains]="false"
+                              [xAxisLabel]="true"
+                              [yAxisLabel]="true"
+                              legendTitle="Статус комплектующего"
+                              [animations]="false"></ngx-charts-bar-vertical-2d>
+                  </div>
+                  <div class="sg-grid-subtotals-container">
+                      <h2 class="mat-headline">ИТОГО</h2>
+                      <mat-divider></mat-divider>
+                      <p class="mat-body">Всего лицензий: {{subtotals?.Count}}</p>
+                      <p class="mat-body">На сумму: {{subtotals?.Cost}} ₽</p>
+                  </div>
+              </div>
           </mat-tab>
       </mat-tab-group>
       <sg-grid-bottom-bar router-link="/licenses/add"
@@ -224,7 +235,7 @@ class LicenseFilter {
                           (Paginate)="this.paginate($event.offset, $event.limit)"
                           entity-name="Лицензий"
                           (search)="searchString = $event"
-                          [add-visibility]="!onlyExpired && !onlyActive"
+                          [add-visibility]="!onlyExpired && !onlyActive && !isAnalyticsDisplayed"
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`,
   styles: [`:host {
@@ -242,6 +253,12 @@ export class LicenseGridComponent extends EntityGridBase<LicenseExtension, Licen
   @Input('display-analytics') set isAnalyticsDisplayed(value: boolean) {
     this._isAnalyticsDisplayed = value;
 
+    this.service.getSubtotals(this.constructFilter())
+      .pipe(first())
+      .subscribe(x => {
+        this.subtotals = x;
+      });
+
     this.service.getChartRes(0, null, null)
       .pipe(map(x => {
         return x.map(y => {
@@ -256,11 +273,11 @@ export class LicenseGridComponent extends EntityGridBase<LicenseExtension, Licen
               series: y.value.map(z => ({name: 'Общая цена (в ₽)', value: Number.parseFloat(z['sum_cost'])}))
             });
           }
-        })
+        });
       }))
       .subscribe(x => {
         console.log(x);
-        this.results = x;
+        this.chartResults = x;
       });
   }
 
@@ -281,7 +298,8 @@ export class LicenseGridComponent extends EntityGridBase<LicenseExtension, Licen
   };
 
   colorScheme = colorScheme;
-  results = [];
+  chartResults = [];
+  subtotals;
 
   filter: LicenseFilter = new LicenseFilter();
 

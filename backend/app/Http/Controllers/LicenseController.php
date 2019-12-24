@@ -60,6 +60,19 @@ class LicenseController extends PackControllerBase
             ->take($request->limit)->get();
     }
 
+    public function getSubtotals(Request $request)
+    {
+        $query = License::query();
+        $filter = json_decode($request->filter, true);
+        if ($filter != null && $this->validateFilters($filter)) {
+            $query = $this->applyFilters($filter, $query);
+        }
+        return [
+            'count' => $query->count(),
+            'cost' => $query->selectRaw('SUM(cost) as sum_cost')->get()[0]['sum_cost'],
+        ];
+    }
+
     public function validateEntity(array $array): bool
     {
         return !Validator::make($array, [
@@ -114,11 +127,11 @@ class LicenseController extends PackControllerBase
         }
 
         if (array_key_exists('expired', $filter)) {
-            if ($filter['expired']){
+            if ($filter['expired']) {
                 $builder = $builder
                     ->where('expired_at', '<=', Carbon::now());
 
-            }else{
+            } else {
                 $builder = $builder
                     ->where('expired_at', '>', Carbon::now());
             }

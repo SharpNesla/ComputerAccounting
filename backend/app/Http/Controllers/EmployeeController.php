@@ -187,16 +187,6 @@ class EmployeeController extends CrudControllerBase
     }
 
 
-
-    private $dict = [
-        'director' => 0,
-        'branchDirector' => 1,
-        'admin' => 2,
-        'branchAdmin' => 3,
-        'responsible' => 4,
-        'storeKeeper' => 5
-    ];
-
     public function getDirectorDashboardInfo()
     {
         return [
