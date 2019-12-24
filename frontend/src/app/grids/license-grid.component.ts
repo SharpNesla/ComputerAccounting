@@ -237,22 +237,34 @@ export class LicenseGridComponent extends EntityGridBase<LicenseExtension, Licen
     return this._isAnalyticsDisplayed;
   }
 
+  @Input('value') isByCount;
+
   @Input('display-analytics') set isAnalyticsDisplayed(value: boolean) {
     this._isAnalyticsDisplayed = value;
 
     this.service.getChartRes(0, null, null)
       .pipe(map(x => {
-        return x.map(y => ({
-          name: moment(y.date).format('YYYY.MM.DD').toString(),
-          series: y.value.map(z => ({name: `${z['sum_cost']} ₽`, value: z.count}))
-        }));
+        return x.map(y => {
+          if (this.isByCount) {
+            return ({
+              name: moment(y.date).format('YYYY.MM.DD').toString(),
+              series: y.value.map(z => ({name: 'Количество', value: z.count}))
+            });
+          } else {
+            return ({
+              name: moment(y.date).format('YYYY.MM.DD').toString(),
+              series: y.value.map(z => ({name: 'Общая цена (в ₽)', value: Number.parseFloat(z['sum_cost'])}))
+            });
+          }
+        })
       }))
       .subscribe(x => {
         console.log(x);
         this.results = x;
       });
   }
-  @Input('date-slice') dateSlice : DateSlice;
+
+  @Input('date-slice') dateSlice: DateSlice;
   @Input('analytics-criteria') analyticsCriteria;
 
   private _isAnalyticsDisplayed: boolean;

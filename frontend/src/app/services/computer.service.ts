@@ -1,4 +1,4 @@
-import {EntityServiceBase} from "./entity-service-base";
+import {EntityServiceBase, keysToCamel} from './entity-service-base';
 import {ComputerExtension} from "../entities/computer";
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
@@ -46,7 +46,8 @@ export class ComputerService extends EntityServiceBase<ComputerExtension> implem
   }
 
   getCountBySubs(): Observable<SubsidiaryExtension[]> {
-    return this.client.get<SubsidiaryExtension[]>(`api/${this.entityPrefix}/get-count-by-subsidiary`);
+    return this.client.get<SubsidiaryExtension[]>(`api/${this.entityPrefix}/get-count-by-subsidiary`)
+      .pipe(map(x=>keysToCamel(x)));
   }
 
 }

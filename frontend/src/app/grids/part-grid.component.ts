@@ -145,7 +145,6 @@ class PartFilter {
                       [animations]="false"></ngx-charts-bar-vertical-2d>
           </mat-tab>
       </mat-tab-group>
-
       <sg-grid-bottom-bar router-link="/parts/add"
                           icon="memory"
                           [count]="this.count"
@@ -157,6 +156,15 @@ class PartFilter {
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
 export class PartGridComponent extends EntityGridBase<PartExtension, PartService> {
+   get dateSlice(): DateSlice {
+    return this._dateSlice;
+  }
+
+  @Input('date-slice') set dateSlice(value: DateSlice) {
+    this._dateSlice = value;
+    console.log(value);
+    this.refreshResults();
+  }
   get isAnalyticsDisplayed(): boolean {
     return this._isAnalyticsDisplayed;
   }
@@ -164,20 +172,10 @@ export class PartGridComponent extends EntityGridBase<PartExtension, PartService
   @Input('display-analytics') set isAnalyticsDisplayed(value: boolean) {
     this._isAnalyticsDisplayed = value;
 
-    this.service.getChartRes(0, null, null)
-      .pipe(map(x => {
-        return x.map(y => ({
-          name: moment(y.date).format('YYYY.MM.DD').toString(),
-          series: y.value.map(z => ({name: z.state.toString(), value: z.count}))
-        }));
-      }))
-      .subscribe(x => {
-        console.log(x);
-        this.results = x;
-      });
+    this.refreshResults();
   }
 
-  @Input('date-slice') dateSlice: DateSlice;
+  private _dateSlice: DateSlice;
   @Input('analytics-criteria') analyticsCriteria;
 
   private _isAnalyticsDisplayed: boolean;
@@ -187,6 +185,20 @@ export class PartGridComponent extends EntityGridBase<PartExtension, PartService
     super(service, dialog, ['select', 'id', 'state', 'part_type_id', 'info'],
       cardService,
       PartCardComponent);
+  }
+
+  refreshResults(){
+    this.service.getChartRes(this.dateSlice, null, null)
+      .pipe(map(x => {
+        return x.map(y => ({
+          name: moment(y.date).format('YYYY.MM.DD').toString(),
+          series: y.value.map(z => ({name: z.state.toString(), value: z.count}))
+        }));
+      }))
+      .subscribe(x => {
+        console.log();
+        this.results = x;
+      });
   }
 
   results = [];

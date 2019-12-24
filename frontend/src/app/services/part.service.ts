@@ -69,7 +69,7 @@ export class PartService extends PackEntityService<PartExtension> implements Cou
   }
 
   getChartRes(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): Observable<PartChartResult[]> {
-    const params = new HttpParams().set('date-slice', DateSlice.Month.toString());
+    const params = new HttpParams().set('date-slice',dateSlice.toString());
 
     return this.client.get<any[]>(`/api/${this.entityPrefix}/get-count-by-date`, {params})
       .pipe(map(x => {

@@ -8,6 +8,7 @@ import {CardService} from '../cards/card.service';
 import {VisibilitiesService} from '../login/visibilities.service';
 import {colorScheme} from '../analytics/color-scheme';
 import {map} from 'rxjs/operators';
+import * as moment from 'moment';
 
 class ComputerFilter {
   UsersCountLowBound: number;
@@ -131,17 +132,17 @@ class ComputerFilter {
               <ng-container *ngTemplateOutlet="table"></ng-container>
           </mat-tab>
           <mat-tab label="Графики" class="ngx-charts-dark-theme">
-                  <ngx-charts-bar-vertical-2d
-                          [scheme]="colorScheme"
-                          [results]="results"
-                          [xAxis]="true"
-                          [yAxis]="true"
-                          [roundDomains]="false"
-                          [xAxisLabel]="true"
-                          [yAxisLabel]="true"
-                          legendTitle="Статус комплектующего"
-                          [animations]="false"></ngx-charts-bar-vertical-2d>
-              </mat-tab>
+              <ngx-charts-bar-vertical
+                      [scheme]="colorScheme"
+                      [results]="results"
+                      [xAxis]="true"
+                      [yAxis]="true"
+                      [roundDomains]="false"
+                      [xAxisLabel]="true"
+                      [yAxisLabel]="true"
+                      legendTitle="Статус комплектующего"
+                      [animations]="false"></ngx-charts-bar-vertical>
+          </mat-tab>
       </mat-tab-group>
 
       <sg-grid-bottom-bar router-link="/computers/add"
@@ -166,13 +167,26 @@ export class ComputerGridComponent extends EntityGridBase<ComputerExtension, Com
   @Input('display-analytics') set isAnalyticsDisplayed(value: boolean) {
     this._isAnalyticsDisplayed = value;
     if (value) {
-      this.service.getCountBySubs()
-        .pipe(map(x=>x.map(sub=> ({
-          name: `${sub.Id} ${sub.Name} ${sub.Address}`,
-          series: sub.ComputersCount
-        }))))
+      this.refreshResults();
     }
   }
+
+  refreshResults() {
+    this.service.getCountBySubs()
+      .pipe(map(x => {
+        const mapped = x.map(sub => ({
+          name: `${sub.Id} ${sub.Name} ${sub.Address}`,
+          value: sub.ComputersCount
+        }));
+        console.log(mapped);
+        return mapped;
+      }))
+      .subscribe(x => {
+        console.log(x);
+        this.results = x;
+      });
+  }
+
 
   private _isAnalyticsDisplayed: boolean;
 

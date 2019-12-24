@@ -57,8 +57,9 @@ class PartController extends PackControllerBase
     {
         $query = Part::query()
             ->with('partType');
-        $dateSlice = $request->input('date_slice');
 
+        $dateSlice = $request->input('date_slice');
+        error_log($dateSlice);
         switch ($dateSlice) {
             case 0:
                 $query = $query
