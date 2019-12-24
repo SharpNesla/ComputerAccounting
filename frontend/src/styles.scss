@@ -295,3 +295,8 @@ th .mat-header-cell .db-tree-view {
 background: url("assets/LoginBackgroundDark.png") center;
   background-size: cover;
 }
+
+.sg-card-comment-box{
+  max-height: 120px;
+  overflow: auto;
+}

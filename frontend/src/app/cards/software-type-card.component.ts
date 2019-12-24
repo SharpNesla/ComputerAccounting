@@ -1,8 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {SoftwareExtension} from "../entities/software";
-import {SoftwareService} from "../services/software.service";
 import {SoftwareTypeExtension} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 
@@ -19,10 +17,15 @@ import {SoftwareTypeService} from "../services/software-type.service";
                   <h2 class="mat-title">Общая информация</h2>
                   <p class="mat-body">Название: {{entity?.Typename}}</p>
                   <p class="mat-body">Категория: {{entity?.Category | softwareCategory}}</p>
-
+                  <p class="mat-body">
+                      Комментарий:
+                  </p>
+                  <p class="sg-card-comment-box">
+                      {{entity?.Comment}}
+                  </p>
               </mat-card>
               <mat-card id="right-section">
-                  <h2 class="mat-title">Комментарий</h2>
+                  <h2 class="mat-title">ПО данного типа</h2>
                   <sg-software-grid isCompact="true"></sg-software-grid>
               </mat-card>
           </div>

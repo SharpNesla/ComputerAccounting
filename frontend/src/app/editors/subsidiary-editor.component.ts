@@ -32,7 +32,7 @@ import {ActivatedRoute, Router} from "@angular/router";
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field appearance="outline">
                       <mat-label>Комментарий</mat-label>
-                      <input matInput placeholder="Комментарий">
+                      <input [(ngModel)]="entity.Comment" matInput placeholder="Комментарий">
                   </mat-form-field>
               </mat-card>
           </div>

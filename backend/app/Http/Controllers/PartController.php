@@ -32,7 +32,7 @@ class PartController extends PackControllerBase
             $builder = $builder->where('subsidiary_id', $request->user()->subsidiary_id);
         }
 
-        return $builder;
+        return $builder->with('partType');
     }
 
     protected function applyFilters(array $filter, Builder $builder): Builder

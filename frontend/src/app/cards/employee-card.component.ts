@@ -53,7 +53,12 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
-
+                  <p class="mat-body">
+                      Комментарий:
+                  </p>
+                  <p class="sg-card-comment-box">
+                      {{entity?.Comment}}
+                  </p>
               </mat-card>
           </div>
       </sg-dialog-layout>`,

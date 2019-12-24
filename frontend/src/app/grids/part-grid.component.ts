@@ -60,6 +60,13 @@ class PartFilter {
                       <td mat-cell *matCellDef="let element"> {{element.State | partState}} </td>
                   </ng-container>
 
+                  <ng-container matColumnDef="part_type_id">
+                      <th mat-header-cell mat-sort-header *matHeaderCellDef>Тип ПО</th>
+                      <td mat-cell *matCellDef="let element">
+                          №{{element.PartType.Id}} {{element.PartType.Model}}
+                          {{element.PartType.Category | partCategory}} </td>
+                  </ng-container>
+
                   <ng-container matColumnDef="info" stickyEnd>
                       <th mat-header-cell *matHeaderCellDef></th>
                       <td mat-cell *matCellDef="let element"
@@ -169,14 +176,15 @@ export class PartGridComponent extends EntityGridBase<PartExtension, PartService
         this.results = x;
       });
   }
-  @Input('date-slice') dateSlice : DateSlice;
+
+  @Input('date-slice') dateSlice: DateSlice;
   @Input('analytics-criteria') analyticsCriteria;
 
   private _isAnalyticsDisplayed: boolean;
 
   constructor(public visibilities: VisibilitiesService,
               service: PartService, dialog: MatDialog, cardService: CardService) {
-    super(service, dialog, ['select', 'id', 'state', 'info'],
+    super(service, dialog, ['select', 'id', 'state', 'part_type_id', 'info'],
       cardService,
       PartCardComponent);
   }

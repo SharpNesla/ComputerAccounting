@@ -36,4 +36,5 @@ export class Employee extends EntityWithAddress{
 export class EmployeeExtension extends Employee {
   SubsidiaryId: number;
   SuperiorId: number;
+  Superior : EmployeeExtension;
 }

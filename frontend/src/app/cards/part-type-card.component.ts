@@ -19,7 +19,12 @@ import {PartTypeService} from "../services/part-type.service";
                   <p>Стоимость: {{entity?.Cost}}₽</p>
                   <p>Характеристики: {{entity?.Characteristics}}</p>
 
-                  <p>Комментарий: {{entity?.Comment}}</p>
+                  <p class="mat-body">
+                      Комментарий:
+                  </p>
+                  <p class="sg-card-comment-box">
+                      {{entity?.Comment}}
+                  </p>
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>

@@ -19,7 +19,7 @@ class SubsidiaryController extends CrudControllerBase
     {
         return $builder
             ->withCount('rooms')
-            /*->withCount('computers');*/
+            ->withCount('computers')
             ->withCount('employees');
     }
 
@@ -66,7 +66,11 @@ class SubsidiaryController extends CrudControllerBase
         return Subsidiary::with('director')
             ->with(['rooms' => function($q){
                 $q->withCount('computers');
-            }])->findOrFail($id);
+            }])
+            ->withCount('rooms')
+            ->withCount('computers')
+            ->withCount('employees')
+            ->findOrFail($id);
     }
 
     public function validateEntity(array $array): bool

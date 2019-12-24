@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "./card-base";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {SubsidiaryExtension} from "../entities/subsidiary";
-import {SubsidiaryService} from "../services/subsidiary.service";
+import {CardBase} from './card-base';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {SubsidiaryExtension} from '../entities/subsidiary';
+import {SubsidiaryService} from '../services/subsidiary.service';
 import {EmployeeExtension} from '../entities/employee';
 import {CardService} from './card.service';
 import {EmployeeCardComponent} from './employee-card.component';
@@ -31,10 +31,15 @@ import {EmployeeCardComponent} from './employee-card.component';
                   </p>
 
                   <p class="mat-body">Количество помещений: {{entity?.RoomsCount}}</p>
-<!--                  <p class="mat-body">Количество компьютеров: {{entity?.ComputersCount}}</p>-->
+                  <!--                  <p class="mat-body">Количество компьютеров: {{entity?.ComputersCount}}</p>-->
                   <p class="mat-body">Количество сотрудников: {{entity?.EmployeesCount}}</p>
-                  
-                  <p class="mat-body">Комментарий:<br> {{entity?.Comment}}</p>
+
+                  <p class="mat-body">
+                      Комментарий:
+                  </p>
+                  <p class="sg-card-comment-box">
+                      {{entity?.Comment}}
+                  </p>
 
               </mat-card>
               <mat-card id="right-section">
@@ -58,9 +63,9 @@ export class SubsidiaryCardComponent extends CardBase<SubsidiaryExtension, Subsi
   }
 
 
-  get rooms(){
-    if (this.entity && this.entity.Rooms){
-        return this.entity.Rooms;
+  get rooms() {
+    if (this.entity && this.entity.Rooms) {
+      return this.entity.Rooms;
     }
     return [];
   }
