@@ -16,6 +16,10 @@ class CreatePartTypesTable extends Migration
         Schema::create('part_types', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->bigInteger('driver_id')->unsigned()->nullable();
+            $table->foreign('driver_id')
+                ->references('id')->on('software_types')->onDelete('cascade');
+
             $table->tinyInteger('category')->unsigned()->nullable();
 
             $table->text('model')->nullable();

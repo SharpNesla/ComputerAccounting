@@ -18,6 +18,10 @@ import {MatDialog} from "@angular/material/dialog";
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
+                      <input matInput placeholder="Название"
+                             [(ngModel)]="this.entity.Name">
+                  </mat-form-field>
+                  <mat-form-field>
                       <input matInput placeholder="Номер помещения"
                              [(ngModel)]="this.entity.Number">
                   </mat-form-field>

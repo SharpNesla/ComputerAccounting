@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {EditorBase} from "./editor-base";
-import {PartExtension} from "../entities/part";
-import {PartService} from "../services/part.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {PartCategory, PartTypeExtension} from "../entities/part-type";
-import {PartTypeService} from "../services/part-type.service";
-import {MatDialog} from "@angular/material/dialog";
+import {EditorBase} from './editor-base';
+import {PartExtension} from '../entities/part';
+import {PartService} from '../services/part.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PartCategory, PartTypeExtension} from '../entities/part-type';
+import {PartTypeService} from '../services/part-type.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'sg-part-editor',
@@ -19,13 +19,17 @@ import {MatDialog} from "@angular/material/dialog";
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
                   <mat-form-field>
-                      <input matInput placeholder="Марка и модель"
+                      <input matInput placeholder="Марка и модель" required
                              [(ngModel)]="this.entity.Model">
                   </mat-form-field>
                   <mat-form-field>
                       <input type="number" step=0.01 min="0.01" matInput required
                              [(ngModel)]="entity.Cost" placeholder="Цена">
                   </mat-form-field>
+
+                  <sg-software-type-search hint="Драйвер"
+                                           [(ngModel)]="entity.Driver"></sg-software-type-search>
+
                   <mat-form-field>
                       <mat-select [(ngModel)]="entity.Category" placeholder="Категория" required>
                           <mat-option *ngFor="let elem of partCategories" [value]="elem">
@@ -70,7 +74,7 @@ export class PartTypeEditorComponent extends EditorBase<PartTypeExtension, PartT
 
   constructor(private service: PartTypeService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, dialog, new PartTypeExtension(), router, "part-types");
+    super(service, route, dialog, new PartTypeExtension(), router, 'part-types');
   }
 
 }

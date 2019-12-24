@@ -17,7 +17,7 @@ import {RoomService} from '../services/room.service';
 
               <mat-tab label="Общая информация">
                   <div id="sg-editor-card-container">
-                      <mat-card class="sg-card-table">
+                      <mat-card class="left-section">
                           <h2 class="mat-title">Общая информация</h2>
                           <p class="mat-body">Номер: {{entity?.Number}}</p>
                           <p class="mat-body">Филиал:
@@ -25,17 +25,16 @@ import {RoomService} from '../services/room.service';
                               "{{entity?.Subsidiary.Name}}"
                               {{entity?.Subsidiary.Address}}
                           </p>
+                          <p class="mat-body">
+                              Комментарий:
+                          </p>
+                          <p class="sg-card-comment-box">
+                              {{entity?.Comment}}
+                          </p>
                       </mat-card>
-                  </div>
-              </mat-tab>
-
-              <mat-tab label="Общая информация">
-                  <div id="sg-editor-card-container" >
-                      <mat-card class="sg-card-table">
-                          <h2 class="mat-title">Компьютеры</h2>
+                      <mat-card class="right-section">
                           <sg-computer-grid isCompact="true" [customDataSource]="computers"></sg-computer-grid>
                       </mat-card>
-
                   </div>
               </mat-tab>
           </mat-tab-group>

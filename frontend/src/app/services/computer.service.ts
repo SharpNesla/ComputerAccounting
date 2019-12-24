@@ -26,8 +26,9 @@ export class ComputerService extends EntityServiceBase<ComputerExtension> implem
       entity.SubsidiaryId = entity.Subsidiary.Id;
     }
 
-    entity.ResponsibleId = entity.Responsible.Id;
-
+    if (entity.Responsible) {
+      entity.ResponsibleId = entity.Responsible.Id;
+    }
     if (entity.Users) {
 
       entity = Object.assign(entity, {UserIds: entity.Users.map(x => x.Id)});

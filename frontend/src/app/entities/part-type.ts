@@ -1,5 +1,6 @@
 import {EntityBase} from "./entity-base";
 import {SoftwareType} from './software-type';
+import {PartExtension} from './part';
 
 export enum PartCategory {
   CPU,
@@ -27,4 +28,6 @@ export class PartType extends EntityBase{
 
 export class PartTypeExtension extends PartType{
   DriverId : number;
+
+  Parts : PartExtension[];
 }

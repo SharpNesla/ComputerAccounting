@@ -23,7 +23,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
                           <h2 class="mat-title">Общая информация</h2>
 
                           <mat-form-field>
-                              <input matInput placeholder="Марка и модель"
+                              <input matInput placeholder="Название"
                                      [(ngModel)]="this.entity.Typename">
                           </mat-form-field>
 

@@ -9,8 +9,7 @@ import {Roles} from '../entities/employee';
 @Component({
   selector: 'sg-subsidiary-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()"
-                        [acceptDisabled]="name.checkValidity() || address.checkValidity()">
+      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
               <mat-icon id="sg-editor-icon">storefront</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}

@@ -30,25 +30,25 @@ import {of} from 'rxjs';
                           <h2 class="mat-title">Общая информация</h2>
                           <mat-form-field>
                               <input matInput placeholder="Имя компьютера"
-                                     [(ngModel)]="this.entity.Name">
+                                     [(ngModel)]="this.entity.Name" required>
                           </mat-form-field>
                           <mat-form-field>
                               <input matInput placeholder="Инвентарный номер"
-                                     [(ngModel)]="this.entity.InventoryId">
+                                     [(ngModel)]="this.entity.InventoryId" required>
                           </mat-form-field>
-                          <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
-                                                *ngIf="this.visibilities.BranchDirectorsAndAdmins | async"
+                          <sg-subsidiary-search [(ngModel)]="entity.Subsidiary" required
+                                                *ngIf="!(this.visibilities.BranchDirectorsAndAdmins | async)"
                                                 hint="Филиал"></sg-subsidiary-search>
                           <sg-room-search [disabled]="!entity.Subsidiary"
                                           [filterDefinition]="filter"
                                           [(ngModel)]="entity.Room" hint="Помещение" required></sg-room-search>
                           <sg-employee-search [disabled]="!entity.Subsidiary"
-                                              [filterDefinition]="filter"
+                                              [filterDefinition]="filter" required
                                               [(ngModel)]="entity.Responsible" hint="Ответственное лицо">
                           </sg-employee-search>
 
                           <mat-form-field>
-                              <mat-select [(ngModel)]="entity.Type" placeholder="Категория">
+                              <mat-select [(ngModel)]="entity.Type" placeholder="Категория" required>
                                   <mat-option *ngFor="let elem of types" [value]="elem">
                                       {{elem | computerType}}
                                   </mat-option>

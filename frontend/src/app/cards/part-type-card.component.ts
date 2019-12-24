@@ -27,8 +27,8 @@ import {PartTypeService} from "../services/part-type.service";
                   </p>
               </mat-card>
               <mat-card id="right-section">
-                  <h2 class="mat-title">Комментарий</h2>
-                  <sg-part-grid isCompact="true"></sg-part-grid>
+                  <h2 class="mat-title">Комплектующие данного типа</h2>
+                  <sg-part-grid isCompact="true" [customDataSource]="parts"></sg-part-grid>
               </mat-card>
           </div>
       </sg-dialog-layout>`,
@@ -44,5 +44,11 @@ export class PartTypeCardComponent extends CardBase<PartTypeExtension, PartTypeS
     super(dialogRef, service, data);
   }
 
+  get parts() {
+    if (this.entity && this.entity.Parts) {
+      return this.entity.Parts;
+    }
+    return [];
+  }
 
 }

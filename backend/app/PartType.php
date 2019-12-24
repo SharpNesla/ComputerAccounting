@@ -15,4 +15,9 @@ class PartType extends Model
     {
         return $this->hasMany(Part::class);
     }
+
+    public function driver()
+    {
+        return $this->belongsTo(SoftwareType::class, 'driver_id');
+    }
 }

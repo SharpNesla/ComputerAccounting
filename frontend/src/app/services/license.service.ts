@@ -22,7 +22,9 @@ export class LicenseService extends PackEntityService<LicenseExtension> implemen
   }
 
   protected prepareEntitySave(entity: LicenseExtension): LicenseExtension {
-    entity.SoftwareTypeId = entity.SoftwareType.Id;
+    if (entity.SoftwareType){
+      entity.SoftwareTypeId = entity.SoftwareType.Id;
+    }
     entity.SoftwareType = undefined;
 
     entity.PurchasedAt = moment(entity.PurchasedAt).format('YYYY-MM-DD hh:mm:ss').toString();

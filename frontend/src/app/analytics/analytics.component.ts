@@ -6,14 +6,6 @@ import {DateSlice} from './chartable-by-date';
   template: `
       <sg-drawer-appbar-base>
           <header>Аналитика</header>
-          <ng-container [ngSwitch]="entityKind">
-
-              <sg-license-grid display-analytics="true" *ngSwitchCase="0"></sg-license-grid>
-              <sg-part-grid [date-slice]="dateSlice"
-                            [analytics-criteria]="partCriteria"
-                            display-analytics="true" *ngSwitchCase="1"></sg-part-grid>
-              <sg-computer-grid display-analytics="true" *ngSwitchCase="2"></sg-computer-grid>
-          </ng-container>
           <mat-toolbar id="analytics-params-bar" color="primary">
               <mat-card class="select-input">
                   <mat-form-field class="analytics-param-select">
@@ -45,6 +37,14 @@ import {DateSlice} from './chartable-by-date';
                   </mat-form-field>
               </mat-card>
           </mat-toolbar>
+          <ng-container [ngSwitch]="entityKind">
+
+              <sg-license-grid display-analytics="true" *ngSwitchCase="0"></sg-license-grid>
+              <sg-part-grid [date-slice]="dateSlice"
+                            [analytics-criteria]="partCriteria"
+                            display-analytics="true" *ngSwitchCase="1"></sg-part-grid>
+              <sg-computer-grid display-analytics="true" *ngSwitchCase="2"></sg-computer-grid>
+          </ng-container>
       </sg-drawer-appbar-base>`,
   styles: [`
       #analytics-params-bar {
