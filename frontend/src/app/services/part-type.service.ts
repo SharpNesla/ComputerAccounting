@@ -11,4 +11,13 @@ export class PartTypeService extends EntityServiceBase<PartTypeExtension> {
 
     super(httpClient, "part-type")
   }
+
+  protected prepareEntitySave(entity: PartTypeExtension): PartTypeExtension {
+    if(entity.Driver){
+      entity.DriverId = entity.Driver.Id;
+    }
+
+    entity.Parts = undefined;
+    return super.prepareEntitySave(entity);
+  }
 }

@@ -19,7 +19,7 @@ import {Component, OnInit} from '@angular/core';
                      L 6 20 L 6 11 z M 13 11 L 18 11 L 18 20 L 13 20 L 13 11 z"
 
                         font-weight="200" font-family="sans-serif" white-space="normal" overflow="visible"
-                        fill="#FFFFFF"/>
+                        fill="#000000"/>
 
               </svg>
               <h2 class="mat-headline" style="text-align: center">

@@ -62,7 +62,7 @@ import {VisibilitiesService} from './login/visibilities.service';
                                     *ngIf="visibilities.AllDirectorsAndAdmins | async">Лицензии
                   </sg-drawer-button>
                   <mat-divider *ngIf="visibilities.AllExceptStoreKeeper | async"></mat-divider>
-                  <sg-drawer-button link="settings" icon="settings">Настройки</sg-drawer-button>
+<!--                  <sg-drawer-button link="settings" icon="settings">Настройки</sg-drawer-button>-->
                   <sg-drawer-button link="about" icon="info">О системе</sg-drawer-button>
                   <mat-divider></mat-divider>
                   <div class="flex-spacer"></div>
