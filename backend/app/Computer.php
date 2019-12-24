@@ -28,9 +28,20 @@ class Computer extends Model
         return $this->belongsTo(User::class, 'responsible_id');
     }
 
+    public function parts()
+    {
+        return $this->hasMany(Part::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'users', 'computer_id', 'employee_id');
+    }
+
+    public function licenses()
+    {
+        return $this->belongsToMany(License::class, 'software',
+            'computer_id', 'license_id');
     }
 
     public function dependencyTypes()

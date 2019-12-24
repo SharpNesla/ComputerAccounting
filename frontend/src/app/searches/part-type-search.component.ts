@@ -22,7 +22,7 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities | async" [value]="entity">
-                  {{entity.Id}}
+                  {{entity.Id}} {{entity.Model}} {{entity.Category | partCategory}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,

@@ -13,6 +13,7 @@ export class Part extends EntityBase{
   Computer: Computer;
   Subsidiary: Subsidiary;
   PartType: PartType;
+  IsValid: boolean;
 }
 
 export class PartExtension extends Part {

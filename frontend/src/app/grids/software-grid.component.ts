@@ -58,9 +58,24 @@ export class SoftwareFilter {
                   </td>
               </ng-container>
 
-              <ng-container matColumnDef="parts_count">
-                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Комплектущих</th>
-                  <td mat-cell *matCellDef="let element"> {{element.PartsCount}} </td>
+              <ng-container matColumnDef="software_type_id">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Тип ПО</th>
+                  <td mat-cell *matCellDef="let element">
+                      №{{element.SoftwareType.Id}} {{element.SoftwareType.Typename}}
+                      {{element.SoftwareType.Category | softwareCategory}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="computer_id">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>Компьютер</th>
+                  <td mat-cell *matCellDef="let element">
+                      <ng-container *ngIf="element.Computer">
+                          №{{element.Computer.Id}} {{element.Computer.Name}}
+                          {{element.Computer.Type | computerType}}
+                      </ng-container>
+                      <ng-container *ngIf="!element.Computer">
+                          Не установлено
+                      </ng-container>
+                  </td>
               </ng-container>
 
               <ng-container matColumnDef="info" stickyEnd>
@@ -96,7 +111,7 @@ export class SoftwareFilter {
               <div class="sg-search-drawer-ruleset">
                   <mat-checkbox [(ngModel)]="filterApplies.ByComputer">По компьютеру</mat-checkbox>
                   <sg-computer-search hint="Компьютер" [disabled]="!filterApplies.ByComputer"
-                                           [(ngModel)]="filter.Computer"></sg-computer-search>
+                                      [(ngModel)]="filter.Computer"></sg-computer-search>
               </div>
 
               <div class="sg-search-drawer-ruleset">
@@ -126,7 +141,7 @@ export class SoftwareGridComponent extends EntityGridBase<SoftwareExtension, Sof
   filter: SoftwareFilter = new SoftwareFilter();
 
   constructor(software: SoftwareService, private dialogref: MatDialog, cardService: CardService) {
-    super(software, dialogref, ['select', 'id', 'info'],
+    super(software, dialogref, ['select', 'id', 'software_type_id', 'computer_id', 'info'],
       cardService,
       SoftwareCardComponent);
   }

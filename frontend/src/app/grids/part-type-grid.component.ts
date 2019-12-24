@@ -54,13 +54,13 @@ class PartTypeFilter {
 
               <ng-container matColumnDef="cost">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Стоимость</th>
-                  <td mat-cell *matCellDef="let element"> {{element.Cost}}₽
+                  <td mat-cell *matCellDef="let element"> {{element.Cost}} ₽
                   </td>
               </ng-container>
 
               <ng-container matColumnDef="parts_count">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Комплектущих</th>
-                  <td mat-cell *matCellDef="let element"> {{element.PartsCount}}шт
+                  <td mat-cell *matCellDef="let element"> {{element.PartsCount}} шт
                   </td>
               </ng-container>
 

@@ -32,7 +32,7 @@ export class LicenseService extends PackEntityService<LicenseExtension> implemen
   }
 
   protected prepareEntityAddPack(entity: LicenseExtension): LicenseExtension {
-    return super.prepareEntitySave(entity);
+    return this.prepareEntitySave(entity);
   }
 
   public getApplicable(searchString: string,
