@@ -26,8 +26,13 @@ class ComputerController extends CrudControllerBase
             ->with('subsidiary')
             ->with('responsible')
             ->with('users')
-            ->with('parts')
+            ->with(['parts'=>function($q){
+                $q->with('partType');
+            }])
             ->with('licenses')
+            ->with(['software'=>function($q){
+                $q->with('softwareType');
+            }])
             ->findOrFail($id);
     }
 

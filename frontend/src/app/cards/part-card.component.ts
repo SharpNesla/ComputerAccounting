@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "./card-base";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {PartExtension} from "../entities/part";
-import {PartService} from "../services/part.service";
+import {CardBase} from './card-base';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {PartExtension} from '../entities/part';
+import {PartService} from '../services/part.service';
 import {SubsidiaryExtension} from '../entities/subsidiary';
 import {SubsidiaryCardComponent} from './subsidiary-card.component';
 import {CardService} from './card.service';
@@ -30,13 +30,27 @@ import {ComputerCardComponent} from './computer-card.component';
                   </p>
 
                   <p class="mat-body" *ngIf="entity?.Computer">
-                      <a (click)="showComputerCard(entity?.Computer)">Филиал:
+                      <a (click)="showComputerCard(entity?.Computer)">Компьютер:
                           <br>
                           №{{entity?.Computer.Id}}
                           "{{entity.Computer.Name}}"
                           {{entity?.Computer.InventoryId}}
                           {{entity?.Computer.Type | computerType}}
                       </a>
+                  </p>
+                  <p> Состояние: <br>
+                      <ng-container *ngIf="entity?.IsValid && !entity?.ComputerId">
+                          На складе
+                      </ng-container>
+
+                      <ng-container *ngIf="!!entity?.ComputerId">
+                          Установлено
+                      </ng-container>
+
+                      <ng-container *ngIf="!entity?.IsValid && !entity?.ComputerId">
+                          Вышло из строя
+                      </ng-container>
+                      
                   </p>
               </mat-card>
               <mat-card id="right-section">

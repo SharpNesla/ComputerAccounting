@@ -53,12 +53,7 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   @Input() filterDefinition;
 
   public dataSource(searchString, filterDefinition: object): Observable<TEntity[]> {
-    if (searchString && searchString != '') {
-
-      return this.service.get(searchString, 0, 10, null, null, null);
-    } else {
-      return of([]);
-    }
+    return this.service.get(searchString, 0, 10, filterDefinition, null, null);
   }
 
   onChange: any = () => {
@@ -83,7 +78,13 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   ngOnInit(): void {
     this.searchBehaviourSubject.asObservable()
       .pipe(
-        flatMap(x => this.dataSource(x, this.filterDefinition)),
+        flatMap(x => {
+          if (x && x != '') {
+            return this.dataSource(x, this.filterDefinition);
+          } else {
+            return of([]);
+          }
+        }),
         map(x => {
           if (this.selectedEntity != null) {
             x = x.filter(y => y.Id != this.selectedEntity.Id);

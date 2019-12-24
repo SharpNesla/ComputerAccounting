@@ -19,18 +19,14 @@ import {MatDialog} from "@angular/material/dialog";
                   <sg-part-type-search [(ngModel)]="entity.PartType"
                                        hint="Тип комплектующего" required></sg-part-type-search>
 
-                  <mat-form-field *ngIf="!isPackAdd">
-                      <mat-select [(ngModel)]="entity.State" placeholder="Состояние">
-                          <mat-option *ngFor="let elem of partStates" [value]="elem">
-                              {{elem | partState}}
-                          </mat-option>
-                      </mat-select>
-                  </mat-form-field>
-
+                  <mat-checkbox [(ngModel)]="isInstalled">Установлено в компьютер</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="entity.IsValid" *ngIf="isPackAdd || !isInstalled">В рабочем состоянии</mat-checkbox>
+                  
                   <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
-                                        *ngIf="isPackAdd || displaySubsidiary" hint="Филиал"></sg-subsidiary-search>
+                                        *ngIf="isPackAdd || !isInstalled" hint="Филиал"></sg-subsidiary-search>
+                  
                   <sg-computer-search [(ngModel)]="entity.Computer"
-                                      *ngIf="!isPackAdd && displayComputer" hint="Компьютер"></sg-computer-search>
+                                      *ngIf="!isPackAdd && isInstalled" hint="Компьютер"></sg-computer-search>
 
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
                   <mat-form-field *ngIf="isPackAdd && isNew">
@@ -51,23 +47,22 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['../utils/editors-styles.scss']
 })
 export class PartEditorComponent extends PackEditorBase<PartExtension, PartService> {
+
   partStates = [
     PartState.InComputer,
     PartState.InStore,
     PartState.Broken
   ];
 
-  get displaySubsidiary() {
-    return this.entity.State == PartState.InStore || this.entity.State == PartState.Broken;
-  }
-
-  get displayComputer() {
-    return this.entity.State == PartState.InComputer;
-  }
+  isInstalled : boolean;
 
   constructor(private service: PartService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
     super(service, route, router, dialog, new PartExtension(), "parts");
   }
 
+  protected onEntityGot() {
+    this.isInstalled = !!this.entity.Computer;
+    console.log(this.isInstalled);
+  }
 }

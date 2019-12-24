@@ -56,8 +56,22 @@ class PartFilter {
                   </ng-container>
 
                   <ng-container matColumnDef="state">
-                      <th mat-header-cell mat-sort-header *matHeaderCellDef>Состояние</th>
-                      <td mat-cell *matCellDef="let element"> {{element.State | partState}} </td>
+                      <th mat-header-cell *matHeaderCellDef>Состояние</th>
+                      <td mat-cell *matCellDef="let element">
+                          
+
+                          <ng-container *ngIf="element.IsValid && !element.ComputerId">
+                              На складе
+                          </ng-container>
+
+                          <ng-container *ngIf="!!element.ComputerId">
+                              Установлено
+                          </ng-container>
+                          
+                          <ng-container *ngIf="!element.IsValid && !element.ComputerId">
+                              Вышло из строя
+                          </ng-container>
+                      </td>
                   </ng-container>
 
                   <ng-container matColumnDef="part_type_id">
@@ -105,19 +119,6 @@ class PartFilter {
                       <mat-checkbox [(ngModel)]="filterApplies.ByPartType">По типу</mat-checkbox>
                       <sg-part-type-search hint="Тип комплектующего"
                                            [disabled]="!filterApplies.ByPartType"></sg-part-type-search>
-                  </div>
-
-                  <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox [(ngModel)]="filterApplies.ByState">По состоянию</mat-checkbox>
-                      <mat-form-field>
-                          <mat-select [(ngModel)]="filter.State"
-                                      [disabled]="!filterApplies.ByState"
-                                      placeholder="Состояние">
-                              <mat-option *ngFor="let elem of partStates" [value]="elem">
-                                  {{elem | partState}}
-                              </mat-option>
-                          </mat-select>
-                      </mat-form-field>
                   </div>
               </div>
           </div>

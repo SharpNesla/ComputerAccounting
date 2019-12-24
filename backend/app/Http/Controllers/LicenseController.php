@@ -50,6 +50,11 @@ class LicenseController extends PackControllerBase
             $query = $this->applyFilters($filter, $query);
         }
 
+        if ($request->input('search-string') != null &&
+            $request->input('search-string') != '') {
+            $query = $query->where($this->fulltextBuilder->search($request->input('search-string')));
+        }
+
         return $query
             ->skip($request->offset)
             ->take($request->limit)->get();

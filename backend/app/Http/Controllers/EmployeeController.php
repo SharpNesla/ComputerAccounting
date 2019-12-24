@@ -128,6 +128,10 @@ class EmployeeController extends CrudControllerBase
             $builder = $builder->where('superior_id', $filter['superior_id']);
         }
 
+        if (array_key_exists('subsidiary_id', $filter)) {
+            $builder = $builder->where('subsidiary_id', $filter['subsidiary_id']);
+        }
+
         return $builder;
     }
 

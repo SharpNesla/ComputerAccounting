@@ -3,6 +3,8 @@ import {SingleSearchBase} from "./single-search-base";
 import {EmployeeExtension} from "../entities/employee";
 import {EmployeeService} from "../services/employee.service";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Observable, of} from 'rxjs';
+import {LicenseExtension} from '../entities/license';
 
 @Component({
   selector: 'sg-employee-search',
@@ -37,4 +39,6 @@ export class EmployeeSearchComponent extends SingleSearchBase<EmployeeExtension>
   constructor(service : EmployeeService){
     super(service)
   }
+
+
 }

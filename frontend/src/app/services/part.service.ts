@@ -23,11 +23,14 @@ export class PartService extends PackEntityService<PartExtension> implements Cou
 
   protected prepareEntityAddPack(entity: PartExtension): PartExtension {
 
-    entity.State = PartState.InStore;
-
     if (entity.Subsidiary) {
       entity.SubsidiaryId = entity.Subsidiary.Id;
       entity.ComputerId = null;
+    }
+
+    if (entity.Computer) {
+      entity.ComputerId = entity.Computer.Id;
+      entity.Subsidiary = null;
     }
 
     entity.PartTypeId = entity.PartType.Id;
@@ -41,16 +44,6 @@ export class PartService extends PackEntityService<PartExtension> implements Cou
   }
 
   protected prepareEntitySave(entity: PartExtension): PartExtension {
-    if (entity.State == PartState.InComputer) {
-      entity.ComputerId = entity.Computer.Id;
-      entity.SubsidiaryId = null;
-    } else {
-      if (entity.Subsidiary) {
-        entity.SubsidiaryId = entity.Subsidiary.Id;
-        entity.ComputerId = null;
-      }
-    }
-
     entity.PartTypeId = entity.PartType.Id;
 
     entity.Computer = undefined;

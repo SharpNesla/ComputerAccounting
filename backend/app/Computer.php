@@ -44,6 +44,11 @@ class Computer extends Model
             'computer_id', 'license_id');
     }
 
+    public function software()
+    {
+        return $this->hasMany(Software::class);
+    }
+
     public function dependencyTypes()
     {
         return $this->belongsToMany(SoftwareType::class, 'software',

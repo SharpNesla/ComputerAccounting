@@ -1,8 +1,8 @@
-import {EntityBase} from './entity-base';
+import {EntityBase, EntityWithAddress} from './entity-base';
 import {EmployeeExtension} from './employee';
 import {RoomExtension} from './room';
 
-export class Subsidiary extends EntityBase {
+export class Subsidiary extends EntityWithAddress {
   Director: EmployeeExtension;
 }
 

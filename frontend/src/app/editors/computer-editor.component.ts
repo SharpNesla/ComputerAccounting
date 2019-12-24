@@ -7,10 +7,13 @@ import {EmployeeExtension, Roles} from '../entities/employee';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {VisibilitiesService} from '../login/visibilities.service';
-import {first} from 'rxjs/operators';
+import {first, flatMap} from 'rxjs/operators';
 import {AuthService} from '../login/auth.service';
 import {CardService} from '../cards/card.service';
 import {EmployeeCardComponent} from '../cards/employee-card.component';
+import {SubsidiaryService} from '../services/subsidiary.service';
+import {Subsidiary} from '../entities/subsidiary';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'sg-computer-editor',
@@ -34,11 +37,13 @@ import {EmployeeCardComponent} from '../cards/employee-card.component';
                                      [(ngModel)]="this.entity.InventoryId">
                           </mat-form-field>
                           <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
-                                                [disabled]="!(this.visibilities.AllDirectorsAndAdmins | async)"
+                                                *ngIf="this.visibilities.BranchDirectorsAndAdmins | async"
                                                 hint="Филиал"></sg-subsidiary-search>
                           <sg-room-search [disabled]="!entity.Subsidiary"
+                                          [filterDefinition]="filter"
                                           [(ngModel)]="entity.Room" hint="Помещение" required></sg-room-search>
                           <sg-employee-search [disabled]="!entity.Subsidiary"
+                                              [filterDefinition]="filter"
                                               [(ngModel)]="entity.Responsible" hint="Ответственное лицо">
                           </sg-employee-search>
 
@@ -143,25 +148,42 @@ export class ComputerEditorComponent extends EditorBase<ComputerExtension, Compu
     ComputerType.Other
   ];
 
+  get filter(){
+    if (this.entity.Subsidiary){
+      return {SubsidiaryId: this.entity.Subsidiary.Id};
+    }else {
+      return undefined;
+    }
+  }
+
   UserDisplayedColumns = ['remove_button', 'id',
     'name', 'surname', 'role', 'info'];
   addingUser: EmployeeExtension;
 
   constructor(private service: ComputerService, route: ActivatedRoute,
-              private auth: AuthService, private cardService : CardService,
-              public visibilities : VisibilitiesService,
+              private auth: AuthService, private cardService: CardService,
+              private subsidiaryService: SubsidiaryService,
+              public visibilities: VisibilitiesService,
               router: Router, private snackBar: MatSnackBar, dialog: MatDialog) {
     super(service, route, dialog, new ComputerExtension(), router, 'computers');
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.auth.CurrentEmployee.subscribe(x=>{
-      console.log(x);
-      if (!!x && (x.Role == Roles.BranchAdmin || x.Role == Roles.BranchDirector)){
-        this.entity.Subsidiary = x.Subsidiary;
-      }
-    });
+    this.auth.CurrentEmployee
+      .pipe(flatMap(x => {
+        if (!!x && (x.Role == Roles.BranchAdmin || x.Role == Roles.BranchDirector)) {
+          return this.subsidiaryService.getById(x.SubsidiaryId);
+        } else {
+          return of(null);
+        }
+      }))
+      .subscribe(x => {
+        if(this.isNew){
+          console.log(x);
+          this.entity.Subsidiary = x;
+        }
+      });
   }
 
   addUser() {

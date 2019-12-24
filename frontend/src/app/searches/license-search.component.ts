@@ -7,7 +7,7 @@ import {SoftwareTypeExtension} from "../entities/software-type";
 import {SoftwareTypeService} from "../services/software-type.service";
 import {LicenseExtension} from "../entities/license";
 import {LicenseService} from "../services/license.service";
-import {Observable} from "rxjs";
+import {Observable, of} from 'rxjs';
 
 export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
 
@@ -29,7 +29,7 @@ export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities" [value]="entity">
-                  {{entity?.Id}}
+                  {{entity?.Id}} {{entity?.SoftwareType?.Typename}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,
@@ -47,18 +47,16 @@ export class LicenseSearchComponent extends SingleSearchBase<LicenseExtension> {
   constructor(private licenseService : LicenseService){
     super(licenseService)
   }
-
   public dataSource(searchString, filterDefinition: object): Observable<LicenseExtension[]> {
     switch (this.mode) {
       case "applicable":
         if (this.applicableType){
           return this.licenseService.getApplicable(searchString, 0,10, this.applicableType);
         }
-        return new Observable(x=>x.next([]));
+        return of([]);
       case "normal":
       default:
         return super.dataSource(searchString, filterDefinition);
     }
   }
-
 }

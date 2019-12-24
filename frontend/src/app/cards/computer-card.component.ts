@@ -67,14 +67,24 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
                       </mat-card>
                   </div>
               </mat-tab>
-              <mat-tab label="Установленные комплектующие">
+              <mat-tab label="Комплектующие">
                   <mat-card class="sg-card-table">
-                      <sg-part-grid isCompact="true"></sg-part-grid>
+                      <sg-part-grid [customDataSource]="parts" isCompact="true"></sg-part-grid>
                   </mat-card>
               </mat-tab>
-              <mat-tab label="Установленное ПО">
+              <mat-tab label="ПО">
                   <mat-card class="sg-card-table">
-                      <sg-software-grid isCompact="true"></sg-software-grid>
+                      <sg-software-grid [customDataSource]="software" isCompact="true"></sg-software-grid>
+                  </mat-card>
+              </mat-tab>
+              <mat-tab label="Пользователи">
+                  <mat-card class="sg-card-table">
+                      <sg-employee-grid [customDataSource]="users" isCompact="true"></sg-employee-grid>
+                  </mat-card>
+              </mat-tab>
+              <mat-tab label="Лицензии">
+                  <mat-card class="sg-card-table">
+                      <sg-license-grid [customDataSource]="licenses" isCompact="true"></sg-license-grid>
                   </mat-card>
               </mat-tab>
           </mat-tab-group>
@@ -92,7 +102,6 @@ export class ComputerCardComponent extends CardBase<ComputerExtension, ComputerS
     super(dialogRef, service, data);
   }
 
-
   showEmployeeCard(employee: EmployeeExtension) {
     this.cardService.showInfoCard(employee, EmployeeCardComponent);
   }
@@ -104,5 +113,33 @@ export class ComputerCardComponent extends CardBase<ComputerExtension, ComputerS
   showSubsidiaryCard(subsidiary: SubsidiaryExtension) {
 
     this.cardService.showInfoCard(subsidiary, SubsidiaryCardComponent);
+  }
+
+  get parts() {
+    if (this.entity && this.entity.Parts) {
+      return this.entity.Parts;
+    }
+    return [];
+  }
+
+  get users() {
+    if (this.entity && this.entity.Users) {
+      return this.entity.Users;
+    }
+    return [];
+  }
+
+  get licenses() {
+    if (this.entity && this.entity.Licenses) {
+      return this.entity.Licenses;
+    }
+    return [];
+  }
+
+  get software() {
+    if (this.entity && this.entity.Software) {
+      return this.entity.Software;
+    }
+    return [];
   }
 }

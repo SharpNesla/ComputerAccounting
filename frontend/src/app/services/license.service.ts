@@ -44,10 +44,10 @@ export class LicenseService extends PackEntityService<LicenseExtension> implemen
       .set('for', type.Id.toString());
 
     if (searchString) {
-      params = params.set('search', searchString);
+      params = params.set('search-string', searchString);
     }
 
-    return this.client.get<LicenseExtension[]>(`api/${this.entityPrefix}/get`, {params})
+    return this.client.get<LicenseExtension[]>(`api/${this.entityPrefix}/get-applicable`, {params})
       .pipe(map(x => x.map(y => this.prepareEntityGet(y))));
   }
 

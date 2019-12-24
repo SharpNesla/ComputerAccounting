@@ -46,9 +46,6 @@ class PartController extends PackControllerBase
         if (array_key_exists('part_type_id', $filter)) {
             $builder = $builder->where('part_type_id', $filter['part_type_id']);
         }
-        if (array_key_exists('state', $filter)) {
-            $builder = $builder->where('state', $filter['state']);
-        }
 
         return $builder;
     }

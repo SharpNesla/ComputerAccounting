@@ -20,6 +20,17 @@ export class VisibilitiesService {
       }));
   }
 
+  get BranchDirectorsAndAdmins(): Observable<boolean> {
+    return this.auth.CurrentEmployee.pipe(
+      map(x => {
+        if (x){
+          return x.Role == Roles.BranchAdmin || x.Role == Roles.BranchDirector;
+        }else {
+          return false;
+        }
+      }));
+  }
+
   get LeadDirectorsAndAdmins(): Observable<boolean> {
     return this.auth.CurrentEmployee.pipe(
       map(x => {
