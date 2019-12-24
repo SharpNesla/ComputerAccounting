@@ -10,17 +10,18 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
           <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
-              <button mat-icon-button>
+              <button (click)="search()" mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field appearance="standard">
                   <input matInput [placeholder]="'Поиск ' + searchHint"
                          (keydown)="$event.stopPropagation()"
+                         (keydown.enter)="search()"
                          type="search"
                          [(ngModel)]="searchString">
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
-              <mat-option *ngFor="let entity of entities | async" [value]="entity">
+              <mat-option *ngFor="let entity of entities" [value]="entity">
                   {{entity.Id}} {{entity.Name}} {{entity.Surname}} {{entity.Role | role}}
               </mat-option>
           </mat-select>

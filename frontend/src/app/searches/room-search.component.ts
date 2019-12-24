@@ -15,17 +15,18 @@ import {SoftwareTypeExtension} from "../entities/software-type";
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
           <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
-              <button mat-icon-button>
+              <button (click)="search()" mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field appearance="standard">
                   <input matInput placeholder="Поиск сущности"
                          [(ngModel)]="this.searchString"
                          (keydown)="$event.stopPropagation()"
+                         (keydown.enter)="search()"
                          type="search">
               </mat-form-field>
               <mat-option>Не задано</mat-option>
-              <mat-option *ngFor="let entity of entities | async" [value]="entity">
+              <mat-option *ngFor="let entity of entities" [value]="entity">
                   {{entity.Id}} {{entity.Number}}
               </mat-option>
           </mat-select>
@@ -46,7 +47,6 @@ export class RoomSearchComponent extends SingleSearchBase<RoomExtension> {
   }
 
   public dataSource(searchString, filterDefinition: object): Observable<RoomExtension[]> {
-
     return super.dataSource(searchString, filterDefinition);
   }
 }

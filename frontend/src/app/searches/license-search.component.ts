@@ -17,18 +17,19 @@ export declare type LicenseSearchMode = 'normal' | 'applicable' | undefined;
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
           <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
-              <button mat-icon-button>
+              <button (click)="search()" mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
               <mat-form-field appearance="standard">
                   <input matInput placeholder="Поиск сущности"
                          (keydown)="$event.stopPropagation()"
+                         (keydown.enter)="search()"
                          type="search"
                          [(ngModel)]="searchString">
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
-              <mat-option *ngFor="let entity of entities | async" [value]="entity">
-                  {{entity.Id}}
+              <mat-option *ngFor="let entity of entities" [value]="entity">
+                  {{entity?.Id}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,

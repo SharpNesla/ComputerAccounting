@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Computer;
 use App\License;
 use App\Software;
+use App\Subsidiary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -181,16 +182,30 @@ class EmployeeController extends CrudControllerBase
         ])->fails();
     }
 
-    public function getDirectorDashboardInfo(){
+
+
+    private $dict = [
+        'director' => 0,
+        'branchDirector' => 1,
+        'admin' => 2,
+        'branchAdmin' => 3,
+        'responsible' => 4,
+        'storeKeeper' => 5
+    ];
+
+    public function getDirectorDashboardInfo()
+    {
         return [
             'computers-count' => Computer::query()->count(),
             'software-count' => Software::query()->count(),
             'licenses-count' => License::query()->count(),
+            'subsidiaries-count' => Subsidiary::query()->count(),
 
             'employees-count' => User::query()->count(),
-            'responsible-count' => User::query()->where('role', 0)->count(),
-            'storekeeper-count' => User::query()->where('role', 0)->count(),
-            'admin-count' => User::query()->where('role', 0)->count(),
+            'responsible-count' => User::query()->where('role', 4)->count(),
+            'storekeeper-count' => User::query()->where('role', 5)->count(),
+            'admin-count' => User::query()->where('role', 2)->count(),
+            'branch-admin-count' => User::query()->where('role', 3)->count()
         ];
     }
 }

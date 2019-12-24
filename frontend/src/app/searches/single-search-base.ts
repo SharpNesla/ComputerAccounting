@@ -1,39 +1,34 @@
-import {EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
-import {BehaviorSubject, interval, Observable} from "rxjs";
-import {SubsidiaryExtension} from "../entities/subsidiary";
-import {debounce, exhaustMap, map, mergeMap, throttle} from "rxjs/operators";
-import {SubsidiaryService} from "../services/subsidiary.service";
-import {EntityBase} from "../entities/entity-base";
-import {EntityServiceBase} from "../services/entity-service-base";
-import {RoomExtension} from "../entities/room";
-import {RoomService} from "../services/room.service";
-import {ControlValueAccessor} from "@angular/forms";
+import {EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {BehaviorSubject, interval, observable, Observable, of, Subject} from 'rxjs';
+import {debounce, exhaustMap, flatMap, map, mergeMap, throttle} from 'rxjs/operators';
+import {EntityBase} from '../entities/entity-base';
+import {EntityServiceBase} from '../services/entity-service-base';
+import {ControlValueAccessor} from '@angular/forms';
 
 
 export class SingleSearchBase<TEntity extends EntityBase> implements ControlValueAccessor, OnInit {
   get searchHint(): string {
 
     if (this._searchHint) {
-      return this._searchHint
-    }else {
-      return "сущность";
+      return this._searchHint;
+    } else {
+      return 'сущность';
     }
   }
 
   @Input() set searchHint(value: string) {
     this._searchHint = value;
   }
+
   @Input() required: boolean;
 
-  set searchString(value: string) {
-    this.searchBehaviourSubject.next(value);
+  searchString: string;
+
+  search() {
+    this.searchBehaviourSubject.next(this.searchString);
   }
 
-  get searchString() {
-    return null;
-  }
-
-  searchBehaviourSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  searchBehaviourSubject: Subject<string> = new Subject<string>();
 
   get selectedEntity(): TEntity {
     return this._selectedEntity;
@@ -49,7 +44,7 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
 
   }
 
-  entities: Observable<TEntity[]>;
+  entities: TEntity[];
   private _selectedEntity: TEntity;
 
   @Input() disabled: boolean;
@@ -58,7 +53,12 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
   @Input() filterDefinition;
 
   public dataSource(searchString, filterDefinition: object): Observable<TEntity[]> {
-    return this.service.get(searchString, 0, 10, null, null, null)
+    if (searchString && searchString != '') {
+
+      return this.service.get(searchString, 0, 10, null, null, null);
+    } else {
+      return of([]);
+    }
   }
 
   onChange: any = () => {
@@ -76,14 +76,14 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
 
   writeValue(obj: any): void {
     this._selectedEntity = obj;
+    this.searchBehaviourSubject.next(null);
     this.onChange(obj);
   }
 
   ngOnInit(): void {
-    this.entities = this.searchBehaviourSubject.asObservable()
+    this.searchBehaviourSubject.asObservable()
       .pipe(
-        debounce(val => interval(300)),
-        exhaustMap(x => this.disabled ? [] : this.dataSource(x, this.filterDefinition)),
+        flatMap(x => this.dataSource(x, this.filterDefinition)),
         map(x => {
           if (this.selectedEntity != null) {
             x = x.filter(y => y.Id != this.selectedEntity.Id);
@@ -91,6 +91,8 @@ export class SingleSearchBase<TEntity extends EntityBase> implements ControlValu
           }
           return x;
         })
-      );
+      ).subscribe(x => {
+      this.entities = x;
+    });
   }
 }

@@ -21,7 +21,7 @@ import {MatDialog} from "@angular/material/dialog";
                   <sg-computer-search *ngIf="!isPackAdd" hint="Компьютер" [(ngModel)]="entity.Computer">
                   </sg-computer-search>
                   <sg-license-search *ngIf="!isPackAdd" hint="Лицензия" [applicableType]="entity.SoftwareType"
-                                     mode="applicable" [(ngModel)]="entity.License">
+                                      [(ngModel)]="entity.License">
                   </sg-license-search>
                   <mat-checkbox *ngIf="isNew" [(ngModel)]="isPackAdd">Добавить несколько экземпляров</mat-checkbox>
                   <mat-form-field *ngIf="isPackAdd && isNew">

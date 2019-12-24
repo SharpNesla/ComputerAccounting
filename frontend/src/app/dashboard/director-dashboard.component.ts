@@ -14,26 +14,22 @@ import {first} from 'rxjs/operators';
 
                   <p>Количество ПО: {{this.dashBoardInfo?.SoftwareCount }}</p>
                   <p>Количество лицензий: {{this.dashBoardInfo?.LicensesCount}}</p>
+                  <p>Количество филиалов: {{this.dashBoardInfo?.SubsidiariesCount}}</p>
               </mat-card>
               <mat-card id="first-chart">
                   <h2 class="mat-title">Общая информация</h2>
               </mat-card>
               <mat-card id="second-chart">
                   <h2 class="mat-title">Комплектующие за последний месяц</h2>
-                  <ngx-charts-bar-vertical-2d
-                          [scheme]="colorScheme"
-                          [results]="[]"
-                          [xAxis]="true"
-                          [yAxis]="true"
-                          [roundDomains]="false"
-                          [xAxisLabel]="true"
-                          [yAxisLabel]="true"
-                          legendTitle="Статус комплектующего"
-                          [animations]="false"></ngx-charts-bar-vertical-2d>
+                  
               </mat-card>
               <mat-card>
                   <h2 class="mat-title">Информация о сотрудниках</h2>
                   <p>Количество работников: {{this.dashBoardInfo?.EmployeesCount}}</p>
+                  <p>Кладовщиков: {{this.dashBoardInfo?.StoreKeeperCount}}</p>
+                  <p>Администраторов: {{this.dashBoardInfo?.AdminCount}}</p>
+                  <p>Администраторов филиалов: {{this.dashBoardInfo?.BranchAdminCount}}</p>
+                  <p>Ответственных лиц: {{this.dashBoardInfo?.ResponsibleCount}} </p>
               </mat-card>
           </div>
       </sg-drawer-appbar-base>`,
