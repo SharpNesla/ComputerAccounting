@@ -39,7 +39,6 @@ import {first} from 'rxjs/operators';
       </sg-drawer-appbar-base>`,
   styles: [`
       #sg-director-dashboard-container {
-          height: 100%;
           padding: 2em;
           display: grid;
 

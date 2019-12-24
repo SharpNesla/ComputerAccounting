@@ -1,15 +1,11 @@
 import {EntityBase} from '../entities/entity-base';
 import {EntityServiceBase} from '../services/entity-service-base';
-import {Input, OnInit, ViewChild} from '@angular/core';
-import {Observable} from 'rxjs';
-import {ComputerExtension} from '../entities/computer';
-import {MatMenuTrigger} from '@angular/material/menu';
+import {Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DeleteDialogComponent} from '../delete-dialog.component';
 import {first, flatMap} from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
 import {CardService} from '../cards/card.service';
-import {element} from 'protractor';
 
 export abstract class EntityGridBase<TEntity extends EntityBase,
   TService extends EntityServiceBase<TEntity>> implements OnInit {

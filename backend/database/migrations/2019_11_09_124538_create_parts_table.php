@@ -28,7 +28,7 @@ class CreatePartsTable extends Migration
             $table->foreign('computer_id')
                 ->references('id')->on('computers')->onDelete('cascade');
 
-            $table->tinyInteger('state')->nullable();
+            $table->boolean('is_valid')->nullable();
 
             $table->text('comment')->nullable();
             $table->timestamps();
