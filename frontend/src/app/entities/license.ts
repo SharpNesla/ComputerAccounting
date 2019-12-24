@@ -8,7 +8,7 @@ export enum LicenseStatus {
   FullApplied,
 }
 
-export class License {
+export class License extends EntityBase{
   Eula: string;
   Cost: number;
   MaxApplyCount: number;
