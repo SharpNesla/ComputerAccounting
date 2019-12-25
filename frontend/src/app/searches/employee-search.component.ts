@@ -24,7 +24,7 @@ import {LicenseExtension} from '../entities/license';
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities" [value]="entity">
-                  {{entity.Id}} {{entity.Name}} {{entity.Surname}} {{entity.Role | role}}
+                  {{entity?.Id}} {{entity?.Name}} {{entity?.Surname}} {{entity?.Role | role}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,

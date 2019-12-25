@@ -24,7 +24,7 @@ import {SoftwareTypeService} from "../services/software-type.service";
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities" [value]="entity">
-                  {{entity.Id}} {{entity.Name}}, {{entity.Address}}
+                  {{entity?.Id}} {{entity?.Name}}, {{entity?.Address}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,

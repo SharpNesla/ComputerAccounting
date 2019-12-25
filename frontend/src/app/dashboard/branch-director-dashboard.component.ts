@@ -6,7 +6,7 @@ import {first} from 'rxjs/operators';
   selector: 'sg-branch-director-dashboard',
   template: `
       <sg-drawer-appbar-base>
-          <header>Обзор: директор</header>
+          <header>Обзор: директор филиала</header>
           <div id="sg-director-dashboard-container">
               <mat-card>
                   <h2 class="mat-title">Общая информация</h2>

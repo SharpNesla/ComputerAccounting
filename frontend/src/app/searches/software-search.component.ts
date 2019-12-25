@@ -26,7 +26,8 @@ import {PartTypeService} from "../services/part-type.service";
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities" [value]="entity">
-                  {{entity.Id}}
+                  {{entity.SoftwareType.Id}} {{entity.SoftwareType.Typename}}
+                  {{entity.SoftwareType.Category | softwareCategory}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,

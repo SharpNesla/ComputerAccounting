@@ -27,7 +27,7 @@ import {SoftwareTypeExtension} from "../entities/software-type";
               </mat-form-field>
               <mat-option>Не задано</mat-option>
               <mat-option *ngFor="let entity of entities" [value]="entity">
-                  {{entity.Id}} {{entity.Number}}
+                  {{entity?.Id}} {{entity?.Number}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,
