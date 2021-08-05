@@ -65,6 +65,11 @@ class PartController extends PackControllerBase
         ];
     }
 
+    /**
+     * Function returns date-part count pairs.
+     * @param Request $request
+     * @return array
+     */
     public function getCountByDate(Request $request)
     {
         $query = Part::query();

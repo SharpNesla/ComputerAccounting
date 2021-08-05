@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {PartTypeService} from "../services/part-type.service";
-import {EntityGridBase} from "./entity-grid-base";
-import {PartTypeExtension} from "../entities/part-type";
-import {MatDialog} from "@angular/material/dialog";
-import {PartTypeCardComponent} from "../cards/part-type-card.component";
+import {Component} from '@angular/core';
+import {PartTypeService} from '../services/part-type.service';
+import {EntityGridBase} from './entity-grid-base';
+import {PartTypeExtension} from '../entities/part-type';
+import {MatDialog} from '@angular/material/dialog';
+import {PartTypeCardComponent} from '../cards/part-type-card.component';
 import {CardService} from '../cards/card.service';
 import {VisibilitiesService} from '../login/visibilities.service';
 
@@ -76,12 +76,12 @@ class PartTypeFilter {
                       [class.sg-table-action-button-container-compact]="isCompact"
                       class="sg-table-action-button-container">
                       <button mat-icon-button
-                              [disabled]="!((visibilities)?.LeadDirectorsAndAdmins | async)"
+                              [disabled]="!((visibilities)?.DirectorsAndLeadAdmins | async)"
                               *ngIf="!isCompact" (click)="remove(element)">
                           <mat-icon>delete</mat-icon>
                       </button>
                       <button mat-icon-button *ngIf="!isCompact"
-                              [disabled]="!((visibilities)?.LeadDirectorsAndAdmins | async)"                              
+                              [disabled]="!((visibilities)?.DirectorsAndLeadAdmins | async)"
                               [routerLink]="'/part-types/edit/' + element.Id">
                           <mat-icon>edit</mat-icon>
                       </button>
@@ -123,7 +123,7 @@ class PartTypeFilter {
                           (Paginate)="this.paginate($event.offset, $event.limit)"
                           entity-name="типов комплектующих"
                           (search)="searchString = $event"
-                          [add-visibility]="(visibilities)?.LeadDirectorsAndAdmins | async"
+                          [add-visibility]="(visibilities)?.DirectorsAndLeadAdmins | async"
                           (toggleFilters)="filterState = $event"
                           [isCompact]="this.isCompact"></sg-grid-bottom-bar>`
 })
@@ -137,7 +137,7 @@ export class PartTypeGridComponent extends EntityGridBase<PartTypeExtension, Par
 
   filter: PartTypeFilter = new PartTypeFilter();
 
-  constructor(service: PartTypeService, dialog: MatDialog, cardService : CardService,
+  constructor(service: PartTypeService, dialog: MatDialog, cardService: CardService,
               public visibilities: VisibilitiesService) {
     super(service, dialog,
       ['select', 'id', 'model', 'cost', 'parts_count', 'category', 'info'],

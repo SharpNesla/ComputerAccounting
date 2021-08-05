@@ -13,7 +13,7 @@ import {PartTypeService} from "../services/part-type.service";
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
+          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity" [required]="required">
               <button (click)="search()" mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>

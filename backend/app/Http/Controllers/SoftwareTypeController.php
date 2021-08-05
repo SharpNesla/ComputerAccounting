@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Computer;
 use App\SoftwareType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ class SoftwareTypeController extends CrudControllerBase
     public function getById($id)
     {
         return SoftwareType::with('dependencies')
+            ->with('software')
             ->findOrFail($id);
     }
 

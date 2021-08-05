@@ -34,15 +34,15 @@ import {VisibilitiesService} from './login/visibilities.service';
                   </div>
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="dashboard" icon="dashboard">Обзор</sg-drawer-button>
-                  <sg-drawer-button link="analytics" icon="insert_chart_outlined"
-                                    *ngIf="visibilities.Directors | async">Аналитика
-                  </sg-drawer-button>
+<!--                  <sg-drawer-button link="analytics" icon="insert_chart_outlined"-->
+<!--                                    *ngIf="visibilities.Directors | async">Аналитика-->
+<!--                  </sg-drawer-button>-->
                   <mat-divider></mat-divider>
                   <sg-drawer-button link="employees" icon="account_circle"
                                     *ngIf="visibilities.Directors | async">Работники
                   </sg-drawer-button>
                   <sg-drawer-button link="subsidiaries" icon="storefront"
-                                    *ngIf="visibilities.LeadDirectorsAndAdmins | async">Филиалы
+                                    *ngIf="visibilities.Directors | async">Филиалы
                   </sg-drawer-button>
                   <sg-drawer-button
 

@@ -2,10 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {CardBase} from "./card-base";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {LicenseExtension} from "../entities/license";
-import {LicenseService} from "../services/license.service";
+import {LicenseService} from '../services/license.service';
 import {SubsidiaryExtension} from '../entities/subsidiary';
 import {SubsidiaryCardComponent} from './subsidiary-card.component';
-import {SoftwareTypeExtension} from '../entities/software-type';
+import {SoftwareType, SoftwareTypeExtension} from '../entities/software-type';
 import {CardService} from './card.service';
 import {SoftwareTypeCardComponent} from './software-type-card.component';
 
@@ -40,6 +40,12 @@ import {SoftwareTypeCardComponent} from './software-type-card.component';
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарии</h2>
+                <p class="mat-body">
+                  Текст лицензии:
+                </p>
+                <p class="sg-card-comment-box">
+                  {{entity?.Eula}}
+                </p>
                   <p class="mat-body">
                       Комментарий:
                   </p>
@@ -61,7 +67,7 @@ export class LicenseCardComponent extends CardBase<LicenseExtension, LicenseServ
     @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
-  showSoftwareTypeCard(softwareType: SoftwareTypeExtension) {
+  showSoftwareTypeCard(softwareType: SoftwareType) {
     this.cardService.showInfoCard(softwareType, SoftwareTypeCardComponent);
   }
 

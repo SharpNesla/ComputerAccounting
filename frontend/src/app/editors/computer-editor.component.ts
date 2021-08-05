@@ -18,122 +18,125 @@ import {of} from 'rxjs';
 @Component({
   selector: 'sg-computer-editor',
   template: `
-      <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
-          <header>
-              <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
-              {{isNew ? 'Добавление' : 'Изменение'}}
-              компьютера {{!isNew ? '№' + this.entity.Id : ''}}</header>
-          <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
-              <mat-tab label="Основная информация">
-                  <div id="sg-editor-card-container">
-                      <mat-card id="left-section">
-                          <h2 class="mat-title">Общая информация</h2>
-                          <mat-form-field>
-                              <input matInput placeholder="Имя компьютера"
-                                     [(ngModel)]="this.entity.Name" required>
-                          </mat-form-field>
-                          <mat-form-field>
-                              <input matInput placeholder="Инвентарный номер"
-                                     [(ngModel)]="this.entity.InventoryId" required>
-                          </mat-form-field>
-                          <sg-subsidiary-search [(ngModel)]="entity.Subsidiary" required
-                                                *ngIf="!(this.visibilities.BranchDirectorsAndAdmins | async)"
-                                                hint="Филиал"></sg-subsidiary-search>
-                          <sg-room-search [disabled]="!entity.Subsidiary"
-                                          [filterDefinition]="filter"
-                                          [(ngModel)]="entity.Room" hint="Помещение" required></sg-room-search>
-                          <sg-employee-search [disabled]="!entity.Subsidiary"
-                                              [filterDefinition]="filter" required
-                                              [(ngModel)]="entity.Responsible" hint="Ответственное лицо">
-                          </sg-employee-search>
+    <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()" xmlns="http://www.w3.org/1999/html">
+      <header>
+        <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
+        {{isNew ? 'Добавление' : 'Изменение'}}
+        компьютера {{!isNew ? '№' + this.entity.Id : ''}}</header>
+      <mat-tab-group animationDuration="0ms" color="accent" backgroundColor="primary">
+        <mat-tab label="Основная информация">
+          <div id="sg-editor-card-container">
+            <mat-card id="left-section">
+              <h2 class="mat-title">Общая информация</h2>
+              <mat-form-field>
+                <input matInput placeholder="Имя компьютера"
+                       [(ngModel)]="this.entity.Name" required>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Инвентарный номер"
+                       [(ngModel)]="this.entity.InventoryId" required>
+              </mat-form-field>
+              <sg-subsidiary-search [(ngModel)]="entity.Subsidiary" required
+                                    *ngIf="!(this.visibilities.BranchDirectorsAndAdmins | async)"
+                                    hint="Филиал"></sg-subsidiary-search>
+              <sg-room-search [disabled]="!entity.Subsidiary"
+                              [filterDefinition]="filter"
+                              [(ngModel)]="entity.Room" hint="Помещение" required></sg-room-search>
+              <sg-employee-search [disabled]="!entity.Subsidiary"
+                                  [filterDefinition]="filter" required
+                                  [(ngModel)]="entity.Responsible" hint="Ответственное лицо">
+              </sg-employee-search>
 
-                          <mat-form-field>
-                              <mat-select [(ngModel)]="entity.Type" placeholder="Категория" required>
-                                  <mat-option *ngFor="let elem of types" [value]="elem">
-                                      {{elem | computerType}}
-                                  </mat-option>
-                              </mat-select>
-                          </mat-form-field>
-                      </mat-card>
-                      <mat-card id="right-section">
-                          <h2 class="mat-title">Комментарий</h2>
-                          <mat-form-field appearance="outline">
-                              <mat-label>Комментарий</mat-label>
-                              <textarea matInput cdkTextareaAutosize="false"
-                                        placeholder="Комментарий"
-                                        [(ngModel)]="this.entity.Comment"></textarea>
-                          </mat-form-field>
-                      </mat-card>
-                  </div>
-              </mat-tab>
-              <mat-tab label="Пользователи">
-                  <mat-card id="sg-editor-card-container" class="sg-many-many-card">
-                      <table mat-table [dataSource]="this.entity.Users"
-                             [class.sg-table-compact]="true" class="sg-table">
-                          <ng-container matColumnDef="remove_button">
-                              <th mat-header-cell *matHeaderCellDef></th>
-                              <td mat-cell *matCellDef="let element">
-                                  <button mat-icon-button (click)="removeUser(element)">
-                                      <mat-icon>remove</mat-icon>
-                                  </button>
-                              </td>
-                          </ng-container>
+              <mat-form-field>
+                <mat-select [(ngModel)]="entity.Type" placeholder="Категория" required>
+                  <mat-option *ngFor="let elem of types" [value]="elem">
+                    {{elem | computerType}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-card>
+            <mat-card id="right-section">
+              <h2 class="mat-title">Комментарий</h2>
+              <mat-form-field appearance="outline" class="stretch-height">
+                <mat-label>Комментарий</mat-label>
+                <textarea matInput cdkTextareaAutosize="false"
+                          placeholder="Комментарий"
+                          [(ngModel)]="this.entity.Comment"></textarea>
+              </mat-form-field>
+            </mat-card>
+          </div>
+        </mat-tab>
+        <mat-tab label="Пользователи">
+          <div id="sg-editor-card-container">
+            <mat-card class="sg-many-many-card">
+              <h2 class="mat-title">Управление пользователями компьютера</h2>
+              <table mat-table [dataSource]="this.entity.Users"
+                     [class.sg-table-compact]="true" class="sg-table">
+                <ng-container matColumnDef="remove_button">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="removeUser(element)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
 
-                          <ng-container matColumnDef="id">
-                              <th mat-header-cell *matHeaderCellDef>№</th>
-                              <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
-                          </ng-container>
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>№</th>
+                  <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+                </ng-container>
 
-                          <!-- Name Column -->
-                          <ng-container matColumnDef="name">
-                              <th mat-header-cell *matHeaderCellDef>Имя</th>
-                              <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
-                          </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>Имя</th>
+                  <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                </ng-container>
 
-                          <ng-container matColumnDef="surname">
-                              <th mat-header-cell *matHeaderCellDef>Фамилия</th>
-                              <td mat-cell *matCellDef="let element"> {{element.Surname}}
-                              </td>
-                          </ng-container>
+                <ng-container matColumnDef="surname">
+                  <th mat-header-cell *matHeaderCellDef>Фамилия</th>
+                  <td mat-cell *matCellDef="let element"> {{element.Surname}}
+                  </td>
+                </ng-container>
 
-                          <ng-container matColumnDef="role">
-                              <th mat-header-cell *matHeaderCellDef>Должность</th>
-                              <td mat-cell *matCellDef="let element"> {{element.Role | role}}
-                              </td>
-                          </ng-container>
+                <ng-container matColumnDef="role">
+                  <th mat-header-cell *matHeaderCellDef>Должность</th>
+                  <td mat-cell *matCellDef="let element"> {{element.Role | role}}
+                  </td>
+                </ng-container>
 
-                          <ng-container matColumnDef="info" stickyEnd>
-                              <th mat-header-cell *matHeaderCellDef></th>
-                              <td mat-cell *matCellDef="let element"
-                                  class="sg-table-action-button-container">
-                                  <button mat-icon-button
-                                          (click)="showInfoCard(element)">
-                                      <mat-icon class="sg-table-info-button">error_outline</mat-icon>
-                                  </button>
-                              </td>
-                          </ng-container>
+                <ng-container matColumnDef="info" stickyEnd>
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element"
+                      class="sg-table-action-button-container">
+                    <button mat-icon-button
+                            (click)="showInfoCard(element)">
+                      <mat-icon class="sg-table-info-button">error_outline</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
 
-                          <tr mat-header-row *matHeaderRowDef="UserDisplayedColumns"></tr>
-                          <tr mat-row *matRowDef="let row; columns: UserDisplayedColumns;"></tr>
-                      </table>
-                      <div class="sg-many-many-card-searchbar">
-                          <sg-employee-search [(ngModel)]="addingUser"
-                                              hint="Привязать пользователя"></sg-employee-search>
-                          <button mat-icon-button (click)="addUser()">
-                              <mat-icon>add</mat-icon>
-                          </button>
-                      </div>
-                  </mat-card>
-              </mat-tab>
+                <tr mat-header-row *matHeaderRowDef="UserDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: UserDisplayedColumns;"></tr>
+              </table>
+              <div class="sg-many-many-card-searchbar">
+                <sg-employee-search [(ngModel)]="addingUser"
+                                    hint="Привязать пользователя"></sg-employee-search>
+                <button mat-icon-button (click)="addUser()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
 
-              <!--<mat-tab label="Комплектующие">
+            </mat-card>
+          </div>
+        </mat-tab>
+        <!--<mat-tab label="Комплектующие">
 
-              </mat-tab>
-              <mat-tab label="Программы и лицензии">
+        </mat-tab>
+        <mat-tab label="Программы и лицензии">
 
-              </mat-tab>-->
-          </mat-tab-group>
-      </sg-dialog-layout>`,
+        </mat-tab>-->
+      </mat-tab-group>
+    </sg-dialog-layout>`,
   styleUrls: ['../utils/editors-styles.scss']
 })
 export class ComputerEditorComponent extends EditorBase<ComputerExtension, ComputerService> {
@@ -148,10 +151,10 @@ export class ComputerEditorComponent extends EditorBase<ComputerExtension, Compu
     ComputerType.Other
   ];
 
-  get filter(){
-    if (this.entity.Subsidiary){
+  get filter() {
+    if (this.entity.Subsidiary) {
       return {SubsidiaryId: this.entity.Subsidiary.Id};
-    }else {
+    } else {
       return undefined;
     }
   }
@@ -179,7 +182,7 @@ export class ComputerEditorComponent extends EditorBase<ComputerExtension, Compu
         }
       }))
       .subscribe(x => {
-        if(this.isNew){
+        if (this.isNew) {
           console.log(x);
           this.entity.Subsidiary = x;
         }

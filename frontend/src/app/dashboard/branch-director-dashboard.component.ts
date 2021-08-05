@@ -14,20 +14,11 @@ import {first} from 'rxjs/operators';
 
                   <p>Количество ПО: {{this.dashBoardInfo?.SoftwareCount }}</p>
                   <p>Количество лицензий: {{this.dashBoardInfo?.LicensesCount}}</p>
-                  <p>Количество филиалов: {{this.dashBoardInfo?.SubsidiariesCount}}</p>
-              </mat-card>
-              <mat-card id="first-chart">
-                  <h2 class="mat-title">Общая информация</h2>
-              </mat-card>
-              <mat-card id="second-chart">
-                  <h2 class="mat-title">Комплектующие за последний месяц</h2>
-
               </mat-card>
               <mat-card>
                   <h2 class="mat-title">Информация о сотрудниках</h2>
                   <p>Количество работников: {{this.dashBoardInfo?.EmployeesCount}}</p>
-                  <p>Кладовщиков: {{this.dashBoardInfo?.StoreKeeperCount}}</p>
-                  <p>Администраторов: {{this.dashBoardInfo?.AdminCount}}</p>
+                  <p>Кладовщиков: {{this.dashBoardInfo?.StorekeeperCount}}</p>
                   <p>Администраторов филиалов: {{this.dashBoardInfo?.BranchAdminCount}}</p>
                   <p>Ответственных лиц: {{this.dashBoardInfo?.ResponsibleCount}} </p>
               </mat-card>
@@ -35,22 +26,17 @@ import {first} from 'rxjs/operators';
       </sg-drawer-appbar-base>`,
   styles: [`
       #sg-director-dashboard-container {
-          padding: 2em;
-          display: grid;
+        display: flex;
+        flex-direction: column;
 
-          grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
 
-          grid-template-rows: 1fr 1fr;
-          grid-gap: 1.5em;
+        min-width: 50rem;
+        margin-top: 2rem;
+        margin-right: auto;
+        margin-left: auto;
       }
 
-      #first-chart {
-          grid-column: 2 / 4;
-      }
-
-      #second-chart {
-          grid-column: 1 / 3;
-      }
   `]
 })
 export class BranchDirectorDashboardComponent implements OnInit {
@@ -61,7 +47,7 @@ export class BranchDirectorDashboardComponent implements OnInit {
 
 
   constructor(private service: EmployeeService) {
-    this.dashBoardInfo = service.getDirectorDashboardInfo()
+    this.dashBoardInfo = service.getBranchDirectorDashboardInfo()
       .pipe(first())
       .subscribe(x => this.dashBoardInfo = x);
   }

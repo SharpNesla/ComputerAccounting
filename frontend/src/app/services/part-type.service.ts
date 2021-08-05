@@ -9,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 export class PartTypeService extends EntityServiceBase<PartTypeExtension> {
   constructor(httpClient : HttpClient){
 
-    super(httpClient, "part-type")
+    super(httpClient, "part-type");
   }
 
   protected prepareEntitySave(entity: PartTypeExtension): PartTypeExtension {

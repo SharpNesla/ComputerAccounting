@@ -19,6 +19,7 @@
       true,
       "element",
       "app",
+      "sg",
       "kebab-case"
     ],
     "import-blacklist": [

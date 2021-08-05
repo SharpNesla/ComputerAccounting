@@ -8,6 +8,7 @@ use App\SoftwareType;
 use App\Subsidiary;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -78,6 +79,12 @@ class ComputerController extends CrudControllerBase
         return parent::querySave($object, $model);
     }
 
+    /**
+     * Function returns computer which have all
+     * dependencies installed for requested software.
+     * @param Request $request
+     * @return Builder[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
     function getDependencySatisfying(Request $request)
     {
         $query = $this->queryMany($request, Computer::orderBy('id'));
@@ -105,6 +112,7 @@ class ComputerController extends CrudControllerBase
     }
 
     /**
+     * Computer entity validator
      * @param array $array
      * @return bool Is valid entity
      */
@@ -124,6 +132,11 @@ class ComputerController extends CrudControllerBase
         ])->fails();
     }
 
+    /**
+     * Function returns subsidiary-computer count pairs.
+     * @param Request $request
+     * @return Builder[]|Collection
+     */
     public function getCountBySubsidiary(Request $request)
     {
         return Subsidiary::query()->withCount('computers')->get();

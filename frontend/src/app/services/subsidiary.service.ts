@@ -12,7 +12,9 @@ export class SubsidiaryService extends EntityServiceBase<SubsidiaryExtension> {
   }
 
   protected prepareEntitySave(entity: SubsidiaryExtension): SubsidiaryExtension {
-    entity.DirectorId = entity.Director.Id;
+    if (entity.Director){
+      entity.DirectorId = entity.Director.Id;
+    }
 
     entity.Director = undefined;
     entity.RoomsCount = undefined;

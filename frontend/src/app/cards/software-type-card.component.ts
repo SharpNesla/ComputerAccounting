@@ -1,15 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CardBase} from "./card-base";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {SoftwareTypeExtension} from "../entities/software-type";
-import {SoftwareTypeService} from "../services/software-type.service";
+import {CardBase} from './card-base';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {SoftwareTypeExtension} from '../entities/software-type';
+import {SoftwareTypeService} from '../services/software-type.service';
 
 @Component({
   selector: 'sg-part-type-card',
   template: `
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
-              <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
+              <mat-icon id="sg-editor-icon">developer_board</mat-icon>
               Тип ПО №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
@@ -25,8 +25,11 @@ import {SoftwareTypeService} from "../services/software-type.service";
                   </p>
               </mat-card>
               <mat-card id="right-section">
-                  <h2 class="mat-title">ПО данного типа</h2>
-                  <sg-software-grid isCompact="true"></sg-software-grid>
+                  <h2 class="mat-title">Зависимости</h2>
+
+                  <sg-software-type-grid *ngIf="entity"
+                                         [customDataSource]="entity.Dependencies" isCompact="true"
+                  ></sg-software-type-grid>
               </mat-card>
           </div>
       </sg-dialog-layout>`,
@@ -41,6 +44,4 @@ export class SoftwareTypeCardComponent extends CardBase<SoftwareTypeExtension, S
     @Inject(MAT_DIALOG_DATA) data: { id: number, showEditButton: boolean }) {
     super(dialogRef, service, data);
   }
-
-
 }

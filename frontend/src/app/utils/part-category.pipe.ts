@@ -10,7 +10,7 @@ export class PartCategoryPipe implements PipeTransform {
     const val = value as PartCategory;
     switch (val) {
       case PartCategory.CPU:
-        return "Центральный процессов";
+        return "Центральный процессор";
       case PartCategory.GPU:
         return "Видеокарта";
       case PartCategory.RAM:

@@ -9,7 +9,7 @@ class Room extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['number', 'subsidiary_id', 'comment'];
+    protected $fillable = ['number', 'name', 'subsidiary_id', 'comment'];
 
     public function subsidiary()
     {

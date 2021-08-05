@@ -8,6 +8,7 @@ use App\Software;
 use App\Subsidiary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -25,7 +26,7 @@ class EmployeeController extends CrudControllerBase
      * Login user and create token
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse [string] access_token
+     * @return JsonResponse [string] access_token
      */
     public function login(Request $request)
     {
@@ -63,7 +64,7 @@ class EmployeeController extends CrudControllerBase
      * Logout user (Revoke the token)
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse [string] message
+     * @return JsonResponse [string] message
      */
     public function logout(Request $request)
     {
@@ -77,7 +78,7 @@ class EmployeeController extends CrudControllerBase
      * Get the authenticated User
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse [json] user object
+     * @return JsonResponse [json] user object
      */
     public function user(Request $request)
     {
@@ -135,6 +136,11 @@ class EmployeeController extends CrudControllerBase
         return $builder;
     }
 
+    /**
+     * Get full tree of employees,
+     * @param Request $request
+     * @return false|string
+     */
     public function getTree(Request $request)
     {
         $employees = $this
@@ -197,6 +203,20 @@ class EmployeeController extends CrudControllerBase
             'responsible-count' => User::query()->where('role', 4)->count(),
             'storekeeper-count' => User::query()->where('role', 5)->count(),
             'admin-count' => User::query()->where('role', 2)->count(),
+            'branch-admin-count' => User::query()->where('role', 3)->count()
+        ];
+    }
+
+    public function getBranchDirectorDashboardInfo()
+    {
+        return [
+            'computers-count' => Computer::query()->count(),
+            'software-count' => Software::query()->count(),
+            'licenses-count' => License::query()->count(),
+
+            'employees-count' => User::query()->count(),
+            'responsible-count' => User::query()->where('role', 4)->count(),
+            'storekeeper-count' => User::query()->where('role', 5)->count(),
             'branch-admin-count' => User::query()->where('role', 3)->count()
         ];
     }

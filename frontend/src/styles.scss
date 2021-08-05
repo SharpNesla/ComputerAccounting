@@ -90,6 +90,7 @@ main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow-x: hidden;
 }
 
 mat-checkbox {
@@ -117,8 +118,8 @@ mat-divider {
 }
 
 .sg-table-compact {
-  margin: 1em;
-  width: calc(100% - 2em);
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
 .mat-dialog-container .dark-theme {
@@ -127,15 +128,29 @@ mat-divider {
 
 .mat-dialog-container {
   padding: 0 !important;
+  overflow: hidden !important;
   @extend .mat-app-background;
+}
+
+.mat-drawer-inner-container{
+  overflow: hidden !important;
 }
 
 .mat-cell, .mat-footer-cell, .mat-header-cell {
   border-bottom-width: 2px !important;
 }
 
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type.mat-column-remove_button{
+  width: 48px;
+  padding-left: 0.5rem;
+}
+
 .sg-table-action-button-container {
   width: 130px;
+}
+
+.sg-table-info-button-container {
+  width: 10px;
 }
 
 .sg-table-action-button-container-compact {
@@ -150,6 +165,7 @@ mat-divider {
   margin-top: 1.5em;
   margin-right: 1.5em;
   margin-left: 1.5em;
+  margin-bottom: 2px;
   padding: 0.5em;
 }
 
@@ -223,16 +239,6 @@ mat-divider {
   padding: 0.5em;
 }
 
-.sg-many-many-card {
-  flex-direction: column;
-}
-
-.sg-many-many-card-searchbar {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
-
 .sg-treetable-selection{
   background: transparent;
 }
@@ -246,8 +252,20 @@ th .mat-header-cell .db-tree-view {
 }
 
 .fa-caret-down:after {
-  property: "#";
+  content: "◢";
+  font-style: normal;
 }
+
+.fa-caret-right:after{
+  content:'▶';
+
+  font-style: normal;
+}
+
+.mat-form-field textarea {
+  height: 100%;
+}
+
 .db-tree-view {
   margin: 2em;
   width: calc(100% - 4em) !important;
@@ -288,16 +306,18 @@ th .mat-header-cell .db-tree-view {
 
 }
 
-#sg-about-container{
-  display: flex; flex-direction: column; align-items: center;
+#sg-about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 2em;
   flex-grow: 1;
-background: url("assets/LoginBackgroundLight.png") center;
   background-size: cover;
 }
 
 .sg-card-comment-box{
   max-height: 120px;
+  max-width: 30rem;
   overflow: auto;
 }
 .sg-grid-subtotals-container{
@@ -312,4 +332,16 @@ background: url("assets/LoginBackgroundLight.png") center;
 
 .sg-grid-chart-container{
   overflow: auto;
+}
+
+.mat-form-field.stretch-height,
+.mat-form-field.stretch-height .mat-form-field-flex,
+.mat-form-field.stretch-height textarea {
+  height: calc(100% - 1.34375em);
+}
+.mat-form-field.stretch-height .mat-form-field-wrapper {
+  height: calc(100%);
+}
+.mat-form-field.stretch-height .mat-form-field-infix {
+  height: calc(100% - 1.34375em - 2px);
 }

@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
-import {EditorBase} from "./editor-base";
-import {SubsidiaryService} from "../services/subsidiary.service";
-import {SubsidiaryExtension} from "../entities/subsidiary";
-import {MatDialog} from "@angular/material/dialog";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {EditorBase} from './editor-base';
+import {SubsidiaryService} from '../services/subsidiary.service';
+import {SubsidiaryExtension} from '../entities/subsidiary';
+import {MatDialog} from '@angular/material/dialog';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Roles} from '../entities/employee';
 
 @Component({
@@ -31,7 +31,7 @@ import {Roles} from '../entities/employee';
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="outline" class="stretch-height">
                       <mat-label>Комментарий</mat-label>
                       <input [(ngModel)]="entity.Comment" matInput placeholder="Комментарий">
                   </mat-form-field>
@@ -43,7 +43,7 @@ import {Roles} from '../entities/employee';
 export class SubsidiaryEditorComponent extends EditorBase<SubsidiaryExtension, SubsidiaryService> {
   branchDirectorFilter = {Role: Roles.BranchDirector};
   constructor(private service: SubsidiaryService, route: ActivatedRoute,
-              dialog : MatDialog, router : Router,) {
-    super(service, route, dialog, new SubsidiaryExtension(), router, "subsidiaries");
+              dialog: MatDialog, router: Router, ) {
+    super(service, route, dialog, new SubsidiaryExtension(), router, 'subsidiaries');
   }
 }

@@ -103,7 +103,7 @@ export abstract class EntityGridBase<TEntity extends EntityBase,
 
   ngOnInit(): void {
     this.currentOffset = 0;
-    this.currentLimit = 10;
+    this.currentLimit = 5;
     this.refresh();
   }
 

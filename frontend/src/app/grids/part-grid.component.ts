@@ -14,8 +14,6 @@ import {SubsidiaryExtension} from '../entities/subsidiary';
 import {DateSlice} from '../analytics/chartable-by-date';
 
 class PartFilter {
-  State: PartState;
-
   Computer: ComputerExtension;
   ComputerId: number;
 
@@ -24,6 +22,8 @@ class PartFilter {
 
   PartType: PartTypeExtension;
   PartTypeId: number;
+
+  IsValid: boolean;
 }
 
 
@@ -106,14 +106,14 @@ class PartFilter {
               </table>
               <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
                   <div *ngIf="visibilities.LeadDirectorsAndAdmins | async" class="sg-search-drawer-ruleset">
-                      <mat-checkbox [(ngModel)]="filterApplies.ByPartType">По филиалу</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="filterApplies.BySubsidiary">По филиалу</mat-checkbox>
                       <sg-subsidiary-search hint="Филилал"
-                                            [disabled]="!filterApplies.ByPartType"></sg-subsidiary-search>
+                                            [disabled]="!filterApplies.BySubsidiary"></sg-subsidiary-search>
                   </div>
                   <div class="sg-search-drawer-ruleset">
-                      <mat-checkbox [(ngModel)]="filterApplies.ByPartType">По компьютеру</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="filterApplies.ByComputer">По компьютеру</mat-checkbox>
                       <sg-computer-search hint="Компьютер"
-                                          [disabled]="!filterApplies.ByPartType"></sg-computer-search>
+                                          [disabled]="!filterApplies.ByComputer"></sg-computer-search>
                   </div>
                   <div class="sg-search-drawer-ruleset">
                       <mat-checkbox [(ngModel)]="filterApplies.ByPartType">По типу</mat-checkbox>
@@ -229,8 +229,7 @@ export class PartGridComponent extends EntityGridBase<PartExtension, PartService
   filterApplies = {
     BySubsidiary: false,
     ByComputer: false,
-    ByPartType: false,
-    ByState: false
+    ByPartType: false
   };
 
   @Input() onlyStored: boolean;
@@ -259,13 +258,10 @@ export class PartGridComponent extends EntityGridBase<PartExtension, PartService
       filter.PartTypeId = this.filter.PartType.Id;
     }
     if (this.onlyBroken) {
-      filter.State = PartState.Broken;
+      filter.IsValid = false;
     }
     if (this.onlyStored) {
-      filter.State = PartState.InStore;
-    } else if (this.filterApplies.ByState) {
-      filter.State = this.filter.State;
-
+      filter.Computer = null;
     }
 
     return filter;

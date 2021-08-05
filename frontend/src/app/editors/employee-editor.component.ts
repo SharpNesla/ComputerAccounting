@@ -17,27 +17,27 @@ import {MatDialog} from '@angular/material/dialog';
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
 
-                  <sg-employee-search *ngIf="!isFirst()"
+                  <sg-employee-search *ngIf="!isFirst()" required
                                       hint="Непосредственный руководитель"
                                       [(ngModel)]="entity.Superior"></sg-employee-search>
                   <sg-subsidiary-search hint="Филиал"
                                         [(ngModel)]="entity.Subsidiary"></sg-subsidiary-search>
 
                   <mat-form-field>
-                      <input matInput placeholder="Имя"
+                      <input matInput placeholder="Имя" required
                              [(ngModel)]="this.entity.Name">
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput placeholder="Фамилия"
+                      <input matInput placeholder="Фамилия" required
                              [(ngModel)]="this.entity.Surname">
                   </mat-form-field>
                   <mat-form-field>
-                      <input matInput placeholder="Отчество"
+                      <input matInput placeholder="Отчество" required
                              [(ngModel)]="this.entity.Patronymic">
                   </mat-form-field>
 
                   <label>Пол:</label>
-                  <mat-radio-group
+                  <mat-radio-group required
                           class="sg-vertical-radio-group"
                           aria-label="Выберите пол" [(ngModel)]="this.entity.Gender">
                       <mat-radio-button
@@ -48,12 +48,12 @@ import {MatDialog} from '@angular/material/dialog';
                   </mat-radio-group>
 
                   <mat-form-field>
-                      <input matInput placeholder="Серия и номер паспорта"
+                      <input matInput placeholder="Серия и номер паспорта" required
                              [(ngModel)]="this.entity.PassportSerial">
                   </mat-form-field>
 
                   <mat-form-field>
-                      <input matInput placeholder="Адрес"
+                      <input matInput placeholder="Адрес" required
                              [(ngModel)]="this.entity.Address">
                   </mat-form-field>
               </mat-card>
@@ -62,7 +62,7 @@ import {MatDialog} from '@angular/material/dialog';
                   <h2 class="mat-title">Комментарий</h2>
                   <mat-form-field>
                       <mat-select [disabled]="isFirst()"
-                                  placeholder="Должность"
+                                  placeholder="Должность" required
                                   [(ngModel)]="entity.Role">
                           <mat-option *ngFor="let role of roles" [value]="role.value">
                               {{role.value | role}}
@@ -71,7 +71,7 @@ import {MatDialog} from '@angular/material/dialog';
                   </mat-form-field>
 
                   <mat-form-field>
-                      <input matInput placeholder="Имя пользователя"
+                      <input matInput placeholder="Имя пользователя" required
                              [(ngModel)]="this.entity.Username">
                   </mat-form-field>
 
@@ -87,7 +87,7 @@ import {MatDialog} from '@angular/material/dialog';
                              [(ngModel)]="this.passwordRepeat" type="password">
                   </mat-form-field>
 
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="outline" class="stretch-height">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.entity.Comment"></textarea>

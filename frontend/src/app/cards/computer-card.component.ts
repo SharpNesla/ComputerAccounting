@@ -3,7 +3,7 @@ import {CardBase} from './card-base';
 import {ComputerExtension} from '../entities/computer';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ComputerService} from '../services/computer.service';
-import {EmployeeExtension} from '../entities/employee';
+import {Employee, EmployeeExtension} from '../entities/employee';
 import {CardService} from './card.service';
 import {EmployeeCardComponent} from './employee-card.component';
 import {RoomExtension} from '../entities/room';
@@ -44,7 +44,7 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
                                   {{entity.Room.Number}}
                               </a>
                           </p>
-                          
+
                           <p class="mat-body" *ngIf="entity?.Responsible">
                               <a (click)="showEmployeeCard(entity?.Responsible)">Ответственное лицо:
                                   <br>
@@ -102,7 +102,7 @@ export class ComputerCardComponent extends CardBase<ComputerExtension, ComputerS
     super(dialogRef, service, data);
   }
 
-  showEmployeeCard(employee: EmployeeExtension) {
+  showEmployeeCard(employee: Employee) {
     this.cardService.showInfoCard(employee, EmployeeCardComponent);
   }
 

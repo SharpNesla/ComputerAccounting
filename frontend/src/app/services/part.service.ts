@@ -35,7 +35,6 @@ export class PartService extends PackEntityService<PartExtension> implements Cou
 
     entity.PartTypeId = entity.PartType.Id;
 
-    entity.ComputerId = undefined;
     entity.Computer = undefined;
     entity.PartType = undefined;
     entity.Subsidiary = undefined;
@@ -44,6 +43,18 @@ export class PartService extends PackEntityService<PartExtension> implements Cou
   }
 
   protected prepareEntitySave(entity: PartExtension): PartExtension {
+    entity.PartTypeId = entity.PartType.Id;
+
+    if (entity.Subsidiary) {
+      entity.SubsidiaryId = entity.Subsidiary.Id;
+      entity.ComputerId = null;
+    }
+
+    if (entity.Computer) {
+      entity.ComputerId = entity.Computer.Id;
+      entity.Subsidiary = null;
+    }
+
     entity.PartTypeId = entity.PartType.Id;
 
     entity.Computer = undefined;
@@ -62,7 +73,7 @@ export class PartService extends PackEntityService<PartExtension> implements Cou
   }
 
   getChartRes(dateSlice: DateSlice, chartDateField: string, filterDefinition: object): Observable<PartChartResult[]> {
-    const params = new HttpParams().set('date-slice',dateSlice.toString());
+    const params = new HttpParams().set('date-slice', dateSlice.toString());
 
     return this.client.get<any[]>(`/api/${this.entityPrefix}/get-count-by-date`, {params})
       .pipe(map(x => {

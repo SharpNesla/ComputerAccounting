@@ -58,6 +58,8 @@ export const keysToSnake = function(o) {
   return o;
 };
 
+
+//Base generic class for working with entities from backend
 export abstract class EntityServiceBase<TEntity extends EntityBase> {
   protected constructor(protected client: HttpClient,
                         protected entityPrefix: string) {
@@ -150,6 +152,7 @@ export abstract class EntityServiceBase<TEntity extends EntityBase> {
   }
 }
 
+//Base generic class extension for pack add entities feature
 export abstract class PackEntityService<T extends EntityBase> extends EntityServiceBase<T> {
   protected constructor(client: HttpClient,
                         entityPrefix: string) {

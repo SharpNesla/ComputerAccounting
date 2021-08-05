@@ -12,7 +12,7 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
   template: `
       <sg-dialog-layout (accept)="onClick()" acceptOnly="true">
           <header>
-              <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
+              <mat-icon id="sg-editor-icon">account_circle</mat-icon>
               Работник №{{entity?.Id}}
           </header>
           <div id="sg-editor-card-container">
@@ -48,7 +48,6 @@ import {SubsidiaryCardComponent} from './subsidiary-card.component';
                           {{entity?.Subsidiary.Address}}
                       </a>
                   </p>
-                  
                   <p class="mat-body" *ngIf="!entity?.Subsidiary">Филиал: не задан</p>
               </mat-card>
               <mat-card id="right-section">

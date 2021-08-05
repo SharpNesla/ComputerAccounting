@@ -5,42 +5,88 @@ namespace App\Http\Controllers;
 
 use App\FulltextBuilder;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
+/**
+ CrudControllerBase is a class that provides
+ basic CRUD functionality to child controllers.
+ */
 class CrudControllerBase extends Controller
 {
+    /**
+     * Protected variable stores Laravel
+     * Eloquent model's facade instance.
+     * @var
+     */
     protected $facade;
+    /**
+     * @var FulltextBuilder
+     */
     protected $fulltextBuilder;
 
+
+    /**
+     * CrudControllerBase constructor.
+     * @param $f
+     * @param string[] $s
+     */
     function __construct($f, $s = ['id'])
     {
         $this->facade = $f;
         $this->fulltextBuilder = new FulltextBuilder($s);
     }
 
-
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getById($id)
     {
         return $this->facade::findOrFail($id);
     }
 
+    /**
+     * @param Request $request
+     * @param Builder $builder
+     * @return Builder
+     */
     protected function queryMany(Request $request, Builder $builder): Builder
     {
         return $builder;
     }
 
+    /**
+     * @param array $filter
+     * @param Builder $builder
+     * @return Builder
+     */
     protected function applyFilters(array $filter, Builder $builder): Builder
     {
         return $builder;
     }
 
+    /**
+     * @param array $object
+     * @param Model $model
+     * @return Model
+     */
     protected function querySave(Array $object, Model $model): Model
     {
         return $model;
     }
 
+    /**
+     * Function to validate sort order string.
+     * @param $sortOrder
+     * @return bool
+     */
     private function validateSortOrder($sortOrder)
     {
         return $sortOrder != null && ($sortOrder == 'asc' ||
@@ -48,6 +94,10 @@ class CrudControllerBase extends Controller
             $sortOrder == "");
     }
 
+    /**
+     * @param Request $request
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|JsonResponse|Collection
+     */
     public function get(Request $request)
     {
         $sortOrder = $request->input('sort-order');
@@ -90,6 +140,11 @@ class CrudControllerBase extends Controller
         return $queryResult;
     }
 
+    /**
+     * Get count of entities by filter and search string.
+     * @param Request $request
+     * @return int
+     */
     public function getCount(Request $request)
     {
         $query = $this->facade::orderBy('id');
@@ -109,16 +164,31 @@ class CrudControllerBase extends Controller
         return $query->count();
     }
 
+    /**
+     * Virtual function to validate entity.
+     * @param array $array
+     * @return bool
+     */
     protected function validateEntity(array $array): bool
     {
         return true;
     }
 
+    /**
+     * Virtual function to validate filters
+     * @param array $filterA
+     * @return bool
+     */
     protected function validateFilters(array $filterA): bool
     {
         return true;
     }
 
+    /**
+     * Update entity request handler.
+     * @param Request $request
+     * @return Application|ResponseFactory|Response
+     */
     public function update(Request $request)
     {
         $decodedAsArray = json_decode($request->getContent(), true);
@@ -132,8 +202,14 @@ class CrudControllerBase extends Controller
         $model->fill($decodedAsArray);
         $model = $this->querySave($decodedAsArray, $model);
         $model->save();
+        return response("", 200);
     }
 
+    /**
+     * Add entity request handler.
+     * @param Request $request
+     * @return Application|ResponseFactory|Response
+     */
     public function add(Request $request)
     {
         $decodedAsArray = json_decode($request->getContent(), true);
@@ -147,8 +223,14 @@ class CrudControllerBase extends Controller
         $model = $this->facade::create($decodedAsArray);
         $model = $this->querySave($decodedAsArray, $model);
         $model->save();
+
+        return response($model->id, 200);
     }
 
+    /**
+     * Soft remove entity from application.
+     * @param $id
+     */
     public function remove($id)
     {
         $model = $this->facade::destroy($id);

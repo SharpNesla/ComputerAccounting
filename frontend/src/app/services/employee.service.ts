@@ -41,4 +41,9 @@ export class EmployeeService extends EntityServiceBase<EmployeeExtension> {
     return this.httpClient.get('/api/auth/director-dashboard-info')
       .pipe(map(x => keysToCamel(x)));
   }
+
+  public getBranchDirectorDashboardInfo() {
+    return this.httpClient.get('/api/auth/branch-director-dashboard-info')
+      .pipe(map(x => keysToCamel(x)));
+  }
 }

@@ -1,13 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NavigationService} from "../navigation.service";
-import {element} from "protractor";
 
 @Component({
   selector: 'sg-grid-bottom-bar',
   template: `
       <ng-template *ngIf="this.isCompact;then compactview; else fullview">
       </ng-template>
-      
+
       <ng-template #fullview>
           <mat-toolbar id="search-toolbar" color="primary" class="mat-elevation-z4">
               <mat-icon>{{this.icon}}</mat-icon>
@@ -87,7 +85,6 @@ import {element} from "protractor";
       #search-toolbar {
           display: flex;
           font-size: 1em;
-          margin-bottom: 2px;
       }
 
       #search-input {
@@ -128,7 +125,7 @@ import {element} from "protractor";
 })
 export class BottomBarComponent implements OnInit {
   @Input('entity-name') EntityName: string;
-  @Input() isCompact: boolean = false;
+  @Input() isCompact = false;
   @Input('router-link') link: string;
   @Input('add-visibility') addVisibility: boolean = true;
   @Input('count') set Count(value) {
@@ -158,7 +155,7 @@ export class BottomBarComponent implements OnInit {
   IsBackEnabled: boolean = false;
   SearchString: string;
   private currentPage: number;
-  public elementsPerPage: number = 10;
+  public elementsPerPage: number;
 
   public set CurrentPage(value) {
     this.currentPage = value;
@@ -207,6 +204,7 @@ export class BottomBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.elementsPerPage = 5;
     this.currentPage = 1;
     this.CheckButtons();
   }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NavigationService} from "../navigation.service";
+import {NavigationService} from '../navigation.service';
 
 @Component({
   selector: 'sg-drawer-button',
@@ -21,7 +21,6 @@ import {NavigationService} from "../navigation.service";
     }
     button{
         width: 100%;
-        
     }
   `]
 })

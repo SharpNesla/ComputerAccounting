@@ -10,22 +10,21 @@ import {MatDialogRef} from '@angular/material/dialog';
   <!--  </div>-->
 
   <sg-dialog-layout (accept)="apply()" acceptOnly="true" (deny)="deny()">
-      <header>
-          <mat-icon>warning</mat-icon>
-          Ошибка
-      </header>
-      <mat-card id="sg-entity-not-fount-content-card">
-          <p>
-              Запрашиваемая сущность не найдена.<br>
-              Вы будете перенаправлены в справочник вида запрашиваемой сущности.<br>
-              
-          </p>
-      </mat-card>
+    <header>
+      <mat-icon>warning</mat-icon>
+      Ошибка
+    </header>
+    <mat-card id="sg-entity-not-fount-content-card">
+      <p>
+        Запрашиваемая сущность не найдена.<br>
+        Вы будете перенаправлены в справочник вида запрашиваемой сущности.<br>
+      </p>
+    </mat-card>
   </sg-dialog-layout>`,
   styles: [`#sg-entity-not-fount-content-card {
-      margin-top: 1.5em;
-      margin-right: 1.5em;
-      margin-left: 1.5em;
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+    margin-left: 1.5em;
   }`]
 })
 export class EntityNotFoundDialogComponent implements OnInit {

@@ -1,4 +1,6 @@
 import {EntityBase} from "./entity-base";
+import {LicenseExtension} from "./license";
+import {SoftwareExtension} from "./software";
 
 export enum SoftwareCategory {
   Program,
@@ -14,5 +16,6 @@ export class SoftwareType extends EntityBase{
 
 export class SoftwareTypeExtension extends SoftwareType {
   SoftwareCount: number;
-  Dependencies : SoftwareTypeExtension[] = [];
+  Dependencies: SoftwareTypeExtension[] = [];
+  Software: SoftwareExtension[] = [];
 }

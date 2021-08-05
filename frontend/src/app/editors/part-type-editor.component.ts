@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {EditorBase} from './editor-base';
-import {PartExtension} from '../entities/part';
-import {PartService} from '../services/part.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PartCategory, PartTypeExtension} from '../entities/part-type';
 import {PartTypeService} from '../services/part-type.service';
@@ -27,7 +25,7 @@ import {MatDialog} from '@angular/material/dialog';
                              [(ngModel)]="entity.Cost" placeholder="Цена">
                   </mat-form-field>
 
-                  <sg-software-type-search hint="Драйвер"
+                  <sg-software-type-search hint="Драйвер" required
                                            [(ngModel)]="entity.Driver"></sg-software-type-search>
 
                   <mat-form-field>
@@ -40,12 +38,12 @@ import {MatDialog} from '@angular/material/dialog';
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Характеристики и комментарий</h2>
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="outline" class="stretch-height">
                       <mat-label>Характеристики</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Характеристики"
                                 [(ngModel)]="this.entity.Characteristics"></textarea>
                   </mat-form-field>
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="outline" class="stretch-height">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.entity.Comment"></textarea>

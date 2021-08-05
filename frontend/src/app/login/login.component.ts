@@ -10,7 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
       <main>
           <mat-card id="login-panel" class="mat-elevation-z4">
               <mat-toolbar id="login-header" color="primary">
-                  Окна и фурнитура «Сибирские врата»
+                  Управление компьютерным парком
               </mat-toolbar>
               <form [formGroup]="form">
                   <div id="login-panel-content">
@@ -34,30 +34,30 @@ import {MatSnackBar} from '@angular/material/snack-bar';
           </mat-card>
       </main>`,
   styles: [`
-      main {
-          width: 100vw;
-          height: 100vh;
-          background: url("../../assets/LoginBackgroundLight.png") center;
-          background-size: cover;
-          display: flex;
-      }
+    main {
+      width: 100vw;
+      height: 100vh;
+      /*background: url("../../assets/LoginBackgroundLight.png") center;*/
+      /*background-size: cover;*/
+      /*display: flex;*/
+    }
 
-      #login-panel {
-          flex-direction: column;
-          margin: auto;
-          width: 500px;
-          padding: 0;
-      }
+    #login-panel {
+      flex-direction: column;
+      margin: auto;
+      width: 500px;
+      padding: 0;
+    }
 
-      #login-panel-content {
-          padding: 16px;
-          display: flex;
-          flex-direction: column;
-      }
+    #login-panel-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
 
-      #login-header {
-          border-radius: 4px 4px 0px 0px;
-      }
+    #login-header {
+      border-radius: 4px 4px 0 0;
+    }
   `]
 })
 export class LoginComponent implements OnInit {

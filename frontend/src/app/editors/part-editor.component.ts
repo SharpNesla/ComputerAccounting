@@ -4,13 +4,14 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {PartExtension, PartState} from "../entities/part";
 import {PartService} from "../services/part.service";
 import {MatDialog} from "@angular/material/dialog";
+import {VisibilitiesService} from '../login/visibilities.service';
 
 @Component({
   selector: 'sg-part-editor',
   template: `
       <sg-dialog-layout (accept)="applyChanges()" (deny)="discardChanges()">
           <header>
-              <mat-icon id="sg-editor-icon">desktop_mac</mat-icon>
+              <mat-icon id="sg-editor-icon">memory</mat-icon>
               {{isNew ? 'Добавление' : 'Изменение'}}
               комплектующего {{!isNew ? '№' + this.entity.Id : ''}}</header>
           <div id="sg-editor-card-container">
@@ -19,12 +20,13 @@ import {MatDialog} from "@angular/material/dialog";
                   <sg-part-type-search [(ngModel)]="entity.PartType"
                                        hint="Тип комплектующего" required></sg-part-type-search>
 
-                  <mat-checkbox [(ngModel)]="isInstalled">Установлено в компьютер</mat-checkbox>
-                  <mat-checkbox [(ngModel)]="entity.IsValid" *ngIf="isPackAdd || !isInstalled">В рабочем состоянии</mat-checkbox>
-                  
+                  <mat-checkbox *ngIf="visibilities.AllDirectorsAndAdmins | async"
+                                [(ngModel)]="isInstalled">Установлено в компьютер</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="entity.IsValid">В рабочем состоянии</mat-checkbox>
+
                   <sg-subsidiary-search [(ngModel)]="entity.Subsidiary"
                                         *ngIf="isPackAdd || !isInstalled" hint="Филиал"></sg-subsidiary-search>
-                  
+
                   <sg-computer-search [(ngModel)]="entity.Computer"
                                       *ngIf="!isPackAdd && isInstalled" hint="Компьютер"></sg-computer-search>
 
@@ -36,7 +38,7 @@ import {MatDialog} from "@angular/material/dialog";
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="outline" class="stretch-height">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.entity.Comment"></textarea>
@@ -57,6 +59,7 @@ export class PartEditorComponent extends PackEditorBase<PartExtension, PartServi
   isInstalled : boolean;
 
   constructor(private service: PartService, route: ActivatedRoute,
+              public visibilities : VisibilitiesService,
               router: Router, dialog: MatDialog) {
     super(service, route, router, dialog, new PartExtension(), "parts");
   }

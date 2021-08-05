@@ -16,7 +16,7 @@ import {MatDialog} from '@angular/material/dialog';
           <div id="sg-editor-card-container">
               <mat-card id="left-section">
                   <h2 class="mat-title">Общая информация</h2>
-                  <sg-software-type-search hint="Тип ПО" [(ngModel)]="entity.SoftwareType">
+                  <sg-software-type-search hint="Тип ПО" [(ngModel)]="entity.SoftwareType" required>
                   </sg-software-type-search>
                   <sg-computer-search [disabled]="!entity.SoftwareType"
                                       *ngIf="!isPackAdd" hint="Компьютер" [dependentType]="entity.SoftwareType"
@@ -35,7 +35,7 @@ import {MatDialog} from '@angular/material/dialog';
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
-                  <mat-form-field appearance="outline" class="flex-spacer">
+                  <mat-form-field appearance="outline" class="stretch-height" >
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.entity.Comment"></textarea>

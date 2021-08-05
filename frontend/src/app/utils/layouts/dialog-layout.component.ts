@@ -26,6 +26,7 @@ import {Location} from '@angular/common';
           padding: 1.5em;
           display: flex;
           width: calc(100% - 2.6rem);
+          flex-direction: row;
       }
 
       #discard-button {

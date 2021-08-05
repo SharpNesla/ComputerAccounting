@@ -76,7 +76,7 @@ export class EmployeeFilter {
                               *ngIf="!isCompact" (click)="remove(element)">
                           <mat-icon>delete</mat-icon>
                       </button>
-                      <button mat-icon-button *ngIf="!isCompact" 
+                      <button mat-icon-button *ngIf="!isCompact"
                               [routerLink]="'/employees/edit/' + element.Id">
                           <mat-icon>edit</mat-icon>
                       </button>
@@ -92,7 +92,7 @@ export class EmployeeFilter {
           </table>
           <div class="sg-search-drawer mat-elevation-z4" [class.sg-search-drawer-active]="filterState">
               <div class="sg-search-drawer-ruleset">
-                  <mat-checkbox [(ngModel)]="filterApplies.ByUsingComputersCount">По количеству работников
+                  <mat-checkbox [(ngModel)]="filterApplies.ByUsingComputersCount">Пользователь компьютеров
                   </mat-checkbox>
                   <mat-form-field>
                       <input [disabled]="!filterApplies.ByUsingComputersCount" matInput
@@ -123,7 +123,7 @@ export class EmployeeFilter {
               </div>
           </div>
       </div>
-      
+
       <sg-grid-bottom-bar router-link="/employees/add"
                           icon="account_circle"
                           [count]="this.count"

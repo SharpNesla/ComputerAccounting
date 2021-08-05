@@ -17,6 +17,7 @@ class CreateRoomsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
 
+            $table->text('name')->nullable();
             $table->bigInteger('subsidiary_id')->unsigned()->nullable();
             $table->foreign('subsidiary_id')
                 ->references('id')->on('subsidiaries')->onDelete('cascade');

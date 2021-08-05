@@ -8,6 +8,7 @@ use App\PartType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -35,6 +36,11 @@ class LicenseController extends PackControllerBase
             ->withCount('software');
     }
 
+    /**
+     * Get applicable.
+     * @param Request $request
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|Collection
+     */
     public function getApplicable(Request $request)
     {
         $query = $this->queryMany($request, License::orderBy('id'))
@@ -142,6 +148,11 @@ class LicenseController extends PackControllerBase
         return $builder;
     }
 
+    /**
+     * Function returns date-license count pairs.
+     * @param Request $request
+     * @return array
+     */
     public function getCountByDate(Request $request)
     {
         $query = License::query();
@@ -160,7 +171,7 @@ class LicenseController extends PackControllerBase
                 break;
             case 2:
                 $query = $query
-                    ->selectRaw("count(*) as count, SUM(cost) as sum_cost, 
+                    ->selectRaw("count(*) as count, SUM(cost) as sum_cost,
                     date_trunc('month', purchased_at) AS date");
                 break;
             case 3:

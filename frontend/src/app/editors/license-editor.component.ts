@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {LicenseService} from "../services/license.service";
-import {LicenseExtension} from "../entities/license";
-import {EditorBase, PackEditorBase} from "./editor-base";
-import {Location} from "@angular/common";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
+import {Component} from '@angular/core';
+import {LicenseService} from '../services/license.service';
+import {LicenseExtension} from '../entities/license';
+import {PackEditorBase} from './editor-base';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'sg-computer-editor',
@@ -51,12 +50,12 @@ import {MatDialog} from "@angular/material/dialog";
               </mat-card>
               <mat-card id="right-section">
                   <h2 class="mat-title">Комментарий</h2>
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="outline" class="stretch-height">
                       <mat-label>Текст лицензии</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Текст лицензии"
                                 [(ngModel)]="this.entity.Eula" required></textarea>
                   </mat-form-field>
-                  <mat-form-field appearance="outline" class="flex-spacer">
+                  <mat-form-field appearance="outline" class="stretch-height">
                       <mat-label>Комментарий</mat-label>
                       <textarea matInput cdkTextareaAutosize="false" placeholder="Комментарий"
                                 [(ngModel)]="this.entity.Comment"></textarea>
@@ -69,6 +68,6 @@ import {MatDialog} from "@angular/material/dialog";
 export class LicenseEditorComponent extends PackEditorBase<LicenseExtension, LicenseService> {
   constructor(private service: LicenseService, route: ActivatedRoute,
               router: Router, dialog: MatDialog) {
-    super(service, route, router, dialog, new LicenseExtension(), "licenses");
+    super(service, route, router, dialog, new LicenseExtension(), 'licenses');
   }
 }

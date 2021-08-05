@@ -49,7 +49,7 @@ import {DateSlice} from './chartable-by-date';
   styles: [`
       #analytics-params-bar {
           display: flex;
-          font-size: 1em;    
+          font-size: 1em;
       }
 
       .select-input {
@@ -67,10 +67,8 @@ import {DateSlice} from './chartable-by-date';
   `]
 })
 export class AnalyticsComponent implements OnInit {
-  ngOnInit(): void {
-  }
 
-  entityKind: number = 0;
+  entityKind = 0;
   dateSlice: DateSlice = DateSlice.Month;
   partCriteria = 0;
 
@@ -92,4 +90,6 @@ export class AnalyticsComponent implements OnInit {
     {label: 'По типу', value: 1},
     {label: 'По филиалу', value: 2},
   ];
+  ngOnInit(): void {
+  }
 }

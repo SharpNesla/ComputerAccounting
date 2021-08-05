@@ -11,7 +11,7 @@ import {SoftwareService} from "../services/software.service";
   template: `
       <mat-form-field class="sg-search">
           <mat-label>{{hint}}</mat-label>
-          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity">
+          <mat-select [disabled]="disabled" [(value)]="this.selectedEntity" [required]="required">
               <button (click)="search()" mat-icon-button>
                   <mat-icon>search</mat-icon>
               </button>
@@ -24,7 +24,7 @@ import {SoftwareService} from "../services/software.service";
               </mat-form-field>
               <mat-option [value]="null">Не задано</mat-option>
               <mat-option *ngFor="let entity of entities" [value]="entity">
-                  {{entity?.Id}} {{entity?.Category | softwareCategory}} {{entity?.Typename}} 
+                  {{entity?.Id}} {{entity?.Category | softwareCategory}} {{entity?.Typename}}
               </mat-option>
           </mat-select>
       </mat-form-field>`,

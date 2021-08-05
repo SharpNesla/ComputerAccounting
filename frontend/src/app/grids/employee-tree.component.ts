@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {EmployeeService} from '../services/employee.service';
-import {EmployeeExtension} from '../entities/employee';
+import {Employee, EmployeeExtension} from '../entities/employee';
 import {EntityGridBase} from './entity-grid-base';
 import {MatDialog} from '@angular/material/dialog';
 import {EmployeeCardComponent} from '../cards/employee-card.component';
@@ -11,17 +11,18 @@ import {DefaultEditor} from 'angular-tree-grid';
 import {ComputerExtension} from '../entities/computer';
 import {DeleteDialogComponent} from '../delete-dialog.component';
 import {ComputerService} from '../services/computer.service';
+import {CardService} from '../cards/card.service';
 
 @Component({
   selector: 'app-custom-editor',
   template: `
-      <button mat-icon-button [routerLink]="'/employees/edit/' + cell_value">
-          <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button
-              (click)="showInfoCard()">
-          <mat-icon class="sg-table-info-button">error_outline</mat-icon>
-      </button>
+    <button mat-icon-button [routerLink]="'/employees/edit/' + cell_value">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button
+            (click)="showInfoCard()">
+      <mat-icon class="sg-table-info-button">error_outline</mat-icon>
+    </button>
   `
 })
 export class EmployeeEditCellComponent {
@@ -31,30 +32,36 @@ export class EmployeeEditCellComponent {
   @Input()
   cell_value: string;
 
-  constructor(computers: EmployeeService, private dialog: MatDialog) {
+  constructor(computers: EmployeeService, private cardService: CardService, private dialog: MatDialog) {
 
   }
 
   showInfoCard() {
-    const dialogRef = this.dialog.open(EmployeeCardComponent, {
-      data: this.cell_value,
-      minWidth: '900px'
-    });
+    const employee = new Employee();
+    employee.Id = Number.parseInt(this.cell_value);
+    this.cardService.showInfoCard(employee, EmployeeCardComponent);
   }
 }
 
 @Component({
   selector: 'sg-employee-tree',
   template: `
-      <ng-container *ngIf="!!data2">
-          <button mat-button (click)="collapseAll(angularGrid)">Свернуть все</button>
-          <button mat-button (click)="expandAll(angularGrid)">Развернуть все</button>
-          <db-angular-tree-grid #angularGrid [data]="data2" [configs]="configs2"
-                                class="sg-employee-treetable"></db-angular-tree-grid>
-      </ng-container>
+    <ng-container *ngIf="!!data2">
+      <div id="sg-employee-tree-buttons-container">
+        <button mat-button (click)="collapseAll(angularGrid)">Свернуть все</button>
+        <button mat-button (click)="expandAll(angularGrid)">Развернуть все</button>
+      </div>
+
+      <db-angular-tree-grid #angularGrid [data]="data2" [configs]="configs2"
+                            class="sg-employee-treetable"></db-angular-tree-grid>
+    </ng-container>
 
   `,
   styles: [`
+    #sg-employee-tree-buttons-container{
+      margin-top: 1rem;
+      margin-left: 1.5rem;
+    }
   `]
 })
 export class EmployeeTreeComponent implements OnInit {
@@ -82,7 +89,7 @@ export class EmployeeTreeComponent implements OnInit {
     css: { // Optional
       expand_class: 'fa-caret-right',
       collapse_class: 'fa-caret-down',
-      row_selection_class: "sg-treetable-selection"
+      row_selection_class: 'sg-treetable-selection'
     },
     columns: [
       {

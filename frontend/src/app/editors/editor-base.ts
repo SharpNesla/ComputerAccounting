@@ -17,6 +17,8 @@ export class EditorBase<TEntity extends EntityBase,
     this.entity = addEntity;
   }
 
+  //Perform request from backend and define is result valid or invalid, then
+  //return user to table or show error message
   public applyChanges() {
     let observable;
     if (this.isNew) {
@@ -32,10 +34,12 @@ export class EditorBase<TEntity extends EntityBase,
       );
   }
 
+  //Return user to table page
   public discardChanges() {
     this.router.navigateByUrl(this.endLink);
   }
 
+  //Define what is editor for: editing or adding entity to system
   ngOnInit() {
     if (this.route.snapshot.url[1].path == 'add') {
       this.isNew = true;
@@ -85,8 +89,7 @@ export class PackEditorBase<TEntity extends EntityBase,
         response => this.router.navigateByUrl(this.endLink),
         error => {
           this.dialog.open(BadRequestDialogComponent, {
-            width: '300px',
-            data: true
+            width: '300px'
           });
         }
       );
